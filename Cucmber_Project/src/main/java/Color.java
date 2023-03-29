@@ -1,4 +1,4 @@
 
-public enum RobotColor {
+public enum Color {
 	GREEN, YELLOW, RED, BLUE;
 }

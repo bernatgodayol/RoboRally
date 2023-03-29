@@ -1,12 +1,23 @@
 
 public class Robot {
-	private RobotColor color;
+	private Color color;
 	
-	public Robot(RobotColor c) {
-		this.color = c;
+	public Robot(Color color) {
+		this.color = color;
 	}
 	
-	public RobotColor getColor() {
+	public Color getColor() {
 		return color;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Robot) {
+			Robot otherRobot = (Robot) obj;
+			return (this.color == otherRobot.getColor());
+		} else {
+			return false;
+		}
+	}
+	
 }

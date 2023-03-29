@@ -15,6 +15,8 @@ public class Player {
 		return robot;
 	}
 	
-	
+	public String getName() {
+		return name;
+	}
 	
 }

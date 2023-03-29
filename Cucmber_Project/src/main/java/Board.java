@@ -1,19 +1,17 @@
 import java.util.ArrayList;
 
 public class Board {
-	
-	private int n = 10;
-	ArrayList<ArrayList<Integer>> cell = new ArrayList<ArrayList<Integer>>(n);
-	ArrayList<Integer> elem = new ArrayList<Integer>();
 
+	protected Tile[][] grid;
 	
-	public void setStarterCell(Robot robot1) {
+	public Board(int rows, int columns) {
+		grid = new Tile[rows][columns];
 		
+		for (int i=0; i<rows; i++) {
+			for (int j=0; j<columns; j++) {
+				grid[i][j] = new Tile();
+			}
+		}
 	}
-
-	public void setBoard() {
-		
-	}
-	
 	
 }
