@@ -14,6 +14,9 @@ public class StepsDefinition {
 	Deck programDeck;
 	Deck discardDeck;
 	
+	int robotPositionX;
+    int robotPositionY;
+	
 	
 	@Given("a robot")
 	public void a_robot() {
@@ -127,5 +130,24 @@ public class StepsDefinition {
 	@Then("the player has that discard deck of cards")
 	public void the_player_has_that_discard_deck_of_cards() {
 		assertEquals(player.getDiscardDeck(),discardDeck);
-	}	
+	}
+	
+////////////////
+	
+	@Given("a position")
+	public void a_position() {
+	    robotPositionX = 1;
+	    robotPositionY = 11;
+	}
+	
+	@When("the robot is placed on the board")
+	public void the_robot_is_placed_on_the_board() {
+		board.getGrid(robotPositionX,robotPositionY).setObstacle(robot);
+	}
+	
+	@Then("the robot is placed on the board")
+	public void the_robot_is_placed_on_the_board1() {
+	    assertEquals(board.getGrid(robotPositionX, robotPositionY),robot);
+	}
+	
 }

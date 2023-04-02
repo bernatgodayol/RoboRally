@@ -3,6 +3,8 @@ import java.util.ArrayList;
 public class Board {
 
 	protected Tile[][] grid;
+//	protected int robotPositionX;
+//	protected int robotPositionY;
 	
 	public Board(int rows, int columns) {
 		grid = new Tile[rows][columns];
@@ -14,4 +16,7 @@ public class Board {
 		}
 	}
 	
+	public Tile getGrid(int positionX, int positionY) {
+		return grid[positionX][positionY];
+	}
 }
