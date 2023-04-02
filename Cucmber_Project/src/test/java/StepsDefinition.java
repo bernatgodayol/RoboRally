@@ -16,6 +16,9 @@ public class StepsDefinition {
 	Deck playingDeck;
 	int int1 = 9;
 	int initialSizeProgrammingDeck;
+	int robotPositionX;
+    int robotPositionY;
+
 	
 	@Given("a robot")
 	public void a_robot() {
@@ -129,6 +132,7 @@ public class StepsDefinition {
 	@Then("the player has that discard deck of cards")
 	public void the_player_has_that_discard_deck_of_cards() {
 		assertEquals(player.getDiscardDeck(),discardDeck);
+
 	}	
 
 ////////////////
@@ -154,4 +158,23 @@ public class StepsDefinition {
 	    // Write code here that turns the phrase above into concrete actions
 	    assertTrue(playingDeck.getDeck().size() == 9 && programmingDeck.getDeck().size() == initialSizeProgrammingDeck - 9);
 	}
+	
+////////////////
+	
+	@Given("a position")
+	public void a_position() {
+	    robotPositionX = 1;
+	    robotPositionY = 11;
+	}
+	
+	@When("the robot is placed on the board")
+	public void the_robot_is_placed_on_the_board() {
+		board.getGrid(robotPositionX,robotPositionY).setObstacle(robot);
+	}
+	
+	@Then("the robot is in the correct tile on the board")
+	public void the_robot_is_in_the_correct_tile_on_the_board() {
+	    assertEquals(board.getGrid(robotPositionX, robotPositionY),robot);
+	}
+	
 }

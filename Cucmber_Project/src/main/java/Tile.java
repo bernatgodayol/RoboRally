@@ -13,4 +13,6 @@ public class Tile {
 		return obstacles;
 	}
 	
+	
+	
 }
