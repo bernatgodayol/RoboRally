@@ -4,6 +4,7 @@ public class Player {
 	private String name;
 	private Robot robot;
 	private Deck programmingDeck;
+	private Deck playingDeck;
 
 	public Player(String name) {
 		this.name = name;
@@ -27,6 +28,11 @@ public class Player {
 	
 	public Deck getProgrammingDeck() {
 		return programmingDeck;
+	}
+
+	public void setPlayingDeck(Deck playingDeck) {
+		this.playingDeck = playingDeck;
+		
 	}
 	
 	
