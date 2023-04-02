@@ -16,7 +16,7 @@ public class Deck {
 			}
 			for (int i=0; i<5; i++) {
 				deck.add(new RightTurnCard());
-			}	
+			}
 		}
 	}
 }

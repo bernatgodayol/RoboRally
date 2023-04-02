@@ -11,7 +11,8 @@ public class StepsDefinition {
 	Robot robot;
 	Board board;
 	Direction direction;
-	Deck deck;
+	Deck programDeck;
+	Deck discardDeck;
 	
 	
 	@Given("a robot")
@@ -99,20 +100,32 @@ public class StepsDefinition {
 	@Given("a deck of cards")
 	public void a_deck_of_cards() {
 	    boolean programmingDeck = true;
-		deck = new Deck(programmingDeck);
+		programDeck = new Deck(programmingDeck);
 	}
 	
 	@When("the player is assigned the deck of cards")
 	public void the_player_is_assigned_the_deck_of_cards() {
-	    player.setProgrammingDeck(deck);
+	    player.setProgrammingDeck(programDeck);
 	}
 	
 	@Then("the player has that deck of cards") 
 	public void the_player_has_that_deck_of_cards() {
-		assertEquals(player.getProgrammingDeck(),deck);
+		assertEquals(player.getProgrammingDeck(),programDeck);
 	}
 
 ////////////////
 	
-	
+	@Given("a discard deck of cards")
+	public void a_discard_deck_of_cards() {
+		boolean programmingDeck = false;
+		discardDeck = new Deck(programmingDeck);
+	}
+	@When("the player is assigned the discard deck of cards")
+	public void the_player_is_assigned_the_discard_deck_of_cards() {
+		player.setDiscardDeck(discardDeck);
+	}
+	@Then("the player has that discard deck of cards")
+	public void the_player_has_that_discard_deck_of_cards() {
+		assertEquals(player.getDiscardDeck(),discardDeck);
+	}	
 }
