@@ -11,9 +11,11 @@ public class StepsDefinition {
 	Robot robot;
 	Board board;
 	Direction direction;
-	Deck programDeck;
 	Deck discardDeck;
-	
+	Deck programmingDeck;
+	Deck playingDeck;
+	int int1 = 9;
+	int initialSizeProgrammingDeck;
 	
 	@Given("a robot")
 	public void a_robot() {
@@ -99,22 +101,22 @@ public class StepsDefinition {
 	
 	@Given("a deck of cards")
 	public void a_deck_of_cards() {
-	    boolean programmingDeck = true;
-		programDeck = new Deck(programmingDeck);
+		programmingDeck = new Deck(true);
 	}
 	
 	@When("the player is assigned the deck of cards")
 	public void the_player_is_assigned_the_deck_of_cards() {
-	    player.setProgrammingDeck(programDeck);
+	    player.setProgrammingDeck(programmingDeck);
 	}
 	
 	@Then("the player has that deck of cards") 
 	public void the_player_has_that_deck_of_cards() {
-		assertEquals(player.getProgrammingDeck(),programDeck);
+		assertEquals(player.getProgrammingDeck(), programmingDeck);
 	}
 
 ////////////////
 	
+
 	@Given("a discard deck of cards")
 	public void a_discard_deck_of_cards() {
 		boolean programmingDeck = false;
@@ -128,4 +130,28 @@ public class StepsDefinition {
 	public void the_player_has_that_discard_deck_of_cards() {
 		assertEquals(player.getDiscardDeck(),discardDeck);
 	}	
+
+////////////////
+	
+	@Given("a programming deck of cards that belongs to the player")
+	public void a_programming_deck_of_cards_that_belongs_to_the_player() {
+	    // Write code here that turns the phrase above into concrete actions
+		initialSizeProgrammingDeck = programmingDeck.getDeck().size();
+	}
+	@Given("a playing deck of cards that belongs to the player")
+	public void a_playing_deck_of_cards_that_belongs_to_the_player() {
+	    // Write code here that turns the phrase above into concrete actions
+		playingDeck = new Deck(false);
+		player.setPlayingDeck(playingDeck);
+	}
+	@When("the {int} random cards are selected from the programming deck")
+	public void the_random_cards_are_selected_from_the_programming_deck(Integer int1) {
+	    // Write code here that turns the phrase above into concrete actions
+	    programmingDeck.moveRandomCards(playingDeck, int1);
+	}
+	@Then("the cards are moved to the playing deck")
+	public void the_cards_are_moved_to_the_playing_deck() {
+	    // Write code here that turns the phrase above into concrete actions
+	    assertTrue(playingDeck.getDeck().size() == 9 && programmingDeck.getDeck().size() == initialSizeProgrammingDeck - 9);
+	}
 }

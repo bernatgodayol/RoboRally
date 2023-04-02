@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Deck {
 	private ArrayList<Card> deck = new ArrayList<Card>(); 
@@ -18,5 +19,20 @@ public class Deck {
 				deck.add(new RightTurnCard());
 			}
 		}
+	}
+	
+	public ArrayList<Card> getDeck() {
+		return deck;
+	}
+	
+	public void moveRandomCards(Deck playingDeck, Integer int1) {
+		Random rand = new Random();
+		for (int i = 0; i < 9; i++) {
+            int index = rand.nextInt(this.deck.size());
+            Card card = deck.get(index);
+            playingDeck.getDeck().add(card);
+            deck.remove(index);
+        }
+		
 	}
 }
