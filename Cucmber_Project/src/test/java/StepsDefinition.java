@@ -11,6 +11,7 @@ public class StepsDefinition {
 	Robot robot;
 	Board board;
 	Direction direction;
+	Deck deck;
 	
 	
 	@Given("a robot")
@@ -33,7 +34,6 @@ public class StepsDefinition {
 //		assertEquals(player.getRobot().getColor(), Color.BLUE);
 		assertTrue(player.getRobot().equals(new Robot(Color.BLUE))); 
 	}
-	
 	
 ////////////////////
 	
@@ -89,6 +89,30 @@ public class StepsDefinition {
 		assertEquals(robot.getDirection(),direction);
 	}
 	
-	// NOT WORKING??? WHY?
+/////////////////
+	
+	@Given("a player")
+	public void a_player() {
+	    player = new Player("Mejse");
+	}
+	
+	@Given("a deck of cards")
+	public void a_deck_of_cards() {
+	    boolean programmingDeck = true;
+		deck = new Deck(programmingDeck);
+	}
+	
+	@When("the player is assigned the deck of cards")
+	public void the_player_is_assigned_the_deck_of_cards() {
+	    player.setProgrammingDeck(deck);
+	}
+	
+	@Then("the player has that deck of cards") 
+	public void the_player_has_that_deck_of_cards() {
+		assertEquals(player.getProgrammingDeck(),deck);
+	}
+
+////////////////
+	
 	
 }
