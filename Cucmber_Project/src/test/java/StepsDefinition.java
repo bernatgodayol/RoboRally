@@ -10,6 +10,8 @@ public class StepsDefinition {
 	Player player;
 	Robot robot;
 	Board board;
+	Direction direction;
+	
 	
 	@Given("a robot")
 	public void a_robot() {
@@ -72,6 +74,21 @@ public class StepsDefinition {
 /////////////////
 	
 	
-
+	@Given("a direction")
+	public void a_direction() {
+		direction = Direction.NORTH;
+	}
+	
+	@When("the robot is assigned the direction")
+	public void the_robot_is_assigned_the_direction() {
+		robot.setDirection(direction);
+	}
+	
+	@Then("the robot has that direction")
+	public void the_robot_has_that_direction() {
+		assertEquals(robot.getDirection(),direction);
+	}
+	
+	// NOT WORKING??? WHY?
 	
 }

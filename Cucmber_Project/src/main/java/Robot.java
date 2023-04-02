@@ -1,6 +1,7 @@
 
 public class Robot {
 	private Color color;
+	private Direction direction;
 	
 	public Robot(Color color) {
 		this.color = color;
@@ -18,6 +19,14 @@ public class Robot {
 		} else {
 			return false;
 		}
+	}
+
+	public void setDirection(Direction direction) {
+		this.direction = direction;
+	}
+	
+	public Direction getDirection() {
+		return direction;
 	}
 	
 }
