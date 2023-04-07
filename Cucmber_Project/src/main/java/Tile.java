@@ -3,18 +3,18 @@ import java.util.Set;
 
 public class Tile {
 	
-	private Set<Element> obstacles = new HashSet<Element>();
+	private Set<Element> elements = new HashSet<Element>();
 	
-	public void setObstacle(Element obstacle) {
-		obstacles.add(obstacle);
+	public void setElement(Element element) {
+		elements.add(element);
 	}
 	
-	public Set<Element> getObstacle() {
-		return obstacles;
+	public Set<Element> getElement() {
+		return elements;
 	}
 	
-	public boolean containsObstacle(Element obstacle) {
-		return obstacles.contains(obstacle);
+	public boolean containsObstacle(Element element) {
+		return elements.contains(element);
 	}
 	
 	
