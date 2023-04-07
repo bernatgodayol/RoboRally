@@ -13,6 +13,9 @@ public class Tile {
 		return obstacles;
 	}
 	
+	public boolean containsObstacle(Element obstacle) {
+		return obstacles.contains(obstacle);
+	}
 	
 	
 }

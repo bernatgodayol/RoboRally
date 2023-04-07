@@ -56,8 +56,71 @@ public class StepsDefinition {
 	@Then("the obstacles of the board should be in the expected tiles on the board")
 	public void the_obstacles_of_the_board_should_be_in_the_expected_tiles_on_the_board() {
 	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    for (int i=0; i<13; i++) {
+	    	for (int j=0; j<10; j++) {
+	    		if (i==3 && j==4) {
+	    			assertTrue(board.getTile(i, j).containsObstacle(new Wall(Direction.NORTH)));
+	    			assertTrue(board.getTile(i, j).containsObstacle(new Laser()));
+	    		}
+	    		
+	    		else if (i==4 && j==3) {
+	    			assertTrue(board.getTile(i, j).containsObstacle(new Wall(Direction.SOUTH)));
+	    			assertTrue(board.getTile(i, j).containsObstacle(new Laser()));
+	    		}
+	    		
+	    		else if (i==3 && j==5) {
+	    			assertTrue(board.getTile(i, j).containsObstacle(new Wall(Direction.WEST)));
+	    			assertTrue(board.getTile(i, j).containsObstacle(new Laser()));
+	    		}
+	    		
+	    		else if (i==3 && j==6) {
+	    			assertTrue(board.getTile(i, j).containsObstacle(new Wall(Direction.EAST)));
+	    			assertTrue(board.getTile(i, j).containsObstacle(new Laser()));
+	    		}
+	    		
+	    		else if (i==6 && j==3) {
+	    			assertTrue(board.getTile(i, j).containsObstacle(new Wall(Direction.WEST)));
+	    			assertTrue(board.getTile(i, j).containsObstacle(new Laser()));
+	    		}
+	    		
+	    		else if (i==6 && j==4) {
+	    			assertTrue(board.getTile(i, j).containsObstacle(new Wall(Direction.EAST)));
+	    			assertTrue(board.getTile(i, j).containsObstacle(new Laser()));
+	    		}
+	    		
+	    		else if (i==5 && j==6) {
+	    			assertTrue(board.getTile(i, j).containsObstacle(new Wall(Direction.NORTH)));
+	    			assertTrue(board.getTile(i, j).containsObstacle(new Laser()));
+	    		}
+	    		
+	    		else if (i==6 && j==6) {
+	    			assertTrue(board.getTile(i, j).containsObstacle(new Wall(Direction.SOUTH)));
+	    			assertTrue(board.getTile(i, j).containsObstacle(new Laser()));
+	    		}
+	    		
+	    		else if (i==11 && j==2) {
+	    			assertTrue(board.getTile(i, j).containsObstacle(new Wall(Direction.WEST)));
+	    		}
+	    		
+	    		else if (i==10 && j==4) {
+	    			assertTrue(board.getTile(i, j).containsObstacle(new Wall(Direction.NORTH)));
+	    		}
+	    		
+	    		else if (i==10 && j==5) {
+	    			assertTrue(board.getTile(i, j).containsObstacle(new Wall(Direction.NORTH)));
+	    		}
+	    		
+	    		else if (i==11 && j==7) {
+	    			assertTrue(board.getTile(i, j).containsObstacle(new Wall(Direction.EAST)));
+	    		}
+	    		
+	    		else {
+	    			assertTrue(board.getTile(i, j) == null);
+	    		}
+	    	}
+	    }
 	}
+
 	
 ///////////////////////
 	
@@ -169,12 +232,12 @@ public class StepsDefinition {
 	
 	@When("the robot is placed on the board")
 	public void the_robot_is_placed_on_the_board() {
-		board.getGrid(robotPositionX,robotPositionY).setObstacle(robot);
+		board.getTile(robotPositionX,robotPositionY).setObstacle(robot);
 	}
 	
 	@Then("the robot is in the correct tile on the board")
 	public void the_robot_is_in_the_correct_tile_on_the_board() {
-	    assertEquals(board.getGrid(robotPositionX, robotPositionY),robot);
+	    assertEquals(board.getTile(robotPositionX, robotPositionY),robot);
 	}
 	
 }

@@ -6,17 +6,18 @@ public class Board {
 //	protected int robotPositionX;
 //	protected int robotPositionY;
 	
-	public Board(int rows, int columns) {
-		grid = new Tile[rows][columns];
+	public Board(int ROWS, int COLUMNS) {
+		grid = new Tile[ROWS][COLUMNS];
 		
-		for (int i=0; i<rows; i++) {
-			for (int j=0; j<columns; j++) {
+		for (int i=0; i<ROWS; i++) {
+			for (int j=0; j<COLUMNS; j++) {
 				grid[i][j] = new Tile();
+				
 			}
 		}
 	}
 	
-	public Tile getGrid(int positionX, int positionY) {
+	public Tile getTile(int positionX, int positionY) {
 		return grid[positionX][positionY];
 	}
 }
