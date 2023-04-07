@@ -5,7 +5,7 @@ public class Tile {
 	
 	private Set<Element> elements = new HashSet<Element>();
 	
-	public void setElement(Element element) {
+	public void addElement(Element element) {
 		elements.add(element);
 	}
 	
@@ -13,7 +13,11 @@ public class Tile {
 		return elements;
 	}
 	
-	public boolean containsObstacle(Element element) {
+	public void removeElement(Element element) {
+		elements.remove(element);
+	}
+	
+	public boolean containsElement(Element element) {
 		return elements.contains(element);
 	}
 	

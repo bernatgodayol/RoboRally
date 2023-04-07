@@ -14,6 +14,8 @@ public class StepsDefinition {
 	Deck discardDeck;
 	Deck programmingDeck;
 	Deck playingDeck;
+	Deck actionDeck;
+	Card card;
 	int int1 = 9;
 	int initialSizeProgrammingDeck;
 	int robotPositionX;
@@ -59,59 +61,59 @@ public class StepsDefinition {
 	    for (int i=0; i<13; i++) {
 	    	for (int j=0; j<10; j++) {
 	    		if (i==3 && j==4) {
-	    			assertTrue(board.getTile(i, j).containsObstacle(new Wall(Direction.NORTH)));
-	    			assertTrue(board.getTile(i, j).containsObstacle(new Laser()));
+	    			assertTrue(board.getTile(i, j).containsElement(new Wall(Direction.NORTH)));
+	    			assertTrue(board.getTile(i, j).containsElement(new Laser()));
 	    		}
 	    		
 	    		else if (i==4 && j==3) {
-	    			assertTrue(board.getTile(i, j).containsObstacle(new Wall(Direction.SOUTH)));
-	    			assertTrue(board.getTile(i, j).containsObstacle(new Laser()));
+	    			assertTrue(board.getTile(i, j).containsElement(new Wall(Direction.SOUTH)));
+	    			assertTrue(board.getTile(i, j).containsElement(new Laser()));
 	    		}
 	    		
 	    		else if (i==3 && j==5) {
-	    			assertTrue(board.getTile(i, j).containsObstacle(new Wall(Direction.WEST)));
-	    			assertTrue(board.getTile(i, j).containsObstacle(new Laser()));
+	    			assertTrue(board.getTile(i, j).containsElement(new Wall(Direction.WEST)));
+	    			assertTrue(board.getTile(i, j).containsElement(new Laser()));
 	    		}
 	    		
 	    		else if (i==3 && j==6) {
-	    			assertTrue(board.getTile(i, j).containsObstacle(new Wall(Direction.EAST)));
-	    			assertTrue(board.getTile(i, j).containsObstacle(new Laser()));
+	    			assertTrue(board.getTile(i, j).containsElement(new Wall(Direction.EAST)));
+	    			assertTrue(board.getTile(i, j).containsElement(new Laser()));
 	    		}
 	    		
 	    		else if (i==6 && j==3) {
-	    			assertTrue(board.getTile(i, j).containsObstacle(new Wall(Direction.WEST)));
-	    			assertTrue(board.getTile(i, j).containsObstacle(new Laser()));
+	    			assertTrue(board.getTile(i, j).containsElement(new Wall(Direction.WEST)));
+	    			assertTrue(board.getTile(i, j).containsElement(new Laser()));
 	    		}
 	    		
 	    		else if (i==6 && j==4) {
-	    			assertTrue(board.getTile(i, j).containsObstacle(new Wall(Direction.EAST)));
-	    			assertTrue(board.getTile(i, j).containsObstacle(new Laser()));
+	    			assertTrue(board.getTile(i, j).containsElement(new Wall(Direction.EAST)));
+	    			assertTrue(board.getTile(i, j).containsElement(new Laser()));
 	    		}
 	    		
 	    		else if (i==5 && j==6) {
-	    			assertTrue(board.getTile(i, j).containsObstacle(new Wall(Direction.NORTH)));
-	    			assertTrue(board.getTile(i, j).containsObstacle(new Laser()));
+	    			assertTrue(board.getTile(i, j).containsElement(new Wall(Direction.NORTH)));
+	    			assertTrue(board.getTile(i, j).containsElement(new Laser()));
 	    		}
 	    		
 	    		else if (i==6 && j==6) {
-	    			assertTrue(board.getTile(i, j).containsObstacle(new Wall(Direction.SOUTH)));
-	    			assertTrue(board.getTile(i, j).containsObstacle(new Laser()));
+	    			assertTrue(board.getTile(i, j).containsElement(new Wall(Direction.SOUTH)));
+	    			assertTrue(board.getTile(i, j).containsElement(new Laser()));
 	    		}
 	    		
 	    		else if (i==11 && j==2) {
-	    			assertTrue(board.getTile(i, j).containsObstacle(new Wall(Direction.WEST)));
+	    			assertTrue(board.getTile(i, j).containsElement(new Wall(Direction.WEST)));
 	    		}
 	    		
 	    		else if (i==10 && j==4) {
-	    			assertTrue(board.getTile(i, j).containsObstacle(new Wall(Direction.NORTH)));
+	    			assertTrue(board.getTile(i, j).containsElement(new Wall(Direction.NORTH)));
 	    		}
 	    		
 	    		else if (i==10 && j==5) {
-	    			assertTrue(board.getTile(i, j).containsObstacle(new Wall(Direction.NORTH)));
+	    			assertTrue(board.getTile(i, j).containsElement(new Wall(Direction.NORTH)));
 	    		}
 	    		
 	    		else if (i==11 && j==7) {
-	    			assertTrue(board.getTile(i, j).containsObstacle(new Wall(Direction.EAST)));
+	    			assertTrue(board.getTile(i, j).containsElement(new Wall(Direction.EAST)));
 	    		}
 	    		
 	    		else {
@@ -232,12 +234,45 @@ public class StepsDefinition {
 	
 	@When("the robot is placed on the board")
 	public void the_robot_is_placed_on_the_board() {
-		board.getTile(robotPositionX,robotPositionY).setObstacle(robot);
+		board.getTile(robotPositionX,robotPositionY).addElement(robot);
 	}
 	
 	@Then("the robot is in the correct tile on the board")
 	public void the_robot_is_in_the_correct_tile_on_the_board() {
-	    assertEquals(board.getTile(robotPositionX, robotPositionY),robot);
+	    assertEquals(board.getTile(robotPositionX, robotPositionY), robot);
 	}
 	
+
+////////////////
+
+@Given("a board")
+public void a_board() {
+    // Write code here that turns the phrase above into concrete actions
+	board = new Board5B();
+}
+
+@Given("an action deck of cards that belongs to the player")
+public void an_action_deck_of_cards() {
+    // Write code here that turns the phrase above into concrete actions
+	actionDeck = new Deck();
+}
+@When("the first programming card is taken from the action deck of cards")
+public void the_first_programming_card_is_taken_from_the_action_deck_of_cards() {
+    // Write code here that turns the phrase above into concrete actions
+    card = actionDeck.extractFirstCard();
+}
+@Then("the robot is moved according to the programming card")
+public void the_robot_is_moved_according_to_the_programming_card() {
+    // Write code here that turns the phrase above into concrete actions
+	int oldX = 1;
+	int oldY = 11;
+	board.moveRobot(oldX, oldY, robot, card);
+    
+}
+@Then("the card is moved from the programming deck of cards to the discard deck of cards")
+public void the_card_is_moved_from_the_programming_deck_of_cards_to_the_discard_deck_of_cards() {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+
 }
