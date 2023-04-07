@@ -254,7 +254,7 @@ public void a_board() {
 @Given("an action deck of cards that belongs to the player")
 public void an_action_deck_of_cards() {
     // Write code here that turns the phrase above into concrete actions
-	actionDeck = new Deck();
+	actionDeck = new Deck(false);
 }
 @When("the first programming card is taken from the action deck of cards")
 public void the_first_programming_card_is_taken_from_the_action_deck_of_cards() {
