@@ -1,5 +1,5 @@
 public class Board {
-
+	
 	protected Tile[][] grid;
 	protected int rebootPositionX;
 	protected int rebootPositionY;

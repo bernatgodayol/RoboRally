@@ -1,6 +1,8 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Scanner;
+
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -11,11 +13,11 @@ public class StepsDefinition {
 	Robot robot;
 	Board board;
 	Direction direction;
-	Deck discardDeck;
-	Deck programmingDeck;
-	Deck playingDeck;
-	Deck actionDeck;
 	Card card;
+	DiscardDeck discardDeck;
+	ProgrammingDeck programmingDeck;
+	PlayingDeck playingDeck;
+	ActionDeck actionDeck;
 	int int1 = 9;
 	int initialSizeProgrammingDeck;
 	int robotPositionX;
@@ -126,24 +128,6 @@ public class StepsDefinition {
 	
 ///////////////////////
 	
-	@Given("a board with a starting position")
-	public void a_board_with_a_starting_position() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-	@When("the game initializes")
-	public void the_game_initializes() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-	@Then("the robot is placed in the starting position")
-	public void the_robot_is_placed_in_the_starting_position() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-	
-/////////////////
-	
 	
 	@Given("a direction")
 	public void a_direction() {
@@ -169,7 +153,7 @@ public class StepsDefinition {
 	
 	@Given("a deck of cards")
 	public void a_deck_of_cards() {
-		programmingDeck = new Deck(true);
+		programmingDeck = new ProgrammingDeck();
 	}
 	
 	@When("the player is assigned the deck of cards")
@@ -187,8 +171,7 @@ public class StepsDefinition {
 
 	@Given("a discard deck of cards")
 	public void a_discard_deck_of_cards() {
-		boolean programmingDeck = false;
-		discardDeck = new Deck(programmingDeck);
+		discardDeck = new DiscardDeck();
 	}
 	@When("the player is assigned the discard deck of cards")
 	public void the_player_is_assigned_the_discard_deck_of_cards() {
@@ -210,7 +193,7 @@ public class StepsDefinition {
 	@Given("a playing deck of cards that belongs to the player")
 	public void a_playing_deck_of_cards_that_belongs_to_the_player() {
 	    // Write code here that turns the phrase above into concrete actions
-		playingDeck = new Deck(false);
+		playingDeck = new PlayingDeck();
 		player.setPlayingDeck(playingDeck);
 	}
 	@When("the {int} random cards are selected from the programming deck")
@@ -221,7 +204,7 @@ public class StepsDefinition {
 	@Then("the cards are moved to the playing deck")
 	public void the_cards_are_moved_to_the_playing_deck() {
 	    // Write code here that turns the phrase above into concrete actions
-	    assertTrue(playingDeck.getDeck().size() == 9 && programmingDeck.getDeck().size() == initialSizeProgrammingDeck - 9);
+	    assertTrue(playingDeck.getDeck().length == 9 && programmingDeck.getDeck().size() == initialSizeProgrammingDeck - 9);
 	}
 	
 ////////////////
@@ -245,34 +228,74 @@ public class StepsDefinition {
 
 ////////////////
 
-@Given("a board")
-public void a_board() {
-    // Write code here that turns the phrase above into concrete actions
-	board = new Board5B();
-}
+	@Given("a board")
+	public void a_board() {
+	    // Write code here that turns the phrase above into concrete actions
+		board = new Board5B();
+	}
+	
+	@Given("an action deck of cards that belongs to the player")
+	public void an_action_deck_of_cards() {
+	    // Write code here that turns the phrase above into concrete actions
+		actionDeck = new ActionDeck();
+	}
+	@When("the first programming card is taken from the action deck of cards")
+	public void the_first_programming_card_is_taken_from_the_action_deck_of_cards() {
+	    // Write code here that turns the phrase above into concrete actions
+	    card = actionDeck.extractFirstCard();
+	}
+	@Then("the robot is moved according to the programming card")
+	public void the_robot_is_moved_according_to_the_programming_card() {
+	    // Write code here that turns the phrase above into concrete actions
+		int oldX = 1;
+		int oldY = 11;
+		board.moveRobot(oldX, oldY, robot, card);
+	    
+	}
+	@Then("the card is moved from the programming deck of cards to the discard deck of cards")
+	public void the_card_is_moved_from_the_programming_deck_of_cards_to_the_discard_deck_of_cards() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
 
-@Given("an action deck of cards that belongs to the player")
-public void an_action_deck_of_cards() {
-    // Write code here that turns the phrase above into concrete actions
-	actionDeck = new Deck(false);
-}
-@When("the first programming card is taken from the action deck of cards")
-public void the_first_programming_card_is_taken_from_the_action_deck_of_cards() {
-    // Write code here that turns the phrase above into concrete actions
-    card = actionDeck.extractFirstCard();
-}
-@Then("the robot is moved according to the programming card")
-public void the_robot_is_moved_according_to_the_programming_card() {
-    // Write code here that turns the phrase above into concrete actions
-	int oldX = 1;
-	int oldY = 11;
-	board.moveRobot(oldX, oldY, robot, card);
-    
-}
-@Then("the card is moved from the programming deck of cards to the discard deck of cards")
-public void the_card_is_moved_from_the_programming_deck_of_cards_to_the_discard_deck_of_cards() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-
+///////////////////
+	
+	@Given("{int} random cards in the players playing deck")
+	public void random_cards_in_the_players_playing_deck(Integer int1) {
+		programmingDeck = new ProgrammingDeck();
+		playingDeck = new PlayingDeck();
+		player.setPlayingDeck(playingDeck);
+		player.setProgrammingDeck(programmingDeck);
+		programmingDeck.moveRandomCards(playingDeck, int1);
+		
+//		playingDeck = new PlayingDeck();
+//		playingDeck.getDeck()[0] = new RightTurnCard();
+//		playingDeck.getDeck()[1] = new LeftTurnCard();
+//		playingDeck.getDeck()[2] = new LeftTurnCard();
+//		playingDeck.getDeck()[3] = new LeftTurnCard();
+//		playingDeck.getDeck()[4] = new LeftTurnCard();
+//		playingDeck.getDeck()[5] = new LeftTurnCard();
+//		playingDeck.getDeck()[6] = new LeftTurnCard();
+//		playingDeck.getDeck()[7] = new LeftTurnCard();
+//		playingDeck.getDeck()[8] = new LeftTurnCard();
+//		player.setPlayingDeck(playingDeck);
+	}
+	
+	@When("the player chooses {int} cards")
+	public void the_player_chooses_cards(Integer int1) {
+		actionDeck = new ActionDeck();
+		player.setActionDeck(actionDeck);
+		player.pickCard(int1);
+	}
+	
+	@Then("the {int} cards are saved")
+	public void the_cards_are_saved(Integer int1) {
+		assertTrue(actionDeck.getDeck()[0]!=null);
+	}
+	
+	@Then("the {int} cards have been removed from the playing deck")
+	public void the_cards_have_been_removed_from_the_playing_deck(Integer int1) {
+		assertEquals(playingDeck.getDeck()[0],null);		
+	}
+	
 }
