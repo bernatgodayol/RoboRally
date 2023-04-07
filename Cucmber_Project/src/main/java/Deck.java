@@ -4,8 +4,8 @@ import java.util.Random;
 public class Deck {
 	private ArrayList<Card> deck = new ArrayList<Card>(); 
 	
-	public Deck(boolean programmingDeck) {
-		if (programmingDeck) {
+	public Deck(boolean isProgrammingDeck) {
+		if (isProgrammingDeck) {
 			for (int i=0; i<5; i++) {
 				deck.add(new MoveForwardCard());
 			}
@@ -27,12 +27,17 @@ public class Deck {
 	
 	public void moveRandomCards(Deck playingDeck, Integer int1) {
 		Random rand = new Random();
-		for (int i = 0; i < 9; i++) {
+		for (int i = 0; i < int1; i++) {
             int index = rand.nextInt(this.deck.size());
             Card card = deck.get(index);
             playingDeck.getDeck().add(card);
             deck.remove(index);
         }
+	}
 		
+	public Card extractFirstCard() {
+		Card extractedCard = deck.get(1);
+		deck.remove(1);
+		return extractedCard;
 	}
 }
