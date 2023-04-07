@@ -1,11 +1,13 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Player {
 	private String name;
 	private Robot robot;
-	private Deck programmingDeck;
-	private Deck discardDeck;
-	private Deck playingDeck;
+	private ProgrammingDeck programmingDeck;
+	private DiscardDeck discardDeck;
+	private PlayingDeck playingDeck;
+	private ActionDeck actionDeck;
 
 	public Player(String name) {
 		this.name = name;
@@ -23,25 +25,46 @@ public class Player {
 		return name;
 	}
 
-	public void setProgrammingDeck(Deck programmingDeck) {
+	public void setProgrammingDeck(ProgrammingDeck programmingDeck) {
 		this.programmingDeck = programmingDeck;
 	}
 	
-	public Deck getProgrammingDeck() {
+	public ProgrammingDeck getProgrammingDeck() {
 		return programmingDeck;
 	}
 
-	public void setDiscardDeck(Deck discardDeck) {
+	public void setDiscardDeck(DiscardDeck discardDeck) {
 		this.discardDeck = discardDeck;
 	}
 	
-	public Deck getDiscardDeck() {
+	public DiscardDeck getDiscardDeck() {
 		return discardDeck;
 	}
 		
-	public void setPlayingDeck(Deck playingDeck) {
+	public void setPlayingDeck(PlayingDeck playingDeck) {
 		this.playingDeck = playingDeck;
 	}
+	
+	public void setActionDeck(ActionDeck actionDeck) {
+		this.actionDeck = actionDeck;
+	}
+	
+	public ActionDeck getActionDeck() {
+		return actionDeck;
+	}
+	
+	public void pickCard(int int1) {
+		Scanner s = new Scanner(System.in);
+	    for (int i=0; i<int1; i++) {
+	    	//System.out.println("Hello");
+	    	//int index = s.nextInt();
+	    	int index = 0;
+	    	playingDeck.moveCard(index,actionDeck);
+	    }
+		s.close();
+	}
+
+	
 	
 	
 	
