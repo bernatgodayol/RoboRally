@@ -1,10 +1,10 @@
 public class Board {
-	
+
 	protected Tile[][] grid;
 	protected int rebootPositionX;
 	protected int rebootPositionY;
-	private int ROWS;
-	private int COLUMNS;
+	protected int ROWS;
+	protected int COLUMNS;
 	
 	public Board(int ROWS, int COLUMNS) {
 		grid = new Tile[ROWS][COLUMNS];
@@ -20,11 +20,11 @@ public class Board {
 		return grid[positionX][positionY];
 	}
 	
-	public int returnRebootPositionX() {
+	public int getRebootPositionX() {
 		return rebootPositionX;
 	}
 	
-	public int returnRebootPositionY() {
+	public int getRebootPositionY() {
 		return rebootPositionY;
 	}
 	
@@ -42,20 +42,53 @@ public class Board {
 			if (card instanceof MoveForwardCard) {
 				grid[oldX][oldY].removeElement(robot);
 				if (robot.getDirection() == Direction.NORTH) {
-					if ((oldX > 0 && oldX < ROWS - 1) && (oldY > 0 && oldY < COLUMNS - 1)) {
+					// if the robot goes out of the board
+					if ((oldX-1 < 0 && oldX-1 > ROWS-1) || (oldY-1 < 0 && oldY-1 > COLUMNS-1)) {
+						grid[rebootPositionX][rebootPositionY].addElement(robot);
+						System.out.println("The robot went out of the board!");
+					// if the robot hits a wall
+					} else if ((grid[oldX-1][oldY-1].containsElement(new Wall(Direction.SOUTH))) ||
+							   (grid[oldX][oldY]    .containsElement(new Wall(Direction.NORTH)))) {
+						System.out.println("The robot hitted a wall!");
+					} else {
 						grid[oldX-1][oldY-1].addElement(robot);
 					}
-					else {
-						System.out.println("The robot went to the reboot cell!");
-						grid[rebootPositionX][rebootPositionY].addElement(robot);
-					}
-					
 				} else if (robot.getDirection() == Direction.EAST) {
-					grid[oldX+1][oldY-1].addElement(robot);
+					// if the robot goes out of the board
+					if ((oldX+1 < 0 && oldX+1 > ROWS-1) || (oldY-1 < 0 && oldY-1 > COLUMNS-1)) {
+						grid[rebootPositionX][rebootPositionY].addElement(robot);
+						System.out.println("The robot went to out of the board!");
+					// if the robot hits a wall
+					} else if ((grid[oldX+1][oldY-1].containsElement(new Wall(Direction.WEST))) ||
+							   (grid[oldX][oldY]    .containsElement(new Wall(Direction.EAST)))) {
+						System.out.println("The robot hitted a wall!");
+					} else {
+						grid[oldX+1][oldY-1].addElement(robot);
+					}
 				} else if (robot.getDirection() == Direction.WEST) {
-					grid[oldX-1][oldY+1].addElement(robot);
+					// if the robot goes out of the board
+					if ((oldX-1 < 0 && oldX-1 > ROWS-1) || (oldY+1 < 0 && oldY+1 > COLUMNS-1)) {
+						grid[rebootPositionX][rebootPositionY].addElement(robot);
+						System.out.println("The robot went to out of the board!");
+					// if the robot hits a wall
+					} else if ((grid[oldX-1][oldY+1].containsElement(new Wall(Direction.EAST))) ||
+							   (grid[oldX][oldY]    .containsElement(new Wall(Direction.WEST)))) {
+						System.out.println("The robot hitted a wall!");
+					} else {
+						grid[oldX-1][oldY+1].addElement(robot);
+					}
 				} else if (robot.getDirection() == Direction.SOUTH) {
-					grid[oldX+1][oldY+1].addElement(robot);
+					// if the robot goes out of the board
+					if ((oldX+1 < 0 && oldX+1 > ROWS-1) || (oldY+1 < 0 && oldY+1 > COLUMNS-1)) {
+						grid[rebootPositionX][rebootPositionY].addElement(robot);
+						System.out.println("The robot went to out of the board!");
+					// if the robot hits a wall
+					} else if ((grid[oldX+1][oldY+1].containsElement(new Wall(Direction.NORTH))) ||
+							   (grid[oldX][oldY]    .containsElement(new Wall(Direction.SOUTH)))) {
+						System.out.println("The robot hitted a wall!");
+					} else {
+						grid[oldX+1][oldY+1].addElement(robot);
+					}
 				}
 			}
 			

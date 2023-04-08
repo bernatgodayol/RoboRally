@@ -4,7 +4,7 @@ public class Wall extends Element {
 	private Direction direction;
 	
 	public Wall(Direction direction) {
-		this.direction= direction;
+		this.direction = direction;
 	}
 	
 	@Override
@@ -16,6 +16,11 @@ public class Wall extends Element {
 			return false;
 		}
 	}
+	
+	@Override
+    public int hashCode() {
+        return direction.hashCode(); // use direction to generate hash code
+    }
 	
 	public Direction getDirection() {
 		return direction;

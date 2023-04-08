@@ -1,4 +1,3 @@
-
 public class PlayingDeck extends StaticDeck {
 	
 	public PlayingDeck() {

@@ -1,8 +1,6 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Scanner;
-
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -20,8 +18,6 @@ public class StepsDefinition {
 	ActionDeck actionDeck;
 	int int1 = 9;
 	int initialSizeProgrammingDeck;
-	int robotPositionX;
-    int robotPositionY;
 
 	
 	@Given("a robot")
@@ -62,7 +58,7 @@ public class StepsDefinition {
 	    // Write code here that turns the phrase above into concrete actions
 	    for (int i=0; i<13; i++) {
 	    	for (int j=0; j<10; j++) {
-	    		if (i==3 && j==4) {
+	    		if (i==3 && j==3) {
 	    			assertTrue(board.getTile(i, j).containsElement(new Wall(Direction.NORTH)));
 	    			assertTrue(board.getTile(i, j).containsElement(new Laser()));
 	    		}
@@ -179,7 +175,7 @@ public class StepsDefinition {
 	}
 	@Then("the player has that discard deck of cards")
 	public void the_player_has_that_discard_deck_of_cards() {
-		assertEquals(player.getDiscardDeck(),discardDeck);
+		assertEquals(player.getDiscardDeck(), discardDeck);
 
 	}	
 
@@ -205,57 +201,6 @@ public class StepsDefinition {
 	public void the_cards_are_moved_to_the_playing_deck() {
 	    // Write code here that turns the phrase above into concrete actions
 	    assertTrue(playingDeck.getDeck().length == 9 && programmingDeck.getDeck().size() == initialSizeProgrammingDeck - 9);
-	}
-	
-////////////////
-	
-	@Given("a position")
-	public void a_position() {
-	    robotPositionX = 1;
-	    robotPositionY = 11;
-	}
-	
-	@When("the robot is placed on the board")
-	public void the_robot_is_placed_on_the_board() {
-		board.getTile(robotPositionX,robotPositionY).addElement(robot);
-	}
-	
-	@Then("the robot is in the correct tile on the board")
-	public void the_robot_is_in_the_correct_tile_on_the_board() {
-	    assertEquals(board.getTile(robotPositionX, robotPositionY), robot);
-	}
-	
-
-////////////////
-
-	@Given("a board")
-	public void a_board() {
-	    // Write code here that turns the phrase above into concrete actions
-		board = new Board5B();
-	}
-	
-	@Given("an action deck of cards that belongs to the player")
-	public void an_action_deck_of_cards() {
-	    // Write code here that turns the phrase above into concrete actions
-		actionDeck = new ActionDeck();
-	}
-	@When("the first programming card is taken from the action deck of cards")
-	public void the_first_programming_card_is_taken_from_the_action_deck_of_cards() {
-	    // Write code here that turns the phrase above into concrete actions
-	    card = actionDeck.extractFirstCard();
-	}
-	@Then("the robot is moved according to the programming card")
-	public void the_robot_is_moved_according_to_the_programming_card() {
-	    // Write code here that turns the phrase above into concrete actions
-		int oldX = 1;
-		int oldY = 11;
-		board.moveRobot(oldX, oldY, robot, card);
-	    
-	}
-	@Then("the card is moved from the programming deck of cards to the discard deck of cards")
-	public void the_card_is_moved_from_the_programming_deck_of_cards_to_the_discard_deck_of_cards() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
 	}
 
 ///////////////////
@@ -295,7 +240,114 @@ public class StepsDefinition {
 	
 	@Then("the {int} cards have been removed from the playing deck")
 	public void the_cards_have_been_removed_from_the_playing_deck(Integer int1) {
-		assertEquals(playingDeck.getDeck()[0],null);		
+		assertEquals(playingDeck.getDeck()[0], null);		
 	}
+	
+////////////////
+	
+
+	int robotPositionX;
+    int robotPositionY;
+    
+	@Given("a position")
+	public void a_position() {
+		robotPositionX = 1;
+		robotPositionY = 11;
+	}
+	
+	@When("the robot is placed on the board")
+	public void the_robot_is_placed_on_the_board() {
+		board.getTile(robotPositionX, robotPositionY).addElement(robot);
+	}
+	
+	@Then("the robot is in the correct tile on the board")
+	public void the_robot_is_in_the_correct_tile_on_the_board() {
+		assertEquals(board.getTile(robotPositionX, robotPositionY), robot);
+	}
+
+////////////////
+
+	@Given("a board")
+	public void a_board() {
+	// Write code here that turns the phrase above into concrete actions
+		board = new Board5B();
+	}
+	
+	@Given("an action deck of cards that belongs to the player")
+	public void an_action_deck_of_cards() {
+	// Write code here that turns the phrase above into concrete actions
+		actionDeck = new ActionDeck();
+	}
+	
+	@When("the first programming card is taken from the action deck of cards")
+	public void the_first_programming_card_is_taken_from_the_action_deck_of_cards() {
+	// Write code here that turns the phrase above into concrete actions
+		card = actionDeck.extractFirstCard();
+	}
+	
+	@Then("the robot is moved according to the programming card")
+	public void the_robot_is_moved_according_to_the_programming_card() {
+	// Write code here that turns the phrase above into concrete actions
+		int oldX = 1;
+		int oldY = 11;
+		board.moveRobot(oldX, oldY, robot, card);
+	
+	}
+	@Then("the card is placed in the discard deck of cards")
+	public void the_card_is_placed_in_the_discard_deck_of_cards() {
+		// Write code here that turns the phrase above into concrete actions
+		discardDeck.addCard(card);
+	}
+	
+///////////////////
+	
+	MoveForwardCard moveForwardCard;
+	Wall northWall = new Wall(Direction.NORTH);
+	Wall  westWall = new Wall(Direction.WEST);
+	Wall  eastWall = new Wall(Direction.EAST);
+	Wall southWall = new Wall(Direction.SOUTH);
+	
+	@Given("a robot facing \\{NORTH} in a tile with a \\{NORTH} wall")
+	public void a_robot_facing_in_a_tile_with_a_wall() {
+	    // Write code here that turns the phrase above into concrete actions
+		robot.setDirection(Direction.NORTH);
+		board.getTile(3, 2).addElement(northWall);
+		board.getTile(3, 2).addElement(robot);
+	}
+	@When("a move forward card is executed a")
+	public void a_move_forward_card_is_executed_a() {
+	    // Write code here that turns the phrase above into concrete actions
+		board.moveRobot(3, 2, robot, moveForwardCard);
+	}
+	
+	@Then("the robot cannot move forward")
+	public void the_robot_cannot_move_forward() {
+	    // Write code here that turns the phrase above into concrete actions
+	    assertTrue((!(board.getTile(3, 2).containsElement(robot))) && 
+	    		   (  board.getTile(2, 2).containsElement(robot)));
+	    
+	}
+	
+//////////////////////
+	
+	@Given("a robot facing \\{SOUTH} in a tile in \\{12} x \\{4}")
+	public void a_robot_facing_in_a_tile_in_() {
+	    // Write code here that turns the phrase above into concrete actions
+		robot.setDirection(Direction.SOUTH);
+		board.getTile(12, 1).addElement(robot);
+	}
+	@When("a move forward card is executed b")
+	public void a_move_forward_card_is_executed_b() {
+	    // Write code here that turns the phrase above into concrete actions
+		board.moveRobot(12, 1, robot, moveForwardCard);
+	}
+	
+	@Then("the robot is moved to the reboot cell in the board")
+	public void the_robot_is_moved_to_the_reboot_cell_in_the_board() {
+	    // Write code here that turns the phrase above into concrete actions
+		assertTrue((  board.getTile(board.getRebootPositionX(), board.getRebootPositionY()).containsElement(robot)) && 
+	    		   (!(board.getTile(12, 1).containsElement(robot))));
+	}
+
 	
 }

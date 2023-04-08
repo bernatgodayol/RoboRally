@@ -6,4 +6,9 @@ public class DiscardDeck extends DynamicDeck {
 		deck = new ArrayList<Card>(); 
 	}
 
+	public void addCard(Card card) {
+		// TODO Auto-generated method stub
+		deck.add(card);
+	}
+
 }

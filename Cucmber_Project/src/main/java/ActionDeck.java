@@ -1,4 +1,3 @@
-
 public class ActionDeck extends StaticDeck {
 	
 	public ActionDeck() {
