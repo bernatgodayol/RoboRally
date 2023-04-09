@@ -18,6 +18,7 @@ public class StepsDefinition {
 	ActionDeck actionDeck;
 	int int1 = 9;
 	int initialSizeProgrammingDeck;
+	Laser laser;
 
 	
 	@Given("a robot")
@@ -349,5 +350,21 @@ public class StepsDefinition {
 	    		   (!(board.getTile(12, 1).containsElement(robot))));
 	}
 
+///////////////////////////
+	
+	@Given("an inactive laser")
+	public void an_inactive_laser() {
+	    laser = new Laser();
+	}
+	
+	@When("the laser activates")
+	public void the_laser_activates() {
+	    laser.active(true);
+	}
+	
+	@Then("the laser is active")
+	public void the_laser_is_active() {
+	    assertEquals(laser.getActive(),true);
+	}
 	
 }
