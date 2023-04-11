@@ -11,4 +11,8 @@ public class DiscardDeck extends DynamicDeck {
 		deck.add(card);
 	}
 
+	public boolean contains(Card card) {
+		// TODO Auto-generated method stub
+		return deck.contains(card);
+	}
 }

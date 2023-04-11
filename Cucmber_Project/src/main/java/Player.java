@@ -45,6 +45,10 @@ public class Player {
 		this.playingDeck = playingDeck;
 	}
 	
+	public PlayingDeck getPlayingDeck() {
+		return playingDeck;
+	}
+	
 	public void setActionDeck(ActionDeck actionDeck) {
 		this.actionDeck = actionDeck;
 	}

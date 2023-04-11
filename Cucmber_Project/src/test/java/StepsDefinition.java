@@ -20,6 +20,7 @@ public class StepsDefinition {
 	int initialSizeProgrammingDeck;
 	Laser laser;
 
+//////////////////ASSIGNING ROBOT TO PLAYER
 	
 	@Given("a robot")
 	public void a_robot() {
@@ -42,7 +43,7 @@ public class StepsDefinition {
 		assertTrue(player.getRobot().equals(new Robot(Color.BLUE))); 
 	}
 	
-////////////////////
+////////////////////INITIALIZING 5B BOARD
 	
 	@Given("an empty board of size {int} x {int}")
 	public void an_empty_board_of_size_x(Integer int1, Integer int2) {
@@ -123,7 +124,7 @@ public class StepsDefinition {
 	}
 
 	
-///////////////////////
+///////////////////////ASSIGNING ROBOT DORECTION
 	
 	
 	@Given("a direction")
@@ -141,7 +142,7 @@ public class StepsDefinition {
 		assertEquals(robot.getDirection(),direction);
 	}
 	
-/////////////////
+/////////////////ASSIGNING STARTING DECK TO PLAYER
 	
 	@Given("a player")
 	public void a_player() {
@@ -163,7 +164,7 @@ public class StepsDefinition {
 		assertEquals(player.getProgrammingDeck(), programmingDeck);
 	}
 
-////////////////
+////////////////ASSIGNING STARTING DECK OF DISCARD CARDS TO PLAYER
 	
 
 	@Given("a discard deck of cards")
@@ -180,7 +181,7 @@ public class StepsDefinition {
 
 	}	
 
-////////////////
+////////////////PLAYER RECIEVES 9 CARDS FROM PROGRAMMING DECK TO PLAYING DECK
 	
 	@Given("a programming deck of cards that belongs to the player")
 	public void a_programming_deck_of_cards_that_belongs_to_the_player() {
@@ -204,7 +205,7 @@ public class StepsDefinition {
 	    assertTrue(playingDeck.getDeck().length == 9 && programmingDeck.getDeck().size() == initialSizeProgrammingDeck - 9);
 	}
 
-///////////////////
+///////////////////MOVING CARDS FROM PLAYING DECK TO PROGRAMMING DECK
 	
 	@Given("{int} random cards in the players playing deck")
 	public void random_cards_in_the_players_playing_deck(Integer int1) {
@@ -244,7 +245,7 @@ public class StepsDefinition {
 		assertEquals(playingDeck.getDeck()[0], null);		
 	}
 	
-////////////////
+////////////////ASSIGNING ROBOT STARTING POSITION
 	
 
 	int robotPositionX;
@@ -266,7 +267,7 @@ public class StepsDefinition {
 		assertEquals(board.getTile(robotPositionX, robotPositionY), robot);
 	}
 
-////////////////
+////////////////MOVING CARD FROM ACTION DECK TO DISCARD DECK AND MOVING ROBOT
 
 	@Given("a board")
 	public void a_board() {
@@ -300,7 +301,7 @@ public class StepsDefinition {
 		discardDeck.addCard(card);
 	}
 	
-///////////////////
+///////////////////ROBOT COLLIDING WITH WALL
 	
 	MoveForwardCard moveForwardCard;
 	Wall northWall = new Wall(Direction.NORTH);
@@ -329,7 +330,7 @@ public class StepsDefinition {
 	    
 	}
 	
-//////////////////////
+//////////////////////ROBOT MOVING OUT OF BOARD AND IS TRANSPORTED TO REBOOT CELL
 	
 	@Given("a robot facing \\{SOUTH} in a tile in \\{12} x \\{4}")
 	public void a_robot_facing_in_a_tile_in_() {
@@ -350,7 +351,7 @@ public class StepsDefinition {
 	    		   (!(board.getTile(12, 1).containsElement(robot))));
 	}
 
-///////////////////////////
+///////////////////////////ACITIVATING LASER
 	
 	@Given("an inactive laser")
 	public void an_inactive_laser() {
@@ -367,4 +368,34 @@ public class StepsDefinition {
 	    assertEquals(laser.getActive(),true);
 	}
 	
+
+/////////////////////PLACING REMAINING CARDS FROM PLAYING DECK IN DISCARD DECK
+
+	@Given("a playing deck with {int} cards")
+	public void a_playing_deck_with_cards(Integer int1) {
+		player = new Player("Mejse");
+		playingDeck = new PlayingDeck();
+		for(int i=0; i<int1; i++) {
+			playingDeck.getDeck()[i] = new RightTurnCard();
+	    }
+		player.setPlayingDeck(playingDeck);
+	}
+	
+	@When("the remaining cards in the playing deck is discarded")
+	public void the_remaining_cards_in_the_playing_deck_is_discarded() {
+		discardDeck = new DiscardDeck();
+//		for(int i=0; i<int1; i++) {
+//			discardDeck.addCard(player.getPlayingDeck()[i]);
+//	    }
+		for(int i=0; i<int1; i++) {
+			discardDeck.addCard(playingDeck.getDeck()[i]);
+	    }
+		player.setDiscardDeck(discardDeck);
+	}
+	
+	@Then("the cards are moved to the discard deck")
+	public void the_cards_are_moved_to_the_discard_deck() {
+	    assertTrue(player.getDiscardDeck().contains(new RightTurnCard()));
+	}
 }
+
