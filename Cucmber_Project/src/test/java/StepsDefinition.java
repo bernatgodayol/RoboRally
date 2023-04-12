@@ -285,7 +285,7 @@ public class StepsDefinition {
 	@When("an action card is played")
 	public void an_action_card_is_played() {
 //		card = actionDeck.extractFirstCard();
-		player.getActionDeck().addCard(new MoveForwardCard());
+		player.getActionDeck().addCard(Card.MoveForward);
 		int oldX = 11;
 		int oldY = 1;
 		board.moveRobot(oldX, oldY, robot, player.getActionDeck().extractCard(0));
@@ -296,7 +296,7 @@ public class StepsDefinition {
 	@Then("the card is moved from the action deck of cards to the discard deck of cards")
 	public void the_card_is_moved_from_the_action_deck_of_cards_to_the_discard_deck_of_cards() {
 		assertTrue(player.getActionDeck().deckIsEmpty());
-		assertEquals(player.getDiscardDeck().extractCard(0),new MoveForwardCard());
+		assertEquals(player.getDiscardDeck().extractCard(0),Card.MoveForward);
 	}
 	
 	@Then("the robot is moved according to the programming card")
