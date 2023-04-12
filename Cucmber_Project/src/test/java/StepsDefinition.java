@@ -398,5 +398,37 @@ public class StepsDefinition {
 	public void the_cards_are_moved_to_the_discard_deck() {
 	    assertTrue(player.getDiscardDeck().contains(new RightTurnCard()));
 	}
+	
+
+/////////////////////////////////////////////////////
+	
+	@Given("a robot belonging to the player")
+	public void a_robot_belonging_to_the_player() {
+		robot = new Robot(Color.BLUE);
+		player.setRobot(robot);
+	}
+	
+	@Given("a programming deck belonging to the player")
+	public void a_programming_deck_belonging_to_the_player() {
+	    programmingDeck = new ProgrammingDeck();
+	    player.setProgrammingDeck(programmingDeck);
+	}
+	
+	@Given("an active laser")
+	public void an_active_laser() {
+	    laser = new Laser();
+	    laser.active(true);
+	}
+	
+	@When("the robot is hit by the laser the player recieves a damage card")
+	public void the_robot_is_hit_by_the_laser_the_player_recieves_a_damage_card() {
+	    laser.hit(robot);
+	}
+	
+	@Then("a damage card is placed in the players programming deck")
+	public void a_damage_card_is_placed_in_the_players_programming_deck() {
+		throw new io.cucumber.java.PendingException();
+	}
+	 
 }
 

@@ -29,5 +29,10 @@ public class Laser extends Element {
 	public boolean getActive() {
 		return this.active;
 	}
+
+
+	public void hit(Robot robot) {
+		robot.getPlayer().getProgrammingDeck().getDeck().add(new DamageCard()); // Need to change to Card()
+	}
 	
 }
