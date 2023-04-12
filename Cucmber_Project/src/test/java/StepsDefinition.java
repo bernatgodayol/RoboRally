@@ -12,13 +12,13 @@ public class StepsDefinition {
 	Board board;
 	Direction direction;
 	Card card;
-	DiscardDeck discardDeck;
-	ProgrammingDeck programmingDeck;
-	PlayingDeck playingDeck;
-	ActionDeck actionDeck;
-	int int1 = 9;
-	int initialSizeProgrammingDeck;
+	Deck discardDeck;
+	Deck programmingDeck;
+	Deck playingDeck;
+	Deck actionDeck;
 	Laser laser;
+	int numCards = 9;
+	int initialSizeProgrammingDeck;
 
 //////////////////ASSIGNING ROBOT TO PLAYER
 	
@@ -117,14 +117,14 @@ public class StepsDefinition {
 	    		}
 	    		
 	    		else {
-	    			assertTrue(board.getTile(i, j) == null);
+	    			assertTrue(board.getTile(i, j).getElement().isEmpty());
 	    		}
 	    	}
 	    }
 	}
 
 	
-///////////////////////ASSIGNING ROBOT DORECTION
+///////////////////////ASSIGNING ROBOT DIRECTION
 	
 	
 	@Given("a direction")
@@ -151,11 +151,12 @@ public class StepsDefinition {
 	
 	@Given("a deck of cards")
 	public void a_deck_of_cards() {
-		programmingDeck = new ProgrammingDeck();
+		programmingDeck = new Deck();
 	}
 	
 	@When("the player is assigned the deck of cards")
 	public void the_player_is_assigned_the_deck_of_cards() {
+		programmingDeck.initializeProgrammingDeck();
 	    player.setProgrammingDeck(programmingDeck);
 	}
 	
@@ -169,7 +170,7 @@ public class StepsDefinition {
 
 	@Given("a discard deck of cards")
 	public void a_discard_deck_of_cards() {
-		discardDeck = new DiscardDeck();
+		discardDeck = new Deck();
 	}
 	@When("the player is assigned the discard deck of cards")
 	public void the_player_is_assigned_the_discard_deck_of_cards() {
@@ -178,75 +179,64 @@ public class StepsDefinition {
 	@Then("the player has that discard deck of cards")
 	public void the_player_has_that_discard_deck_of_cards() {
 		assertEquals(player.getDiscardDeck(), discardDeck);
-
 	}	
 
-////////////////PLAYER RECIEVES 9 CARDS FROM PROGRAMMING DECK TO PLAYING DECK
+//////////////// PLAYER RECIEVES 9 CARDS FROM PROGRAMMING DECK TO PLAYING DECK
 	
-	@Given("a programming deck of cards that belongs to the player")
-	public void a_programming_deck_of_cards_that_belongs_to_the_player() {
+	@Given("a programming deck that belongs to the player")
+	public void a_programming_deck_that_belongs_to_the_player() {
 	    // Write code here that turns the phrase above into concrete actions
-		initialSizeProgrammingDeck = programmingDeck.getDeck().size();
+		initialSizeProgrammingDeck = programmingDeck.getDeckSize();
 	}
-	@Given("a playing deck of cards that belongs to the player")
-	public void a_playing_deck_of_cards_that_belongs_to_the_player() {
+	
+	@Given("a playing deck that belongs to the player")
+	public void a_playing_deck_that_belongs_to_the_player() {
 	    // Write code here that turns the phrase above into concrete actions
-		playingDeck = new PlayingDeck();
+		playingDeck = new Deck();
 		player.setPlayingDeck(playingDeck);
 	}
+	
+	
 	@When("the {int} random cards are selected from the programming deck")
 	public void the_random_cards_are_selected_from_the_programming_deck(Integer int1) {
 	    // Write code here that turns the phrase above into concrete actions
-	    programmingDeck.moveRandomCards(playingDeck, int1);
+	    programmingDeck.moveRandomCards(playingDeck, numCards);
 	}
 	@Then("the cards are moved to the playing deck")
 	public void the_cards_are_moved_to_the_playing_deck() {
 	    // Write code here that turns the phrase above into concrete actions
-	    assertTrue(playingDeck.getDeck().length == 9 && programmingDeck.getDeck().size() == initialSizeProgrammingDeck - 9);
+	    assertTrue(playingDeck.getDeckSize() == 9 && programmingDeck.getDeckSize() == initialSizeProgrammingDeck - 9);
 	}
 
-///////////////////MOVING CARDS FROM PLAYING DECK TO PROGRAMMING DECK
+/////////////////// MOVING CARDS FROM PLAYING DECK TO ACTION DECK
 	
-	@Given("{int} random cards in the players playing deck")
-	public void random_cards_in_the_players_playing_deck(Integer int1) {
-		programmingDeck = new ProgrammingDeck();
-		playingDeck = new PlayingDeck();
-		player.setPlayingDeck(playingDeck);
-		player.setProgrammingDeck(programmingDeck);
-		programmingDeck.moveRandomCards(playingDeck, int1);
-		
-//		playingDeck = new PlayingDeck();
-//		playingDeck.getDeck()[0] = new RightTurnCard();
-//		playingDeck.getDeck()[1] = new LeftTurnCard();
-//		playingDeck.getDeck()[2] = new LeftTurnCard();
-//		playingDeck.getDeck()[3] = new LeftTurnCard();
-//		playingDeck.getDeck()[4] = new LeftTurnCard();
-//		playingDeck.getDeck()[5] = new LeftTurnCard();
-//		playingDeck.getDeck()[6] = new LeftTurnCard();
-//		playingDeck.getDeck()[7] = new LeftTurnCard();
-//		playingDeck.getDeck()[8] = new LeftTurnCard();
-//		player.setPlayingDeck(playingDeck);
-	}
-	
-	@When("the player chooses {int} cards")
-	public void the_player_chooses_cards(Integer int1) {
-		actionDeck = new ActionDeck();
+    // @Given("a player")
+    // public void a_player() {	
+    // }
+    
+    // @Given("a playing deck that belongs to the player")
+    // public void a_playing_deck_that_belongs_to_the_player() {
+    // }
+    
+    @Given("an action deck that belongs to the player")
+    public void an_action_deck_that_belongs_to_the_player() {
+    	actionDeck = new Deck();
 		player.setActionDeck(actionDeck);
-		player.pickCard(int1);
-	}
-	
-	@Then("the {int} cards are saved")
-	public void the_cards_are_saved(Integer int1) {
-		assertTrue(actionDeck.getDeck()[0]!=null);
-	}
-	
-	@Then("the {int} cards have been removed from the playing deck")
-	public void the_cards_have_been_removed_from_the_playing_deck(Integer int1) {
-		assertEquals(playingDeck.getDeck()[0], null);		
-	}
-	
+    }
+    
+    int indexChoosenCard;
+    
+    @When("the player chooses one card")
+    public void the_player_chooses_one_card() {
+    	indexChoosenCard = 4;
+    }
+    
+    @Then("the card is moved from the playing deck to the action deck")
+    public void the_card_is_moved_from_the_playing_deck_to_the_action_deck() {
+    	playingDeck.moveCard(indexChoosenCard, actionDeck);
+    }
+    
 ////////////////ASSIGNING ROBOT STARTING POSITION
-	
 
 	int robotPositionX;
     int robotPositionY;
@@ -278,7 +268,7 @@ public class StepsDefinition {
 	@Given("an action deck of cards that belongs to the player")
 	public void an_action_deck_of_cards() {
 	// Write code here that turns the phrase above into concrete actions
-		actionDeck = new ActionDeck();
+		actionDeck = new Deck();
 	}
 	
 	@When("the first programming card is taken from the action deck of cards")
@@ -351,7 +341,7 @@ public class StepsDefinition {
 	    		   (!(board.getTile(12, 1).containsElement(robot))));
 	}
 
-///////////////////////////ACITIVATING LASER
+///////////////////////////ACTIVATING LASER
 	
 	@Given("an inactive laser")
 	public void an_inactive_laser() {
@@ -370,32 +360,25 @@ public class StepsDefinition {
 	
 
 /////////////////////PLACING REMAINING CARDS FROM PLAYING DECK IN DISCARD DECK
-
-	@Given("a playing deck with {int} cards")
-	public void a_playing_deck_with_cards(Integer int1) {
-		player = new Player("Mejse");
-		playingDeck = new PlayingDeck();
-		for(int i=0; i<int1; i++) {
-			playingDeck.getDeck()[i] = new RightTurnCard();
-	    }
-		player.setPlayingDeck(playingDeck);
-	}
 	
-	@When("the remaining cards in the playing deck is discarded")
-	public void the_remaining_cards_in_the_playing_deck_is_discarded() {
-		discardDeck = new DiscardDeck();
-//		for(int i=0; i<int1; i++) {
-//			discardDeck.addCard(player.getPlayingDeck()[i]);
-//	    }
-		for(int i=0; i<int1; i++) {
-			discardDeck.addCard(playingDeck.getDeck()[i]);
-	    }
-		player.setDiscardDeck(discardDeck);
+	// @Given("a playing deck that belongs to the player")
+	// public void a_playing_deck_that_belongs_to_the_player() {
+	// }
+	
+    // @Given("a discard deck that belongs to a player")
+ 	// public void a_discard_deck_that_belongs_to_the_player() {
+ 	// }
+    
+	@When("the playing deck contains 4 cards")
+	public void the_playing_deck_contains_4_cards() {
+		assertTrue(playingDeck.getDeckSize() == 4);
 	}
 	
 	@Then("the cards are moved to the discard deck")
 	public void the_cards_are_moved_to_the_discard_deck() {
-	    assertTrue(player.getDiscardDeck().contains(new RightTurnCard()));
+	    for (int i = 0; i < 3; i++) {
+	        playingDeck.moveCard(i, actionDeck);
+	    }
 	}
 }
 

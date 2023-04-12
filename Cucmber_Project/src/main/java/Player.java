@@ -4,10 +4,10 @@ import java.util.Scanner;
 public class Player {
 	private String name;
 	private Robot robot;
-	private ProgrammingDeck programmingDeck;
-	private DiscardDeck discardDeck;
-	private PlayingDeck playingDeck;
-	private ActionDeck actionDeck;
+	private Deck programmingDeck;
+	private Deck discardDeck;
+	private Deck playingDeck;
+	private Deck actionDeck;
 
 	public Player(String name) {
 		this.name = name;
@@ -25,51 +25,35 @@ public class Player {
 		return name;
 	}
 
-	public void setProgrammingDeck(ProgrammingDeck programmingDeck) {
+	public void setProgrammingDeck(Deck programmingDeck) {
 		this.programmingDeck = programmingDeck;
 	}
 	
-	public ProgrammingDeck getProgrammingDeck() {
+	public Deck getProgrammingDeck() {
 		return programmingDeck;
 	}
 
-	public void setDiscardDeck(DiscardDeck discardDeck) {
+	public void setDiscardDeck(Deck discardDeck) {
 		this.discardDeck = discardDeck;
 	}
 	
-	public DiscardDeck getDiscardDeck() {
+	public Deck getDiscardDeck() {
 		return discardDeck;
 	}
 		
-	public void setPlayingDeck(PlayingDeck playingDeck) {
+	public void setPlayingDeck(Deck playingDeck) {
 		this.playingDeck = playingDeck;
 	}
 	
-	public PlayingDeck getPlayingDeck() {
+	public Deck getPlayingDeck() {
 		return playingDeck;
 	}
 	
-	public void setActionDeck(ActionDeck actionDeck) {
+	public void setActionDeck(Deck actionDeck) {
 		this.actionDeck = actionDeck;
 	}
 	
-	public ActionDeck getActionDeck() {
+	public Deck getActionDeck() {
 		return actionDeck;
 	}
-	
-	public void pickCard(int int1) {
-		Scanner s = new Scanner(System.in);
-	    for (int i=0; i<int1; i++) {
-	    	//System.out.println("Hello");
-	    	//int index = s.nextInt();
-	    	int index = 0;
-	    	playingDeck.moveCard(index,actionDeck);
-	    }
-		s.close();
-	}
-
-	
-	
-	
-	
 }
