@@ -272,32 +272,37 @@ public class StepsDefinition {
 	public void an_action_deck_of_cards() {
 	// Write code here that turns the phrase above into concrete actions
 		actionDeck = new Deck();
+		player.setActionDeck(actionDeck);
 	}
 	
-	@Given("a robot in the cell with xcoordinate {int} and ycoordinate {int}")
-	public void a_robot_in_the_cell_with_xcoordinate_and_ycoordinate(Integer int1, Integer int2) {
+	@Given("a robot in the cell with xcoordinate {int} and ycoordinate {int} with direction north")
+	public void a_robot_in_the_cell_with_xcoordinate_and_ycoordinate_with_diretion_north(Integer int1, Integer int2) {
+		direction = Direction.NORTH;
+		robot.setDirection(direction);
 		board.getTile(int1, int2).addElement(robot);
 	}
 	
 	@When("an action card is played")
 	public void an_action_card_is_played() {
-		card = actionDeck.extractFirstCard();
+//		card = actionDeck.extractFirstCard();
+		player.getActionDeck().addCard(new MoveForwardCard());
 		int oldX = 11;
 		int oldY = 1;
-		board.moveRobot(oldX, oldY, robot, card);
-		discardDeck.addCard(card);
+		board.moveRobot(oldX, oldY, robot, player.getActionDeck().extractCard(0));
+		player.setDiscardDeck(discardDeck);
+		player.getDiscardDeck().addCard(card);
 	}
 	
 	@Then("the card is moved from the action deck of cards to the discard deck of cards")
 	public void the_card_is_moved_from_the_action_deck_of_cards_to_the_discard_deck_of_cards() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		assertTrue(player.getActionDeck().deckIsEmpty());
+		assertEquals(player.getDiscardDeck().extractCard(0),new MoveForwardCard());
 	}
 	
 	@Then("the robot is moved according to the programming card")
 	public void the_robot_is_moved_according_to_the_programming_card() {
 		assertFalse(board.getTile(11, 1).containsElement(robot));
-	
+		assertTrue(board.getTile(10,1).containsElement(robot));
 	}
 //	@Then("the card is placed in the discard deck of cards")
 //	public void the_card_is_placed_in_the_discard_deck_of_cards() {
