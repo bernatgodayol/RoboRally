@@ -3,10 +3,10 @@ public class Board {
 	protected Tile[][] grid;
 	protected int rebootPositionX;
 	protected int rebootPositionY;
-	protected int ROWS;
-	protected int COLUMNS;
+	protected int ROWS=13;
+	protected int COLUMNS=10;
 	
-	public Board(int ROWS, int COLUMNS) {
+	public Board() {
 		grid = new Tile[ROWS][COLUMNS];
 		
 		for (int i=0; i<ROWS; i++) {
@@ -14,6 +14,30 @@ public class Board {
 				grid[i][j] = new Tile();
 			}
 		}
+	}
+	
+	public void initialize5B() {
+
+		grid[3][3].addElement(new Wall(Direction.NORTH));
+		grid[3][3].addElement(new Laser());
+		grid[4][3].addElement(new Wall(Direction.SOUTH));
+		grid[4][3].addElement(new Laser());
+		grid[3][5].addElement(new Wall(Direction.WEST));
+		grid[3][5].addElement(new Laser());
+		grid[3][6].addElement(new Wall(Direction.EAST));
+		grid[3][6].addElement(new Laser());
+		grid[6][3].addElement(new Wall(Direction.WEST));
+		grid[6][3].addElement(new Laser());
+		grid[6][4].addElement(new Wall(Direction.EAST));
+		grid[6][4].addElement(new Laser());
+		grid[5][6].addElement(new Wall(Direction.NORTH));
+		grid[5][6].addElement(new Laser());
+		grid[6][6].addElement(new Wall(Direction.SOUTH));
+		grid[6][6].addElement(new Laser());
+		grid[11][2].addElement(new Wall(Direction.WEST));
+		grid[10][4].addElement(new Wall(Direction.NORTH));
+		grid[10][5].addElement(new Wall(Direction.NORTH));
+		grid[11][7].addElement(new Wall(Direction.EAST));
 	}
 	
 	public Tile getTile(int positionX, int positionY) {
