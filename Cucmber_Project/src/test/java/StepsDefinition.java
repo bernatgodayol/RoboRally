@@ -402,7 +402,8 @@ public class StepsDefinition {
 	
 	@Given("a programming deck belonging to the player")
 	public void a_programming_deck_belonging_to_the_player() {
-	    programmingDeck = new ProgrammingDeck();
+	    programmingDeck = new Deck();
+	    programmingDeck.initializeProgrammingDeck();
 	    player.setProgrammingDeck(programmingDeck);
 	}
 	
