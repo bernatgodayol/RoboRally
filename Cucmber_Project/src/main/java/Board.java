@@ -63,7 +63,7 @@ public class Board {
 	public void moveRobot(int oldX, int oldY, Robot robot, Card card) {
 		if (grid[oldX][oldY].containsElement(robot)) {
 			
-			if (card instanceof MoveForwardCard) {
+			if (card.equals(Card.MoveForward)) {
 				grid[oldX][oldY].removeElement(robot);
 				if (robot.getDirection() == Direction.NORTH) {
 					// if the robot goes out of the board
@@ -116,7 +116,7 @@ public class Board {
 				}
 			}
 			
-			if (card instanceof RightTurnCard) {
+			if (card.equals(Card.RightTurn)) {
 				if (robot.getDirection() == Direction.NORTH) {
 					robot.setDirection(Direction.EAST);
 				} else if (robot.getDirection() == Direction.EAST) {
@@ -128,7 +128,7 @@ public class Board {
 				}
 			}
 			
-			if (card instanceof LeftTurnCard) {
+			if (card.equals(Card.LeftTurn)) {
 				if (robot.getDirection() == Direction.NORTH) {
 					robot.setDirection(Direction.WEST);
 				} else if (robot.getDirection() == Direction.EAST) {
@@ -140,7 +140,7 @@ public class Board {
 				}
 			}
 			
-			if (card instanceof UTurnCard) {
+			if (card.equals(Card.UTurn)) {
 				if (robot.getDirection() == Direction.NORTH) {
 					robot.setDirection(Direction.SOUTH);
 				} else if (robot.getDirection() == Direction.EAST) {

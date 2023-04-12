@@ -305,7 +305,7 @@ public class StepsDefinition {
 //	}
 	
 
-	MoveForwardCard moveForwardCard;
+	Card moveForwardCard = Card.MoveForward;
 	Wall northWall = new Wall(Direction.NORTH);
 	Wall  westWall = new Wall(Direction.WEST);
 	Wall  eastWall = new Wall(Direction.EAST);
