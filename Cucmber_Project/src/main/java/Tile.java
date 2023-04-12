@@ -19,7 +19,5 @@ public class Tile {
 	
 	public boolean containsElement(Element element) {
 		return elements.contains(element);
-	}
-	
-	
+	}	
 }

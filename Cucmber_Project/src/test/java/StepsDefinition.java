@@ -253,8 +253,8 @@ public class StepsDefinition {
     
 	@Given("a position")
 	public void a_position() {
-		robotPositionX = 1;
-		robotPositionY = 11;
+		robotPositionX = 11;
+		robotPositionY = 1;
 	}
 	
 	@When("the robot is placed on the board")
@@ -264,7 +264,8 @@ public class StepsDefinition {
 	
 	@Then("the robot is in the correct tile on the board")
 	public void the_robot_is_in_the_correct_tile_on_the_board() {
-		assertEquals(board.getTile(robotPositionX, robotPositionY), robot);
+		assertTrue(board.getTile(robotPositionX, robotPositionY).containsElement(robot));
+//		assertEquals(board.getTile(robotPositionX, robotPositionY), robot);
 	}
 
 ////////////////MOVING CARD FROM ACTION DECK TO DISCARD DECK AND MOVING ROBOT
