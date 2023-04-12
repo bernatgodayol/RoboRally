@@ -420,7 +420,7 @@ public class StepsDefinition {
 	
 	@Then("a damage card is placed in the players programming deck")
 	public void a_damage_card_is_placed_in_the_players_programming_deck() {
-		throw new io.cucumber.java.PendingException();
+		assertTrue(player.getProgrammingDeck().contains(Card.Damage));
 	}
 	 
 }

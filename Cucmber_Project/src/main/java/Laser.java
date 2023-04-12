@@ -32,7 +32,7 @@ public class Laser extends Element {
 
 
 	public void hit(Robot robot) {
-		robot.getPlayer().getProgrammingDeck().getDeck().add(Card.Damage); // Need to change to Card()
+		robot.getPlayer().getProgrammingDeck().getDeck().add(Card.Damage);
 	}
 	
 }
