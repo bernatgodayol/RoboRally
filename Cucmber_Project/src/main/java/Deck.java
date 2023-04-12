@@ -34,16 +34,16 @@ public class Deck {
 	
 	public void initializeProgrammingDeck() {
 		for (int i=0; i<5; i++) {
-			deck.add(new MoveForwardCard());
+			deck.add(Card.MoveForward);
 		}
 		for (int i=0; i<2; i++) {
-			deck.add(new UTurnCard());
+			deck.add(Card.UTurn);
 		}
 		for (int i=0; i<5; i++) {
-			deck.add(new LeftTurnCard());
+			deck.add(Card.LeftTurn);
 		}
 		for (int i=0; i<5; i++) {
-			deck.add(new RightTurnCard());
+			deck.add(Card.RightTurn);
 		}
 	}
 	
