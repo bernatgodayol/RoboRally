@@ -2,6 +2,7 @@
 public class Robot extends Element{
 	private Color color;
 	private Direction direction;
+	private Player player;
 	
 	public Robot(Color color) {
 		this.color = color;
@@ -9,6 +10,14 @@ public class Robot extends Element{
 	
 	public Color getColor() {
 		return color;
+	}
+	
+	public Player getPlayer() {
+		return player;
+	}
+	
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 	
 	@Override

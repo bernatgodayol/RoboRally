@@ -15,6 +15,7 @@ public class Player {
 	
 	public void setRobot(Robot robot) {
 		this.robot = robot;
+		robot.setPlayer(this);
 	}
 	
 	public Robot getRobot() {
