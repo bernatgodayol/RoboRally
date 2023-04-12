@@ -22,6 +22,12 @@ public class Deck {
 		return deck.contains(card);
 	}
 	
+	public Card extractCard(int i) {
+		Card card = deck.get(i);
+		deck.remove(i);
+		return card;
+	}
+	
 	public void moveRandomCards(Deck otherDeck, Integer numCards) {
 	    Random rand = new Random();
 	    for (int i = 0; i < numCards; i++) {
@@ -64,9 +70,12 @@ public class Deck {
 	    }
 	}
 
-	public Card extractFirstCard() {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean deckIsEmpty() {
+		return deck.isEmpty();
 	}
-	
+
+//	public Card extractFirstCard() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}	
 }
