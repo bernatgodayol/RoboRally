@@ -7,7 +7,7 @@ Feature: The robot is moved according to the programming cards
     Given a board
     And a player
     And a robot
-    And an action deck of cards that belongs to the player
+    And an action deck that belongs to the player
     And a discard deck of cards
     And a robot in the cell with xcoordinate 2 and ycoordinate 3 with direction north
     When an action card is played

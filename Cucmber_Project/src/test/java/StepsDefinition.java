@@ -19,6 +19,7 @@ public class StepsDefinition {
 	Deck playingDeck;
 	Deck actionDeck;
 	Laser laser;
+	Reboot reboot;
 	int numCards = 9;
 	int initialSizeProgrammingDeck;
 
@@ -29,8 +30,8 @@ public class StepsDefinition {
 		robot = new Robot(Color.BLUE);
 	}
 	
-	@Given("a player with no robot")
-	public void a_player_with_no_robot() {
+	@Given("a player")
+	public void a_player() {
 		player = new Player("Mejse");
 	}
 	
@@ -49,12 +50,11 @@ public class StepsDefinition {
 	
 	@Given("an empty board of size {int} x {int}")
 	public void an_empty_board_of_size_x(Integer int1, Integer int2) {
-	
+		board = new Board();
 	}
 	
 	@When("the 5B board is initialised")
 	public void the_5b_board_is_initialised() {
-		board = new Board();
 		board.initialize5B();
 	}
 	
@@ -147,20 +147,14 @@ public class StepsDefinition {
 	
 /////////////////ASSIGNING STARTING DECK TO PLAYER
 	
-	@Given("a player")
-	public void a_player() {
-	    player = new Player("Mejse");
-	}
-	
-	@Given("a deck of cards")
-	public void a_deck_of_cards() {
+	@Given("a programming deck of cards")
+	public void a_programming_deck_of_cards() {
 		programmingDeck = new Deck();
 	}
 	
 	@When("the player is assigned the deck of cards")
 	public void the_player_is_assigned_the_deck_of_cards() {
 		programmingDeck.initializeProgrammingDeck();
-		
 	    player.setProgrammingDeck(programmingDeck);
 	}
 	
@@ -265,14 +259,6 @@ public class StepsDefinition {
 	public void a_board() {
 		board = new Board();
 		board.initialize5B();
-	}
-	
-	@Given("an action deck of cards that belongs to the player")
-	public void an_action_deck_of_cards() {
-	// Write code here that turns the phrase above into concrete actions
-		player = new Player("Mejse");
-		actionDeck = new Deck();
-		player.setActionDeck(actionDeck);
 	}
 	
 	@Given("a robot in the cell with xcoordinate 2 and ycoordinate 3 with direction north")
@@ -411,17 +397,10 @@ public class StepsDefinition {
 
 ////////////////////////DAMAGE CARDS
 	
-	@Given("a robot belonging to the player")
+	@Given("a robot that belongs to the player")
 	public void a_robot_belonging_to_the_player() {
 		robot = new Robot(Color.BLUE);
 		player.setRobot(robot);
-	}
-	
-	@Given("a programming deck belonging to the player")
-	public void a_programming_deck_belonging_to_the_player() {
-	    programmingDeck = new Deck();
-	    programmingDeck.initializeProgrammingDeck();
-	    player.setProgrammingDeck(programmingDeck);
 	}
 	
 	@Given("an active laser")
@@ -440,5 +419,28 @@ public class StepsDefinition {
 		assertTrue(player.getProgrammingDeck().contains(Card.Damage));
 	}
 
+//////////////////////////Player receives damage card when robot in reboot cell
+	
+	@Given("a reboot cell")
+	public void a_reboot_cell() {
+		reboot = new Reboot();
+	}
+	
+	@Given("the robot is in the reboot cell")
+	public void the_robot_is_in_the_reboot_cell() {
+		board.getTile(board.getRebootPositionX(), board.getRebootPositionY()).addElement(player.getRobot());
+	}
+	
+	@When("the player receives a damage card")
+	public void the_player_receives_a_damage_card() {
+	    reboot.punishPlayer(robot);
+	}
+	
+	@Then("that damage card is in the players programming deck")
+	public void that_damage_card_is_in_the_players_programming_deck() {
+	    assertTrue(player.getProgrammingDeck().contains(Card.Damage));
+	}
+	
+	
 }
 

@@ -1,12 +1,12 @@
 public class Board {
 
 	protected Tile[][] grid;
-	protected int rebootPositionX;
-	protected int rebootPositionY;
+	private int rebootPositionX;
+	private int rebootPositionY;
 //	protected int robotPositionX;
 //	protected int robotPositionY;
-	protected int ROWS=13;
-	protected int COLUMNS=10;
+	private int ROWS=13;
+	private int COLUMNS=10;
 	
 	public Board() {
 		grid = new Tile[ROWS][COLUMNS];
@@ -19,7 +19,9 @@ public class Board {
 	}
 	
 	public void initialize5B() {
-
+		rebootPositionX = 5;
+		rebootPositionY = 3;
+		
 		grid[3][3].addElement(new Wall(Direction.NORTH));
 		grid[3][3].addElement(new Laser());
 		grid[4][3].addElement(new Wall(Direction.SOUTH));
