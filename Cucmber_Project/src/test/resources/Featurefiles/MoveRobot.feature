@@ -26,6 +26,6 @@ Feature: The robot is moved according to the programming cards
   Scenario: Successfully moving the robot to the reboot cell when it goes out of the board
   	Given a board
   	And a robot
-  	And a robot facing south in a tile with xcoodinate 12 and ycoordinate 1
+  	And a robot facing south in a tile with xcoodinate 12 and ycoordinate 4
   	When a move forward card is executed 2
   	Then the robot is moved to the reboot cell in the board

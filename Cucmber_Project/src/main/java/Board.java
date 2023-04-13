@@ -62,9 +62,9 @@ public class Board {
 	
 	public void moveRobot(int oldX, int oldY, Robot robot, Card card) {
 		
-		if (oldX > 0 && oldX < ROWS && oldY > 0 && oldY > COLUMNS && grid[oldX][oldY].containsElement(robot)) {
+		if (oldX > 0 && oldX < ROWS && oldY > 0 && oldY < COLUMNS && grid[oldX][oldY].containsElement(robot)) {
 			
-			if (card.equals(Card.MoveForward)) {
+			if (card == Card.MoveForward) {
 				grid[oldX][oldY].removeElement(robot);
 				if (robot.getDirection() == Direction.NORTH) {
 					// if the robot goes out of the board

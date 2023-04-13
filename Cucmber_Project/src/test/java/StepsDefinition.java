@@ -282,7 +282,6 @@ public class StepsDefinition {
 		direction = Direction.NORTH;
 		robot.setDirection(direction);
 		board.getTile(2, 3).addElement(robot);
-		player.setDiscardDeck(discardDeck);
 	}
 	
 	@When("an action card is played")
@@ -292,25 +291,25 @@ public class StepsDefinition {
 		player.getActionDeck().addCard(card);
 		extractedCard = player.getActionDeck().extractCard(0);
 		board.moveRobot(2, 3, robot, extractedCard);
+		player.setDiscardDeck(discardDeck);
 		player.getDiscardDeck().addCard(extractedCard);
 	}
 	
 	@Then("the card is moved from the action deck of cards to the discard deck of cards")
 	public void the_card_is_moved_from_the_action_deck_of_cards_to_the_discard_deck_of_cards() {
 		assertTrue(player.getActionDeck().deckIsEmpty());
-		assertEquals(player.getDiscardDeck().extractCard(0), Card.MoveForward);
+		assertTrue(player.getDiscardDeck().getCard(0) == Card.MoveForward);
 	}
 	
 	@Then("the robot is moved according to the programming card")
 	public void the_robot_is_moved_according_to_the_programming_card() {
-		assertTrue(!(board.getTile(2, 3).containsElement(robot)));
-		assertTrue(board.getTile(1,3).containsElement(robot));
+		assertFalse(board.getTile(2, 3).containsElement(robot));
+		assertTrue(board.getTile(1, 3).containsElement(robot));
 	}
-//	@Then("the card is placed in the discard deck of cards")
-//	public void the_card_is_placed_in_the_discard_deck_of_cards() {
-//		assertTrue(board.getTile(11, 1).containsElement(robot));
-//	}
-	
+    @Then("the card is placed in the discard deck of cards")
+    public void the_card_is_placed_in_the_discard_deck_of_cards() {
+		assertTrue(discardDeck.contains(card));
+	}
 
 	Card moveForwardCard = Card.MoveForward;
 	Wall northWall = new Wall(Direction.NORTH);
@@ -322,39 +321,38 @@ public class StepsDefinition {
 	public void a_robot_direction_where_it_faces_north_in_a_tile_with_a_north_wall() {
 		
 		robot.setDirection(Direction.NORTH);
-		board.getTile(3, 2).addElement(northWall);
-		board.getTile(3, 2).addElement(robot);
+		board.getTile(2, 3).addElement(northWall);
+		board.getTile(2, 3).addElement(robot);
 	}
-	@When("a move forward card is executed a")
-	public void a_move_forward_card_is_executed_a() {
-		board.moveRobot(3, 2, robot, moveForwardCard);
+	@When("a move forward card is executed_1")
+	public void a_move_forward_card_is_executed_1() {
+		board.moveRobot(2, 3, robot, moveForwardCard);
 	}
 	
 	@Then("the robot cannot move forward")
 	public void the_robot_cannot_move_forward() {
 //	    assertTrue((!(board.getTile(3, 2).containsElement(robot))) && 
 //	    		   (  board.getTile(2, 2).containsElement(robot)));
-	    assertFalse(board.getTile(3, 2).containsElement(robot));
-	    assertTrue(board.getTile(2, 2).containsElement(robot));
-	    
+	    assertTrue(board.getTile(2, 3).containsElement(robot));
+	    assertFalse(board.getTile(1, 3).containsElement(robot));
 	}
 	
-	@Given("a robot facing south in a tile with xcoodinate {int} and ycoordinate {int}")
-	public void a_robot_facing_south_in_a_tile_with_xcoodinate_and_ycoordinate(Integer int1, Integer int2) {
+	@Given("a robot facing south in a tile with xcoodinate 12 and ycoordinate 4")
+	public void a_robot_facing_south_in_a_tile_with_xcoodinate_12_and_ycoordinate_4(Integer int1, Integer int2) {
 		robot.setDirection(Direction.SOUTH);
-		board.getTile(int1, int2).addElement(robot);
+		board.getTile(12, 4).addElement(robot);
 	}
 	
-	@When("a move forward card is executed {int}")
-	public void a_move_forward_card_is_executed(Integer int1) {
-		board.moveRobot(12, 1, robot, moveForwardCard);
+	@When("a move forward card is executed_2")
+	public void a_move_forward_card_is_executed_2() {
+		board.moveRobot(12, 4, robot, moveForwardCard);
 	}
 	
 	@Then("the robot is moved to the reboot cell in the board")
 	public void the_robot_is_moved_to_the_reboot_cell_in_the_board() {
 //		assertTrue((  board.getTile(board.getRebootPositionX(), board.getRebootPositionY()).containsElement(robot)) && 
 //	    		   (!(board.getTile(12, 1).containsElement(robot))));
-		assertFalse(board.getTile(12, 1).containsElement(robot));
+		assertFalse(board.getTile(12, 4).containsElement(robot));
 	    assertTrue(board.getTile(board.getRebootPositionX(),board.getRebootPositionY()).containsElement(robot));
 	}
 

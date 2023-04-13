@@ -22,9 +22,14 @@ public class Deck {
 		return this.deck.contains(card);
 	}
 	
-	public Card extractCard(int i) {
-		Card card = this.deck.get(i);
-		this.deck.remove(i);
+	public Card getCard(int index) {
+		return this.deck.get(index);
+	}
+	
+	public Card extractCard(int index) {
+		Card card = this.deck.get(index);
+		this.deck.remove(index);
+		System.out.print(this.deck.isEmpty());
 		System.out.println("Successfully extracted card !!!!");
 		return card;
 	}
