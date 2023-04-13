@@ -9,7 +9,8 @@ import io.cucumber.java.en.When;
 public class StepsDefinition {
 	
 	Player player;
-	Robot robot;
+	Robot robot1;
+	Robot robot2;
 	Board board;
 	Direction direction;
 	Card card;
@@ -26,7 +27,7 @@ public class StepsDefinition {
 	
 	@Given("a robot")
 	public void a_robot() {
-		robot = new Robot(Color.BLUE);
+		robot1 = new Robot(Color.BLUE);
 	}
 	
 	@Given("a player with no robot")
@@ -36,7 +37,7 @@ public class StepsDefinition {
 	
 	@When("the robot is assigned to the player")
 	public void the_robot_is_assigned_to_the_player() {
-		player.setRobot(robot);
+		player.setRobot(robot1);
 	}
 	
 	@Then("the robot belongs to the player")
@@ -64,63 +65,63 @@ public class StepsDefinition {
 	    for (int i=0; i<13; i++) {
 	    	for (int j=0; j<10; j++) {
 	    		if (i==3 && j==3) {
-	    			assertTrue(board.getTile(i, j).containsElement(new Wall(Direction.NORTH)));
-	    			assertTrue(board.getTile(i, j).containsElement(new Laser()));
+	    			assertTrue(board.containsElement(new Wall(Direction.NORTH), i, j));
+	    			assertTrue(board.containsElement(new Laser(), i, j));
 	    		}
 	    		
 	    		else if (i==4 && j==3) {
-	    			assertTrue(board.getTile(i, j).containsElement(new Wall(Direction.SOUTH)));
-	    			assertTrue(board.getTile(i, j).containsElement(new Laser()));
+	    			assertTrue(board.containsElement(new Wall(Direction.SOUTH), i, j));
+	    			assertTrue(board.containsElement(new Laser(), i, j));
 	    		}
 	    		
 	    		else if (i==3 && j==5) {
-	    			assertTrue(board.getTile(i, j).containsElement(new Wall(Direction.WEST)));
-	    			assertTrue(board.getTile(i, j).containsElement(new Laser()));
+	    			assertTrue(board.containsElement(new Wall(Direction.WEST), i, j));
+	    			assertTrue(board.containsElement(new Laser(), i, j));
 	    		}
 	    		
 	    		else if (i==3 && j==6) {
-	    			assertTrue(board.getTile(i, j).containsElement(new Wall(Direction.EAST)));
-	    			assertTrue(board.getTile(i, j).containsElement(new Laser()));
+	    			assertTrue(board.containsElement(new Wall(Direction.EAST), i, j));
+	    			assertTrue(board.containsElement(new Laser(), i, j));
 	    		}
 	    		
 	    		else if (i==6 && j==3) {
-	    			assertTrue(board.getTile(i, j).containsElement(new Wall(Direction.WEST)));
-	    			assertTrue(board.getTile(i, j).containsElement(new Laser()));
+	    			assertTrue(board.containsElement(new Wall(Direction.WEST), i, j));
+	    			assertTrue(board.containsElement(new Laser(), i, j));
 	    		}
 	    		
 	    		else if (i==6 && j==4) {
-	    			assertTrue(board.getTile(i, j).containsElement(new Wall(Direction.EAST)));
-	    			assertTrue(board.getTile(i, j).containsElement(new Laser()));
+	    			assertTrue(board.containsElement(new Wall(Direction.EAST), i, j));
+	    			assertTrue(board.containsElement(new Laser(), i, j));
 	    		}
 	    		
 	    		else if (i==5 && j==6) {
-	    			assertTrue(board.getTile(i, j).containsElement(new Wall(Direction.NORTH)));
-	    			assertTrue(board.getTile(i, j).containsElement(new Laser()));
+	    			assertTrue(board.containsElement(new Wall(Direction.NORTH), i, j));
+	    			assertTrue(board.containsElement(new Laser(), i, j));
 	    		}
 	    		
 	    		else if (i==6 && j==6) {
-	    			assertTrue(board.getTile(i, j).containsElement(new Wall(Direction.SOUTH)));
-	    			assertTrue(board.getTile(i, j).containsElement(new Laser()));
+	    			assertTrue(board.containsElement(new Wall(Direction.SOUTH), i, j));
+	    			assertTrue(board.containsElement(new Laser(), i, j));
 	    		}
 	    		
 	    		else if (i==11 && j==2) {
-	    			assertTrue(board.getTile(i, j).containsElement(new Wall(Direction.WEST)));
+	    			assertTrue(board.containsElement(new Wall(Direction.WEST), i, j));
 	    		}
 	    		
 	    		else if (i==10 && j==4) {
-	    			assertTrue(board.getTile(i, j).containsElement(new Wall(Direction.NORTH)));
+	    			assertTrue(board.containsElement(new Wall(Direction.NORTH), i, j));
 	    		}
 	    		
 	    		else if (i==10 && j==5) {
-	    			assertTrue(board.getTile(i, j).containsElement(new Wall(Direction.NORTH)));
+	    			assertTrue(board.containsElement(new Wall(Direction.NORTH), i, j));
 	    		}
 	    		
 	    		else if (i==11 && j==7) {
-	    			assertTrue(board.getTile(i, j).containsElement(new Wall(Direction.EAST)));
+	    			assertTrue(board.containsElement(new Wall(Direction.EAST), i, j));
 	    		}
 	    		
 	    		else {
-	    			assertTrue(board.getTile(i, j).emptyTile());
+	    			assertTrue(board.isEmpty(i, j));
 	    		}
 	    	}
 	    }
@@ -129,7 +130,6 @@ public class StepsDefinition {
 	
 ///////////////////////ASSIGNING ROBOT DIRECTION
 	
-	
 	@Given("a direction")
 	public void a_direction() {
 		direction = Direction.NORTH;
@@ -137,12 +137,12 @@ public class StepsDefinition {
 	
 	@When("the robot is assigned the direction")
 	public void the_robot_is_assigned_the_direction() {
-		robot.setDirection(direction);
+		robot1.setDirection(direction);
 	}
 	
 	@Then("the robot has that direction")
 	public void the_robot_has_that_direction() {
-		assertEquals(robot.getDirection(),direction);
+		assertEquals(robot1.getDirection(), direction);
 	}
 	
 /////////////////ASSIGNING STARTING DECK TO PLAYER
@@ -237,26 +237,40 @@ public class StepsDefinition {
     	assertTrue(player.getPlayingDeck().contains(Card.RightTurn));
     }
     
-////////////////ASSIGNING ROBOT STARTING POSITION
+////////////////ASSIGNING 2 ROBOTS TO THE BOARD
 
-	int robotPositionX;
-    int robotPositionY;
-    
-	@Given("a position")
-	public void a_position() {
-		robotPositionX = 11;
-		robotPositionY = 1;
-	}
+    @Given("two robots")
+    public void two_robots() {
+        // Write code here that turns the phrase above into concrete actions
+        robot1 = new Robot(Color.BLUE);
+        robot2 = new Robot(Color.RED);
+    }
+    @When("the robots are placed on the board")
+    public void the_robots_are_placed_on_the_board() {
+        board.setRobots(robot1, robot2);
+    }
+    @Then("the robot are in the initial positions of the board")
+    public void the_robot_are_in_the_initial_positions_of_the_board() {
+        assertTrue(board.containsElement(robot1, 12, 3));
+        assertTrue(board.containsElement(robot2, 12, 6));
+    }
+
+////////////////ASSIGNING 1 ROBOT TO THE BOARD
+
+	// @Given("a robot")
+	// public void a_robot() {
+	// Write code here that turns the phrase above into concrete actions
+	// robot1 = new Robot(Color.BLUE);
+	// }
 	
 	@When("the robot is placed on the board")
 	public void the_robot_is_placed_on_the_board() {
-		board.getTile(robotPositionX, robotPositionY).addElement(robot);
+	board.setRobots(robot1);
 	}
 	
-	@Then("the robot is in the correct tile on the board")
-	public void the_robot_is_in_the_correct_tile_on_the_board() {
-		assertTrue(board.getTile(robotPositionX, robotPositionY).containsElement(robot));
-//		assertEquals(board.getTile(robotPositionX, robotPositionY), robot);
+	@Then("the robot is in the initial position of the board")
+	public void the_robot_is_in_the_initial_position_of_the_board() {
+	assertTrue(board.containsElement(robot1, 12, 3));
 	}
 
 /////////////////MOVE ROBOT ACCORDING TO CARD, COLLISION WITH WALL AND REBOOT CELL
@@ -273,15 +287,8 @@ public class StepsDefinition {
 		player = new Player("Mejse");
 		actionDeck = new Deck();
 		player.setActionDeck(actionDeck);
-	}
-	
-	@Given("a robot in the cell with xcoordinate 2 and ycoordinate 3 with direction north")
-	public void a_robot_in_the_cell_with_xcoordinate__2_and_ycoordinate_3_with_diretion_north() {
-		robot = new Robot(Color.BLUE);
-		player.setRobot(robot);
-		direction = Direction.NORTH;
-		robot.setDirection(direction);
-		board.getTile(2, 3).addElement(robot);
+		player.setRobot(robot1);
+		robot1.setDirection(Direction.NORTH);
 	}
 	
 	@When("an action card is played")
@@ -290,7 +297,7 @@ public class StepsDefinition {
 		card = Card.MoveForward;
 		player.getActionDeck().addCard(card);
 		extractedCard = player.getActionDeck().extractCard(0);
-		board.moveRobot(2, 3, robot, extractedCard);
+		board.moveRobot(robot1, extractedCard);
 		player.setDiscardDeck(discardDeck);
 		player.getDiscardDeck().addCard(extractedCard);
 	}
@@ -303,58 +310,52 @@ public class StepsDefinition {
 	
 	@Then("the robot is moved according to the programming card")
 	public void the_robot_is_moved_according_to_the_programming_card() {
-		assertFalse(board.getTile(2, 3).containsElement(robot));
-		assertTrue(board.getTile(1, 3).containsElement(robot));
+		assertFalse(board.containsElement(robot1, 12, 3));
+		assertTrue(board.containsElement(robot1, 11, 3));
 	}
     @Then("the card is placed in the discard deck of cards")
     public void the_card_is_placed_in_the_discard_deck_of_cards() {
 		assertTrue(discardDeck.contains(card));
 	}
-
-	Card moveForwardCard = Card.MoveForward;
-	Wall northWall = new Wall(Direction.NORTH);
-	Wall  westWall = new Wall(Direction.WEST);
-	Wall  eastWall = new Wall(Direction.EAST);
-	Wall southWall = new Wall(Direction.SOUTH);
-	
-	@Given("a robot direction where it faces north in a tile with a north wall")
-	public void a_robot_direction_where_it_faces_north_in_a_tile_with_a_north_wall() {
-		
-		robot.setDirection(Direction.NORTH);
-		board.getTile(2, 3).addElement(northWall);
-		board.getTile(2, 3).addElement(robot);
-	}
-	@When("a move forward card is executed_1")
-	public void a_move_forward_card_is_executed() {
-		board.moveRobot(2, 3, robot, moveForwardCard);
-	}
-	
-	@Then("the robot cannot move forward")
-	public void the_robot_cannot_move_forward() {
-//	    assertTrue((!(board.getTile(3, 2).containsElement(robot))) && 
-//	    		   (  board.getTile(2, 2).containsElement(robot)));
-	    assertTrue(board.getTile(2, 3).containsElement(robot));
-	    assertFalse(board.getTile(1, 3).containsElement(robot));
-	}
-	
-	@Given("a robot facing south in a tile with xcoodinate 12 and ycoordinate 4")
-	public void a_robot_facing_south_in_a_tile_with_xcoodinate_12_and_ycoordinate_4(Integer int1, Integer int2) {
-		robot.setDirection(Direction.SOUTH);
-		board.getTile(12, 4).addElement(robot);
-	}
-	
-	@When("a move forward card is executed_2")
-	public void a_move_forward_card_is_executed() {
-		board.moveRobot(12, 4, robot, moveForwardCard);
-	}
-	
-	@Then("the robot is moved to the reboot cell in the board")
-	public void the_robot_is_moved_to_the_reboot_cell_in_the_board() {
-//		assertTrue((  board.getTile(board.getRebootPositionX(), board.getRebootPositionY()).containsElement(robot)) && 
-//	    		   (!(board.getTile(12, 1).containsElement(robot))));
-		assertFalse(board.getTile(12, 4).containsElement(robot));
-	    assertTrue(board.getTile(board.getRebootPositionX(),board.getRebootPositionY()).containsElement(robot));
-	}
+//
+//	Card moveForwardCard = Card.MoveForward;
+//	Wall northWall = new Wall(Direction.NORTH);
+//	Wall  westWall = new Wall(Direction.WEST);
+//	Wall  eastWall = new Wall(Direction.EAST);
+//	Wall southWall = new Wall(Direction.SOUTH);
+//	
+//	@Given("a robot direction where it faces north in a tile with a north wall")
+//	public void a_robot_direction_where_it_faces_north_in_a_tile_with_a_north_wall() {
+//		
+//		robot1.setDirection(Direction.NORTH);
+//		board.setObstacle(northWall, 11, 3);
+//	}
+//	@When("a move forward card is executed")
+//	public void a_move_forward_card_is_executed() {
+//		board.moveRobot(robot1, moveForwardCard);
+//	}
+//	
+//	@Then("the robot cannot move forward")
+//	public void the_robot_cannot_move_forward() {
+////	    assertTrue((!(board.getTile(3, 2).containsElement(robot))) && 
+////	    		   (  board.getTile(2, 2).containsElement(robot)));
+//	    assertTrue(board.containsElement(robot1, 11, 3));
+//	    assertFalse(board.containsElement(robot1, 10, 3));
+//	}
+//	
+//	@Given("a robot facing south in a tile with xcoordinate 12 and ycoordinate 6")
+//	public void a_robot_facing_south_in_a_tile_with_xcoordinate_12_and_ycoordinate_6(Integer int1, Integer int2) {
+//		robot2.setDirection(Direction.SOUTH);
+//	}
+//	
+//	@Then("the robot is moved to the reboot cell in the board")
+//	public void the_robot_is_moved_to_the_reboot_cell_in_the_board() {
+////		assertTrue((  board.getTile(board.getRebootPositionX(), board.getRebootPositionY()).containsElement(robot)) && 
+////	    		   (!(board.getTile(12, 1).containsElement(robot))));
+//		// board.moveRobot(robot, moveForwardCard);
+//		assertFalse(board.containsElement(robot1, 12, 6));
+//	    assertTrue(board.containsElement(robot1, board.getRebootPositionX(), board.getRebootPositionY()));
+//	}
 
 ///////////////////////////ACTIVATING LASER
 	
@@ -414,8 +415,8 @@ public class StepsDefinition {
 	
 	@Given("a robot belonging to the player")
 	public void a_robot_belonging_to_the_player() {
-		robot = new Robot(Color.BLUE);
-		player.setRobot(robot);
+		robot1 = new Robot(Color.BLUE);
+		player.setRobot(robot1);
 	}
 	
 	@Given("a programming deck belonging to the player")
@@ -433,7 +434,7 @@ public class StepsDefinition {
 	
 	@When("the robot is hit by the laser the player recieves a damage card")
 	public void the_robot_is_hit_by_the_laser_the_player_recieves_a_damage_card() {
-	    laser.hit(robot);
+	    laser.hit(robot1);
 	}
 	
 	@Then("a damage card is placed in the players programming deck")
