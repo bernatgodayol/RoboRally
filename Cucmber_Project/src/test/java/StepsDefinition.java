@@ -309,7 +309,7 @@ public class StepsDefinition {
 		board.getTile(2, 3).addElement(northWall);
 		board.getTile(2, 3).addElement(robot);
 	}
-	@When("a move forward card is executed_1")
+	@When("a move forward card is executed")
 	public void a_move_forward_card_is_executed() {
 		board.moveRobot(2, 3, robot, moveForwardCard);
 	}
@@ -322,10 +322,10 @@ public class StepsDefinition {
 	    assertFalse(board.getTile(1, 3).containsElement(robot));
 	}
 	
-	@Given("a robot facing south in a tile with xcoodinate 12 and ycoordinate 4")
+	@Given("a robot facing south in a tile with xcoodinate {int} and ycoordinate {int}")
 	public void a_robot_facing_south_in_a_tile_with_xcoodinate_12_and_ycoordinate_4(Integer int1, Integer int2) {
 		robot.setDirection(Direction.SOUTH);
-		board.getTile(12, 4).addElement(robot);
+		board.getTile(int1, int2).addElement(robot);
 	}
 	
 	@When("a move forward card is executed_2")
