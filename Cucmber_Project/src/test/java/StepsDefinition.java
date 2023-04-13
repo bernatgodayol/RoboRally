@@ -477,6 +477,6 @@ public class StepsDefinition {
 	public void a_damage_card_is_placed_in_the_players_programming_deck() {
 		assertTrue(player.getProgrammingDeck().contains(Card.Damage));
 	}
-	 
+
 }
 
