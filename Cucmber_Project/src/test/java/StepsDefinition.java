@@ -206,23 +206,15 @@ public class StepsDefinition {
 	@When("the {int} random cards are selected from the programming deck")
 	public void the_random_cards_are_selected_from_the_programming_deck(Integer int1) {
 	    // Write code here that turns the phrase above into concrete actions
-	    programmingDeck.moveRandomCards(playingDeck, int1);
+	    player.getProgrammingDeck().moveRandomCards(player.getPlayingDeck(), int1);
 	}
 	@Then("the cards are moved to the playing deck")
 	public void the_cards_are_moved_to_the_playing_deck() {
 	    // Write code here that turns the phrase above into concrete actions
-	    assertTrue(playingDeck.getDeckSize() == 9 && programmingDeck.getDeckSize() == initialSizeProgrammingDeck - 9);
+	    assertTrue(player.getPlayingDeck().getDeckSize() == 9 && player.getProgrammingDeck().getDeckSize() == initialSizeProgrammingDeck - 9);
 	}
 
 /////////////////// MOVING CARDS FROM PLAYING DECK TO ACTION DECK
-	
-    // @Given("a player")
-    // public void a_player() {	
-    // }
-    
-    // @Given("a playing deck that belongs to the player")
-    // public void a_playing_deck_that_belongs_to_the_player() {
-    // }
     
     @Given("an action deck that belongs to the player")
     public void an_action_deck_that_belongs_to_the_player() {
@@ -230,16 +222,17 @@ public class StepsDefinition {
 		player.setActionDeck(actionDeck);
     }
     
-    int indexChoosenCard;
-    
     @When("the player chooses one card")
     public void the_player_chooses_one_card() {
-    	indexChoosenCard = 4;
+    	int indexChoosenCard = 4;
+    	player.setPlayingDeck(playingDeck);
+    	player.getProgrammingDeck().moveRandomCards(player.getPlayingDeck(), 4);
+    	player.getPlayingDeck().moveCard(indexChoosenCard, player.getActionDeck());
     }
     
     @Then("the card is moved from the playing deck to the action deck")
     public void the_card_is_moved_from_the_playing_deck_to_the_action_deck() {
-    	playingDeck.moveCard(indexChoosenCard, actionDeck);
+    	assertTrue(player.getActionDeck().contains(card));
     }
     
 ////////////////ASSIGNING ROBOT STARTING POSITION
@@ -409,7 +402,7 @@ public class StepsDefinition {
 	
 	@Then("the cards are moved from the playing deck to the discard deck")
 	public void the_cards_are_moved_from_the_playing_deck_to_the_discard_deck() {
-//		assertTrue(player.getPlayingDeck().deckIsEmpty());
+		assertTrue(player.getPlayingDeck().deckIsEmpty());
 		assertTrue(player.getDiscardDeck().contains(Card.RightTurn));
 		
 		
