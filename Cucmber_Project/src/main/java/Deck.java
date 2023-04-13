@@ -11,20 +11,20 @@ public class Deck {
 	}
 	
 	public int getDeckSize() {
-		return deck.size();
+		return this.deck.size();
 	}
 	
 	public void addCard(Card card) {
-		deck.add(card);
+		this.deck.add(card);
 	}
 
 	public boolean contains(Card card) {
-		return deck.contains(card);
+		return this.deck.contains(card);
 	}
 	
 	public Card extractCard(int i) {
-		Card card = deck.get(i);
-		deck.remove(i);
+		Card card = this.deck.get(i);
+		this.deck.remove(i);
 		System.out.println("Successfully extracted card !!!!");
 		return card;
 	}
@@ -34,9 +34,9 @@ public class Deck {
 	    if (this.deck.size() > numCards) {
 	        for (int i = 0; i < numCards; i++) {
 	            int index = rand.nextInt(deck.size());
-	            Card card = deck.get(index);
+	            Card card = this.deck.get(index);
 	            otherDeck.getDeck().add(card);
-	            deck.remove(index);
+	            this.deck.remove(index);
 	        }
 	        System.out.println("Successfully moved random cards!");
 	    } else {
@@ -64,7 +64,7 @@ public class Deck {
 	}
 	
 	public void moveCard(int index, Deck otherDeck) {
-	    if (this.deck.size() > index && index > -1) {
+	    if (this.deck.size() >= index && index > -1) {
 	    	Card card = this.deck.get(index);
 	    	int count = 0;
 		    for (Card element : otherDeck.getDeck()) {
