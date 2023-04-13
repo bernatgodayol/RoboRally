@@ -4,7 +4,6 @@ Feature: Choosing a card from the playing deck recieved in the programming phase
 	@tag1
   Scenario: Succesfully choosing a cards from the playing deck
 		Given a player
-		And a programming deck that belongs to the player
     And a playing deck that belongs to the player
     And an action deck that belongs to the player
     When the player chooses one card
