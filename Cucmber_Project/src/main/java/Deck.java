@@ -64,17 +64,10 @@ public class Deck {
 	}
 	
 	public void moveCard(int index, Deck otherDeck) {
-	    if (this.deck.size() >= index && index > -1) {
+	    if (this.deck.size() > index && index > -1) {
 	    	Card card = this.deck.get(index);
-	    	int count = 0;
-		    for (Card element : otherDeck.getDeck()) {
-		        if (element == null) {
-		            otherDeck.getDeck().set(count, card);
-		            this.deck.set(index, null);
-		            break;
-		        }
-		        count++;
-		    }
+	    	this.deck.remove(index);
+	    	otherDeck.addCard(card);
 	    } else {
 	    	System.out.println("Index is not valid");
 	    }

@@ -191,12 +191,12 @@ public class StepsDefinition {
 	@When("the {int} random cards are selected from the programming deck")
 	public void the_random_cards_are_selected_from_the_programming_deck(int numCards) {
 	// Write code here that turns the phrase above into concrete actions
-	programmingDeck.moveRandomCards(playingDeck, 9);
+	player.getProgrammingDeck().moveRandomCards(playingDeck, 9);
 	}
 	@Then("the cards are moved to the playing deck")
 	public void the_cards_are_moved_to_the_playing_deck() {
 	// Write code here that turns the phrase above into concrete actions
-	 assertTrue(playingDeck.getDeckSize() == 9 && programmingDeck.getDeckSize() == initialSizeProgrammingDeck - 9);
+	 assertTrue(player.getPlayingDeck().getDeckSize() == 9 && player.getProgrammingDeck().getDeckSize() == initialSizeProgrammingDeck - 9);
 	}
 
 ////////////////ASSIGNING STARTING DECK OF DISCARD CARDS TO PLAYER
@@ -214,42 +214,6 @@ public class StepsDefinition {
 	public void the_player_has_that_discard_deck_of_cards() {
 		assertEquals(player.getDiscardDeck(), discardDeck);
 	}
-//<<<<<<< HEAD
-//=======
-//	}	
-//
-////////////////// PLAYER RECIEVES 9 CARDS FROM PROGRAMMING DECK TO PLAYING DECK
-//	
-//	@Given("a programming deck that belongs to the player")
-//	public void a_programming_deck_that_belongs_to_the_player() {
-//	    // Write code here that turns the phrase above into concrete actions
-//		programmingDeck = new Deck();
-//		player.setProgrammingDeck(programmingDeck);
-//		player.getProgrammingDeck().initializeProgrammingDeck();
-//		initialSizeProgrammingDeck = player.getProgrammingDeck().getDeckSize();
-//		
-//	}
-//	
-//	@Given("a playing deck that belongs to the player")
-//	public void a_playing_deck_that_belongs_to_the_player() {
-//	    // Write code here that turns the phrase above into concrete actions
-//		playingDeck = new Deck();
-//		player.setPlayingDeck(playingDeck);
-//	}
-//	
-//	
-//	@When("the {int} random cards are selected from the programming deck")
-//	public void the_random_cards_are_selected_from_the_programming_deck(Integer int1) {
-//	    // Write code here that turns the phrase above into concrete actions
-//	    player.getProgrammingDeck().moveRandomCards(player.getPlayingDeck(), int1);
-//	}
-//	@Then("the cards are moved to the playing deck")
-//	public void the_cards_are_moved_to_the_playing_deck() {
-//	    // Write code here that turns the phrase above into concrete actions
-//	    assertTrue(player.getPlayingDeck().getDeckSize() == 9 && player.getProgrammingDeck().getDeckSize() == initialSizeProgrammingDeck - 9);
-//>>
-//>>>>> refs/heads/FixingUserStoryReceive9Cards
-//	}
 
 /////////////////// MOVING CARDS FROM PLAYING DECK TO ACTION DECK
     
@@ -262,14 +226,15 @@ public class StepsDefinition {
     @When("the player chooses one card")
     public void the_player_chooses_one_card() {
     	int indexChoosenCard = 4;
-    	player.setPlayingDeck(playingDeck);
-    	player.getProgrammingDeck().moveRandomCards(player.getPlayingDeck(), 4);
+    	for(int i=0; i<5; i++) {
+    		player.getPlayingDeck().addCard(Card.RightTurn);
+    	}
     	player.getPlayingDeck().moveCard(indexChoosenCard, player.getActionDeck());
     }
     
     @Then("the card is moved from the playing deck to the action deck")
     public void the_card_is_moved_from_the_playing_deck_to_the_action_deck() {
-    	assertTrue(player.getActionDeck().contains(card));
+    	assertTrue(player.getPlayingDeck().contains(Card.RightTurn));
     }
     
 ////////////////ASSIGNING ROBOT STARTING POSITION
