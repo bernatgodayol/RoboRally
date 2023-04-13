@@ -319,7 +319,6 @@ public class StepsDefinition {
 	
 	@Given("a robot direction where it faces north in a tile with a north wall")
 	public void a_robot_direction_where_it_faces_north_in_a_tile_with_a_north_wall() {
-		
 		robot.setDirection(Direction.NORTH);
 		board.getTile(2, 3).addElement(northWall);
 		board.getTile(2, 3).addElement(robot);
@@ -344,7 +343,7 @@ public class StepsDefinition {
 	}
 	
 	@When("a move forward card is executed_2")
-	public void a_move_forward_card_is_executed() {
+	public void a_move_forward_card_is_executed_2() {
 		board.moveRobot(12, 4, robot, moveForwardCard);
 	}
 	

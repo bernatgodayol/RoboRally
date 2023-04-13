@@ -3,6 +3,8 @@ public class Board {
 	protected Tile[][] grid;
 	protected int rebootPositionX;
 	protected int rebootPositionY;
+//	protected int robotPositionX;
+//	protected int robotPositionY;
 	protected int ROWS=13;
 	protected int COLUMNS=10;
 	
