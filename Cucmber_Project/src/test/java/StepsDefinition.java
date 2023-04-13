@@ -188,7 +188,11 @@ public class StepsDefinition {
 	@Given("a programming deck that belongs to the player")
 	public void a_programming_deck_that_belongs_to_the_player() {
 	    // Write code here that turns the phrase above into concrete actions
-		initialSizeProgrammingDeck = programmingDeck.getDeckSize();
+		programmingDeck = new Deck();
+		player.setProgrammingDeck(programmingDeck);
+		player.getProgrammingDeck().initializeProgrammingDeck();
+		initialSizeProgrammingDeck = player.getProgrammingDeck().getDeckSize();
+		
 	}
 	
 	@Given("a playing deck that belongs to the player")
@@ -202,7 +206,7 @@ public class StepsDefinition {
 	@When("the {int} random cards are selected from the programming deck")
 	public void the_random_cards_are_selected_from_the_programming_deck(Integer int1) {
 	    // Write code here that turns the phrase above into concrete actions
-	    programmingDeck.moveRandomCards(playingDeck, numCards);
+	    programmingDeck.moveRandomCards(playingDeck, int1);
 	}
 	@Then("the cards are moved to the playing deck")
 	public void the_cards_are_moved_to_the_playing_deck() {
@@ -375,29 +379,44 @@ public class StepsDefinition {
 	
 
 /////////////////////PLACING REMAINING CARDS FROM PLAYING DECK IN DISCARD DECK
-	
-	// @Given("a playing deck that belongs to the player")
-	// public void a_playing_deck_that_belongs_to_the_player() {
-	// }
-	
-    // @Given("a discard deck that belongs to a player")
- 	// public void a_discard_deck_that_belongs_to_the_player() {
- 	// }
-    
-	@When("the playing deck contains 4 cards")
-	public void the_playing_deck_contains_4_cards() {
-		assertTrue(playingDeck.getDeckSize() == 4);
-	}
-	
-	@Then("the cards are moved to the discard deck")
-	public void the_cards_are_moved_to_the_discard_deck() {
-	    for (int i = 0; i < 3; i++) {
-	        playingDeck.moveCard(i, actionDeck);
+
+
+	@Given("a playing deck with {int} cards")
+	public void a_playing_deck_with_cards(Integer int1) {
+	    playingDeck = new Deck();
+	    
+	    for(int i=0; i<int1; i++) {
+	    	playingDeck.addCard(Card.RightTurn);
 	    }
 	}
 	
+	@Given("the decks belongs to the player")
+	public void the_decks_belongs_to_the_player() {
+	    player.setPlayingDeck(playingDeck);
+	    player.setDiscardDeck(discardDeck);
+	}
+	
+	@When("the playing deck contains {int} cards")
+	public void the_playing_deck_contains_cards(Integer int1) {
+		if(playingDeck.getDeckSize() == int1) {
+			for (int i = 0; i < int1; i++) {
+//		        player.getPlayingDeck().moveCard(i, player.getDiscardDeck());
+				player.getDiscardDeck().addCard(Card.RightTurn);
+				player.getPlayingDeck().removeCard(Card.RightTurn);
+		    }
+		}
+	}
+	
+	@Then("the cards are moved from the playing deck to the discard deck")
+	public void the_cards_are_moved_from_the_playing_deck_to_the_discard_deck() {
+//		assertTrue(player.getPlayingDeck().deckIsEmpty());
+		assertTrue(player.getDiscardDeck().contains(Card.RightTurn));
+		
+		
+	}
+	
 
-/////////////////////////////////////////////////////
+////////////////////////DAMAGE CARDS
 	
 	@Given("a robot belonging to the player")
 	public void a_robot_belonging_to_the_player() {

@@ -40,21 +40,21 @@ public class Deck {
 	
 	public void initializeProgrammingDeck() {
 		for (int i=0; i<5; i++) {
-			deck.add(Card.MoveForward);
+			this.deck.add(Card.MoveForward);
 		}
 		for (int i=0; i<2; i++) {
-			deck.add(Card.UTurn);
+			this.deck.add(Card.UTurn);
 		}
 		for (int i=0; i<5; i++) {
-			deck.add(Card.LeftTurn);
+			this.deck.add(Card.LeftTurn);
 		}
 		for (int i=0; i<5; i++) {
-			deck.add(Card.RightTurn);
+			this.deck.add(Card.RightTurn);
 		}
 	}
 	
 	public void moveCard(int index, Deck anotherDeck) {
-	    if (deck.size()> index && index > -1) {
+	    if (this.deck.size()> index && index > -1) {
 	    	Card card = this.deck.get(index);
 	    	int count = 0;
 		    for (Card element : anotherDeck.getDeck()) {
@@ -71,11 +71,11 @@ public class Deck {
 	}
 
 	public boolean deckIsEmpty() {
-		return deck.isEmpty();
+		return this.deck.isEmpty();
 	}
 
-//	public Card extractFirstCard() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}	
+	public void removeCard(Card card) {
+		this.deck.remove(card);
+	}
+
 }
