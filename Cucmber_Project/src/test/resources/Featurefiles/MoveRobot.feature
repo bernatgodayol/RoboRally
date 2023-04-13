@@ -19,7 +19,7 @@ Feature: The robot is moved according to the programming cards
   	Given a board
   	And a robot
   	And a robot direction where it faces north in a tile with a north wall
-    When a move forward card is executed 1
+    When a move forward card is executed
     Then the robot cannot move forward
     
   @tag3
@@ -27,5 +27,5 @@ Feature: The robot is moved according to the programming cards
   	Given a board
   	And a robot
   	And a robot facing south in a tile with xcoodinate 12 and ycoordinate 4
-  	When a move forward card is executed 2
+  	When a move forward card is executed
   	Then the robot is moved to the reboot cell in the board

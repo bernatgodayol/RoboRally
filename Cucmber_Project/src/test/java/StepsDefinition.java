@@ -325,7 +325,7 @@ public class StepsDefinition {
 		board.getTile(2, 3).addElement(robot);
 	}
 	@When("a move forward card is executed_1")
-	public void a_move_forward_card_is_executed_1() {
+	public void a_move_forward_card_is_executed() {
 		board.moveRobot(2, 3, robot, moveForwardCard);
 	}
 	
@@ -344,7 +344,7 @@ public class StepsDefinition {
 	}
 	
 	@When("a move forward card is executed_2")
-	public void a_move_forward_card_is_executed_2() {
+	public void a_move_forward_card_is_executed() {
 		board.moveRobot(12, 4, robot, moveForwardCard);
 	}
 	
