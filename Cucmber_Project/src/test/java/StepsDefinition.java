@@ -13,6 +13,7 @@ public class StepsDefinition {
 	Board board;
 	Direction direction;
 	Card card;
+	Card extractedCard;
 	Deck discardDeck;
 	Deck programmingDeck;
 	Deck playingDeck;
@@ -159,12 +160,43 @@ public class StepsDefinition {
 	@When("the player is assigned the deck of cards")
 	public void the_player_is_assigned_the_deck_of_cards() {
 		programmingDeck.initializeProgrammingDeck();
+		
 	    player.setProgrammingDeck(programmingDeck);
 	}
 	
 	@Then("the player has that deck of cards") 
 	public void the_player_has_that_deck_of_cards() {
 		assertEquals(player.getProgrammingDeck(), programmingDeck);
+	}
+
+////////////////PLAYER RECIEVES 9 CARDS FROM PROGRAMMING DECK TO PLAYING DECK
+	
+	@Given("a programming deck that belongs to the player")
+	public void a_programming_deck_that_belongs_to_the_player() {
+	// Write code here that turns the phrase above into concrete actions
+	programmingDeck = new Deck();
+	player.setProgrammingDeck(programmingDeck);
+	player.getProgrammingDeck().initializeProgrammingDeck();
+	initialSizeProgrammingDeck = player.getProgrammingDeck().getDeckSize();
+	System.out.println(initialSizeProgrammingDeck);
+	}
+	
+	@Given("a playing deck that belongs to the player")
+	public void a_playing_deck_that_belongs_to_the_player() {
+	// Write code here that turns the phrase above into concrete actions
+	playingDeck = new Deck();
+	player.setPlayingDeck(playingDeck);
+	}
+	
+	@When("the {int} random cards are selected from the programming deck")
+	public void the_random_cards_are_selected_from_the_programming_deck(int numCards) {
+	// Write code here that turns the phrase above into concrete actions
+	programmingDeck.moveRandomCards(playingDeck, 9);
+	}
+	@Then("the cards are moved to the playing deck")
+	public void the_cards_are_moved_to_the_playing_deck() {
+	// Write code here that turns the phrase above into concrete actions
+	 assertTrue(playingDeck.getDeckSize() == 9 && programmingDeck.getDeckSize() == initialSizeProgrammingDeck - 9);
 	}
 
 ////////////////ASSIGNING STARTING DECK OF DISCARD CARDS TO PLAYER
@@ -181,37 +213,6 @@ public class StepsDefinition {
 	@Then("the player has that discard deck of cards")
 	public void the_player_has_that_discard_deck_of_cards() {
 		assertEquals(player.getDiscardDeck(), discardDeck);
-	}	
-
-//////////////// PLAYER RECIEVES 9 CARDS FROM PROGRAMMING DECK TO PLAYING DECK
-	
-	@Given("a programming deck that belongs to the player")
-	public void a_programming_deck_that_belongs_to_the_player() {
-	    // Write code here that turns the phrase above into concrete actions
-		programmingDeck = new Deck();
-		player.setProgrammingDeck(programmingDeck);
-		player.getProgrammingDeck().initializeProgrammingDeck();
-		initialSizeProgrammingDeck = player.getProgrammingDeck().getDeckSize();
-		
-	}
-	
-	@Given("a playing deck that belongs to the player")
-	public void a_playing_deck_that_belongs_to_the_player() {
-	    // Write code here that turns the phrase above into concrete actions
-		playingDeck = new Deck();
-		player.setPlayingDeck(playingDeck);
-	}
-	
-	
-	@When("the {int} random cards are selected from the programming deck")
-	public void the_random_cards_are_selected_from_the_programming_deck(Integer int1) {
-	    // Write code here that turns the phrase above into concrete actions
-	    programmingDeck.moveRandomCards(playingDeck, int1);
-	}
-	@Then("the cards are moved to the playing deck")
-	public void the_cards_are_moved_to_the_playing_deck() {
-	    // Write code here that turns the phrase above into concrete actions
-	    assertTrue(playingDeck.getDeckSize() == 9 && programmingDeck.getDeckSize() == initialSizeProgrammingDeck - 9);
 	}
 
 /////////////////// MOVING CARDS FROM PLAYING DECK TO ACTION DECK
@@ -264,7 +265,7 @@ public class StepsDefinition {
 //		assertEquals(board.getTile(robotPositionX, robotPositionY), robot);
 	}
 
-////////////////MOVE ROBOT ACCORDING TO CARD, COLLISION WITH WALL AND REBOOT CELL
+/////////////////MOVE ROBOT ACCORDING TO CARD, COLLISION WITH WALL AND REBOOT CELL
 
 	@Given("a board")
 	public void a_board() {
@@ -275,38 +276,41 @@ public class StepsDefinition {
 	@Given("an action deck of cards that belongs to the player")
 	public void an_action_deck_of_cards() {
 	// Write code here that turns the phrase above into concrete actions
+		player = new Player("Mejse");
 		actionDeck = new Deck();
 		player.setActionDeck(actionDeck);
 	}
 	
-	@Given("a robot in the cell with xcoordinate {int} and ycoordinate {int} with direction north")
-	public void a_robot_in_the_cell_with_xcoordinate_and_ycoordinate_with_diretion_north(Integer int1, Integer int2) {
+	@Given("a robot in the cell with xcoordinate 2 and ycoordinate 3 with direction north")
+	public void a_robot_in_the_cell_with_xcoordinate__2_and_ycoordinate_3_with_diretion_north() {
+		robot = new Robot(Color.BLUE);
+		player.setRobot(robot);
 		direction = Direction.NORTH;
 		robot.setDirection(direction);
-		board.getTile(int1, int2).addElement(robot);
+		board.getTile(2, 3).addElement(robot);
+		player.setDiscardDeck(discardDeck);
 	}
 	
 	@When("an action card is played")
 	public void an_action_card_is_played() {
 //		card = actionDeck.extractFirstCard();
-		player.getActionDeck().addCard(Card.MoveForward);
-		int oldX = 11;
-		int oldY = 1;
-		board.moveRobot(oldX, oldY, robot, player.getActionDeck().extractCard(0));
-		player.setDiscardDeck(discardDeck);
-		player.getDiscardDeck().addCard(card);
+		card = Card.MoveForward;
+		player.getActionDeck().addCard(card);
+		extractedCard = player.getActionDeck().extractCard(0);
+		board.moveRobot(2, 3, robot, extractedCard);
+		player.getDiscardDeck().addCard(extractedCard);
 	}
 	
 	@Then("the card is moved from the action deck of cards to the discard deck of cards")
 	public void the_card_is_moved_from_the_action_deck_of_cards_to_the_discard_deck_of_cards() {
 		assertTrue(player.getActionDeck().deckIsEmpty());
-		assertEquals(player.getDiscardDeck().extractCard(0),Card.MoveForward);
+		assertEquals(player.getDiscardDeck().extractCard(0), Card.MoveForward);
 	}
 	
 	@Then("the robot is moved according to the programming card")
 	public void the_robot_is_moved_according_to_the_programming_card() {
-		assertFalse(board.getTile(11, 1).containsElement(robot));
-		assertTrue(board.getTile(10,1).containsElement(robot));
+		assertTrue(!(board.getTile(2, 3).containsElement(robot)));
+		assertTrue(board.getTile(1,3).containsElement(robot));
 	}
 //	@Then("the card is placed in the discard deck of cards")
 //	public void the_card_is_placed_in_the_discard_deck_of_cards() {
@@ -411,8 +415,6 @@ public class StepsDefinition {
 	public void the_cards_are_moved_from_the_playing_deck_to_the_discard_deck() {
 //		assertTrue(player.getPlayingDeck().deckIsEmpty());
 		assertTrue(player.getDiscardDeck().contains(Card.RightTurn));
-		
-		
 	}
 	
 

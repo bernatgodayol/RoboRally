@@ -25,16 +25,22 @@ public class Deck {
 	public Card extractCard(int i) {
 		Card card = deck.get(i);
 		deck.remove(i);
+		System.out.println("Successfully extracted card !!!!");
 		return card;
 	}
 	
 	public void moveRandomCards(Deck otherDeck, Integer numCards) {
 	    Random rand = new Random();
-	    for (int i = 0; i < numCards; i++) {
-	        int index = rand.nextInt(deck.size());
-	        Card card = deck.get(index);
-	        otherDeck.getDeck().set(i, card);
-	        deck.remove(index);
+	    if (this.deck.size() > numCards) {
+	        for (int i = 0; i < numCards; i++) {
+	            int index = rand.nextInt(deck.size());
+	            Card card = deck.get(index);
+	            otherDeck.getDeck().add(card);
+	            deck.remove(index);
+	        }
+	        System.out.println("Successfully moved random cards!");
+	    } else {
+	        System.out.println("Cannot move random cards!");
 	    }
 	}
 	
@@ -51,15 +57,19 @@ public class Deck {
 		for (int i=0; i<5; i++) {
 			this.deck.add(Card.RightTurn);
 		}
+
+		// int initialSizeProgrammingDeck = deck.size();
+		// System.out.println(initialSizeProgrammingDeck);
+		System.out.println("Successfully initialized programming deck !!!!!");
 	}
 	
-	public void moveCard(int index, Deck anotherDeck) {
-	    if (this.deck.size()> index && index > -1) {
+	public void moveCard(int index, Deck otherDeck) {
+	    if (this.deck.size() > index && index > -1) {
 	    	Card card = this.deck.get(index);
 	    	int count = 0;
-		    for (Card element : anotherDeck.getDeck()) {
+		    for (Card element : otherDeck.getDeck()) {
 		        if (element == null) {
-		            anotherDeck.getDeck().set(count, card);
+		            otherDeck.getDeck().set(count, card);
 		            this.deck.set(index, null);
 		            break;
 		        }
@@ -68,6 +78,7 @@ public class Deck {
 	    } else {
 	    	System.out.println("Index is not valid");
 	    }
+	    System.out.println("Successfully moved cards !!!!!");
 	}
 
 	public boolean deckIsEmpty() {

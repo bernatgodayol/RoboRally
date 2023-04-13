@@ -9,10 +9,10 @@ Feature: The robot is moved according to the programming cards
     And a robot
     And an action deck of cards that belongs to the player
     And a discard deck of cards
-    And a robot in the cell with xcoordinate 11 and ycoordinate 1 with direction north
+    And a robot in the cell with xcoordinate 2 and ycoordinate 3 with direction north
     When an action card is played
-    Then the robot is moved according to the programming card
-    And the card is moved from the action deck of cards to the discard deck of cards
+    Then the card is moved from the action deck of cards to the discard deck of cards
+    And the robot is moved according to the programming card
     
   @tag2
   Scenario: Successfully making the robot stop when it hits a wall

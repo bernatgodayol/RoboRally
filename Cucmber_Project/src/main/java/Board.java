@@ -61,21 +61,22 @@ public class Board {
 	}
 	
 	public void moveRobot(int oldX, int oldY, Robot robot, Card card) {
-		if (grid[oldX][oldY].containsElement(robot)) {
+		
+		if (oldX > 0 && oldX < ROWS && oldY > 0 && oldY > COLUMNS && grid[oldX][oldY].containsElement(robot)) {
 			
 			if (card.equals(Card.MoveForward)) {
 				grid[oldX][oldY].removeElement(robot);
 				if (robot.getDirection() == Direction.NORTH) {
 					// if the robot goes out of the board
-					if ((oldX-1 < 0 && oldX-1 > ROWS-1) || (oldY-1 < 0 && oldY-1 > COLUMNS-1)) {
+					if (oldX-1 < 0 && oldX-1 > ROWS) {
 						grid[rebootPositionX][rebootPositionY].addElement(robot);
 						System.out.println("The robot went out of the board!");
 					// if the robot hits a wall
-					} else if ((grid[oldX-1][oldY-1].containsElement(new Wall(Direction.SOUTH))) ||
-							   (grid[oldX][oldY]    .containsElement(new Wall(Direction.NORTH)))) {
+					} else if ((grid[oldX-1][oldY].containsElement(new Wall(Direction.SOUTH))) ||
+							   (grid[oldX][oldY]  .containsElement(new Wall(Direction.NORTH)))) {
 						System.out.println("The robot hitted a wall!");
 					} else {
-						grid[oldX-1][oldY-1].addElement(robot);
+						grid[oldX-1][oldY].addElement(robot);
 					}
 				} else if (robot.getDirection() == Direction.EAST) {
 					// if the robot goes out of the board
