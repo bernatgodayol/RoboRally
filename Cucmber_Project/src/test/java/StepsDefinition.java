@@ -23,9 +23,12 @@ public class StepsDefinition {
 	Deck actionDeck1;
 	Laser laser;
 	int numCards9 = 9;
+	int numCards4 = 4;
 	int indexCard = 2;
 	int initialSizeProgrammingDeck;
 	int size1;
+	int size2;
+	Reboot reboot;
 
 /////////////////
 // GAME SET UP //
@@ -178,6 +181,7 @@ public class StepsDefinition {
 	public void the_player_has_a_programming_deck_of_cards() {
 	    assertTrue(player1.getProgrammingDeck().equals(programmingDeck1));
 	    assertTrue(player1.getProgrammingDeck().getDeckSize() == 17);
+	}
 
 	@Given("a playing deck of cards")
 	public void a_playing_deck_of_cards() {
@@ -309,51 +313,81 @@ public class StepsDefinition {
 	public void the_card_is_not_in_the_playing_deck() {
 	    assertTrue(playingDeck1.getDeckSize() == size1 - 1);
 	}
-
-/////////////////MOVE ROBOT ACCORDING TO CARD, COLLISION WITH WALL AND REBOOT CELL
-
-	@Given("a board")
-	public void a_board() {
-		board = new Board();
-		board.initialize5B();
+	
+	//////////////////////////////////
+	// U7 : DISCARD REMAINING CARDS //
+	//////////////////////////////////
+	
+	@Given("a playing deck with {int} cards")
+	public void a_playing_deck_with_cards(Integer numCards4) {
+		playingDeck1 = new Deck();
+		for (int i=0; i<4; i++) {
+	    	playingDeck1.addCard(Card.RightTurn);
+	    }
 	}
 	
-
-	@Given("an action deck of cards that belongs to the player")
-	public void an_action_deck_of_cards() {
-	// Write code here that turns the phrase above into concrete actions
-		player = new Player("Mejse");
-		actionDeck = new Deck();
-		player.setActionDeck(actionDeck);
-		player.setRobot(robot1);
-		robot1.setDirection(Direction.NORTH);
-	
-	@When("an action card is played")
-	public void an_action_card_is_played() {
-//		card = actionDeck.extractFirstCard();
-		card = Card.MoveForward;
-		player.getActionDeck().addCard(card);
-		extractedCard = player.getActionDeck().extractCard(0);
-		board.moveRobot(robot1, extractedCard);
-		player.setDiscardDeck(discardDeck);
-		player.getDiscardDeck().addCard(extractedCard);
+	@When("the cards are moved from the playing deck to the discard deck")
+	public void the_cards_are_moved_from_the_playing_deck_to_the_discard_deck() {
+		for (int i=0; i<4; i++) {
+			playingDeck1.moveCard(0, discardDeck1);
+	    }
 	}
 	
-	@Then("the card is moved from the action deck of cards to the discard deck of cards")
-	public void the_card_is_moved_from_the_action_deck_of_cards_to_the_discard_deck_of_cards() {
-		assertTrue(player.getActionDeck().deckIsEmpty());
-		assertTrue(player.getDiscardDeck().getCard(0) == Card.MoveForward);
+	@Then("the cards are in the discard deck")
+	public void the_cards_are_in_the_discard_deck() {
+	    assertTrue(discardDeck1.getDeckSize() == numCards4);
 	}
 	
-	@Then("the robot is moved according to the programming card")
-	public void the_robot_is_moved_according_to_the_programming_card() {
-		assertFalse(board.containsElement(robot1, 12, 3));
-		assertTrue(board.containsElement(robot1, 11, 3));
+	@Then("the cards are not in the playing deck")
+	public void the_cards_are_not_in_the_playing_deck() {
+	    assertTrue(playingDeck1.deckIsEmpty());
 	}
-    @Then("the card is placed in the discard deck of cards")
-    public void the_card_is_placed_in_the_discard_deck_of_cards() {
-		assertTrue(discardDeck.contains(card));
-	}
+	
+	
+///////////////////MOVE ROBOT ACCORDING TO CARD, COLLISION WITH WALL AND REBOOT CELL
+//
+//	@Given("a board")
+//	public void a_board() {
+//		board = new Board();
+//		board.initialize5B();
+//	}
+//	
+//
+//	@Given("an action deck of cards that belongs to the player")
+//	public void an_action_deck_of_cards() {
+//	// Write code here that turns the phrase above into concrete actions
+//		player = new Player("Mejse");
+//		actionDeck = new Deck();
+//		player.setActionDeck(actionDeck);
+//		player.setRobot(robot1);
+//		robot1.setDirection(Direction.NORTH);
+//	
+//	@When("an action card is played")
+//	public void an_action_card_is_played() {
+////		card = actionDeck.extractFirstCard();
+//		card = Card.MoveForward;
+//		player.getActionDeck().addCard(card);
+//		extractedCard = player.getActionDeck().extractCard(0);
+//		board.moveRobot(robot1, extractedCard);
+//		player.setDiscardDeck(discardDeck);
+//		player.getDiscardDeck().addCard(extractedCard);
+//	}
+//	
+//	@Then("the card is moved from the action deck of cards to the discard deck of cards")
+//	public void the_card_is_moved_from_the_action_deck_of_cards_to_the_discard_deck_of_cards() {
+//		assertTrue(player.getActionDeck().deckIsEmpty());
+//		assertTrue(player.getDiscardDeck().getCard(0) == Card.MoveForward);
+//	}
+//	
+//	@Then("the robot is moved according to the programming card")
+//	public void the_robot_is_moved_according_to_the_programming_card() {
+//		assertFalse(board.containsElement(robot1, 12, 3));
+//		assertTrue(board.containsElement(robot1, 11, 3));
+//	}
+//    @Then("the card is placed in the discard deck of cards")
+//    public void the_card_is_placed_in_the_discard_deck_of_cards() {
+//		assertTrue(discardDeck.contains(card));
+//	}
 
 //
 //	Card moveForwardCard = Card.MoveForward;
@@ -412,50 +446,13 @@ public class StepsDefinition {
 	public void the_laser_is_active() {
 	    assertEquals(laser.getActive(),true);
 	}
-	
-
-/////////////////////PLACING REMAINING CARDS FROM PLAYING DECK IN DISCARD DECK
-
-
-	@Given("a playing deck with {int} cards")
-	public void a_playing_deck_with_cards(Integer int1) {
-	    playingDeck = new Deck();
-	    
-	    for(int i=0; i<int1; i++) {
-	    	playingDeck.addCard(Card.RightTurn);
-	    }
-	}
-	
-	@Given("the decks belongs to the player")
-	public void the_decks_belongs_to_the_player() {
-	    player.setPlayingDeck(playingDeck);
-	    player.setDiscardDeck(discardDeck);
-	}
-	
-	@When("the playing deck contains {int} cards")
-	public void the_playing_deck_contains_cards(Integer int1) {
-		if(playingDeck.getDeckSize() == int1) {
-			for (int i = 0; i < int1; i++) {
-//		        player.getPlayingDeck().moveCard(i, player.getDiscardDeck());
-				player.getDiscardDeck().addCard(Card.RightTurn);
-				player.getPlayingDeck().removeCard(Card.RightTurn);
-		    }
-		}
-	}
-	
-	@Then("the cards are moved from the playing deck to the discard deck")
-	public void the_cards_are_moved_from_the_playing_deck_to_the_discard_deck() {
-		assertTrue(player.getPlayingDeck().deckIsEmpty());
-		assertTrue(player.getDiscardDeck().contains(Card.RightTurn));
-	}
-	
 
 ////////////////////////DAMAGE CARDS
 	
 	@Given("a robot that belongs to the player")
 	public void a_robot_belonging_to_the_player() {
 		robot1 = new Robot(Color.BLUE);
-		player.setRobot(robot1);
+		player1.setRobot(robot1);
 	}
 	
 	@Given("an active laser")
@@ -471,7 +468,7 @@ public class StepsDefinition {
 	
 	@Then("a damage card is placed in the players programming deck")
 	public void a_damage_card_is_placed_in_the_players_programming_deck() {
-		assertTrue(player.getProgrammingDeck().contains(Card.Damage));
+		assertTrue(player1.getProgrammingDeck().contains(Card.Damage));
 	}
 
 //////////////////////////Player receives damage card when robot in reboot cell
@@ -483,17 +480,17 @@ public class StepsDefinition {
 	
 	@Given("the robot is in the reboot cell")
 	public void the_robot_is_in_the_reboot_cell() {
-		board.getTile(board.getRebootPositionX(), board.getRebootPositionY()).addElement(player.getRobot());
+		board.getTile(board.getRebootPositionX(), board.getRebootPositionY()).addElement(player1.getRobot());
 	}
 	
 	@When("the player receives a damage card")
 	public void the_player_receives_a_damage_card() {
-	    reboot.punishPlayer(robot);
+	    reboot.punishPlayer(robot1);
 	}
 	
 	@Then("that damage card is in the players programming deck")
 	public void that_damage_card_is_in_the_players_programming_deck() {
-	    assertTrue(player.getProgrammingDeck().contains(Card.Damage));
+	    assertTrue(player1.getProgrammingDeck().contains(Card.Damage));
 	}
 	
 	
