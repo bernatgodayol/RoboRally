@@ -12,7 +12,7 @@ public class Board {
 	
 	private Robot robot2;
 	private int robot2PositionX=12;
-	private int robot2PositionY=3;
+	private int robot2PositionY=6;
 	
 	public Board() {
 		grid = new Tile[ROWS][COLUMNS];
@@ -27,7 +27,7 @@ public class Board {
 	public void initialize5B() {
 
 		this.setObstacle(new Wall(Direction.NORTH), 3, 3);
-		grid[3][3].addElement(new Laser());
+		this.setObstacle(new Laser(), 3, 3);
 		grid[4][3].addElement(new Wall(Direction.SOUTH));
 		grid[4][3].addElement(new Laser());
 		grid[3][5].addElement(new Wall(Direction.WEST));
@@ -49,12 +49,22 @@ public class Board {
 	}
 	
 	public void setRobots(Robot robot1) {
-		robot1PositionX = 12;
-		robot1PositionY = 3;
+		robot1.setDirection(Direction.NORTH);
 		this.robot1 = robot1;
 		grid[robot1PositionX][robot1PositionY].addElement(robot1);
 	}
 	
+	// now we only have two players, if we had 3 or 4 players we can have different versions on setRobots method
+		public void setRobots(Robot robot1, Robot robot2) {
+			
+			this.robot1 = robot1;
+			this.robot1.setDirection(Direction.NORTH);
+			grid[robot1PositionX][robot1PositionY].addElement(robot1);
+			this.robot2 = robot2;
+			this.robot2.setDirection(Direction.NORTH);
+			grid[robot2PositionX][robot2PositionY].addElement(robot2);
+		}
+		
 	public void setObstacle(Wall wall, int positionX, int positionY) {
 		grid[positionX][positionY].addElement(wall);
 	}
@@ -69,17 +79,6 @@ public class Board {
 	
 	public boolean isEmpty(int positionX, int positionY) {
 		return grid[positionX][positionY].isEmpty();
-	}
-	
-	// now we only have two players, if we had 3 or 4 players we can have different versions on setRobots method
-	public void setRobots(Robot robot1, Robot robot2) {
-		
-		this.robot1 = robot1;
-		this.robot1.setDirection(Direction.NORTH);
-		grid[robot1PositionX][robot1PositionY].addElement(robot1);
-		this.robot2 = robot2;
-		this.robot2.setDirection(Direction.NORTH);
-		grid[robot2PositionX][robot2PositionY].addElement(robot2);
 	}
 	
 	public int getRobotPositionX(Robot robot) {

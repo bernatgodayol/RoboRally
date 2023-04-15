@@ -8,59 +8,90 @@ import io.cucumber.java.en.When;
 
 public class StepsDefinition {
 	
-	Player player;
+	Player player1;
+	Player player2;
 	Robot robot1;
 	Robot robot2;
 	Board board;
 	Direction direction;
 	Card card;
 	Card extractedCard;
-	Deck discardDeck;
-	Deck programmingDeck;
-	Deck playingDeck;
-	Deck actionDeck;
+	Card choosenCard;
+	Deck discardDeck1;
+	Deck programmingDeck1;
+	Deck playingDeck1;
+	Deck actionDeck1;
 	Laser laser;
-	int numCards = 9;
+	int numCards9 = 9;
+	int indexCard = 2;
 	int initialSizeProgrammingDeck;
+	int size1;
 
-//////////////////ASSIGNING ROBOT TO PLAYER
+/////////////////
+// GAME SET UP //
+/////////////////
+	
+	/////////////////////////////////
+	// U1 : ASSIGN ROBOT TO PLAYER //
+	/////////////////////////////////
 	
 	@Given("a robot")
 	public void a_robot() {
 		robot1 = new Robot(Color.BLUE);
 	}
 	
-	@Given("a player with no robot")
-	public void a_player_with_no_robot() {
-		player = new Player("Mejse");
+	@Given("a player")
+	public void a_player() {
+		player1 = new Player("Mejse");
 	}
 	
 	@When("the robot is assigned to the player")
 	public void the_robot_is_assigned_to_the_player() {
-		player.setRobot(robot1);
+		player1.setRobot(robot1);
 	}
 	
 	@Then("the robot belongs to the player")
 	public void the_robot_belongs_to_the_player() {
-//		assertEquals(player.getRobot().getColor(), Color.BLUE);
-		assertTrue(player.getRobot().equals(new Robot(Color.BLUE))); 
+		assertTrue(player1.getRobot().equals(new Robot(Color.BLUE))); 
 	}
 	
-////////////////////INITIALIZING 5B BOARD
+	@Given("a second robot")
+	public void a_second_robot() {
+	    robot2 = new Robot(Color.RED);
+	}
 	
-	@Given("an empty board of size {int} x {int}")
-	public void an_empty_board_of_size_x(Integer int1, Integer int2) {
+	@Given("a second player")
+	public void a_second_player() {
+		player2 = new Player("Bernat");
+	}
+	@When("the robots are assigned to the players")
+	public void the_robots_are_assigned_to_the_players() {
+		player1.setRobot(robot1);
+		player2.setRobot(robot2);
+	}
 	
+	@Then("the robots belongs to the players")
+	public void the_robots_belongs_to_the_players() {
+		assertTrue(player1.getRobot().equals(new Robot(Color.BLUE)));
+		assertTrue(player2.getRobot().equals(new Robot(Color.RED)));
+	}
+	
+    ///////////////////////////
+	// U2 : INITIALIZE BOARD //
+	///////////////////////////
+	
+	@Given("an empty board")
+	public void an_empty_board() {
+		board = new Board();
 	}
 	
 	@When("the 5B board is initialised")
 	public void the_5b_board_is_initialised() {
-		board = new Board();
 		board.initialize5B();
 	}
 	
-	@Then("the obstacles of the board should be in the expected tiles on the board")
-	public void the_obstacles_of_the_board_should_be_in_the_expected_tiles_on_the_board() {
+	@Then("the obstacles of the 5B board should be in the expected tiles")
+	public void the_obstacles_of_the_5B_board_should_be_in_the_expected_tiles() {
 	    // Write code here that turns the phrase above into concrete actions
 	    for (int i=0; i<13; i++) {
 	    	for (int j=0; j<10; j++) {
@@ -126,142 +157,72 @@ public class StepsDefinition {
 	    	}
 	    }
 	}
-
 	
-///////////////////////ASSIGNING ROBOT DIRECTION
+	///////////////////////////////
+	// U3 : ASSIGN DECK OF CARDS //
+	///////////////////////////////
 	
-	@Given("a direction")
-	public void a_direction() {
-		direction = Direction.NORTH;
+	@Given("a programming deck of cards")
+	public void a_programming_deck_of_cards() {
+		programmingDeck1 = new Deck();
+		programmingDeck1.initializeProgrammingDeck();
 	}
 	
-	@When("the robot is assigned the direction")
-	public void the_robot_is_assigned_the_direction() {
-		robot1.setDirection(direction);
+	@When("the player is assigned the programming deck of cards")
+	public void the_player_is_assigned_the_programming_deck_of_cards() {
+	    player1.setProgrammingDeck(programmingDeck1);
 	}
-	
-	@Then("the robot has that direction")
-	public void the_robot_has_that_direction() {
-		assertEquals(robot1.getDirection(), direction);
-	}
-	
-/////////////////ASSIGNING STARTING DECK TO PLAYER
-	
-	@Given("a player")
-	public void a_player() {
-	    player = new Player("Mejse");
-	}
-	
-	@Given("a deck of cards")
-	public void a_deck_of_cards() {
-		programmingDeck = new Deck();
-	}
-	
-	@When("the player is assigned the deck of cards")
-	public void the_player_is_assigned_the_deck_of_cards() {
-		programmingDeck.initializeProgrammingDeck();
-		
-	    player.setProgrammingDeck(programmingDeck);
-	}
-	
-	@Then("the player has that deck of cards") 
-	public void the_player_has_that_deck_of_cards() {
-		assertEquals(player.getProgrammingDeck(), programmingDeck);
+	@Then("the player has a programming deck of cards")
+	public void the_player_has_a_programming_deck_of_cards() {
+	    assertTrue(player1.getProgrammingDeck().equals(programmingDeck1));
+	    assertTrue(player1.getProgrammingDeck().getDeckSize() == 17);
 	}
 
-////////////////PLAYER RECIEVES 9 CARDS FROM PROGRAMMING DECK TO PLAYING DECK
-	
-	@Given("a programming deck that belongs to the player")
-	public void a_programming_deck_that_belongs_to_the_player() {
-	// Write code here that turns the phrase above into concrete actions
-	programmingDeck = new Deck();
-	player.setProgrammingDeck(programmingDeck);
-	player.getProgrammingDeck().initializeProgrammingDeck();
-	initialSizeProgrammingDeck = player.getProgrammingDeck().getDeckSize();
-	System.out.println(initialSizeProgrammingDeck);
+	@Given("a playing deck of cards")
+	public void a_playing_deck_of_cards() {
+		playingDeck1 = new Deck();
+	}
+	@When("the player is assigned the playing deck of cards")
+	public void the_player_is_assigned_the_playing_deck_of_cards() {
+	    // Write code here that turns the phrase above into concrete actions
+	    player1.setPlayingDeck(playingDeck1);
+	}
+	@Then("the player has a playing deck of cards")
+	public void the_player_has_a_playing_deck_of_cards() {
+	    assertTrue(player1.getPlayingDeck().equals(playingDeck1));
 	}
 	
-	@Given("a playing deck that belongs to the player")
-	public void a_playing_deck_that_belongs_to_the_player() {
-	// Write code here that turns the phrase above into concrete actions
-	playingDeck = new Deck();
-	player.setPlayingDeck(playingDeck);
+	@Given("an action deck of cards")
+	public void an_action_deck_of_cards() {
+	    actionDeck1 = new Deck();
 	}
-	
-	@When("the {int} random cards are selected from the programming deck")
-	public void the_random_cards_are_selected_from_the_programming_deck(int numCards) {
-	// Write code here that turns the phrase above into concrete actions
-	player.getProgrammingDeck().moveRandomCards(playingDeck, 9);
+	@When("the player is assigned the action deck of cards")
+	public void the_player_is_assigned_the_action_deck_of_cards() {
+	    player1.setActionDeck(actionDeck1);
 	}
-	@Then("the cards are moved to the playing deck")
-	public void the_cards_are_moved_to_the_playing_deck() {
-	// Write code here that turns the phrase above into concrete actions
-	 assertTrue(player.getPlayingDeck().getDeckSize() == 9 && player.getProgrammingDeck().getDeckSize() == initialSizeProgrammingDeck - 9);
+	@Then("the player has an action deck of cards")
+	public void the_player_has_an_action_deck_of_cards() {
+	    assertTrue(player1.getActionDeck().equals(actionDeck1));
 	}
-
-////////////////ASSIGNING STARTING DECK OF DISCARD CARDS TO PLAYER
-	
 
 	@Given("a discard deck of cards")
 	public void a_discard_deck_of_cards() {
-		discardDeck = new Deck();
+	    discardDeck1 = new Deck();
 	}
+	
 	@When("the player is assigned the discard deck of cards")
-	public void the_player_is_assigned_the_discard_deck_of_cards() {
-		player.setDiscardDeck(discardDeck);
+	public void the_is_assigned_the_discard_deck_of_cards() {
+	    player1.setDiscardDeck(discardDeck1);
 	}
-	@Then("the player has that discard deck of cards")
-	public void the_player_has_that_discard_deck_of_cards() {
-		assertEquals(player.getDiscardDeck(), discardDeck);
+	
+	@Then("the player has a discard deck of cards")
+	public void the_player_has_a_discard_deck_of_cards() {
+		assertTrue(player1.getDiscardDeck().equals(discardDeck1));
 	}
-
-/////////////////// MOVING CARDS FROM PLAYING DECK TO ACTION DECK
-    
-    @Given("an action deck that belongs to the player")
-    public void an_action_deck_that_belongs_to_the_player() {
-    	actionDeck = new Deck();
-		player.setActionDeck(actionDeck);
-    }
-    
-    @When("the player chooses one card")
-    public void the_player_chooses_one_card() {
-    	int indexChoosenCard = 4;
-    	for(int i=0; i<5; i++) {
-    		player.getPlayingDeck().addCard(Card.RightTurn);
-    	}
-    	player.getPlayingDeck().moveCard(indexChoosenCard, player.getActionDeck());
-    }
-    
-    @Then("the card is moved from the playing deck to the action deck")
-    public void the_card_is_moved_from_the_playing_deck_to_the_action_deck() {
-    	assertTrue(player.getPlayingDeck().contains(Card.RightTurn));
-    }
-    
-////////////////ASSIGNING 2 ROBOTS TO THE BOARD
-
-    @Given("two robots")
-    public void two_robots() {
-        // Write code here that turns the phrase above into concrete actions
-        robot1 = new Robot(Color.BLUE);
-        robot2 = new Robot(Color.RED);
-    }
-    @When("the robots are placed on the board")
-    public void the_robots_are_placed_on_the_board() {
-        board.setRobots(robot1, robot2);
-    }
-    @Then("the robot are in the initial positions of the board")
-    public void the_robot_are_in_the_initial_positions_of_the_board() {
-        assertTrue(board.containsElement(robot1, 12, 3));
-        assertTrue(board.containsElement(robot2, 12, 6));
-    }
-
-////////////////ASSIGNING 1 ROBOT TO THE BOARD
-
-	// @Given("a robot")
-	// public void a_robot() {
-	// Write code here that turns the phrase above into concrete actions
-	// robot1 = new Robot(Color.BLUE);
-	// }
+	
+	///////////////////////////////////
+	// U4 : PLACE ROBOT ON THE BOARD //
+	///////////////////////////////////
 	
 	@When("the robot is placed on the board")
 	public void the_robot_is_placed_on_the_board() {
@@ -271,6 +232,81 @@ public class StepsDefinition {
 	@Then("the robot is in the initial position of the board")
 	public void the_robot_is_in_the_initial_position_of_the_board() {
 	assertTrue(board.containsElement(robot1, 12, 3));
+	}
+	
+	@Then("the robot is facing north")
+	public void the_robot_is_facing_north() {
+	assertTrue(robot1.getDirection().equals(Direction.NORTH));
+	}
+	
+	@When("the robots are placed on the board")
+	public void the_robots_are_placed_on_the_board() {
+	board.setRobots(robot1, robot2);
+	}
+	
+	@Then("the robots are in the initial positions of the board")
+	public void the_robots_are_in_the_initial_positions_of_the_board() {
+	assertTrue(board.containsElement(robot1, 12, 3));
+	assertTrue(board.containsElement(robot2, 12, 6));
+	}
+	
+	@Then("the robots are facing north")
+	public void the_robots_are_facing_north() {
+	assertTrue(robot1.getDirection().equals(Direction.NORTH));
+	assertTrue(robot2.getDirection().equals(Direction.NORTH));
+	}
+	
+///////////////////////
+// PROGRAMMING PHASE //
+///////////////////////
+	
+	//////////////////////////////
+	// U5 : MOVE 9 RANDOM CARDS //
+	//////////////////////////////
+	
+	@When("the {int} cards are moved from the programming deck to the playing deck")
+	public void the_cards_are_moved_from_the_programming_deck_to_the_playing_deck(int numCards9){
+		initialSizeProgrammingDeck = programmingDeck1.getDeckSize();
+		programmingDeck1.moveRandomCards(playingDeck1, numCards9);
+	}
+	
+	@Then("the cards are in the playing deck")
+	public void the_cards_are_in_the_playing_deck() {
+	    // Write code here that turns the phrase above into concrete actions
+		assertTrue(playingDeck1.getDeckSize() == 9);
+	}
+	@Then("the cards are not in the programming deck")
+	public void the_cards_are_not_in_the_programming_deck() {
+	    // Write code here that turns the phrase above into concrete actions
+		assertTrue(programmingDeck1.getDeckSize() == initialSizeProgrammingDeck - 9);
+	}
+	
+	///////////////////////////////
+	// U6 : MOVE 1 CONCRETE CARD //
+	///////////////////////////////
+    
+	@Given("a playing deck of cards with {int} cards")
+	public void a_playing_deck_of_cards_with_cards(int numCards9) {
+		playingDeck1 = new Deck();
+		for (int i=0; i<numCards9; i++) {
+	    	playingDeck1.addCard(Card.RightTurn);
+	    }
+	    size1 = playingDeck1.getDeckSize();
+	}
+	
+	@When("the player moves the {int}th card from the playing deck to the action deck")
+	public void the_player_moves_the_card_from_the_playing_deck_to_the_action_deck(Integer indexCard) {
+		choosenCard = playingDeck1.getCard(indexCard);
+    	playingDeck1.moveCard(indexCard, actionDeck1);
+	}
+	
+	@Then("the card is in the action deck")
+	public void the_card_is_in_the_action_deck() {
+		assertTrue(playingDeck1.contains(choosenCard));
+	}
+	@Then("the card is not in the playing deck")
+	public void the_card_is_not_in_the_playing_deck() {
+	    assertTrue(playingDeck1.getDeckSize() == size1 - 1);
 	}
 
 /////////////////MOVE ROBOT ACCORDING TO CARD, COLLISION WITH WALL AND REBOOT CELL
