@@ -9,7 +9,6 @@ Feature: The robot is moved according to the programming cards
     And a robot
     And an action deck that belongs to the player
     And a discard deck of cards
-    And a robot in the cell with xcoordinate 2 and ycoordinate 3 with direction north
     When an action card is played
     Then the card is moved from the action deck of cards to the discard deck of cards
     And the robot is moved according to the programming card
@@ -26,6 +25,6 @@ Feature: The robot is moved according to the programming cards
   Scenario: Successfully moving the robot to the reboot cell when it goes out of the board
   	Given a board
   	And a robot
-  	And a robot facing south in a tile with xcoodinate 12 and ycoordinate 4
+  	And a robot facing south in a tile with xcoordinate 12 and ycoordinate 6
   	When a move forward card is executed
   	Then the robot is moved to the reboot cell in the board

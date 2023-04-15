@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.Scanner;
-
 public class Player {
 	private String name;
 	private Robot robot;
@@ -14,8 +11,8 @@ public class Player {
 	}
 	
 	public void setRobot(Robot robot) {
-		this.robot = robot;
 		robot.setPlayer(this);
+		this.robot = robot;
 	}
 	
 	public Robot getRobot() {
