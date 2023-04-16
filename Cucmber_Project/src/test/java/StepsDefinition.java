@@ -18,6 +18,9 @@ public class StepsDefinition {
 	Card extractedCard;
 	Card choosenCard;
 	Card cardMoveForward;
+	Card cardUTurn;
+	Card cardRightTurn;
+	Card cardLeftTurn;
 	Deck discardDeck1;
 	Deck programmingDeck1;
 	Deck playingDeck1;
@@ -244,12 +247,12 @@ public class StepsDefinition {
 	
 	@Then("the robot is facing north")
 	public void the_robot_is_facing_north() {
-	assertTrue(robot1.getDirection().equals(Direction.NORTH));
+		assertTrue(robot1.getDirection().equals(Direction.NORTH));
 	}
 	
 	@When("the robots are placed on the board")
 	public void the_robots_are_placed_on_the_board() {
-	board.setRobots(robot1, robot2);
+		board.setRobots(robot1, robot2);
 	}
 	
 	@Then("the robots are in the initial positions of the board")
@@ -373,7 +376,7 @@ public class StepsDefinition {
 	}
 	@When("the move forward card is executed")
 	public void the_move_forward_card_is_executed() {
-	    board.moveRobot(robot1, cardMoveForward);
+	    board.playCard(robot1, cardMoveForward);
 	}
 	@Then("the robot moves forward north")
 	public void the_robot_moves_forward_north() {
@@ -553,8 +556,44 @@ public class StepsDefinition {
 	// U9 : TURN ROBOT //
 	//////////////////////
 	
+	@Given("a UTurn card")
+	public void a_u_turn_card() {
+		cardUTurn = Card.UTurn;
+	}
+	@When("the UTurn card is executed")
+	public void the_u_turn_card_is_executed() {
+	    board.playCard(robot1, cardUTurn);
+	}
+	@Then("the robot is facing south")
+	public void the_robot_is_facing_south() {
+	    assertTrue(robot1.getDirection().equals(Direction.SOUTH));
+	}
 	
+	@Given("a RightTurn card")
+	public void a_right_turn_card() {
+	    cardRightTurn = Card.RightTurn;
+	}
+	@When("the RightTurn card is executed")
+	public void the_right_turn_card_is_executed() {
+		board.playCard(robot1, cardRightTurn);
+	}
+	@Then("the robot is facing east")
+	public void the_robot_is_facing_east() {
+		assertTrue(robot1.getDirection().equals(Direction.EAST));
+	}
+	@Then("the robot is facing west")
+	public void the_robot_is_facing_west() {
+		assertTrue(robot1.getDirection().equals(Direction.WEST));
+	}
 	
+	@Given("a LeftTurn card")
+	public void a_left_turn_card() {
+		cardLeftTurn = Card.LeftTurn;
+	}
+	@When("the LeftTurn card is executed")
+	public void the_left_turn_card_is_executed() {
+		board.playCard(robot1, cardLeftTurn);
+	}
 	
 	
 	

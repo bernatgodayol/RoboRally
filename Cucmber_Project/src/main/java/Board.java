@@ -142,7 +142,7 @@ public class Board {
 		return COLUMNS;
 	}
 	
-	public void moveRobot(Robot robot, Card card) {
+	public void playCard(Robot robot, Card card) {
 		int oldX = this.getRobotPositionX(robot);
 		int oldY = this.getRobotPositionY(robot);
 		if (card == Card.MoveForward) {
