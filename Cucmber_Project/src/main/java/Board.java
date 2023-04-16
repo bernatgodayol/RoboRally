@@ -134,10 +134,6 @@ public class Board {
 		return COLUMNS;
 	}
 	
-	public boolean punishRobot(Robot robot1) {
-		if rebo
-	}
-	
 	public void playCard(Robot robot, Card card) {
 		int oldX = this.getRobotPositionX(robot);
 		int oldY = this.getRobotPositionY(robot);
