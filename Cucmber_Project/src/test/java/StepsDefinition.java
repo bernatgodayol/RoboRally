@@ -21,7 +21,6 @@ public class StepsDefinition {
 	Card cardUTurn;
 	Card cardRightTurn;
 	Card cardLeftTurn;
-	Card cardDamage;
 	Deck discardDeck1;
 	Deck programmingDeck1;
 	Deck playingDeck1;
