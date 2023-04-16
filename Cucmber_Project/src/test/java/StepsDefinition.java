@@ -21,6 +21,7 @@ public class StepsDefinition {
 	Card cardUTurn;
 	Card cardRightTurn;
 	Card cardLeftTurn;
+	Card cardDamage;
 	Deck discardDeck1;
 	Deck programmingDeck1;
 	Deck playingDeck1;
@@ -595,16 +596,9 @@ public class StepsDefinition {
 		board.playCard(robot1, cardLeftTurn);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	/////////////////////////
-	// U? : ACTIVATE LASER //
-	/////////////////////////
+	//////////////////////////
+	// U10 : ACTIVATE LASER //
+	//////////////////////////
 	
 	@Given("an inactive laser")
 	public void an_inactive_laser() {
@@ -613,60 +607,68 @@ public class StepsDefinition {
 	
 	@When("the laser activates")
 	public void the_laser_activates() {
-	    laser.active(true);
+	    laser.setStatus(true);
 	}
 	
 	@Then("the laser is active")
 	public void the_laser_is_active() {
-	    assertEquals(laser.getActive(),true);
-	}
-
-	////////////////////////DAMAGE CARDS
-	
-	@Given("a robot that belongs to the player")
-	public void a_robot_belonging_to_the_player() {
-		robot1 = new Robot(Color.BLUE);
-		player1.setRobot(robot1);
+	    assertEquals(laser.getStatus(), true);
 	}
 	
 	@Given("an active laser")
 	public void an_active_laser() {
-	    laser = new Laser();
-	    laser.active(true);
+	    laser = new Laser(true);
 	}
 	
-	@When("the robot is hit by the laser the player recieves a damage card")
-	public void the_robot_is_hit_by_the_laser_the_player_recieves_a_damage_card() {
-	    laser.hit(robot1);
+	@When("the laser inactivates")
+	public void the_laser_inactivates() {
+		laser.setStatus(false);
 	}
-	
-	@Then("a damage card is placed in the players programming deck")
-	public void a_damage_card_is_placed_in_the_players_programming_deck() {
-		assertTrue(player1.getProgrammingDeck().contains(Card.Damage));
+	@Then("the laser is inactive")
+	public void the_laser_is_inactive() {
+		assertEquals(laser.getStatus(), false);
 	}
 
-	//////////////////////////Player receives damage card when robot in reboot cell
+	///////////////////////////////
+	// U11 : RECEIVE DAMAGE CARD //
+	///////////////////////////////
+	
+	////// WHEN HIT BY LASER
+	
+	@Given("a robot that belongs to the player")
+	public void a_robot_that_belongs_to_the_player() {
+		robot1 = new Robot(Color.BLUE);
+		player1.setRobot(robot1);
+	}
+	
+	@Given("a programming deck of cards that belongs to the player")
+	public void a_programming_deck_of_cards_that_belongs_to_the_player() {
+		programmingDeck1 = new Deck();
+		programmingDeck1.initializeProgrammingDeck();
+		player1.setProgrammingDeck(programmingDeck1);
+	}
+	
+	@When("the robot is hit by the laser")
+	public void the_robot_is_hit_by_the_laser() {
+		 laser.hit(robot1);
+	}
+	@Then("a damage card is in the programming deck")
+	public void a_damage_card_is_placed_in_the_programming_deck() {
+		assertTrue(programmingDeck1.contains(Card.Damage));
+	}
+	
+	////// WHEN BEING IN REBOOT CELL
 	
 	@Given("a reboot cell")
 	public void a_reboot_cell() {
 		reboot = new Reboot();
 	}
 	
-	@Given("the robot is in the reboot cell")
-	public void the_robot_is_in_the_reboot_cell() {
-		board.getTile(board.getRebootPositionX(), board.getRebootPositionY()).addElement(player1.getRobot());
-	}
-	
-	@When("the player receives a damage card")
-	public void the_player_receives_a_damage_card() {
+	@When("the robot is punished by the reboot cell")
+	public void the_robot_is_punished_by_the_reboot_cell() {
 	    reboot.punishPlayer(robot1);
 	}
-	
-	@Then("that damage card is in the players programming deck")
-	public void that_damage_card_is_in_the_players_programming_deck() {
-	    assertTrue(player1.getProgrammingDeck().contains(Card.Damage));
-	}
-	
+
 	
 }
 

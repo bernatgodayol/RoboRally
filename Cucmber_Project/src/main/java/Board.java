@@ -89,7 +89,7 @@ public class Board {
 			return robot2PositionX;
 		}
 	}
-	
+
 	public int getRobotPositionY(Robot robot) {
 		if (robot.equals(robot1)) {
 			return robot1PositionY;
@@ -103,14 +103,6 @@ public class Board {
 			robot1PositionX = X;
 		} else {
 			robot2PositionX = X;
-		}
-	}
-	
-	public void getRobotPositionY(int Y, Robot robot) {
-		if (robot.equals(robot1)) {
-			robot1PositionY = Y;
-		} else {
-			robot2PositionY = Y;
 		}
 	}
 	
@@ -140,6 +132,10 @@ public class Board {
 	
 	public int getCOLUMNS() {
 		return COLUMNS;
+	}
+	
+	public boolean punishRobot(Robot robot1) {
+		if rebo
 	}
 	
 	public void playCard(Robot robot, Card card) {
