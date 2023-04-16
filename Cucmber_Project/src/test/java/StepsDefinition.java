@@ -350,9 +350,9 @@ public class StepsDefinition {
 	assertTrue(playingDeck1.deckIsEmpty());
 	}
 
-//////////////////
-// ACTION PHASE //
-//////////////////
+//////////////////////
+// ACTIVATION PHASE //
+//////////////////////
 	
 	/////////////////////
 	// U8 : MOVE ROBOT //
