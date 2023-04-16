@@ -43,7 +43,7 @@ public class Deck {
 	            otherDeck.getDeck().add(card);
 	            this.deck.remove(index);
 	        }
-	        System.out.println("Successfully moved random cards!");
+	        // System.out.println("Successfully moved random cards!");
 	    } else {
 	        System.out.println("Cannot move random cards!");
 	    }
@@ -63,9 +63,7 @@ public class Deck {
 			this.deck.add(Card.RightTurn);
 		}
 
-		// int initialSizeProgrammingDeck = deck.size();
-		// System.out.println(initialSizeProgrammingDeck);
-		System.out.println("Successfully initialized programming deck !!!!!");
+		// System.out.println("Successfully initialized programming deck !!!!!");
 	}
 	
 	public void moveCard(int index, Deck otherDeck) {
@@ -76,7 +74,6 @@ public class Deck {
 	    } else {
 	    	System.out.println("Index is not valid");
 	    }
-	    System.out.println("Successfully moved cards !!!!!");
 	}
 
 	public boolean deckIsEmpty() {

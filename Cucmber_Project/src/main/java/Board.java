@@ -145,34 +145,30 @@ public class Board {
 	public void moveRobot(Robot robot, Card card) {
 		int oldX = this.getRobotPositionX(robot);
 		int oldY = this.getRobotPositionY(robot);
-		System.out.println(oldX);
-		System.out.println(oldY);
 		if (card == Card.MoveForward) {
-			System.out.println("Holi holiiiiiii");
+			
 			if (robot.getDirection() == Direction.NORTH) {
-				System.out.println("Holi holiiiiiii");
 				// if the robot goes out of the board
-				if (oldX-1 < 0) {
+				if (oldX == 0) {
 					grid[oldX][oldY].removeElement(robot);
 					grid[rebootPositionX][rebootPositionY].addElement(robot);
 					this.setRobotPositionX(rebootPositionX, robot);
 					this.setRobotPositionY(rebootPositionY, robot);
 					System.out.println("The robot went out of the board!");
 				// if the robot hits a wall
-				} else if ((grid[oldX-1][oldY].containsElement(new Wall(Direction.SOUTH))) ||
-					       (grid[oldX][oldY]  .containsElement(new Wall(Direction.NORTH)))) {
+				} else if ((this.containsElement(new Wall(Direction.SOUTH), oldX-1, oldY)) ||
+					       (this.containsElement(new Wall(Direction.NORTH), oldX  , oldY))) {
 					System.out.println("The robot hitted a wall! ");
 				} else {
 					grid[oldX][oldY].removeElement(robot);
 					grid[oldX-1][oldY].addElement(robot);
 					this.setRobotPositionX(oldX-1, robot);
 					this.setRobotPositionY(oldY, robot);
-					System.out.println(oldX-1);
-					System.out.println(oldY);
 				}
 			} else if (robot.getDirection() == Direction.EAST) {
 				// if the robot goes out of the board
-				if (oldY-1 < 0 && oldY-1 > COLUMNS) {
+				if (oldY+1 == COLUMNS) {
+					grid[oldX][oldY].removeElement(robot);
 					grid[rebootPositionX][rebootPositionY].addElement(robot);
 					this.setRobotPositionX(rebootPositionX, robot);
 					this.setRobotPositionY(rebootPositionY, robot);
@@ -182,13 +178,15 @@ public class Board {
 						   (grid[oldX][oldY]  .containsElement(new Wall(Direction.EAST)))) {
 					System.out.println("The robot hitted a wall!");
 				} else {
+						grid[oldX][oldY].removeElement(robot);
 						grid[oldX][oldY-1].addElement(robot);
 						this.setRobotPositionX(oldX, robot);
 						this.setRobotPositionY(oldY-1, robot);
 					}
 				} else if (robot.getDirection() == Direction.WEST) {
 					// if the robot goes out of the board
-					if (oldY+1 < 0 && oldY+1 > COLUMNS) {
+					if (oldY == 0) {
+						grid[oldX][oldY].removeElement(robot);
 						grid[rebootPositionX][rebootPositionY].addElement(robot);
 						this.setRobotPositionX(rebootPositionX, robot);
 						this.setRobotPositionY(rebootPositionY, robot);
@@ -198,13 +196,15 @@ public class Board {
 							   (grid[oldX][oldY]  .containsElement(new Wall(Direction.WEST)))) {
 						System.out.println("The robot hitted a wall!");
 					} else {
+						grid[oldX][oldY].removeElement(robot);
 						grid[oldX][oldY+1].addElement(robot);
 						this.setRobotPositionX(oldX, robot);
 						this.setRobotPositionY(oldY+1, robot);
 					}
 				} else if (robot.getDirection() == Direction.SOUTH) {
 					// if the robot goes out of the board
-					if (oldX+1 > ROWS) {
+					if (oldX+1 == ROWS) {
+						grid[oldX][oldY].removeElement(robot);
 						grid[rebootPositionX][rebootPositionY].addElement(robot);
 						this.setRobotPositionX(rebootPositionX, robot);
 						this.setRobotPositionY(rebootPositionY, robot);
@@ -214,49 +214,44 @@ public class Board {
 							   (grid[oldX][oldY]  .containsElement(new Wall(Direction.SOUTH)))) {
 						System.out.println("The robot hitted a wall!");
 					} else {
+						grid[oldX][oldY].removeElement(robot);
 						grid[oldX+1][oldY].addElement(robot);
 						this.setRobotPositionX(oldX+1, robot);
 						this.setRobotPositionY(oldY, robot);
 					}
 				}
+			} else if (card.equals(Card.RightTurn)) {
+				if (robot.getDirection() == Direction.NORTH) {
+					robot.setDirection(Direction.EAST);
+				} else if (robot.getDirection() == Direction.EAST) {
+					robot.setDirection(Direction.SOUTH);
+				} else if (robot.getDirection() == Direction.SOUTH) {
+					robot.setDirection(Direction.WEST);
+				} else if (robot.getDirection() == Direction.WEST) {
+					robot.setDirection(Direction.NORTH);
+				}
+			} else if (card.equals(Card.LeftTurn)) {
+				if (robot.getDirection() == Direction.NORTH) {
+					robot.setDirection(Direction.WEST);
+				} else if (robot.getDirection() == Direction.EAST) {
+					robot.setDirection(Direction.NORTH);
+				} else if (robot.getDirection() == Direction.SOUTH) {
+					robot.setDirection(Direction.EAST);
+				} else if (robot.getDirection() == Direction.WEST) {
+					robot.setDirection(Direction.SOUTH);
+				}
+			} else if (card.equals(Card.UTurn)) {
+				if (robot.getDirection() == Direction.NORTH) {
+					robot.setDirection(Direction.SOUTH);
+				} else if (robot.getDirection() == Direction.EAST) {
+					robot.setDirection(Direction.WEST);
+				} else if (robot.getDirection() == Direction.SOUTH) {
+					robot.setDirection(Direction.NORTH);
+				} else if (robot.getDirection() == Direction.WEST) {
+					robot.setDirection(Direction.EAST);
+				}
+			} else {
+				System.out.println("The old position is not valid, there is not robot to move there.");
 			}
-			
-		if (card.equals(Card.RightTurn)) {
-			if (robot.getDirection() == Direction.NORTH) {
-				robot.setDirection(Direction.EAST);
-			} else if (robot.getDirection() == Direction.EAST) {
-				robot.setDirection(Direction.SOUTH);
-			} else if (robot.getDirection() == Direction.SOUTH) {
-				robot.setDirection(Direction.WEST);
-			} else if (robot.getDirection() == Direction.WEST) {
-				robot.setDirection(Direction.NORTH);
-			}
-		}
-			
-		if (card.equals(Card.LeftTurn)) {
-			if (robot.getDirection() == Direction.NORTH) {
-				robot.setDirection(Direction.WEST);
-			} else if (robot.getDirection() == Direction.EAST) {
-				robot.setDirection(Direction.NORTH);
-			} else if (robot.getDirection() == Direction.SOUTH) {
-				robot.setDirection(Direction.EAST);
-			} else if (robot.getDirection() == Direction.WEST) {
-				robot.setDirection(Direction.SOUTH);
-			}
-		}
-			
-		if (card.equals(Card.UTurn)) {
-			if (robot.getDirection() == Direction.NORTH) {
-				robot.setDirection(Direction.SOUTH);
-			} else if (robot.getDirection() == Direction.EAST) {
-				robot.setDirection(Direction.WEST);
-			} else if (robot.getDirection() == Direction.SOUTH) {
-				robot.setDirection(Direction.NORTH);
-			} else if (robot.getDirection() == Direction.WEST) {
-				robot.setDirection(Direction.EAST);
-			}
-		} else {
-			System.out.println("The old position is not valid, there is not robot to move there.");
 		}
 	}
-}

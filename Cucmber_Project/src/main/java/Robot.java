@@ -24,7 +24,6 @@ public class Robot extends Element{
 	public boolean equals(Object obj) {
 		if (obj instanceof Robot) {
 			Robot otherRobot = (Robot) obj;
-			System.out.println("they are the same!!!!!");
 			return (this.color == otherRobot.getColor());
 		} else {
 			return false;
