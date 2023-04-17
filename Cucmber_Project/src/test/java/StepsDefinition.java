@@ -16,7 +16,16 @@ public class StepsDefinition {
 	Direction direction;
 	Card card;
 	Card extractedCard;
-	Card choosenCard;
+	Card choosenCard1;
+	Card choosenCard2;
+	Card choosenCard3;
+	Card choosenCard4;
+	Card choosenCard5;
+	Card choosenCard6;
+	Card choosenCard7;
+	Card choosenCard8;
+	Card choosenCard9;
+	Card choosenCard10;
 	Card cardMoveForward;
 	Card cardUTurn;
 	Card cardRightTurn;
@@ -32,14 +41,23 @@ public class StepsDefinition {
 	Laser laser;
 	int numCards9 = 9;
 	int numCards4 = 4;
-	int indexCard = 2;
 	int initialSizeProgrammingDeck;
 	int size1;
 	int size2;
 	int robot1PositionX;
 	int robot1PositionY;
 	Reboot reboot;
-
+	int int1 = 8;
+	int int2 = 3;
+	int int3 = 2;
+	int int4 = 5;
+	int int5 = 1;
+	int int6 = 7;
+	int int7 = 1;
+	int int8 = 4;
+	int int9 = 6;
+	int int10 = 5;
+	
 /////////////////
 // GAME SET UP //
 /////////////////
@@ -171,6 +189,7 @@ public class StepsDefinition {
 	public void a_playing_deck_of_cards() {
 		playingDeck1 = new Deck();
 	}
+	
 	@When("the player is assigned the playing deck of cards")
 	public void the_player_is_assigned_the_playing_deck_of_cards() {
 	    // Write code here that turns the phrase above into concrete actions
@@ -185,10 +204,12 @@ public class StepsDefinition {
 	public void an_action_deck_of_cards() {
 	    actionDeck1 = new Deck();
 	}
+	
 	@When("the player is assigned the action deck of cards")
 	public void the_player_is_assigned_the_action_deck_of_cards() {
 	    player1.setActionDeck(actionDeck1);
 	}
+	
 	@Then("the player has an action deck of cards")
 	public void the_player_has_an_action_deck_of_cards() {
 	    assertTrue(player1.getActionDeck().equals(actionDeck1));
@@ -214,10 +235,12 @@ public class StepsDefinition {
 		programmingDeck2 = new Deck();
 		programmingDeck2.initializeProgrammingDeck();
 	}
+	
 	@When("the second player is assigned the second programming deck of cards")
 	public void the_second_player_is_assigned_the_second_programming_deck_of_cards() {
 		player2.setProgrammingDeck(programmingDeck2);
 	}
+	
 	@Then("the second player has a programming deck of cards")
 	public void the_second_player_has_a_programming_deck_of_cards() {
 		assertTrue(player2.getProgrammingDeck().equals(programmingDeck2));
@@ -254,14 +277,17 @@ public class StepsDefinition {
 	public void a_second_discard_deck_of_cards() {
 		discardDeck2 = new Deck();
 	}
+	
 	@When("the second player is assigned the second discard deck of cards")
 	public void the_second_player_is_assigned_the_second_discard_deck_of_cards() {
 		player2.setDiscardDeck(discardDeck2);
 	}
+	
 	@Then("the second player has a discard deck of cards")
 	public void the_second_player_has_a_discard_deck_of_cards() {
 		assertTrue(player2.getDiscardDeck().equals(discardDeck2));
 	}
+	
 	///////////////////////////////////
 	// U4 : PLACE ROBOT ON THE BOARD //
 	///////////////////////////////////
@@ -314,18 +340,30 @@ public class StepsDefinition {
 	
 	@Then("the cards are in the playing deck")
 	public void the_cards_are_in_the_playing_deck() {
-	    // Write code here that turns the phrase above into concrete actions
 		assertTrue(playingDeck1.getDeckSize() == 9);
 	}
 	@Then("the cards are not in the programming deck")
 	public void the_cards_are_not_in_the_programming_deck() {
-	    // Write code here that turns the phrase above into concrete actions
 		assertTrue(programmingDeck1.getDeckSize() == initialSizeProgrammingDeck - 9);
 	}
 	
-	///////////////////////////////
-	// U6 : MOVE 1 CONCRETE CARD //
-	///////////////////////////////
+	@When("the {int} cards are moved from the second programming deck to the second playing deck")
+	public void the_cards_are_moved_from_the_second_programming_deck_to_the_second_playing_deck(Integer numCards9) {
+		initialSizeProgrammingDeck = programmingDeck2.getDeckSize();
+		programmingDeck2.moveRandomCards(playingDeck2, numCards9);
+	}
+	@Then("the cards are in the second playing deck")
+	public void the_cards_are_in_the_second_playing_deck() {
+		assertTrue(playingDeck2.getDeckSize() == 9);
+	}
+	@Then("the cards are not in the second programming deck")
+	public void the_cards_are_not_in_the_second_programming_deck() {
+		assertTrue(programmingDeck1.getDeckSize() == initialSizeProgrammingDeck - 9);
+	}
+	
+	//////////////////////////////
+	// U6 : MOVE CONCRETE CARDS //
+	//////////////////////////////
     
 	@Given("a playing deck of cards with {int} cards")
 	public void a_playing_deck_of_cards_with_cards(int numCards9) {
@@ -336,19 +374,93 @@ public class StepsDefinition {
 	    size1 = playingDeck1.getDeckSize();
 	}
 	
-	@When("the player moves the {int}th card from the playing deck to the action deck")
-	public void the_player_moves_the_card_from_the_playing_deck_to_the_action_deck(Integer indexCard) {
-		choosenCard = playingDeck1.getCard(indexCard);
-    	playingDeck1.moveCard(indexCard, actionDeck1);
+	@When("the player moves the {int} th card from the playing deck to the action deck")
+	public void the_player_moves_the_th_card_from_the_playing_deck_to_the_action_deck(Integer int1) {
+		choosenCard1 = playingDeck1.getCard(int1);
+    	playingDeck1.moveCard(int1, actionDeck1);
 	}
 	
 	@Then("the card is in the action deck")
 	public void the_card_is_in_the_action_deck() {
-		assertTrue(playingDeck1.contains(choosenCard));
+		assertTrue(playingDeck1.contains(choosenCard1));
 	}
 	@Then("the card is not in the playing deck")
 	public void the_card_is_not_in_the_playing_deck() {
 	    assertTrue(playingDeck1.getDeckSize() == size1 - 1);
+	}
+	
+	@When("the player moves the cards {int} {int} {int} {int} {int} from the playing deck to the action deck")
+	public void the_player_moves_the_cards_from_the_playing_deck_to_the_action_deck(Integer int1, Integer int2, Integer int3, Integer int4, Integer int5) {
+		choosenCard1 = playingDeck1.getCard(int1);
+		choosenCard2 = playingDeck1.getCard(int2);
+		choosenCard3 = playingDeck1.getCard(int3);
+		choosenCard4 = playingDeck1.getCard(int4);
+		choosenCard5 = playingDeck1.getCard(int5);
+    	playingDeck1.moveCard(int1, int2, int3, int4, int5, actionDeck1);
+	}
+	
+	@Given("a second playing deck of cards with {int} cards")
+	public void a_second_playing_deck_of_cards_with_cards(Integer numCards9) {
+		playingDeck2 = new Deck();
+		for (int i=0; i<numCards9; i++) {
+	    	playingDeck2.addCard(Card.RightTurn);
+	    }
+	    size2 = playingDeck2.getDeckSize();
+	}
+	
+	@When("the second player moves the {int} th card from the second playing deck to the second action deck")
+	public void the_second_player_moves_the_card_from_the_second_playing_deck_to_the_second_action_deck(Integer int6) {
+		choosenCard2 = playingDeck2.getCard(int6);
+    	playingDeck2.moveCard(int6, actionDeck2);
+	}
+	@Then("the second card is in the second action deck")
+	public void the_second_card_is_in_the_second_action_deck() {
+		assertTrue(playingDeck2.contains(choosenCard2));
+	}
+	@Then("the second card is not in the second playing deck")
+	public void the_second_card_is_not_in_the_second_playing_deck() {
+		assertTrue(playingDeck2.getDeckSize() == size2 - 1);
+	}
+	
+	@When("the second player moves the cards {int} {int} {int} {int} {int} from the second playing deck to the second action deck")
+	public void the_second_player_moves_the_cards_from_the_second_playing_deck_to_the_second_action_deck(Integer int6, Integer int7, Integer int8, Integer int9, Integer int10) {
+		System.out.println(playingDeck2.getDeckSize());
+		choosenCard6 = playingDeck2.getCard(int6);
+		System.out.println(playingDeck2.getDeckSize());
+		choosenCard7 = playingDeck2.getCard(int7);
+		System.out.println(playingDeck2.getDeckSize());
+		choosenCard8 = playingDeck2.getCard(int8);
+		System.out.println(playingDeck2.getDeckSize());
+		choosenCard9 = playingDeck2.getCard(int9);
+		System.out.println(playingDeck2.getDeckSize());
+		choosenCard10 = playingDeck2.getCard(int10);
+		System.out.println(playingDeck2.getDeckSize());
+    	playingDeck2.moveCard(int6, int7, int8, int9, int10, actionDeck2);
+	}
+	@Then("the {int} cards are in the action deck")
+	public void the_cards_are_in_the_action_deck(Integer numCards5) {
+		assertTrue(playingDeck1.contains(choosenCard1));
+		assertTrue(playingDeck1.contains(choosenCard2));
+		assertTrue(playingDeck1.contains(choosenCard3));
+		assertTrue(playingDeck1.contains(choosenCard4));
+		assertTrue(playingDeck1.contains(choosenCard5));
+		
+	}
+	@Then("the {int} cards are in the second action deck")
+	public void the_cards_are_in_the_second_action_deck(Integer numCards5) {
+		assertTrue(playingDeck2.contains(choosenCard6));
+		assertTrue(playingDeck2.contains(choosenCard7));
+		assertTrue(playingDeck2.contains(choosenCard8));
+		assertTrue(playingDeck2.contains(choosenCard9));
+		assertTrue(playingDeck2.contains(choosenCard10));
+	}
+	@Then("the {int} cards are not in the playing deck")
+	public void the_cards_are_not_in_the_playing_deck(Integer numCards5) {
+		 assertTrue(playingDeck1.getDeckSize() == size1 - numCards5);
+	}
+	@Then("the {int} cards are not in the second playing deck")
+	public void the_cards_are_not_in_the_second_playing_deck(Integer numCards5) {
+		 assertTrue(playingDeck2.getDeckSize() == size1 - numCards5);
 	}
 	
 	//////////////////////////////////
@@ -359,25 +471,47 @@ public class StepsDefinition {
 	public void a_playing_deck_with_cards(Integer numCards4) {
 	playingDeck1 = new Deck();
 	for (int i=0; i<4; i++) {
-	playingDeck1.addCard(Card.RightTurn);
-	}
-	}
-	
-	@When("the cards are moved from the playing deck to the discard deck")
-	public void the_cards_are_moved_from_the_playing_deck_to_the_discard_deck() {
-	for (int i=0; i<4; i++) {
-	playingDeck1.moveCard(0, discardDeck1);
-	}
+		playingDeck1.addCard(Card.RightTurn);
+		}
 	}
 	
-	@Then("the cards are in the discard deck")
-	public void the_cards_are_in_the_discard_deck() {
-	assertTrue(discardDeck1.getDeckSize() == numCards4);
+	@When("the remaining cards are moved from the playing deck to the discard deck")
+	public void the_remaining_cards_are_moved_from_the_playing_deck_to_the_discard_deck() {
+		for (int i=0; i<4; i++) {
+		playingDeck1.moveCard(0, discardDeck1);
+		}
 	}
 	
-	@Then("the cards are not in the playing deck")
-	public void the_cards_are_not_in_the_playing_deck() {
-	assertTrue(playingDeck1.deckIsEmpty());
+	@Then("the remaining cards are in the discard deck")
+	public void the_remaining_cards_are_in_the_discard_deck() {
+		assertTrue(discardDeck1.getDeckSize() == numCards4);
+	}
+	
+	@Then("the remaining cards are not in the playing deck")
+	public void the_remaining_cards_are_not_in_the_playing_deck() {
+		assertTrue(playingDeck1.deckIsEmpty());
+	}
+	
+	@Given("a second playing deck with {int} cards")
+	public void a_second_playing_deck_with_cards(Integer numCards4) {
+		playingDeck2 = new Deck();
+		for (int i=0; i<4; i++) {
+		playingDeck2.addCard(Card.RightTurn);
+		}
+	}
+	@When("the remaining cards are moved from the second playing deck to the second discard deck")
+	public void the_remaining_cards_are_moved_from_the_second_playing_deck_to_the_second_discard_deck() {
+		for (int i=0; i<4; i++) {
+			playingDeck2.moveCard(0, discardDeck2);
+		}
+	}
+	@Then("the remaining cards are in the second discard deck")
+	public void the_remaining_cards_are_in_the_second_discard_deck() {
+		assertTrue(discardDeck2.getDeckSize() == numCards4);
+	}
+	@Then("the remaining cards are not in the second playing deck")
+	public void the_remaining_cards_are_not_in_the_second_playing_deck() {
+		assertTrue(playingDeck2.deckIsEmpty());
 	}
 
 //////////////////////
@@ -698,7 +832,20 @@ public class StepsDefinition {
 	public void the_robot_is_punished_by_the_reboot_cell() {
 	    reboot.punishPlayer(robot1);
 	}
-
+	
+	
+////////////////////////////////////
+// ROBO RALLY : THE LIGHT VERSION //
+////////////////////////////////////
+	
+	//////////////////////////
+	// U? : SET UP THE GAME //
+	//////////////////////////
+	
+	/////////////////////////////////////
+	// U? : COMPLETE PROGRAMMING PHASE //
+	/////////////////////////////////////
+	
 	
 }
 

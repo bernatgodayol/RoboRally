@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Random;
 
 public class Deck {
@@ -17,7 +19,7 @@ public class Deck {
 	public void addCard(Card card) {
 		this.deck.add(card);
 	}
-
+	
 	public boolean contains(Card card) {
 		return this.deck.contains(card);
 	}
@@ -75,13 +77,52 @@ public class Deck {
 	    	System.out.println("Index is not valid");
 	    }
 	}
-
+	
+	public void moveCard(int int1, int int2, int int3, int int4, int int5, Deck otherDeck) { 
+	    if (((this.getDeckSize() > int1-1) && (int1-1 > -1)) &&
+	    	((this.getDeckSize() > int2-1) && (int2-1 > -1)) &&
+	    	((this.getDeckSize() > int3-1) && (int3-1 > -1)) &&
+	    	((this.getDeckSize() > int4-1) && (int4-1 > -1)) &&
+	    	((this.getDeckSize() > int5-1) && (int5-1 > -1))) {
+	    	Card card1 = this.getCard(int1-1);
+	    	Card card2 = this.getCard(int2-1);
+	    	Card card3 = this.getCard(int3-1);
+	    	Card card4 = this.getCard(int4-1);
+	    	Card card5 = this.getCard(int5-1);	
+	    	ArrayList<Integer> arraylist = new ArrayList<Integer>();
+	    	
+	    	arraylist.add(int1);
+	        arraylist.add(int2);
+	        arraylist.add(int3);
+	        arraylist.add(int4);
+	        arraylist.add(int5);
+	        
+	    	// Sorting ArrayList in descending order
+		     Collections.sort(arraylist, new Comparator<Integer>() {
+		    	 @Override
+		         public int compare(Integer o1, Integer o2) {
+		            return o2.compareTo(o1);
+		         }
+		      });
+	    	for (int i : arraylist) {
+	    		this.removeCard(i);
+	    	}
+	    	otherDeck.addCard(card1);
+	    	otherDeck.addCard(card2);
+	    	otherDeck.addCard(card3);
+	    	otherDeck.addCard(card4);
+	    	otherDeck.addCard(card5);
+	    } else {
+	    	System.out.println("Indexes are not valid");
+	    }
+	}
+	
 	public boolean deckIsEmpty() {
 		return this.deck.isEmpty();
 	}
-
-	public void removeCard(Card card) {
-		this.deck.remove(card);
+	
+	public void removeCard(int index) {
+		this.deck.remove(index);
 	}
 
 }

@@ -1,13 +1,10 @@
 @tag
-Feature: Set up the game
+Feature: Complete programming phase
 
   @tag1
-  Scenario: Successfully setting up the game
+  Scenario: Successfully completing the programming phase
   Given a player
   And a second player
-  And a robot
-  And a second robot
-  And a board
   And a programming deck of cards
   And a playing deck of cards
   And an action deck of cards
@@ -16,31 +13,24 @@ Feature: Set up the game
   And a second playing deck of cards
   And a second action deck of cards
   And a second discard deck of cards
-  When the robot is assigned to the player
-  And the second robot is assigned to the second player
-  And the 5B board is initialised
-  And the robots are placed on the board
-  And the player is assigned the programming deck of cards
-  And the second player is assigned the second programming deck of cards
-  And the player is assigned the playing deck of cards
-  And the second player is assigned the second playing deck of cards
-  And the player is assigned the action deck of cards
-  And the second player is assigned the second action deck of cards
-  And the player is assigned the discard deck of cards
-  And the second player is assigned the second discard deck of cards
-  Then the robot belongs to the player
-  And the second robot belongs to the second player
-  And the obstacles of the 5B board are in the expected tiles
-  And the robots are in the initial positions of the board
-  And the robots are facing north
-  And the player has a programming deck of cards
-  And the player has a playing deck of cards
-  And the player has an action deck of cards
-  And the player has a discard deck of cards
-  And the second player has a programming deck of cards
-  And the second player has a playing deck of cards
-  And the second player has an action deck of cards
-  And the second player has a discard deck of cards
+  When the 9 cards are moved from the programming deck to the playing deck
+  And the 9 cards are moved from the second programming deck to the second playing deck
+  And the player moves the cards 2 5 4 8 7 from the playing deck to the action deck
+  And the second player moves the cards 6 3 2 9 1 from the second playing deck to the second action deck
+  And the remaining cards are moved from the playing deck to the discard deck
+  And the remaining cards are moved from the second playing deck to the second discard deck
+  Then the cards are not in the programming deck
+  And the cards are not in the second programming deck
+  And the 5 cards are in the action deck
+  And the 5 cards are in the second action deck
+  And the 5 cards are not in the playing deck
+	And the 5 cards are not in the second playing deck
+	And the remaining cards are in the discard deck
+  And the remaining cards are not in the playing deck
+  And the remaining cards are in the second discard deck
+  And the remaining cards are not in the second playing deck
+  And the playing deck is empty
+  And the second playing deck is empty
+	
+	
   
-  
-

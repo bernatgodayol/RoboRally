@@ -164,7 +164,7 @@ public class Board {
 					grid[rebootPositionX][rebootPositionY].addElement(robot);
 					this.setRobotPositionX(rebootPositionX, robot);
 					this.setRobotPositionY(rebootPositionY, robot);
-					System.out.println("The robot went to out of the board!");
+					System.out.println("The robot went out of the board!");
 				// if the robot hits a wall
 				} else if ((grid[oldX][oldY-1].containsElement(new Wall(Direction.WEST))) ||
 						   (grid[oldX][oldY]  .containsElement(new Wall(Direction.EAST)))) {
@@ -182,7 +182,7 @@ public class Board {
 						grid[rebootPositionX][rebootPositionY].addElement(robot);
 						this.setRobotPositionX(rebootPositionX, robot);
 						this.setRobotPositionY(rebootPositionY, robot);
-						System.out.println("The robot went to out of the board!");
+						System.out.println("The robot went out of the board!");
 					// if the robot hits a wall
 					} else if ((grid[oldX][oldY+1].containsElement(new Wall(Direction.EAST))) ||
 							   (grid[oldX][oldY]  .containsElement(new Wall(Direction.WEST)))) {
@@ -200,7 +200,7 @@ public class Board {
 						grid[rebootPositionX][rebootPositionY].addElement(robot);
 						this.setRobotPositionX(rebootPositionX, robot);
 						this.setRobotPositionY(rebootPositionY, robot);
-						System.out.println("The robot went to out of the board!");
+						System.out.println("The robot went out of the board!");
 					// if the robot hits a wall
 					} else if ((grid[oldX+1][oldY].containsElement(new Wall(Direction.NORTH))) ||
 							   (grid[oldX][oldY]  .containsElement(new Wall(Direction.SOUTH)))) {
