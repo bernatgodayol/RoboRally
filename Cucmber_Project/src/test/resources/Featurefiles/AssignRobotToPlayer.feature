@@ -14,6 +14,8 @@ Feature: Assign robot to player
     And a player
     And a second robot
     And a second player
-    When the robots are assigned to the players
-    Then the robots belongs to the players
+    When the robot is assigned to the player
+    And the second robot is assigned to the second player
+    Then the robot belongs to the player
+    And the second robot belongs to the second player
 

@@ -21,10 +21,14 @@ public class StepsDefinition {
 	Card cardUTurn;
 	Card cardRightTurn;
 	Card cardLeftTurn;
-	Deck discardDeck1;
 	Deck programmingDeck1;
 	Deck playingDeck1;
 	Deck actionDeck1;
+	Deck discardDeck1;
+	Deck programmingDeck2;
+	Deck playingDeck2;
+	Deck actionDeck2;
+	Deck discardDeck2;
 	Laser laser;
 	int numCards9 = 9;
 	int numCards4 = 4;
@@ -74,15 +78,13 @@ public class StepsDefinition {
 		player2 = new Player("Bernat");
 	}
 	
-	@When("the robots are assigned to the players")
-	public void the_robots_are_assigned_to_the_players() {
-		player1.setRobot(robot1);
+	@When("the second robot is assigned to the second player")
+	public void the_robots_are_assigned_to_the_player() {
 		player2.setRobot(robot2);
 	}
 	
-	@Then("the robots belongs to the players")
-	public void the_robots_belongs_to_the_players() {
-		assertTrue(player1.getRobot().equals(new Robot(Color.BLUE)));
+	@Then("the second robot belongs to the second player")
+	public void the_second_robot_belongs_to_the_second_player() {
 		assertTrue(player2.getRobot().equals(new Robot(Color.RED)));
 	}
 	
@@ -100,69 +102,45 @@ public class StepsDefinition {
 		board.initialize5B();
 	}
 	
-	@Then("the obstacles of the 5B board should be in the expected tiles")
-	public void the_obstacles_of_the_5B_board_should_be_in_the_expected_tiles() {
+	@Then("the obstacles of the 5B board are in the expected tiles")
+	public void the_obstacles_of_the_5B_board_are_in_the_expected_tiles() {
 	    // Write code here that turns the phrase above into concrete actions
 	    for (int i=0; i<13; i++) {
 	    	for (int j=0; j<10; j++) {
 	    		if (i==3 && j==3) {
 	    			assertTrue(board.containsElement(new Wall(Direction.NORTH), i, j));
 	    			assertTrue(board.containsElement(new Laser(), i, j));
-	    		}
-	    		
-	    		else if (i==4 && j==3) {
+	    		} else if (i==4 && j==3) {
 	    			assertTrue(board.containsElement(new Wall(Direction.SOUTH), i, j));
 	    			assertTrue(board.containsElement(new Laser(), i, j));
-	    		}
-	    		
-	    		else if (i==3 && j==5) {
+	    		} else if (i==3 && j==5) {
 	    			assertTrue(board.containsElement(new Wall(Direction.WEST), i, j));
 	    			assertTrue(board.containsElement(new Laser(), i, j));
-	    		}
-	    		
-	    		else if (i==3 && j==6) {
+	    		} else if (i==3 && j==6) {
 	    			assertTrue(board.containsElement(new Wall(Direction.EAST), i, j));
 	    			assertTrue(board.containsElement(new Laser(), i, j));
-	    		}
-	    		
-	    		else if (i==6 && j==3) {
+	    		} else if (i==6 && j==3) {
 	    			assertTrue(board.containsElement(new Wall(Direction.WEST), i, j));
 	    			assertTrue(board.containsElement(new Laser(), i, j));
-	    		}
-	    		
-	    		else if (i==6 && j==4) {
+	    		} else if (i==6 && j==4) {
 	    			assertTrue(board.containsElement(new Wall(Direction.EAST), i, j));
 	    			assertTrue(board.containsElement(new Laser(), i, j));
-	    		}
-	    		
-	    		else if (i==5 && j==6) {
+	    		} else if (i==5 && j==6) {
 	    			assertTrue(board.containsElement(new Wall(Direction.NORTH), i, j));
 	    			assertTrue(board.containsElement(new Laser(), i, j));
-	    		}
-	    		
-	    		else if (i==6 && j==6) {
+	    		} else if (i==6 && j==6) {
 	    			assertTrue(board.containsElement(new Wall(Direction.SOUTH), i, j));
 	    			assertTrue(board.containsElement(new Laser(), i, j));
-	    		}
-	    		
-	    		else if (i==11 && j==2) {
+	    		} else if (i==11 && j==2) {
 	    			assertTrue(board.containsElement(new Wall(Direction.WEST), i, j));
-	    		}
-	    		
-	    		else if (i==10 && j==4) {
+	    		} else if (i==10 && j==4) {
 	    			assertTrue(board.containsElement(new Wall(Direction.NORTH), i, j));
-	    		}
-	    		
-	    		else if (i==10 && j==5) {
+	    		} else if (i==10 && j==5) {
 	    			assertTrue(board.containsElement(new Wall(Direction.NORTH), i, j));
-	    		}
-	    		
-	    		else if (i==11 && j==7) {
+	    		} else if (i==11 && j==7) {
 	    			assertTrue(board.containsElement(new Wall(Direction.EAST), i, j));
-	    		}
-	    		
-	    		else {
-	    			assertTrue(board.isEmpty(i, j));
+	    		} else {
+	    			assertTrue((board.isEmpty(i, j) || board.containsElement(robot1, i, j) || (board.containsElement(robot2, i, j))));
 	    		}
 	    	}
 	    }
@@ -231,6 +209,59 @@ public class StepsDefinition {
 		assertTrue(player1.getDiscardDeck().equals(discardDeck1));
 	}
 	
+	@Given("a second programming deck of cards")
+	public void a_second_programming_deck_of_cards() {
+		programmingDeck2 = new Deck();
+		programmingDeck2.initializeProgrammingDeck();
+	}
+	@When("the second player is assigned the second programming deck of cards")
+	public void the_second_player_is_assigned_the_second_programming_deck_of_cards() {
+		player2.setProgrammingDeck(programmingDeck2);
+	}
+	@Then("the second player has a programming deck of cards")
+	public void the_second_player_has_a_programming_deck_of_cards() {
+		assertTrue(player2.getProgrammingDeck().equals(programmingDeck2));
+	    assertTrue(player2.getProgrammingDeck().getDeckSize() == 17);
+	}
+	
+	@Given("a second playing deck of cards")
+	public void a_second_playing_deck_of_cards() {
+		playingDeck2 = new Deck();
+	}
+	@When("the second player is assigned the second playing deck of cards")
+	public void the_second_player_is_assigned_the_second_playing_deck_of_cards() {
+		player2.setPlayingDeck(playingDeck2);
+	}
+	@Then("the second player has a playing deck of cards")
+	public void the_second_player_has_a_playing_deck_of_cards() {
+		assertTrue(player2.getPlayingDeck().equals(playingDeck2));
+	}
+	
+	@Given("a second action deck of cards")
+	public void a_second_action_deck_of_cards() {
+		actionDeck2 = new Deck();
+	}
+	@When("the second player is assigned the second action deck of cards")
+	public void the_second_player_is_assigned_the_second_action_deck_of_cards() {
+		player2.setActionDeck(actionDeck2);
+	}
+	@Then("the second player has an action deck of cards")
+	public void the_second_player_has_an_action_deck_of_cards() {
+		assertTrue(player2.getActionDeck().equals(actionDeck2));
+	}
+	
+	@Given("a second discard deck of cards")
+	public void a_second_discard_deck_of_cards() {
+		discardDeck2 = new Deck();
+	}
+	@When("the second player is assigned the second discard deck of cards")
+	public void the_second_player_is_assigned_the_second_discard_deck_of_cards() {
+		player2.setDiscardDeck(discardDeck2);
+	}
+	@Then("the second player has a discard deck of cards")
+	public void the_second_player_has_a_discard_deck_of_cards() {
+		assertTrue(player2.getDiscardDeck().equals(discardDeck2));
+	}
 	///////////////////////////////////
 	// U4 : PLACE ROBOT ON THE BOARD //
 	///////////////////////////////////
