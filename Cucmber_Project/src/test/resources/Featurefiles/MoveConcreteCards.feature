@@ -44,7 +44,7 @@ Feature: Move concrete cards
     And an action deck of cards
     And a second action deck of cards
     When the player moves the cards 2 5 4 8 7 from the playing deck to the action deck
-    And the second player moves the cards 2 5 4 8 7 from the second playing deck to the second action deck
+    And the second player moves the cards 6 3 2 9 1 from the second playing deck to the second action deck
     Then the 5 cards are in the action deck
     And the 5 cards are in the second action deck
     And the 5 cards are not in the playing deck

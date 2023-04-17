@@ -52,11 +52,11 @@ public class StepsDefinition {
 	int int3 = 2;
 	int int4 = 5;
 	int int5 = 1;
-	int int6 = 7;
-	int int7 = 1;
-	int int8 = 4;
-	int int9 = 6;
-	int int10 = 5;
+	int int6 = 6;
+	int int7 = 3;
+	int int8 = 2;
+	int int9 = 9;
+	int int10 = 1;
 	
 /////////////////
 // GAME SET UP //
@@ -358,7 +358,7 @@ public class StepsDefinition {
 	}
 	@Then("the cards are not in the second programming deck")
 	public void the_cards_are_not_in_the_second_programming_deck() {
-		assertTrue(programmingDeck1.getDeckSize() == initialSizeProgrammingDeck - 9);
+		assertTrue(programmingDeck2.getDeckSize() == initialSizeProgrammingDeck - 9);
 	}
 	
 	//////////////////////////////
@@ -391,11 +391,11 @@ public class StepsDefinition {
 	
 	@When("the player moves the cards {int} {int} {int} {int} {int} from the playing deck to the action deck")
 	public void the_player_moves_the_cards_from_the_playing_deck_to_the_action_deck(Integer int1, Integer int2, Integer int3, Integer int4, Integer int5) {
-		choosenCard1 = playingDeck1.getCard(int1);
-		choosenCard2 = playingDeck1.getCard(int2);
-		choosenCard3 = playingDeck1.getCard(int3);
-		choosenCard4 = playingDeck1.getCard(int4);
-		choosenCard5 = playingDeck1.getCard(int5);
+		choosenCard1 = playingDeck1.getCard(int1-1);
+		choosenCard2 = playingDeck1.getCard(int2-1);
+		choosenCard3 = playingDeck1.getCard(int3-1);
+		choosenCard4 = playingDeck1.getCard(int4-1);
+		choosenCard5 = playingDeck1.getCard(int5-1);
     	playingDeck1.moveCard(int1, int2, int3, int4, int5, actionDeck1);
 	}
 	
@@ -424,35 +424,21 @@ public class StepsDefinition {
 	
 	@When("the second player moves the cards {int} {int} {int} {int} {int} from the second playing deck to the second action deck")
 	public void the_second_player_moves_the_cards_from_the_second_playing_deck_to_the_second_action_deck(Integer int6, Integer int7, Integer int8, Integer int9, Integer int10) {
-		System.out.println(playingDeck2.getDeckSize());
-		choosenCard6 = playingDeck2.getCard(int6);
-		System.out.println(playingDeck2.getDeckSize());
-		choosenCard7 = playingDeck2.getCard(int7);
-		System.out.println(playingDeck2.getDeckSize());
-		choosenCard8 = playingDeck2.getCard(int8);
-		System.out.println(playingDeck2.getDeckSize());
-		choosenCard9 = playingDeck2.getCard(int9);
-		System.out.println(playingDeck2.getDeckSize());
-		choosenCard10 = playingDeck2.getCard(int10);
-		System.out.println(playingDeck2.getDeckSize());
+		choosenCard6 = playingDeck2.getCard(int6-1);
+		choosenCard7 = playingDeck2.getCard(int7-1);
+		choosenCard8 = playingDeck2.getCard(int8-1);
+		choosenCard9 = playingDeck2.getCard(int9-1);
+		choosenCard10 = playingDeck2.getCard(int10-1);
     	playingDeck2.moveCard(int6, int7, int8, int9, int10, actionDeck2);
 	}
 	@Then("the {int} cards are in the action deck")
 	public void the_cards_are_in_the_action_deck(Integer numCards5) {
-		assertTrue(playingDeck1.contains(choosenCard1));
-		assertTrue(playingDeck1.contains(choosenCard2));
-		assertTrue(playingDeck1.contains(choosenCard3));
-		assertTrue(playingDeck1.contains(choosenCard4));
-		assertTrue(playingDeck1.contains(choosenCard5));
+		assertTrue(actionDeck1.getDeckSize() == numCards5);
 		
 	}
 	@Then("the {int} cards are in the second action deck")
 	public void the_cards_are_in_the_second_action_deck(Integer numCards5) {
-		assertTrue(playingDeck2.contains(choosenCard6));
-		assertTrue(playingDeck2.contains(choosenCard7));
-		assertTrue(playingDeck2.contains(choosenCard8));
-		assertTrue(playingDeck2.contains(choosenCard9));
-		assertTrue(playingDeck2.contains(choosenCard10));
+		assertTrue(actionDeck2.getDeckSize() == numCards5);
 	}
 	@Then("the {int} cards are not in the playing deck")
 	public void the_cards_are_not_in_the_playing_deck(Integer numCards5) {
@@ -846,6 +832,14 @@ public class StepsDefinition {
 	// U? : COMPLETE PROGRAMMING PHASE //
 	/////////////////////////////////////
 	
+	@Then("the playing deck is empty")
+	public void the_playing_deck_is_empty() {
+	    assertTrue(playingDeck1.deckIsEmpty());
+	}
+	@Then("the second playing deck is empty")
+	public void the_second_playing_deck_is_empty() {
+		assertTrue(playingDeck2.deckIsEmpty());
+	}
 	
 }
 

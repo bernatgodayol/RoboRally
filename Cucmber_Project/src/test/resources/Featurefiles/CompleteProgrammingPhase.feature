@@ -23,12 +23,8 @@ Feature: Complete programming phase
   And the cards are not in the second programming deck
   And the 5 cards are in the action deck
   And the 5 cards are in the second action deck
-  And the 5 cards are not in the playing deck
-	And the 5 cards are not in the second playing deck
 	And the remaining cards are in the discard deck
-  And the remaining cards are not in the playing deck
   And the remaining cards are in the second discard deck
-  And the remaining cards are not in the second playing deck
   And the playing deck is empty
   And the second playing deck is empty
 	

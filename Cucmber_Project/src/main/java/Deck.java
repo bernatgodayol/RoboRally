@@ -91,11 +91,11 @@ public class Deck {
 	    	Card card5 = this.getCard(int5-1);	
 	    	ArrayList<Integer> arraylist = new ArrayList<Integer>();
 	    	
-	    	arraylist.add(int1);
-	        arraylist.add(int2);
-	        arraylist.add(int3);
-	        arraylist.add(int4);
-	        arraylist.add(int5);
+	    	arraylist.add(int1-1);
+	        arraylist.add(int2-1);
+	        arraylist.add(int3-1);
+	        arraylist.add(int4-1);
+	        arraylist.add(int5-1);
 	        
 	    	// Sorting ArrayList in descending order
 		     Collections.sort(arraylist, new Comparator<Integer>() {
