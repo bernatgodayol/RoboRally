@@ -18,3 +18,4 @@ Feature: Receive damage card
     And a reboot cell
     When the robot is punished by the reboot cell
     Then a damage card is in the programming deck
+ 

@@ -134,6 +134,23 @@ public class Board {
 		return COLUMNS;
 	}
 	
+	public void activateObstacles() {
+		if (this.containsElement(new Laser(), robot1PositionX, robot1PositionX)) {
+			Laser laser = new Laser(true);
+			laser.hit(robot1);
+		} else if (this.containsElement(robot1, rebootPositionX, rebootPositionY)) {
+			Reboot reboot = new Reboot();
+			reboot.punishPlayer(robot1);
+		}
+		if (this.containsElement(new Laser(), robot2PositionX, robot2PositionX)) {
+			Laser laser = new Laser(true);
+			laser.hit(robot2);
+		} else if (this.containsElement(robot2, rebootPositionX, rebootPositionY)) {
+			Reboot reboot = new Reboot();
+			reboot.punishPlayer(robot2);
+		}
+	}
+	
 	public void playCard(Robot robot, Card card) {
 		int oldX = this.getRobotPositionX(robot);
 		int oldY = this.getRobotPositionY(robot);
