@@ -61,6 +61,7 @@ public class StepsDefinition {
 	int int8 = 2;
 	int int9 = 9;
 	int int10 = 1;
+	AI AIPlayer;
 	
 /////////////////
 // GAME SET UP //
@@ -893,5 +894,35 @@ public class StepsDefinition {
 	public void the_register_is_completed() {
 	    assertTrue(true);
 	}
+	
+///////////////////////////
+//          AI           //
+///////////////////////////
+	
+	/////////////////////////////////
+	// U? : CHOOSE 5 RANDOM CARDS  //
+	/////////////////////////////////
+	
+	@Given("an AI")
+	public void an_ai() {
+	    AIPlayer = new AI();
+	}
+	
+	@Given("the playing deck belongs to the AI")
+	public void the_playing_deck_belongs_to_the_ai() {
+	    AIPlayer.setPlayingDeck(playingDeck1);
+	}
+	
+	@Given("the action deck belongs to the AI")
+	public void the_action_deck_belongs_to_the_ai() {
+	    AIPlayer.setActionDeck(actionDeck1);
+	}
+	
+	@When("the AI picks {int} random cards from the playing deck and they are moved to the action deck")
+	public void the_ai_picks_random_cards_from_the_playing_deck_and_they_are_moved_to_the_action_deck(Integer int1) {
+	    AIPlayer.pickCards();
+	}
+	
+	
 }
 
