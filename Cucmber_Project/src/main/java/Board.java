@@ -29,57 +29,86 @@ public class Board {
 
 		this.setObstacle(new Wall(Direction.NORTH), 3, 3);
 		this.setObstacle(new Laser(), 3, 3);
-		grid[4][3].addElement(new Wall(Direction.SOUTH));
-		grid[4][3].addElement(new Laser());
-		grid[3][5].addElement(new Wall(Direction.WEST));
-		grid[3][5].addElement(new Laser());
-		grid[3][6].addElement(new Wall(Direction.EAST));
-		grid[3][6].addElement(new Laser());
-		grid[6][3].addElement(new Wall(Direction.WEST));
-		grid[6][3].addElement(new Laser());
-		grid[6][4].addElement(new Wall(Direction.EAST));
-		grid[6][4].addElement(new Laser());
-		grid[5][6].addElement(new Wall(Direction.NORTH));
-		grid[5][6].addElement(new Laser());
-		grid[6][6].addElement(new Wall(Direction.SOUTH));
-		grid[6][6].addElement(new Laser());
-		grid[11][2].addElement(new Wall(Direction.WEST));
-		grid[10][4].addElement(new Wall(Direction.NORTH));
-		grid[10][5].addElement(new Wall(Direction.NORTH));
-		grid[11][7].addElement(new Wall(Direction.EAST));
+		this.setObstacle(new Wall(Direction.SOUTH), 4, 3);
+		this.setObstacle(new Laser(), 4, 3);
+		this.setObstacle(new Wall(Direction.WEST), 3, 5);
+		this.setObstacle(new Laser(), 3, 5);
+		this.setObstacle(new Wall(Direction.EAST), 3, 6);
+		this.setObstacle(new Laser(), 3, 6);
+		this.setObstacle(new Wall(Direction.WEST), 6, 3);
+		this.setObstacle(new Laser(), 6, 3);
+		this.setObstacle(new Wall(Direction.EAST), 6, 4);
+		this.setObstacle(new Laser(), 6, 4);
+		this.setObstacle(new Wall(Direction.NORTH), 5, 6);
+		this.setObstacle(new Laser(), 5, 6);
+		this.setObstacle(new Wall(Direction.SOUTH), 6, 6);
+		this.setObstacle(new Laser(), 6, 6);
+		this.setObstacle(new Wall(Direction.WEST), 11, 2);
+		this.setObstacle(new Wall(Direction.NORTH), 10, 4);
+		this.setObstacle(new Wall(Direction.NORTH), 10, 5);
+		this.setObstacle(new Wall(Direction.EAST), 11, 7);
 	}
 	
 	public void setRobots(Robot robot1) {
 		robot1.setDirection(Direction.NORTH);
 		this.robot1 = robot1;
-		grid[robot1PositionX][robot1PositionY].addElement(robot1);
+		this.setRobot(robot1, robot1PositionX, robot1PositionY);
 	}
 	
 	// now we only have two players, if we had 3 or 4 players we can have different versions on setRobots method
 		public void setRobots(Robot robot1, Robot robot2) {
-			
 			this.robot1 = robot1;
 			this.robot1.setDirection(Direction.NORTH);
-			grid[robot1PositionX][robot1PositionY].addElement(robot1);
+			this.setRobot(robot1, robot1PositionX, robot1PositionY);
 			this.robot2 = robot2;
 			this.robot2.setDirection(Direction.NORTH);
-			grid[robot2PositionX][robot2PositionY].addElement(robot2);
+			this.setRobot(robot2, robot2PositionX, robot2PositionY);
 		}
 		
 	public void setObstacle(Wall wall, int positionX, int positionY) {
-		grid[positionX][positionY].addElement(wall);
+		grid[positionX][positionY].getElement().add(wall);
 	}
 		
 	public void setObstacle(Laser laser, int positionX, int positionY) {
-		grid[positionX][positionY].addElement(laser);
+		grid[positionX][positionY].getElement().add(laser);
+	}
+	
+	public void setRobot(Robot robot, int positionX, int positionY) {
+		// System.out.println(robot1PositionX);
+	    // System.out.println(robot1PositionY);
+		grid[positionX][positionY].getElement().add(robot);
+		this.setRobotPositionX(positionX, robot);
+		this.setRobotPositionY(positionY, robot);
+		// System.out.println(robot1PositionX);
+	    // System.out.println(robot1PositionY);
+	}
+	
+	public void setRobotPositionX(int X, Robot robot) {
+		if (robot.equals(robot1)) {
+			this.robot1PositionX = X;
+		} else {
+			this.robot2PositionX = X;
+		}
+	}
+	
+	public void setRobotPositionY(int Y, Robot robot) {
+		if (robot.equals(robot1)) {
+			this.robot1PositionY = Y;
+		} else {
+			this.robot2PositionY = Y;
+		}
 	}
 	
 	public boolean containsElement(Element element, int positionX, int positionY) {
-		return grid[positionX][positionY].containsElement(element);
+		return grid[positionX][positionY].getElement().contains(element);
 	}
 	
 	public boolean isEmpty(int positionX, int positionY) {
-		return grid[positionX][positionY].isEmpty();
+		return grid[positionX][positionY].getElement().isEmpty();
+	}
+	
+	public boolean removeElement(Element element, int positionX, int positionY) {
+		return grid[positionX][positionY].getElement().remove(element);
 	}
 	
 	public int getRobotPositionX(Robot robot) {
@@ -95,22 +124,6 @@ public class Board {
 			return robot1PositionY;
 		} else {
 			return robot2PositionY;
-		}
-	}
-	
-	public void setRobotPositionX(int X, Robot robot) {
-		if (robot.equals(robot1)) {
-			robot1PositionX = X;
-		} else {
-			robot2PositionX = X;
-		}
-	}
-	
-	public void setRobotPositionY(int Y, Robot robot) {
-		if (robot.equals(robot1)) {
-			robot1PositionY = Y;
-		} else {
-			robot2PositionY = Y;
 		}
 	}
 	
@@ -159,74 +172,58 @@ public class Board {
 			if (robot.getDirection() == Direction.NORTH) {
 				// if the robot goes out of the board
 				if (oldX == 0) {
-					grid[oldX][oldY].removeElement(robot);
-					grid[rebootPositionX][rebootPositionY].addElement(robot);
-					this.setRobotPositionX(rebootPositionX, robot);
-					this.setRobotPositionY(rebootPositionY, robot);
+					this.removeElement(robot, oldX, oldY);
+					this.setRobot(robot, rebootPositionX, rebootPositionY);
 					System.out.println("The robot went out of the board!");
 				// if the robot hits a wall
 				} else if ((this.containsElement(new Wall(Direction.SOUTH), oldX-1, oldY)) ||
 					       (this.containsElement(new Wall(Direction.NORTH), oldX  , oldY))) {
 					System.out.println("The robot hitted a wall! ");
 				} else {
-					grid[oldX][oldY].removeElement(robot);
-					grid[oldX-1][oldY].addElement(robot);
-					this.setRobotPositionX(oldX-1, robot);
-					this.setRobotPositionY(oldY, robot);
+					this.removeElement(robot, oldX, oldY);
+					this.setRobot(robot, oldX-1, oldY);
 				}
 			} else if (robot.getDirection() == Direction.EAST) {
 				// if the robot goes out of the board
 				if (oldY+1 == COLUMNS) {
-					grid[oldX][oldY].removeElement(robot);
-					grid[rebootPositionX][rebootPositionY].addElement(robot);
-					this.setRobotPositionX(rebootPositionX, robot);
-					this.setRobotPositionY(rebootPositionY, robot);
+					this.removeElement(robot, oldX, oldY);
+					this.setRobot(robot, rebootPositionX, rebootPositionY);
 					System.out.println("The robot went out of the board!");
 				// if the robot hits a wall
-				} else if ((grid[oldX][oldY-1].containsElement(new Wall(Direction.WEST))) ||
-						   (grid[oldX][oldY]  .containsElement(new Wall(Direction.EAST)))) {
+				} else if ((this.containsElement(new Wall(Direction.WEST), oldX, oldY-1)) ||
+						   (this.containsElement(new Wall(Direction.EAST), oldX, oldY))) {
 					System.out.println("The robot hitted a wall!");
 				} else {
-						grid[oldX][oldY].removeElement(robot);
-						grid[oldX][oldY-1].addElement(robot);
-						this.setRobotPositionX(oldX, robot);
-						this.setRobotPositionY(oldY-1, robot);
+					this.removeElement(robot, oldX, oldY);
+					this.setRobot(robot, oldX, oldY-1);
 					}
 				} else if (robot.getDirection() == Direction.WEST) {
 					// if the robot goes out of the board
 					if (oldY == 0) {
-						grid[oldX][oldY].removeElement(robot);
-						grid[rebootPositionX][rebootPositionY].addElement(robot);
-						this.setRobotPositionX(rebootPositionX, robot);
-						this.setRobotPositionY(rebootPositionY, robot);
+						this.removeElement(robot, oldX, oldY);
+						this.setRobot(robot, rebootPositionX, rebootPositionY);
 						System.out.println("The robot went out of the board!");
 					// if the robot hits a wall
-					} else if ((grid[oldX][oldY+1].containsElement(new Wall(Direction.EAST))) ||
-							   (grid[oldX][oldY]  .containsElement(new Wall(Direction.WEST)))) {
+					} else if ((this.containsElement(new Wall(Direction.EAST), oldX, oldY+1)) ||
+							   (this.containsElement(new Wall(Direction.WEST), oldX, oldY))) {
 						System.out.println("The robot hitted a wall!");
 					} else {
-						grid[oldX][oldY].removeElement(robot);
-						grid[oldX][oldY+1].addElement(robot);
-						this.setRobotPositionX(oldX, robot);
-						this.setRobotPositionY(oldY+1, robot);
+						this.removeElement(robot, oldX, oldY);
+						this.setRobot(robot, oldX, oldY+1);
 					}
 				} else if (robot.getDirection() == Direction.SOUTH) {
 					// if the robot goes out of the board
 					if (oldX+1 == ROWS) {
-						grid[oldX][oldY].removeElement(robot);
-						grid[rebootPositionX][rebootPositionY].addElement(robot);
-						this.setRobotPositionX(rebootPositionX, robot);
-						this.setRobotPositionY(rebootPositionY, robot);
+						this.removeElement(robot, oldX, oldY);
+						this.setRobot(robot, rebootPositionX, rebootPositionY);
 						System.out.println("The robot went out of the board!");
 					// if the robot hits a wall
-					} else if ((grid[oldX+1][oldY].containsElement(new Wall(Direction.NORTH))) ||
-							   (grid[oldX][oldY]  .containsElement(new Wall(Direction.SOUTH)))) {
+					} else if ((this.containsElement(new Wall(Direction.NORTH), oldX+1, oldY)) ||
+							   (this.containsElement(new Wall(Direction.SOUTH), oldX, oldY))) {
 						System.out.println("The robot hitted a wall!");
 					} else {
-						grid[oldX][oldY].removeElement(robot);
-						grid[oldX+1][oldY].addElement(robot);
-						this.setRobotPositionX(oldX+1, robot);
-						this.setRobotPositionY(oldY, robot);
+						this.removeElement(robot, oldX, oldY);
+						this.setRobot(robot, oldX+1, oldY);
 					}
 				}
 			} else if (card.equals(Card.RightTurn)) {
