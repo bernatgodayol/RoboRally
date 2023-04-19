@@ -1,10 +1,12 @@
+package model;
+
 public class Player {
-	protected String name;
-	protected Robot robot;
-	protected Deck programmingDeck;
-	protected Deck discardDeck;
-	protected Deck playingDeck;
-	protected Deck actionDeck;
+	private String name;
+	private Robot robot;
+	private Deck programmingDeck;
+	private Deck discardDeck;
+	private Deck playingDeck;
+	private Deck actionDeck;
 
 	public Player(String name) {
 		this.name = name;

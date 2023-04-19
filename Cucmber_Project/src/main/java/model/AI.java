@@ -1,3 +1,4 @@
+package model;
 
 public class AI extends Player {
 
@@ -6,7 +7,7 @@ public class AI extends Player {
 	}
 
 	public void pickCards() {
-		playingDeck.moveRandomCards(actionDeck, 5);
+		getPlayingDeck().moveRandomCards(getActionDeck(), 5);
 	}
 	
 	

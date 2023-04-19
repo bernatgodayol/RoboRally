@@ -1,4 +1,4 @@
-
+package model;
 public class Wall extends Element {
 	
 	private Direction direction;

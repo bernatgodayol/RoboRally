@@ -1,4 +1,4 @@
-
+package model;
 public class Robot extends Element{
 	private Color color;
 	private Direction direction;

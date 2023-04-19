@@ -1,5 +1,13 @@
-public class Board {
+package model;
+import java.util.HashSet;
+import java.util.Set;
 
+import View.BoardStatus;
+import controller.BoardObserver;
+
+public class Board {
+	
+	Set<BoardObserver> registeredObservers = new HashSet<BoardObserver>();
 
 	private Tile[][] grid;
 	private int rebootPositionX;
@@ -22,11 +30,11 @@ public class Board {
 			for (int j=0; j<COLUMNS; j++) {
 				grid[i][j] = new Tile();
 			}
-		}
+		}		
 	}
 	
 	public void initialize5B() {
-
+		
 		this.setObstacle(new Wall(Direction.NORTH), 3, 3);
 		this.setObstacle(new Laser(), 3, 3);
 		this.setObstacle(new Wall(Direction.SOUTH), 4, 3);
@@ -47,6 +55,8 @@ public class Board {
 		this.setObstacle(new Wall(Direction.NORTH), 10, 4);
 		this.setObstacle(new Wall(Direction.NORTH), 10, 5);
 		this.setObstacle(new Wall(Direction.EAST), 11, 7);
+		
+		notifyBoardUpdated();
 	}
 	
 	public void setRobots(Robot robot1) {
@@ -64,7 +74,8 @@ public class Board {
 			this.robot2.setDirection(Direction.NORTH);
 			this.setRobot(robot2, robot2PositionX, robot2PositionY);
 		}
-		
+
+	
 	public void setObstacle(Wall wall, int positionX, int positionY) {
 		grid[positionX][positionY].getElement().add(wall);
 	}
@@ -103,20 +114,6 @@ public class Board {
 		}
 	}
 	
-	
-	
-	public boolean containsElement(Element element, int positionX, int positionY) {
-		return grid[positionX][positionY].getElement().contains(element);
-	}
-	
-	public boolean isEmpty(int positionX, int positionY) {
-		return grid[positionX][positionY].getElement().isEmpty();
-	}
-	
-	public boolean removeElement(Element element, int positionX, int positionY) {
-		return grid[positionX][positionY].getElement().remove(element);
-	}
-	
 	public int getRobotPositionX(Robot robot) {
 		if (robot.equals(robot1)) {
 			return robot1PositionX;
@@ -131,6 +128,18 @@ public class Board {
 		} else {
 			return robot2PositionY;
 		}
+	}
+	
+	public boolean containsElement(Element element, int positionX, int positionY) {
+		return grid[positionX][positionY].getElement().contains(element);
+	}
+	
+	public boolean isEmpty(int positionX, int positionY) {
+		return grid[positionX][positionY].getElement().isEmpty();
+	}
+	
+	public boolean removeElement(Element element, int positionX, int positionY) {
+		return grid[positionX][positionY].getElement().remove(element);
 	}
 	
 	public Tile getTile(int positionX, int positionY) {
@@ -266,4 +275,53 @@ public class Board {
 				System.out.println("The old position is not valid, there is not robot to move there.");
 			}
 		}
+	
+	private void notifyBoardUpdated() {
+		
+		BoardStatus bs = new BoardStatus(ROWS, COLUMNS);
+		
+		for(int i=0; i<ROWS; i++) {
+			for(int j=0; j<COLUMNS; j++) {
+				if(containsElement(new Wall(Direction.NORTH), i, j) &&
+						!containsElement(new Laser(), i, j)) {
+					bs.setElementType(1, i, j);
+				}
+				else if(containsElement(new Wall(Direction.SOUTH), i, j) &&
+						!containsElement(new Laser(), i, j)) {
+					bs.setElementType(2, i, j);
+				}
+				else if(containsElement(new Wall(Direction.EAST), i, j) &&
+						!containsElement(new Laser(), i, j)) {
+					bs.setElementType(3, i, j);
+				}
+				else if(containsElement(new Wall(Direction.WEST), i, j) &&
+						!containsElement(new Laser(), i, j)) {
+					bs.setElementType(4, i, j);
+				}	
+				else if(containsElement(new Wall(Direction.NORTH), i, j) &&
+						containsElement(new Laser(), i, j)) {
+					bs.setElementType(5, i, j);
+				}
+				else if(containsElement(new Wall(Direction.SOUTH), i, j) &&
+						containsElement(new Laser(), i, j)) {
+					bs.setElementType(6, i, j);
+				}
+				else if(containsElement(new Wall(Direction.EAST), i, j) &&
+						containsElement(new Laser(), i, j)) {
+					bs.setElementType(7, i, j);
+				}
+				else if(containsElement(new Wall(Direction.WEST), i, j) &&
+						containsElement(new Laser(), i, j)) {
+					bs.setElementType(8, i, j);
+				}	
+			}
+		for(BoardObserver o : registeredObservers) {
+				o.boardUpdated(bs);
+		}
+		}
 	}
+	
+	public void setRegisteredObservers(BoardObserver boardObserver) {
+		this.registeredObservers.add(boardObserver);	
+	}
+}
