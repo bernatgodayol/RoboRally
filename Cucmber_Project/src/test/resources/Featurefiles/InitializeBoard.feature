@@ -6,4 +6,3 @@ Feature: Initialise board
     Given a board
     When the 5B board is initialised 
     Then the obstacles of the 5B board are in the expected tiles
-    

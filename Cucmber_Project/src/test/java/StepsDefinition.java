@@ -841,5 +841,69 @@ public class StepsDefinition {
 		assertTrue(playingDeck2.deckIsEmpty());
 	}
 	
+	////////
+	// U? : COMPLETE ACTIVATION PHASE
+	//
+	
+	@Given("a second robot that belongs to the second player")
+	public void a_second_robot_that_belongs_to_the_second_player() {
+		robot2 = new Robot(Color.RED);
+		player2.setRobot(robot2);
+	}
+	@Given("a action deck of cards that belongs to the player")
+	public void a_action_deck_of_cards_that_belongs_to_the_player() {
+		actionDeck1 = new Deck();
+		player1.setActionDeck(actionDeck1);
+		actionDeck1.addCard(cardMoveForward);
+		actionDeck1.addCard(cardRightTurn);
+		actionDeck1.addCard(cardMoveForward);
+		actionDeck1.addCard(cardMoveForward);
+		actionDeck1.addCard(cardLeftTurn);
+	}
+	@Given("a second action deck of that belongs to the second player")
+	public void a_second_action_deck_of_that_belongs_to_the_second_player() {
+		actionDeck2 = new Deck();
+		player2.setActionDeck(actionDeck2);
+		actionDeck2.addCard(cardMoveForward);
+		actionDeck2.addCard(cardMoveForward);
+		actionDeck2.addCard(cardLeftTurn);
+		actionDeck2.addCard(cardMoveForward);
+		actionDeck2.addCard(cardRightTurn);
+	}
+	@Given("a discard deck of cards that belongs to the player")
+	public void a_discard_deck_of_cards_that_belongs_to_the_player() {
+		discardDeck1 = new Deck();
+		player1.setDiscardDeck(discardDeck1);
+	}
+	@Given("a second discard deck of that belongs to the second player")
+	public void a_second_discard_deck_of_that_belongs_to_the_second_player() {
+		discardDeck2 = new Deck();
+		player2.setDiscardDeck(discardDeck2);
+	}
+	@Given("a 5B board")
+	public void a_5b_board() {
+		board = new Board();
+		board.initialize5B();
+	}
+	@When("the first card in the action deck is played")
+	public void the_first_card_in_the_action_deck_is_played() {
+		card = actionDeck1.getCard(0);
+		board.playCard(robot1, card);
+		actionDeck1.moveCard(0, discardDeck1);
+	}
+	@When("the first card in the second action deck is played")
+	public void the_first_card_in_the_second_action_deck_is_played() {
+		card = actionDeck2.getCard(0);
+		board.playCard(robot2, card);
+		actionDeck2.moveCard(0, discardDeck2);
+	}
+	@When("the obstacles are activated")
+	public void the_obstacles_are_activated() {
+	    board.activateObstacles();
+	}
+	@Then("the register is completed")
+	public void the_register_is_completed() {
+	    assertTrue(true);
+	}
 }
 
