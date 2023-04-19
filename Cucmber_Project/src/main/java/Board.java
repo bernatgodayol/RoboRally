@@ -74,6 +74,10 @@ public class Board {
 		grid[positionX][positionY].addElement(laser);
 	}
 	
+	public void setObstacle(Pit pit, int positionX, int positionY) {
+		grid[positionX][positionY].addElement(pit);
+	}
+	
 	public boolean containsElement(Element element, int positionX, int positionY) {
 		return grid[positionX][positionY].containsElement(element);
 	}
