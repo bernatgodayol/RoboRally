@@ -136,4 +136,12 @@ Feature: Move robot
     And a move forward card
     When the move forward card is executed
     Then the robot goes to the reboot cell
+    
+  @tag17
+  Scenario: Successfully making the robot move to the reboot cell when it falls into a pit
+    Given a board
+    And a robot facing west whcih is next to a pit 
+    And a move forward card
+    When the move forward card is executed
+    Then the robot goes to the reboot cell
   
