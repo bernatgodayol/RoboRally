@@ -73,6 +73,10 @@ public class Board {
 		grid[positionX][positionY].getElement().add(laser);
 	}
 	
+	public void setObstacle(Pit pit, int positionX, int positionY) {
+		grid[positionX][positionY].getElement().add(pit);
+	}
+	
 	public void setRobot(Robot robot, int positionX, int positionY) {
 		// System.out.println(robot1PositionX);
 	    // System.out.println(robot1PositionY);
@@ -99,9 +103,7 @@ public class Board {
 		}
 	}
 	
-	public void setObstacle(Pit pit, int positionX, int positionY) {
-		grid[positionX][positionY].addElement(pit);
-	}
+	
 	
 	public boolean containsElement(Element element, int positionX, int positionY) {
 		return grid[positionX][positionY].getElement().contains(element);

@@ -698,16 +698,14 @@ public class StepsDefinition {
 	    robot1 = new Robot(Color.BLUE);
 		board.setRobots(robot1);
 		robot1.setDirection(Direction.EAST);
-		board.setRobotPositionX(1, robot1);
-		board.setRobotPositionY(3, robot1);
-		board.getTile(1, 3).addElement(robot1);
-		robot1PositionX = board.getRobotPositionX(robot1);
-		robot1PositionY = board.getRobotPositionY(robot1);	}
+		board.setRobot(robot1, 1, 3);
+		oldRobot1PositionX = board.getRobotPositionX(robot1);
+		oldRobot1PositionY = board.getRobotPositionY(robot1);	}
 	
 
 	@Given("a pit in the tile to the right where the robot is")
 	public void a_pit_in_the_tile_to_the_right_where_the_robot_is() {
-		board.setObstacle(new Pit() ,robot1PositionX, robot1PositionY+1);
+		board.setObstacle(new Pit() ,oldRobot1PositionX, oldRobot1PositionY+1);
 	}
 	
 	@Given("a robot facing west ")
@@ -715,33 +713,30 @@ public class StepsDefinition {
 	    robot1 = new Robot(Color.BLUE);
 		board.setRobots(robot1);
 		robot1.setDirection(Direction.WEST);
-		board.setRobotPositionX(1, robot1);
-		board.setRobotPositionY(5, robot1);
-		board.getTile(1, 5).addElement(robot1);
-		robot1PositionX = board.getRobotPositionX(robot1);
-		robot1PositionY = board.getRobotPositionY(robot1);	}
+		board.setRobot(robot1, 1, 5);
+		oldRobot1PositionX = board.getRobotPositionX(robot1);
+		oldRobot1PositionY = board.getRobotPositionY(robot1);	}
 	
 
 	@Given("a pit in the tile to the left where the robot is")
 	public void a_pit_in_the_tile_to_the_left_where_the_robot_is() {
-		board.setObstacle(new Pit() ,robot1PositionX, robot1PositionY-1);
+		board.setObstacle(new Pit() ,oldRobot1PositionX, oldRobot1PositionY-1);
 	}
+
 	
 	@Given("a robot facing north ")
 	public void a_robot_facing_north() {
 	    robot1 = new Robot(Color.BLUE);
 		board.setRobots(robot1);
 		robot1.setDirection(Direction.NORTH);
-		board.setRobotPositionX(5, robot1);
-		board.setRobotPositionY(8, robot1);
-		board.getTile(5, 8).addElement(robot1);
-		robot1PositionX = board.getRobotPositionX(robot1);
-		robot1PositionY = board.getRobotPositionY(robot1);	}
+		board.setRobot(robot1, 5, 8);
+		oldRobot1PositionX = board.getRobotPositionX(robot1);
+		oldRobot1PositionY = board.getRobotPositionY(robot1);	}
 	
 
 	@Given("a pit in the tile above where the robot is")
 	public void a_pit_in_the_tile_above_where_the_robot_is() {
-		board.setObstacle(new Pit() ,robot1PositionX-1, robot1PositionY+1);
+		board.setObstacle(new Pit() ,oldRobot1PositionX-1, oldRobot1PositionY+1);
 	}
 	
 	@Given("a robot facing south ")
@@ -749,16 +744,14 @@ public class StepsDefinition {
 	    robot1 = new Robot(Color.BLUE);
 		board.setRobots(robot1);
 		robot1.setDirection(Direction.SOUTH);
-		board.setRobotPositionX(3, robot1);
-		board.setRobotPositionY(8, robot1);
-		board.getTile(3, 8).addElement(robot1);
-		robot1PositionX = board.getRobotPositionX(robot1);
-		robot1PositionY = board.getRobotPositionY(robot1);	}
+		board.setRobot(robot1, 3, 8);
+		oldRobot1PositionX = board.getRobotPositionX(robot1);
+		oldRobot1PositionY = board.getRobotPositionY(robot1);	}
 	
 
 	@Given("a pit in the tile below where the robot is")
 	public void a_pit_in_the_tile_below_where_the_robot_is() {
-		board.setObstacle(new Pit() ,robot1PositionX+1, robot1PositionY);
+		board.setObstacle(new Pit() ,oldRobot1PositionX+1, oldRobot1PositionY);
 	}
 
 	
