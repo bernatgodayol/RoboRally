@@ -21,7 +21,7 @@ public class Tile {
 		return elements.contains(element);
 	}	
 	
-	public boolean emptyTile() {
+	public boolean isEmpty() {
 		return elements.isEmpty();
 	}
 }

@@ -29,3 +29,15 @@ Feature: The robot is moved according to the programming cards
   	And a robot facing south in a tile with xcoodinate 12 and ycoordinate 1
   	When a move forward card is executed 2
   	Then the robot is moved to the reboot cell in the board
+  	
+  @tag4
+  Scenario: Successfully moving the robot to the reboot cell when it falls into a pit
+  	Given a board
+  	And a robot
+  	And a robot facing east in a tile with xcoordinate 1 and ycoordinate 3
+  	When a move forward card is executed 4
+  	Then the robot is moved to the reboot cell in the board
+  	
+  	
+
+  	

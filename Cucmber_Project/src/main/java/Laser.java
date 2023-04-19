@@ -4,8 +4,13 @@ public class Laser extends Element {
 	private boolean active;
 	
 	public Laser() {
-		active = false;
+		this.active = false;
 	}
+	
+	public Laser(boolean active) {
+		this.active = active;
+	}
+	
 	
 	
 	@Override
@@ -17,16 +22,18 @@ public class Laser extends Element {
 	    }
 	}
 	
+	
+	
 	@Override
     public int hashCode() {
         return 1; // any constant value
     }
-
-	public void active(boolean b) {
-		this.active = b;
+	
+	public void setStatus(boolean active) {
+		this.active = active;
 	}
 	
-	public boolean getActive() {
+	public boolean getStatus() {
 		return this.active;
 	}
 
