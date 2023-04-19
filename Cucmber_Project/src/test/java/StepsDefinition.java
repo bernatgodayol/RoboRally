@@ -5,6 +5,17 @@ import static org.junit.Assert.assertTrue;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import model.Board;
+import model.Card;
+import model.Color;
+import model.Deck;
+import model.Direction;
+import model.Laser;
+import model.Player;
+import model.Reboot;
+import model.Robot;
+import model.Wall;
+
 
 public class StepsDefinition {
 	

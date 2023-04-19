@@ -1,5 +1,13 @@
-public class Board {
+package model;
+import java.util.HashSet;
+import java.util.Set;
 
+import View.BoardStatus;
+import controller.BoardObserver;
+
+public class Board {
+	
+	Set<BoardObserver> registeredObservers = new HashSet<BoardObserver>();
 
 	private Tile[][] grid;
 	private int rebootPositionX;
@@ -22,11 +30,11 @@ public class Board {
 			for (int j=0; j<COLUMNS; j++) {
 				grid[i][j] = new Tile();
 			}
-		}
+		}		
 	}
 	
 	public void initialize5B() {
-
+		
 		this.setObstacle(new Wall(Direction.NORTH), 3, 3);
 		this.setObstacle(new Laser(), 3, 3);
 		grid[4][3].addElement(new Wall(Direction.SOUTH));
@@ -47,6 +55,9 @@ public class Board {
 		grid[10][4].addElement(new Wall(Direction.NORTH));
 		grid[10][5].addElement(new Wall(Direction.NORTH));
 		grid[11][7].addElement(new Wall(Direction.EAST));
+		
+		
+		notifyBoardUpdated();
 	}
 	
 	public void setRobots(Robot robot1) {
@@ -246,4 +257,53 @@ public class Board {
 				System.out.println("The old position is not valid, there is not robot to move there.");
 			}
 		}
+	
+	private void notifyBoardUpdated() {
+		
+		BoardStatus bs = new BoardStatus(ROWS, COLUMNS);
+		
+		for(int i=0; i<ROWS; i++) {
+			for(int j=0; j<COLUMNS; j++) {
+				if(containsElement(new Wall(Direction.NORTH), i, j) &&
+						!containsElement(new Laser(), i, j)) {
+					bs.setElementType(1, i, j);
+				}
+				else if(containsElement(new Wall(Direction.SOUTH), i, j) &&
+						!containsElement(new Laser(), i, j)) {
+					bs.setElementType(2, i, j);
+				}
+				else if(containsElement(new Wall(Direction.EAST), i, j) &&
+						!containsElement(new Laser(), i, j)) {
+					bs.setElementType(3, i, j);
+				}
+				else if(containsElement(new Wall(Direction.WEST), i, j) &&
+						!containsElement(new Laser(), i, j)) {
+					bs.setElementType(4, i, j);
+				}	
+				else if(containsElement(new Wall(Direction.NORTH), i, j) &&
+						containsElement(new Laser(), i, j)) {
+					bs.setElementType(5, i, j);
+				}
+				else if(containsElement(new Wall(Direction.SOUTH), i, j) &&
+						containsElement(new Laser(), i, j)) {
+					bs.setElementType(6, i, j);
+				}
+				else if(containsElement(new Wall(Direction.EAST), i, j) &&
+						containsElement(new Laser(), i, j)) {
+					bs.setElementType(7, i, j);
+				}
+				else if(containsElement(new Wall(Direction.WEST), i, j) &&
+						containsElement(new Laser(), i, j)) {
+					bs.setElementType(8, i, j);
+				}	
+			}
+		for(BoardObserver o : registeredObservers) {
+				o.boardUpdated(bs);
+		}
+		}
 	}
+	
+	public void setRegisteredObservers(BoardObserver boardObserver) {
+		this.registeredObservers.add(boardObserver);	
+	}
+}
