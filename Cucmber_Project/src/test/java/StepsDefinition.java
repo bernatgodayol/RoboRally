@@ -46,6 +46,10 @@ public class StepsDefinition {
 	int size2;
 	int robot1PositionX;
 	int robot1PositionY;
+	int oldRobot1PositionX;
+	int oldRobot1PositionY;
+	int oldRobot2PositionX;
+	int oldRobot2PositionY;
 	Reboot reboot;
 	int int1 = 8;
 	int int2 = 3;
@@ -515,11 +519,9 @@ public class StepsDefinition {
 		robot1 = new Robot(Color.BLUE);
 		board.setRobots(robot1);
 		robot1.setDirection(Direction.NORTH);
-		board.setRobotPositionX(3, robot1);
-		board.setRobotPositionY(4, robot1);
-		board.getTile(3, 4).addElement(robot1);
-		robot1PositionX = board.getRobotPositionX(robot1);
-		robot1PositionY = board.getRobotPositionY(robot1);
+		board.setRobot(robot1, 3, 4);
+		oldRobot1PositionX = board.getRobotPositionX(robot1);
+		oldRobot1PositionY = board.getRobotPositionY(robot1);
 		}
 	@Given("a move forward card")
 	public void a_move_forward_card() {
@@ -531,8 +533,8 @@ public class StepsDefinition {
 	}
 	@Then("the robot moves forward north")
 	public void the_robot_moves_forward_north() {
-	    assertFalse(board.containsElement(robot1, robot1PositionX  , robot1PositionY));
-	    assertTrue (board.containsElement(robot1, robot1PositionX-1, robot1PositionY));
+	    assertFalse(board.containsElement(robot1, oldRobot1PositionX  , oldRobot1PositionY));
+	    assertTrue (board.containsElement(robot1, oldRobot1PositionX-1, oldRobot1PositionY));
 	}
 	
 	@Given("a robot on the board facing south")
@@ -540,16 +542,14 @@ public class StepsDefinition {
 		robot1 = new Robot(Color.BLUE);
 		board.setRobots(robot1);
 		robot1.setDirection(Direction.SOUTH);
-		board.setRobotPositionX(3, robot1);
-		board.setRobotPositionY(4, robot1);
-		board.getTile(3, 4).addElement(robot1);
-		robot1PositionX = board.getRobotPositionX(robot1);
-		robot1PositionY = board.getRobotPositionY(robot1);
+		board.setRobot(robot1, 3, 4);
+		oldRobot1PositionX = board.getRobotPositionX(robot1);
+		oldRobot1PositionY = board.getRobotPositionY(robot1);
 		}
 	@Then("the robot moves forward south")
 	public void the_robot_moves_forward_south() {
-	    assertFalse(board.containsElement(robot1, robot1PositionX  , robot1PositionY));
-	    assertTrue (board.containsElement(robot1, robot1PositionX+1, robot1PositionY));
+		assertFalse(board.containsElement(robot1, oldRobot1PositionX  , oldRobot1PositionY));
+	    assertTrue (board.containsElement(robot1, oldRobot1PositionX+1, oldRobot1PositionY));
 	}
 	
 	@Given("a robot on the board facing east")
@@ -557,16 +557,14 @@ public class StepsDefinition {
 		robot1 = new Robot(Color.BLUE);
 		board.setRobots(robot1);
 		robot1.setDirection(Direction.EAST);
-		board.setRobotPositionX(3, robot1);
-		board.setRobotPositionY(4, robot1);
-		board.getTile(3, 4).addElement(robot1);
-		robot1PositionX = board.getRobotPositionX(robot1);
-		robot1PositionY = board.getRobotPositionY(robot1);
+		board.setRobot(robot1, 3, 4);
+		oldRobot1PositionX = board.getRobotPositionX(robot1);
+		oldRobot1PositionY = board.getRobotPositionY(robot1);
 		}
 	@Then("the robot moves forward east")
 	public void the_robot_moves_forward_east() {
-	    assertFalse(board.containsElement(robot1, robot1PositionX, robot1PositionY));
-	    assertTrue (board.containsElement(robot1, robot1PositionX, robot1PositionY-1));
+		assertFalse(board.containsElement(robot1, oldRobot1PositionX, oldRobot1PositionY));
+	    assertTrue (board.containsElement(robot1, oldRobot1PositionX, oldRobot1PositionY-1));
 	}
 	
 	@Given("a robot on the board facing west")
@@ -574,78 +572,76 @@ public class StepsDefinition {
 		robot1 = new Robot(Color.BLUE);
 		board.setRobots(robot1);
 		robot1.setDirection(Direction.WEST);
-		board.setRobotPositionX(3, robot1);
-		board.setRobotPositionY(4, robot1);
-		board.getTile(3, 4).addElement(robot1);
-		robot1PositionX = board.getRobotPositionX(robot1);
-		robot1PositionY = board.getRobotPositionY(robot1);
+		board.setRobot(robot1, 3, 4);
+		oldRobot1PositionX = board.getRobotPositionX(robot1);
+		oldRobot1PositionY = board.getRobotPositionY(robot1);
 		}
 	@Then("the robot moves forward west")
 	public void the_robot_moves_forward_west() {
-	    assertFalse(board.containsElement(robot1, robot1PositionX, robot1PositionY));
-	    assertTrue (board.containsElement(robot1, robot1PositionX, robot1PositionY+1));
+		assertFalse(board.containsElement(robot1, oldRobot1PositionX, oldRobot1PositionY));
+	    assertTrue (board.containsElement(robot1, oldRobot1PositionX, oldRobot1PositionY+1));
 	}
 	
 	////// HIT WALL
 	
 	@Given("a north wall in the tile where the robot is")
 	public void a_north_wall_in_the_tile_where_the_robot_is() {
-	    board.setObstacle(new Wall(Direction.NORTH), robot1PositionX, robot1PositionY);
+	    board.setObstacle(new Wall(Direction.NORTH), oldRobot1PositionX, oldRobot1PositionY);
 	}
 	@Then("the robot does not move forward north")
 	public void the_robot_does_not_move_forward_north() {
-		assertTrue (board.containsElement(robot1, robot1PositionX  , robot1PositionY));
-	    assertFalse(board.containsElement(robot1, robot1PositionX-1, robot1PositionY));
+		assertTrue(board.containsElement(robot1, oldRobot1PositionX  , oldRobot1PositionY));
+	    assertFalse(board.containsElement(robot1, oldRobot1PositionX-1, oldRobot1PositionY));
 	}
 	
 	@Given("a north wall in the tile below where the robot is")
 	public void a_north_wall_in_the_tile_below_where_the_robot_is() {
-	    board.setObstacle(new Wall(Direction.NORTH), robot1PositionX+1, robot1PositionY);
+	    board.setObstacle(new Wall(Direction.NORTH), oldRobot1PositionX+1, oldRobot1PositionY);
 	}
 	@Then("the robot does not move forward south")
 	public void the_robot_does_not_move_forward_south() {
-		assertTrue (board.containsElement(robot1, robot1PositionX  , robot1PositionY));
-	    assertFalse(board.containsElement(robot1, robot1PositionX+1, robot1PositionY));
+		assertTrue(board.containsElement(robot1, oldRobot1PositionX  , oldRobot1PositionY));
+	    assertFalse(board.containsElement(robot1, oldRobot1PositionX+1, oldRobot1PositionY));
 	}
 	
 	@Given("a south wall in the tile where the robot is")
 	public void a_south_wall_in_the_tile_where_the_robot_is() {
-		board.setObstacle(new Wall(Direction.SOUTH), robot1PositionX, robot1PositionY);
+		board.setObstacle(new Wall(Direction.SOUTH), oldRobot1PositionX, oldRobot1PositionY);
 	}
 	
 	@Given("a south wall in the tile above where the robot is")
 	public void a_south_wall_in_the_tile_above_where_the_robot_is() {
-		board.setObstacle(new Wall(Direction.SOUTH), robot1PositionX-1, robot1PositionY);
+		board.setObstacle(new Wall(Direction.SOUTH), oldRobot1PositionX-1, oldRobot1PositionY);
 	}
 	
 	@Given("a east wall in the tile where the robot is")
 	public void a_east_wall_in_the_tile_where_the_robot_is() {
-		board.setObstacle(new Wall(Direction.EAST), robot1PositionX, robot1PositionY);
+		board.setObstacle(new Wall(Direction.EAST), oldRobot1PositionX, oldRobot1PositionY);
 	}
 	@Then("the robot does not move forward east")
 	public void the_robot_does_not_move_forward_east() {
-		assertTrue (board.containsElement(robot1, robot1PositionX, robot1PositionY));
-	    assertFalse(board.containsElement(robot1, robot1PositionX, robot1PositionY+1));
+		assertTrue(board.containsElement(robot1, oldRobot1PositionX, oldRobot1PositionY));
+	    assertFalse(board.containsElement(robot1, oldRobot1PositionX, oldRobot1PositionY+1));
 	}
 	
 	@Given("a east wall in the tile next right where the robot is")
 	public void a_east_wall_in_the_tile_next_right_where_the_robot_is() {
-		board.setObstacle(new Wall(Direction.EAST), robot1PositionX, robot1PositionY+1);
+		board.setObstacle(new Wall(Direction.EAST), oldRobot1PositionX, oldRobot1PositionY+1);
 	}
 	@Then("the robot does not move forward west")
 	public void the_robot_does_not_move_forward_west() {
-		assertTrue (board.containsElement(robot1, robot1PositionX, robot1PositionY));
-	    assertFalse(board.containsElement(robot1, robot1PositionX, robot1PositionY-1));
+		assertTrue(board.containsElement(robot1, oldRobot1PositionX, oldRobot1PositionY));
+	    assertFalse(board.containsElement(robot1, oldRobot1PositionX, oldRobot1PositionY-1));
 	}
 	
 	@Given("a west wall in the tile where the robot is")
 	public void a_west_wall_in_the_tile_where_the_robot_is() {
-		board.setObstacle(new Wall(Direction.WEST), robot1PositionX, robot1PositionY);
+		board.setObstacle(new Wall(Direction.WEST), oldRobot1PositionX, oldRobot1PositionY);
 	}
 	
 	@Given("a west wall in the tile next left where the robot is")
 	public void a_west_wall_in_the_tile_next_left_where_the_robot_is() {
-		board.setObstacle(new Wall(Direction.WEST), robot1PositionX, robot1PositionY-1);
+		board.setObstacle(new Wall(Direction.WEST), oldRobot1PositionX, oldRobot1PositionY-1);
 	}
 	
 	////// GO OUT OF THE BOARD
@@ -655,16 +651,14 @@ public class StepsDefinition {
 		robot1 = new Robot(Color.BLUE);
 		board.setRobots(robot1);
 		robot1.setDirection(Direction.NORTH);
-		board.setRobotPositionX(0, robot1);
-		board.setRobotPositionY(4, robot1);
-		board.getTile(0, 4).addElement(robot1);
-		robot1PositionX = board.getRobotPositionX(robot1);
-		robot1PositionY = board.getRobotPositionY(robot1);
+		board.setRobot(robot1, 0, 4);
+		oldRobot1PositionX = board.getRobotPositionX(robot1);
+		oldRobot1PositionY = board.getRobotPositionY(robot1);
 	}
 	@Then("the robot goes to the reboot cell")
 	public void the_robot_goes_to_the_reboot_cell() {
 		assertTrue (board.containsElement(robot1, board.getRebootPositionX(), board.getRebootPositionY()));
-	    assertFalse(board.containsElement(robot1, robot1PositionX, robot1PositionY));
+	    assertFalse(board.containsElement(robot1, oldRobot1PositionX, oldRobot1PositionY));
 	}
 	
 	@Given("a robot on the edge of board facing south")
@@ -672,11 +666,9 @@ public class StepsDefinition {
 		robot1 = new Robot(Color.BLUE);
 		board.setRobots(robot1);
 		robot1.setDirection(Direction.SOUTH);
-		board.setRobotPositionX(12, robot1);
-		board.setRobotPositionY(4, robot1);
-		board.getTile(12, 4).addElement(robot1);
-		robot1PositionX = board.getRobotPositionX(robot1);
-		robot1PositionY = board.getRobotPositionY(robot1);
+		board.setRobot(robot1, 12, 4);
+		oldRobot1PositionX = board.getRobotPositionX(robot1);
+		oldRobot1PositionY = board.getRobotPositionY(robot1);
 	}
 	
 	@Given("a robot on the edge of board facing east")
@@ -684,23 +676,19 @@ public class StepsDefinition {
 		robot1 = new Robot(Color.BLUE);
 		board.setRobots(robot1);
 		robot1.setDirection(Direction.EAST);
-		board.setRobotPositionX(3, robot1);
-		board.setRobotPositionY(9, robot1);
-		board.getTile(3, 9).addElement(robot1);
-		robot1PositionX = board.getRobotPositionX(robot1);
-		robot1PositionY = board.getRobotPositionY(robot1);
+		board.setRobot(robot1, 3, 9);
+		oldRobot1PositionX = board.getRobotPositionX(robot1);
+		oldRobot1PositionY = board.getRobotPositionY(robot1);
 	}
 	
 	@Given("a robot on the edge of board facing west")
 	public void a_robot_on_the_edge_of_board_facing_west() {
-	    robot1 = new Robot(Color.BLUE);
+		robot1 = new Robot(Color.BLUE);
 		board.setRobots(robot1);
 		robot1.setDirection(Direction.WEST);
-		board.setRobotPositionX(3, robot1);
-		board.setRobotPositionY(0, robot1);
-		board.getTile(3, 0).addElement(robot1);
-		robot1PositionX = board.getRobotPositionX(robot1);
-		robot1PositionY = board.getRobotPositionY(robot1);
+		board.setRobot(robot1, 3, 0);
+		oldRobot1PositionX = board.getRobotPositionX(robot1);
+		oldRobot1PositionY = board.getRobotPositionY(robot1);
 	}
 	
 	//////////////////////
