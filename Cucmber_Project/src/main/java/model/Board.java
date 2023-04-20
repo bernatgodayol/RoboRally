@@ -1,5 +1,6 @@
+package model;
 public class Board {
-
+	
 
 	private Tile[][] grid;
 	private int rebooti;

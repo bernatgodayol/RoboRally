@@ -1,3 +1,4 @@
+package model;
 
 public class Robot {
 	private Color color;

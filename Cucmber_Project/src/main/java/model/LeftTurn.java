@@ -1,5 +1,6 @@
+package model;
 
-public class Damage implements Card {
+public class LeftTurn implements Card {
 
 	@Override
 	public void execute(Robot robot, Board board) {

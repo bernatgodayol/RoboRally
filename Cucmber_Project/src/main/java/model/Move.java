@@ -1,3 +1,4 @@
+package model;
 public class Move {
 	private int i;
 	private int j;
