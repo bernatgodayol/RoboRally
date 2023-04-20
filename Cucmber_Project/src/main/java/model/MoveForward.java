@@ -2,6 +2,14 @@ package model;
 
 public class MoveForward implements Card {
 	
+	public boolean equals(Object otherObject) {
+		if (otherObject instanceof MoveForward) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public void execute(Robot robot, Board board) {
 		if (!board.getTile(robot.geti(), robot.getj()).isExitable(robot.getDirection())) {
 			System.out.println("The tile is not exitable! The robot does not move forward.");
