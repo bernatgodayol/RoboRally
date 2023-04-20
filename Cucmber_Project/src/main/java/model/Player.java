@@ -1,5 +1,8 @@
 package model;
 
+import View.BoardStatus;
+import View.PlayerStatus;
+
 public class Player {
 	private String name;
 	private Robot robot;
@@ -10,13 +13,17 @@ public class Player {
 
 	public Player(String name) {
 		this.name = name;
+		
+
+		notifyPlayerShift(this.name);
+		
 	}
-	
+
 	public void setRobot(Robot robot) {
 		robot.setPlayer(this);
 		this.robot = robot;
 	}
-	
+
 	public Robot getRobot() {
 		return robot;
 	}
@@ -55,5 +62,9 @@ public class Player {
 	
 	public Deck getActionDeck() {
 		return actionDeck;
+	}
+	
+	private void notifyPlayerShift(String name) {
+		PlayerStatus ps = new PlayerStatus(name);
 	}
 }

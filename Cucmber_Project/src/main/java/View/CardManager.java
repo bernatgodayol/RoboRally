@@ -30,7 +30,7 @@ public class CardManager {
 			image = new Image(imageUrl);
 			imageView = new ImageView(image);
 		}
-		else if(num == 5) {
+		else {
 			String imageUrl = classLoader.getResource("Cards/DamageCard.png").toExternalForm();
 			image = new Image(imageUrl);
 			imageView = new ImageView(image);

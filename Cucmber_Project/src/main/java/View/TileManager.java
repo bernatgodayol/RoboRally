@@ -59,6 +59,36 @@ public class TileManager {
 			imageView = new ImageView(image);
 			setRotate(270);
 		}
+		else if(num == 9) {
+			String imageUrl = classLoader.getResource("Tiles/PitWithWallTile.png").toExternalForm();
+			image = new Image(imageUrl);
+			imageView = new ImageView(image);
+			setRotate(0);
+		}
+		else if(num == 10) {
+			String imageUrl = classLoader.getResource("Tiles/PitWithWallTile.png").toExternalForm();
+			image = new Image(imageUrl);
+			imageView = new ImageView(image);
+			setRotate(180);
+		}
+		else if(num == 11) {
+			String imageUrl = classLoader.getResource("Tiles/PitWithWallTile.png").toExternalForm();
+			image = new Image(imageUrl);
+			imageView = new ImageView(image);
+			setRotate(90);
+		}
+		else if(num == 12) {
+			String imageUrl = classLoader.getResource("Tiles/PitWithWallTile.png").toExternalForm();
+			image = new Image(imageUrl);
+			imageView = new ImageView(image);
+			setRotate(270);
+		}
+		else if(num == 13) {
+			String imageUrl = classLoader.getResource("Tiles/PitTile.png").toExternalForm();
+			image = new Image(imageUrl);
+			imageView = new ImageView(image);
+			setRotate(0);
+		}
 		else {
 			String imageUrl = classLoader.getResource("Tiles/BasicTile.png").toExternalForm();
 			image = new Image(imageUrl);

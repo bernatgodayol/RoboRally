@@ -4,6 +4,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Random;
 
+import View.BoardStatus;
+import View.CardStatus;
+
 public class Deck {
 
 	// comment 
@@ -45,13 +48,17 @@ public class Deck {
 	            Card card = this.deck.get(index);
 	            otherDeck.getDeck().add(card);
 	            this.deck.remove(index);
+	            
+	            notifyCardsUpdated(card, numCards);
 	        }
+	        
 	        // System.out.println("Successfully moved random cards!");
 	    } else {
 	        System.out.println("Cannot move random cards!");
 	    }
 	}
 	
+
 	public void initializeProgrammingDeck() {
 		for (int i=0; i<5; i++) {
 			this.deck.add(new MoveForward());
@@ -125,5 +132,27 @@ public class Deck {
 	public void removeCard(int index) {
 		this.deck.remove(index);
 	}
-
+	
+	
+	private void notifyCardsUpdated(Card card, int numCards) {
+		CardStatus cs = new CardStatus(numCards);
+			
+		for(int i=0; i<numCards; i++) {
+			if (card instanceof MoveForward) {
+				cs.setCards(1, i);
+			}
+			else if (card instanceof RightTurn) {
+				cs.setCards(2, i);
+			}
+			else if (card instanceof LeftTurn) {
+				cs.setCards(3, i);
+			}
+			else if (card instanceof UTurn) {
+				cs.setCards(4, i);
+			}
+			else {
+				cs.setCards(5, i);
+			}
+		}
+	}
 }

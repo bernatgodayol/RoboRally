@@ -2,7 +2,7 @@ package View;
 
 public class BoardStatus{
 	
-	protected int[][] boardGrid;
+	private int[][] boardGrid;
 	
 	public BoardStatus(int ROWS, int COLUMNS) {
 		boardGrid = new int[ROWS][COLUMNS];

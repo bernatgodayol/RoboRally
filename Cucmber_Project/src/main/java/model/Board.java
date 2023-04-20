@@ -192,7 +192,30 @@ private void notifyBoardUpdated() {
 				else if ((this.getTile(i, j).getWestBarrier() instanceof Wall) &&
 						(this.getTile(i, j).getWalkableElement() instanceof Laser)) {
 					bs.setElementType(8, i, j);
-				}	
+				}
+				else if ((this.getTile(i, j).getNorthBarrier() instanceof Wall) &&
+						(this.getTile(i, j).getWalkableElement() instanceof Pit)) {
+					bs.setElementType(9, i, j);
+				}
+				else if ((this.getTile(i, j).getSouthBarrier() instanceof Wall) &&
+						(this.getTile(i, j).getWalkableElement() instanceof Pit)) {
+					bs.setElementType(10, i, j);
+				}
+				else if ((this.getTile(i, j).getEastBarrier() instanceof Wall) &&
+						(this.getTile(i, j).getWalkableElement() instanceof Pit)) {
+					bs.setElementType(11, i, j);
+				}
+				else if ((this.getTile(i, j).getWestBarrier() instanceof Wall) &&
+						(this.getTile(i, j).getWalkableElement() instanceof Pit)) {
+					bs.setElementType(12, i, j);
+				}
+				else if (!(this.getTile(i, j).getNorthBarrier() instanceof Wall) &&
+						!(this.getTile(i, j).getSouthBarrier() instanceof Wall) &&
+						!(this.getTile(i, j).getEastBarrier() instanceof Wall) &&
+						!(this.getTile(i, j).getWestBarrier() instanceof Wall) &&
+						!(this.getTile(i, j).getWalkableElement() instanceof Pit)) {
+					bs.setElementType(13, i, j);
+				}
 			}
 		for(BoardObserver o : registeredObservers) {
 				o.boardUpdated(bs);
