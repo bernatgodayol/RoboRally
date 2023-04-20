@@ -144,4 +144,6 @@ Feature: Move robot
     And a move forward card
     When the move forward card is executed
     Then the robot goes to the reboot cell
+    
+  
   

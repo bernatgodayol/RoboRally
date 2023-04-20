@@ -43,9 +43,9 @@ public class StepsDefinition {
 	Card choosenCard9;
 	Card choosenCard10;
 	Card cardMoveForward;
-	Card cardUTurn;
-	Card cardRightTurn;
-	Card cardLeftTurn;
+	Card UTurn;
+	Card RightTurn;
+	Card LeftTurn;
 	Deck programmingDeck1;
 	Deck playingDeck1;
 	Deck actionDeck1;
@@ -536,10 +536,11 @@ public class StepsDefinition {
 		board.setRobots(robot1);
 		robot1.setDirection(Direction.NORTH);
 		robot1.seti(3);
-		robot1.seti(4);
+		robot1.setj(4);
 		oldRobot1i = robot1.geti();
 		oldRobot1j = robot1.getj();
 		System.out.println("a robot on the board facing north");
+		System.out.println(robot1.getDirection().toString());
 	    System.out.println(robot1.geti());
 	    System.out.println(robot1.getj());
 		}
@@ -566,7 +567,7 @@ public class StepsDefinition {
 		board.setRobots(robot1);
 		robot1.setDirection(Direction.SOUTH);
 		robot1.seti(3);
-		robot1.seti(4);
+		robot1.setj(4);
 		oldRobot1i = robot1.geti();
 		oldRobot1j = robot1.getj();
 		}
@@ -582,7 +583,7 @@ public class StepsDefinition {
 		board.setRobots(robot1);
 		robot1.setDirection(Direction.EAST);
 		robot1.seti(3);
-		robot1.seti(4);
+		robot1.setj(4);
 		oldRobot1i = robot1.geti();
 		oldRobot1j = robot1.getj();
 		}
@@ -598,7 +599,7 @@ public class StepsDefinition {
 		board.setRobots(robot1);
 		robot1.setDirection(Direction.WEST);
 		robot1.seti(3);
-		robot1.seti(4);
+		robot1.setj(4);
 		oldRobot1i = robot1.geti();
 		oldRobot1j = robot1.getj();
 		}
@@ -678,7 +679,7 @@ public class StepsDefinition {
 		board.setRobots(robot1);
 		robot1.setDirection(Direction.NORTH);
 		robot1.seti(0);
-		robot1.seti(4);
+		robot1.setj(4);
 		oldRobot1i = robot1.geti();
 		oldRobot1j = robot1.getj();
 	}
@@ -694,7 +695,7 @@ public class StepsDefinition {
 		board.setRobots(robot1);
 		robot1.setDirection(Direction.SOUTH);
 		robot1.seti(12);
-		robot1.seti(4);
+		robot1.setj(4);
 		oldRobot1i = robot1.geti();
 		oldRobot1j = robot1.getj();
 	}
@@ -705,7 +706,7 @@ public class StepsDefinition {
 		board.setRobots(robot1);
 		robot1.setDirection(Direction.EAST);
 		robot1.seti(3);
-		robot1.seti(9);
+		robot1.setj(9);
 		oldRobot1i = robot1.geti();
 		oldRobot1j = robot1.getj();
 	}
@@ -716,7 +717,7 @@ public class StepsDefinition {
 		board.setRobots(robot1);
 		robot1.setDirection(Direction.NORTH);
 		robot1.seti(3);
-		robot1.seti(0);
+		robot1.setj(0);
 		oldRobot1i = robot1.geti();
 		oldRobot1j = robot1.getj();
 	}
@@ -727,31 +728,37 @@ public class StepsDefinition {
 	
 	@Given("a UTurn card")
 	public void a_u_turn_card() {
-		cardUTurn = new UTurn();
+		UTurn = new UTurn();
 	}
 	@When("the UTurn card is executed")
 	public void the_u_turn_card_is_executed() {
-	    cardUTurn.execute(robot1, board);
+	    UTurn.execute(robot1, board);
 	}
+	
 	@Then("the robot is facing south")
 	public void the_robot_is_facing_south() {
 	    assertTrue(robot1.getDirection().equals(Direction.SOUTH));
 	}
 	
+	
+	
+	
 	@Given("a RightTurn card")
 	public void a_right_turn_card() {
-	    cardRightTurn = new RightTurn();
+	    RightTurn = new RightTurn();
 	}
 	
 	@When("the RightTurn card is executed")
 	public void the_right_turn_card_is_executed() {
-		cardRightTurn.execute(robot1, board);
+		RightTurn.execute(robot1, board);
 	}
 	
 	@Then("the robot is facing east")
 	public void the_robot_is_facing_east() {
 		assertTrue(robot1.getDirection().equals(Direction.EAST));
 	}
+	
+	
 	@Then("the robot is facing west")
 	public void the_robot_is_facing_west() {
 		assertTrue(robot1.getDirection().equals(Direction.WEST));
@@ -759,11 +766,11 @@ public class StepsDefinition {
 	
 	@Given("a LeftTurn card")
 	public void a_left_turn_card() {
-		cardLeftTurn = new LeftTurn();
+		LeftTurn = new LeftTurn();
 	}
 	@When("the LeftTurn card is executed")
 	public void the_left_turn_card_is_executed() {
-		cardLeftTurn.execute(robot1, board);
+		LeftTurn.execute(robot1, board);
 	}
 	
 	//////////////////////////
@@ -839,7 +846,7 @@ public class StepsDefinition {
 		board.setRobots(robot2);
 		robot2.setDirection(Direction.NORTH);
 		robot2.seti(robot1.geti()-1);
-		robot2.seti(robot1.getj());
+		robot2.setj(robot1.getj());
 		oldRobot2i = robot2.geti();
 		oldRobot2j = robot2.getj();
 	}
@@ -892,10 +899,10 @@ public class StepsDefinition {
 		actionDeck1 = new Deck();
 		player1.setActionDeck(actionDeck1);
 		actionDeck1.addCard(cardMoveForward);
-		actionDeck1.addCard(cardRightTurn);
+		actionDeck1.addCard(RightTurn);
 		actionDeck1.addCard(cardMoveForward);
 		actionDeck1.addCard(cardMoveForward);
-		actionDeck1.addCard(cardLeftTurn);
+		actionDeck1.addCard(LeftTurn);
 	}
 	@Given("a second action deck of that belongs to the second player")
 	public void a_second_action_deck_of_that_belongs_to_the_second_player() {
@@ -903,9 +910,9 @@ public class StepsDefinition {
 		player2.setActionDeck(actionDeck2);
 		actionDeck2.addCard(cardMoveForward);
 		actionDeck2.addCard(cardMoveForward);
-		actionDeck2.addCard(cardLeftTurn);
+		actionDeck2.addCard(LeftTurn);
 		actionDeck2.addCard(cardMoveForward);
-		actionDeck2.addCard(cardRightTurn);
+		actionDeck2.addCard(RightTurn);
 	}
 	@Given("a discard deck of cards that belongs to the player")
 	public void a_discard_deck_of_cards_that_belongs_to_the_player() {
