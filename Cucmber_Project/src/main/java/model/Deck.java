@@ -54,16 +54,16 @@ public class Deck {
 	
 	public void initializeProgrammingDeck() {
 		for (int i=0; i<5; i++) {
-			this.deck.add(Card.MoveForward);
+			this.deck.add(new MoveForward());
 		}
 		for (int i=0; i<2; i++) {
-			this.deck.add(Card.UTurn);
+			this.deck.add(new UTurn());
 		}
 		for (int i=0; i<5; i++) {
-			this.deck.add(Card.LeftTurn);
+			this.deck.add(new LeftTurn());
 		}
 		for (int i=0; i<5; i++) {
-			this.deck.add(Card.RightTurn);
+			this.deck.add(new RightTurn());
 		}
 
 		// System.out.println("Successfully initialized programming deck !!!!!");

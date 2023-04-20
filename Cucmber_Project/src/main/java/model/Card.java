@@ -1,5 +1,5 @@
 package model;
 
-public enum Card {
-	MoveForward, LeftTurn, RightTurn, UTurn, Damage; 
+public interface Card {
+	public void execute(Robot robot, Board board);
 }
