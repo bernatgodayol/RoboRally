@@ -14,8 +14,8 @@ public class Board {
 	private Tile[][] grid;
 	private int rebooti;
 	private int rebootj;
-	private int ROWS=13;
-	private int COLUMNS=10;
+	private int ROWS = 13;
+	private int COLUMNS = 10;
 	
 	private Robot robot1;
 	private Robot robot2;
@@ -73,6 +73,11 @@ public class Board {
 		this.getTile(10, 4).setNorthBarrier(new Wall());
 		this.getTile(10, 5).setNorthBarrier(new Wall());
 		this.getTile(11, 7).setEastBarrier(new Wall());
+		
+		// Decide which position we set for 5B
+		this.rebooti = 0;
+		this.rebootj = 0;
+
 		
 		notifyBoardUpdated();
 	}

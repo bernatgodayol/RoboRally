@@ -590,7 +590,7 @@ public class StepsDefinition {
 	@Then("the robot moves forward east")
 	public void the_robot_moves_forward_east() {
 		assertFalse((robot1.geti() == oldRobot1i) && (robot1.getj() == oldRobot1j    ));
-	    assertTrue ((robot1.geti() == oldRobot1i) && (robot1.getj() == oldRobot1j - 1));
+	    assertTrue ((robot1.geti() == oldRobot1i) && (robot1.getj() == oldRobot1j + 1));
 	}
 	
 	@Given("a robot on the board facing west")
@@ -606,7 +606,7 @@ public class StepsDefinition {
 	@Then("the robot moves forward west")
 	public void the_robot_moves_forward_west() {
 		assertFalse((robot1.geti() == oldRobot1i) && (robot1.getj() == oldRobot1j    ));
-	    assertTrue ((robot1.geti() == oldRobot1i) && (robot1.getj() == oldRobot1j + 1));
+	    assertTrue ((robot1.geti() == oldRobot1i) && (robot1.getj() == oldRobot1j - 1));
 	}
 	
 	////// HIT WALL
@@ -715,7 +715,7 @@ public class StepsDefinition {
 	public void a_robot_on_the_edge_of_board_facing_west() {
 		robot1 = new Robot(Color.BLUE);
 		board.setRobots(robot1);
-		robot1.setDirection(Direction.NORTH);
+		robot1.setDirection(Direction.WEST);
 		robot1.seti(3);
 		robot1.setj(0);
 		oldRobot1i = robot1.geti();
