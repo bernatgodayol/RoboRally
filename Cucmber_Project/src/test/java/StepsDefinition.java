@@ -737,12 +737,9 @@ public class StepsDefinition {
 	
 	@Then("the robot is facing south")
 	public void the_robot_is_facing_south() {
-	    assertTrue(robot1.getDirection().equals(Direction.SOUTH));
+	    assertTrue(robot1.getDirection() == Direction.SOUTH);
 	}
-	
-	
-	
-	
+
 	@Given("a RightTurn card")
 	public void a_right_turn_card() {
 	    RightTurn = new RightTurn();
@@ -755,13 +752,13 @@ public class StepsDefinition {
 	
 	@Then("the robot is facing east")
 	public void the_robot_is_facing_east() {
-		assertTrue(robot1.getDirection().equals(Direction.EAST));
+		assertTrue(robot1.getDirection() == Direction.EAST);
 	}
 	
 	
 	@Then("the robot is facing west")
 	public void the_robot_is_facing_west() {
-		assertTrue(robot1.getDirection().equals(Direction.WEST));
+		assertTrue(robot1.getDirection() == Direction.WEST);
 	}
 	
 	@Given("a LeftTurn card")
