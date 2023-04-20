@@ -15,9 +15,5 @@ public class BoardStatus{
 	public int[][] getStatusBoard() {
 		return this.boardGrid;
 	}
-
-	public void setBoardSize(int ROWS, int COLUMNS) {
-		
-	}
 	
 }
