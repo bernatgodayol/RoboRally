@@ -159,36 +159,36 @@ private void notifyBoardUpdated() {
 		
 		for(int i=0; i<ROWS; i++) {
 			for(int j=0; j<COLUMNS; j++) {
-				if(containsElement(new Wall(Direction.NORTH), i, j) &&
-						!containsElement(new Laser(), i, j)) {
+				if ((this.getTile(i, j).getNorthBarrier() instanceof Wall) &&
+				   !(this.getTile(i, j).getWalkableElement() instanceof Laser)) {
 					bs.setElementType(1, i, j);
 				}
-				else if(containsElement(new Wall(Direction.SOUTH), i, j) &&
-						!containsElement(new Laser(), i, j)) {
+				else if ((this.getTile(i, j).getSouthBarrier() instanceof Wall) &&
+						!(this.getTile(i, j).getWalkableElement() instanceof Laser)) {
 					bs.setElementType(2, i, j);
 				}
-				else if(containsElement(new Wall(Direction.EAST), i, j) &&
-						!containsElement(new Laser(), i, j)) {
+				else if ((this.getTile(i, j).getEastBarrier() instanceof Wall) &&
+						!(this.getTile(i, j).getWalkableElement() instanceof Laser)) {
 					bs.setElementType(3, i, j);
 				}
-				else if(containsElement(new Wall(Direction.WEST), i, j) &&
-						!containsElement(new Laser(), i, j)) {
+				else if ((this.getTile(i, j).getWestBarrier() instanceof Wall) &&
+						!(this.getTile(i, j).getWalkableElement() instanceof Laser)) {
 					bs.setElementType(4, i, j);
 				}	
-				else if(containsElement(new Wall(Direction.NORTH), i, j) &&
-						containsElement(new Laser(), i, j)) {
+				else if ((this.getTile(i, j).getNorthBarrier() instanceof Wall) &&
+						(this.getTile(i, j).getWalkableElement() instanceof Laser)) {
 					bs.setElementType(5, i, j);
 				}
-				else if(containsElement(new Wall(Direction.SOUTH), i, j) &&
-						containsElement(new Laser(), i, j)) {
+				else if ((this.getTile(i, j).getSouthBarrier() instanceof Wall) &&
+						(this.getTile(i, j).getWalkableElement() instanceof Laser)) {
 					bs.setElementType(6, i, j);
 				}
-				else if(containsElement(new Wall(Direction.EAST), i, j) &&
-						containsElement(new Laser(), i, j)) {
+				else if ((this.getTile(i, j).getEastBarrier() instanceof Wall) &&
+						(this.getTile(i, j).getWalkableElement() instanceof Laser)) {
 					bs.setElementType(7, i, j);
 				}
-				else if(containsElement(new Wall(Direction.WEST), i, j) &&
-						containsElement(new Laser(), i, j)) {
+				else if ((this.getTile(i, j).getWestBarrier() instanceof Wall) &&
+						(this.getTile(i, j).getWalkableElement() instanceof Laser)) {
 					bs.setElementType(8, i, j);
 				}	
 			}
