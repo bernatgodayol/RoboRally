@@ -4,10 +4,12 @@ import java.util.Set;
 
 import View.BoardStatus;
 import controller.BoardObserver;
+import controller.CardObserver;
 
 public class Board {
 	
 	Set<BoardObserver> registeredObservers = new HashSet<BoardObserver>();
+	Set<CardObserver> registeredCardObservers = new HashSet<CardObserver>();
 
 	private Tile[][] grid;
 	private int rebootPositionX;
