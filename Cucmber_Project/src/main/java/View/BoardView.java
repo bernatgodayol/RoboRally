@@ -1,15 +1,10 @@
 package View;
 
 import controller.BoardObserver;
-import javafx.application.Application;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import model.Board;
 
 public class BoardView implements BoardObserver{
 	
@@ -19,7 +14,6 @@ public class BoardView implements BoardObserver{
 	Group root = new Group();
 	Scene scene = new Scene(root,500,650);//setResizeable...
 	Stage stage = new Stage();
-	
 	
 	@Override
 	public void boardUpdated(BoardStatus newStatus) {
