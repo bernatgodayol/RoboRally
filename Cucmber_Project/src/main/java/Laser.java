@@ -1,5 +1,5 @@
 
-public class Laser extends Element {
+public class Laser implements WalkableElement {
 	
 	private boolean active;
 	
@@ -9,6 +9,10 @@ public class Laser extends Element {
 	
 	public Laser(boolean active) {
 		this.active = active;
+	}
+	
+	public void Action(Robot robot, Board board) {
+		robot.getPlayer().getProgrammingDeck().getDeck().add(new Damage());
 	}
 	
 	@Override
@@ -33,9 +37,10 @@ public class Laser extends Element {
 		return this.active;
 	}
 
-
-	public void hit(Robot robot) {
-		robot.getPlayer().getProgrammingDeck().getDeck().add(Card.Damage);
+	@Override
+	public void action(Robot robot, Board board) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
