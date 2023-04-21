@@ -13,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
-import model.Direction;
 
 public class BoardView implements BoardObserver, CardObserver, PlayerStatusObserver, RobotObserver{
 	

@@ -30,7 +30,7 @@ public class Main extends Application{
 		
 		Player player1 = new Player("Mejse");
 		player1.setRegisteredPlayerObservers(playerStatus);
-		Player player2 = new Player("Rebecca");
+		Player player2 = new Player("Mathieu");
 		player2.setRegisteredPlayerObservers(playerStatus);
 		Player player3 = new Player("Bernat");
 		player3.setRegisteredPlayerObservers(playerStatus);

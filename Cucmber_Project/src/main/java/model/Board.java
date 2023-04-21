@@ -13,6 +13,8 @@ public class Board {
 	private Tile[][] grid;
 	private int rebooti;
 	private int rebootj;
+	private int endi;
+	private int endj;
 	private int ROWS = 13;
 	private int COLUMNS = 10;
 	
@@ -74,10 +76,12 @@ public class Board {
 		this.getTile(11, 7).setEastBarrier(new Wall());
 		
 		// Decide which position we set for 5B
-		this.rebooti = 0;
-		this.rebootj = 0;
-
+		this.rebooti = 5;
+		this.rebootj = 3;
 		
+		this.endi = 0;
+		this.endj = 3;
+
 		notifyBoardUpdated();
 	}
 	
@@ -225,10 +229,21 @@ public class Board {
 						(this.getTile(i, j).getWalkableElement() instanceof Pit)) {
 					bs.setElementType(13, i, j);
 				}
+//				else if (!(this.getTile(i, j).getNorthBarrier() instanceof Wall) &&
+//						!(this.getTile(i, j).getSouthBarrier() instanceof Wall) &&
+//						!(this.getTile(i, j).getEastBarrier() instanceof Wall) &&
+//						!(this.getTile(i, j).getWestBarrier() instanceof Wall) &&
+//						!(this.getTile(i, j).getWalkableElement() instanceof Pit) &&
+//						(i != rebooti) && (j != rebootj) && (i != endi) && (j!= endj)) {
+//					bs.setElementType(14, i, j);
+//				}
 				else {
 					bs.setElementType(14, i, j);
 				}
 			}
+		bs.setElementType(15, rebooti, rebootj);
+		bs.setElementType(16, endi, endj);
+			
 		for(BoardObserver o : registeredBoardObservers) {
 				o.boardUpdated(bs);
 		}
