@@ -102,10 +102,10 @@ public class TileManager {
 			setRotate(0);
 		}
 		else {
-			String imageUrl = classLoader.getResource("Tiles/PitTile.png").toExternalForm();
+			String imageUrl = classLoader.getResource("Tiles/EndTile.png").toExternalForm();
 			image = new Image(imageUrl);
 			imageView = new ImageView(image);
-			setRotate(90);
+			setRotate(0);
 		}
 		return imageView;		
 	}
