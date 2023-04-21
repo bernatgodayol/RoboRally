@@ -9,7 +9,6 @@ import controller.CardObserver;
 public class Board {
 	
 	Set<BoardObserver> registeredObservers = new HashSet<BoardObserver>();
-	Set<CardObserver> registeredCardObservers = new HashSet<CardObserver>();
 
 	private Tile[][] grid;
 	private int rebooti;
@@ -155,7 +154,12 @@ public class Board {
 		return null;
 	}
 	
-private void notifyBoardUpdated() {
+
+	public void setRegisteredObservers(BoardObserver boardObserver) {
+		this.registeredObservers.add(boardObserver);	
+	}	
+	
+	private void notifyBoardUpdated() {
 		
 		BoardStatus bs = new BoardStatus(ROWS, COLUMNS);
 		
@@ -221,9 +225,5 @@ private void notifyBoardUpdated() {
 				o.boardUpdated(bs);
 		}
 		}
-	}
-	
-	public void setRegisteredObservers(BoardObserver boardObserver) {
-		this.registeredObservers.add(boardObserver);	
 	}
 }
