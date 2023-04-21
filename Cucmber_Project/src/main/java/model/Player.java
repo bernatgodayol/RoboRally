@@ -2,11 +2,6 @@ package model;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import View.BoardStatus;
-import View.PlayerStatus;
-import controller.BoardObserver;
-import controller.CardObserver;
 import controller.PlayerObserver;
 
 public class Player {
@@ -21,8 +16,6 @@ public class Player {
 
 	public Player(String name) {
 		this.name = name;
-		
-		notifyPlayerShift(this.name);
 		
 	}
 
@@ -40,14 +33,16 @@ public class Player {
 	}
 
 	public void setProgrammingDeck(Deck programmingDeck) {
+		programmingDeck.setPlayer(this);
 		this.programmingDeck = programmingDeck;
 	}
 	
 	public Deck getProgrammingDeck() {
-		return programmingDeck;
+		return this.programmingDeck;
 	}
 
 	public void setDiscardDeck(Deck discardDeck) {
+		discardDeck.setPlayer(this);
 		this.discardDeck = discardDeck;
 	}
 	
@@ -56,6 +51,7 @@ public class Player {
 	}
 		
 	public void setPlayingDeck(Deck playingDeck) {
+		playingDeck.setPlayer(this);
 		this.playingDeck = playingDeck;
 	}
 	
@@ -64,6 +60,7 @@ public class Player {
 	}
 	
 	public void setActionDeck(Deck actionDeck) {
+		actionDeck.setPlayer(this);
 		this.actionDeck = actionDeck;
 	}
 	
@@ -73,12 +70,13 @@ public class Player {
 	
 	public void setRegisteredPlayerObservers(PlayerObserver playerObserver) {
 		this.registeredPlayerObservers.add(playerObserver);	
+		notifyPlayerShift(this.name);
 	}
 	
 	private void notifyPlayerShift(String name) {
-		PlayerStatus ps = new PlayerStatus(name);
+//		PlayerStatus ps = new PlayerStatus(name);
 		for(PlayerObserver o : registeredPlayerObservers) {
-			o.playerUpdated(ps);
+			o.playerUpdated(name);
 		}
 	}
 }

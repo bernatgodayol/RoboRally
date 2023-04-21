@@ -5,13 +5,12 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
-
-import View.BoardStatus;
 import View.CardStatus;
 import controller.CardObserver;
-import controller.PlayerObserver;
 
 public class Deck {
+	
+	private Player player;
 
 	// comment 
 	private ArrayList<Card> deck = new ArrayList<Card>();
@@ -19,6 +18,14 @@ public class Deck {
 	
 	public ArrayList<Card> getDeck() {
 		return this.deck;
+	}
+	
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+	
+	public Player getPlayer() {
+		return this.player;
 	}
 	
 	public int getDeckSize() {
@@ -48,7 +55,7 @@ public class Deck {
 	public void moveRandomCards(Deck otherDeck, Integer numCards) {
 	    Random rand = new Random();
 	    
-	    CardStatus cs = notifyCardsUpdated(numCards);
+	    CardStatus cs = notifyCardsUpdated(numCards, player.getName());
 	    
 	    if (this.deck.size() > numCards) {
 	        for (int i = 0; i < numCards; i++) {
@@ -163,10 +170,15 @@ public class Deck {
 		else {
 			cs.setCards(5, i);
 		}
+		
+		for(CardObserver o : registeredCardObservers) {
+			o.cardUpdated(cs);
+		}
+		
 	}
 		
-		private CardStatus notifyCardsUpdated(int numCards) {
-			CardStatus cs = new CardStatus(numCards);
+		private CardStatus notifyCardsUpdated(int numCards, String player) {
+			CardStatus cs = new CardStatus(numCards, player);
 			for(CardObserver o : registeredCardObservers) {
 				o.cardUpdated(cs);
 			}

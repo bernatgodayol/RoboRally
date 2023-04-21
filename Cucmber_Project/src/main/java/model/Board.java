@@ -8,7 +8,7 @@ import controller.CardObserver;
 
 public class Board {
 	
-	Set<BoardObserver> registeredObservers = new HashSet<BoardObserver>();
+	Set<BoardObserver> registeredBoardObservers = new HashSet<BoardObserver>();
 
 	private Tile[][] grid;
 	private int rebooti;
@@ -161,7 +161,7 @@ public class Board {
 	
 
 	public void setRegisteredObservers(BoardObserver boardObserver) {
-		this.registeredObservers.add(boardObserver);	
+		this.registeredBoardObservers.add(boardObserver);	
 	}	
 	
 	private void notifyBoardUpdated() {
@@ -222,11 +222,14 @@ public class Board {
 						!(this.getTile(i, j).getSouthBarrier() instanceof Wall) &&
 						!(this.getTile(i, j).getEastBarrier() instanceof Wall) &&
 						!(this.getTile(i, j).getWestBarrier() instanceof Wall) &&
-						!(this.getTile(i, j).getWalkableElement() instanceof Pit)) {
+						(this.getTile(i, j).getWalkableElement() instanceof Pit)) {
 					bs.setElementType(13, i, j);
 				}
+				else {
+					bs.setElementType(14, i, j);
+				}
 			}
-		for(BoardObserver o : registeredObservers) {
+		for(BoardObserver o : registeredBoardObservers) {
 				o.boardUpdated(bs);
 		}
 		}

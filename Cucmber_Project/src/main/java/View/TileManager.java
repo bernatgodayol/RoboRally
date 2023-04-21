@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class TileManager {
-	//private TileView tiles;
+	
 	ClassLoader classLoader = getClass().getClassLoader();
 	private Image image;
 	private ImageView imageView;

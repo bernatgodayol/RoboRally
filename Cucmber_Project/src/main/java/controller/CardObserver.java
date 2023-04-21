@@ -1,6 +1,5 @@
 package controller;
 
-import View.BoardStatus;
 import View.CardStatus;
 
 public interface CardObserver {
