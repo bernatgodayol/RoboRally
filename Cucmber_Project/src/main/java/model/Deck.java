@@ -2,15 +2,20 @@ package model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 import View.BoardStatus;
 import View.CardStatus;
+import controller.CardObserver;
+import controller.PlayerObserver;
 
 public class Deck {
 
 	// comment 
 	private ArrayList<Card> deck = new ArrayList<Card>();
+	Set<CardObserver> registeredCardObservers = new HashSet<CardObserver>();
 	
 	public ArrayList<Card> getDeck() {
 		return this.deck;
@@ -42,6 +47,9 @@ public class Deck {
 	
 	public void moveRandomCards(Deck otherDeck, Integer numCards) {
 	    Random rand = new Random();
+	    
+	    CardStatus cs = notifyCardsUpdated(numCards);
+	    
 	    if (this.deck.size() > numCards) {
 	        for (int i = 0; i < numCards; i++) {
 	            int index = rand.nextInt(deck.size());
@@ -49,7 +57,8 @@ public class Deck {
 	            otherDeck.getDeck().add(card);
 	            this.deck.remove(index);
 	            
-	            notifyCardsUpdated(card, numCards);
+	            notifyCardsUpdated(card, i, cs);
+	   
 	        }
 	        
 	        // System.out.println("Successfully moved random cards!");
@@ -133,26 +142,34 @@ public class Deck {
 		this.deck.remove(index);
 	}
 	
+	public void setRegisteredCardObservers(CardObserver cardObserver) {
+		this.registeredCardObservers.add(cardObserver);	
+	}
 	
-	private void notifyCardsUpdated(Card card, int numCards) {
-		CardStatus cs = new CardStatus(numCards);
-			
-		for(int i=0; i<numCards; i++) {
-			if (card instanceof MoveForward) {
-				cs.setCards(1, i);
-			}
-			else if (card instanceof RightTurn) {
-				cs.setCards(2, i);
-			}
-			else if (card instanceof LeftTurn) {
-				cs.setCards(3, i);
-			}
-			else if (card instanceof UTurn) {
-				cs.setCards(4, i);
-			}
-			else {
-				cs.setCards(5, i);
-			}
+	private void notifyCardsUpdated(Card card, int i, CardStatus cs) {
+
+		if (card instanceof MoveForward) {
+			cs.setCards(1, i);
+		}
+		else if (card instanceof RightTurn) {
+			cs.setCards(2, i);
+		}
+		else if (card instanceof LeftTurn) {
+			cs.setCards(3, i);
+		}
+		else if (card instanceof UTurn) {
+			cs.setCards(4, i);
+		}
+		else {
+			cs.setCards(5, i);
 		}
 	}
+		
+		private CardStatus notifyCardsUpdated(int numCards) {
+			CardStatus cs = new CardStatus(numCards);
+			for(CardObserver o : registeredCardObservers) {
+				o.cardUpdated(cs);
+			}
+			return cs;
+		}
 }

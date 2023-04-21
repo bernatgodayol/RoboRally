@@ -27,19 +27,19 @@ public class CardStatus implements PlayerObserver {
 		this.player1 != newStatus.getPlayerStatus() &&
 		this.player3 != newStatus.getPlayerStatus() &&
 		this.player4 != newStatus.getPlayerStatus()) { 
-			this.player1 = newStatus.getPlayerStatus();
+			this.player2 = newStatus.getPlayerStatus();
 		}
 		else if(this.player3 == null &&
 		this.player1 != newStatus.getPlayerStatus() &&
 		this.player2 != newStatus.getPlayerStatus() &&
 		this.player4 != newStatus.getPlayerStatus()) { 
-			this.player1 = newStatus.getPlayerStatus();
+			this.player3 = newStatus.getPlayerStatus();
 		}
 		else if(this.player4 == null &&
 		this.player1 != newStatus.getPlayerStatus() &&
 		this.player2 != newStatus.getPlayerStatus() &&
 		this.player3 != newStatus.getPlayerStatus()) { 
-			this.player1 = newStatus.getPlayerStatus();
+			this.player4 = newStatus.getPlayerStatus();
 		}
 		
 		activePlayer = newStatus.getPlayerStatus();
