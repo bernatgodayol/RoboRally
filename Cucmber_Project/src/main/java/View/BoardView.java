@@ -4,24 +4,27 @@ import java.util.ArrayList;
 
 import controller.BoardObserver;
 import controller.CardObserver;
-import controller.PlayerObserver;
 import controller.PlayerStatusObserver;
+import controller.RobotObserver;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import model.Direction;
 
-public class BoardView implements BoardObserver, CardObserver, PlayerStatusObserver{
+public class BoardView implements BoardObserver, CardObserver, PlayerStatusObserver, RobotObserver{
 	
 	private ImageView imageView;
+	private ImageView robot1;
+	private ImageView robot2;
+	private ImageView robot3;
+	private ImageView robot4;
 	private TileManager tilemanager = new TileManager();
 	private CardManager cardManager = new CardManager();
+	private RobotManager robotManager = new RobotManager();
 	private ArrayList<String> players = new ArrayList<String>();
 
 	GridPane root = new GridPane();
@@ -98,7 +101,53 @@ public class BoardView implements BoardObserver, CardObserver, PlayerStatusObser
 		}
 	}
 	
+	@Override
+	public void robotUpdated(int i, int j, int oldI, int oldJ, int color, int direction) {
+		
+		if (color == 1) {
+			if(robot1 != null) {
+				root.getChildren().remove(robot1);
+			}
+			robot1 = robotManager.getImage(color);	
+			robot1.setFitHeight(48);
+			robot1.setFitWidth(48);
+			robot1.setRotate(direction);
+			root.add(robot1, j+4, i);
+		}
+		else if (color == 2) {
+			if(robot2 != null) {
+				root.getChildren().remove(robot2);
+			}
+			robot2 = robotManager.getImage(color);	
+			robot2.setFitHeight(48);
+			robot2.setFitWidth(48);
+			robot2.setRotate(direction);
+			root.add(robot2, j+4, i);
+		}
+		else if (color == 3) {
+			if(robot3 != null) {
+				root.getChildren().remove(robot3);
+			}
+			robot3 = robotManager.getImage(color);	
+			robot3.setFitHeight(48);
+			robot3.setFitWidth(48);
+			robot3.setRotate(direction);
+			root.add(robot3, j+4, i);
+		}
+		else {
+			if(robot4 != null) {
+				root.getChildren().remove(robot4);
+			}
+			robot4 = robotManager.getImage(color);	
+			robot4.setFitHeight(48);
+			robot4.setFitWidth(48);
+			robot4.setRotate(direction);
+			root.add(robot4, j+4, i);
+		}
+	}
+	
 	public Scene getScene() {
 		return scene;
 	}
+
 }

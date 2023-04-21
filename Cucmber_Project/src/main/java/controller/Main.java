@@ -7,8 +7,11 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.Board;
+import model.Color;
 import model.Deck;
+import model.Direction;
 import model.Player;
+import model.Robot;
 
 public class Main extends Application{
 	
@@ -65,6 +68,15 @@ public class Main extends Application{
 		player4.setPlayingDeck(pld4);
 		pd4.setRegisteredCardObservers(boardView);
 		pd4.moveRandomCards(player4.getPlayingDeck(), 9);
+		
+		Robot robot1 = new Robot(Color.RED);
+		robot1.setRegisteredRobotObservers(boardView);
+		player1.setRobot(robot1);
+		board.setRobots(robot1);
+		robot1.seti(4);
+		robot1.setDirection(Direction.EAST);
+		robot1.setj(8);
+		
 
 		Stage stage = new Stage();
 		stage.setScene(boardView.getScene());
