@@ -50,13 +50,13 @@ public class Tile {
 	
 	public boolean isAccessible(Direction direction) {
 		if (direction == Direction.NORTH) {
-			return (southBarrier == null);
-		} else if (direction == Direction.EAST) {
-			return (westBarrier == null);
-		} else if (direction == Direction.SOUTH){
 			return (northBarrier == null);
-		} else {
+		} else if (direction == Direction.EAST) {
 			return (eastBarrier == null);
+		} else if (direction == Direction.SOUTH){
+			return (southBarrier == null);
+		} else {
+			return (westBarrier == null);
 		}
 	}
 	

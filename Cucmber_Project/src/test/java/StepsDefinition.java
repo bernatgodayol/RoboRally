@@ -676,15 +676,15 @@ public class StepsDefinition {
 	    assertFalse((robot1.geti() == oldRobot1i) && (robot1.getj() == oldRobot1j + 1));
 	}
 	
-	@Given("a east wall in the tile next right where the robot is")
-	public void a_east_wall_in_the_tile_next_right_where_the_robot_is() {
-		System.out.println("HOLA HOLA");
-		System.out.println(oldRobot1i);
-		System.out.println(oldRobot1j);
-		System.out.println(robot1.geti());
-		System.out.println(robot1.getj());
-		board.getTile(oldRobot1i, oldRobot1j + 1).setEastBarrier(new Wall());
+	@Given("a east wall in the tile next left where the robot is")
+	public void a_east_wall_in_the_tile_next_left_where_the_robot_is() {
+		board.getTile(oldRobot1i, oldRobot1j - 1).setEastBarrier(new Wall());
 	}
+	@Given("a west wall in the tile next right where the robot is")
+	public void a_west_wall_in_the_tile_next_right_where_the_robot_is() {
+		board.getTile(oldRobot1i, oldRobot1j + 1).setWestBarrier(new Wall());
+	}
+
 	@Then("the robot does not move forward west")
 	public void the_robot_does_not_move_forward_west() {
 		System.out.println("HOLA HOLA");

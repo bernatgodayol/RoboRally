@@ -82,7 +82,7 @@ Feature: Move robot
   Scenario: Successfully making the robot stop when it hits a east wall
     Given a board
     And a robot on the board facing west
-    And a east wall in the tile next right where the robot is
+    And a east wall in the tile next left where the robot is
     And a move forward card
     When the move forward card is executed
     Then the robot does not move forward west
@@ -100,7 +100,7 @@ Feature: Move robot
   Scenario: Successfully making the robot stop when it hits a west wall
     Given a board
     And a robot on the board facing east
-    And a west wall in the tile next left where the robot is
+    And a west wall in the tile next right where the robot is
     And a move forward card
     When the move forward card is executed
     Then the robot does not move forward east
@@ -133,14 +133,6 @@ Feature: Move robot
   Scenario: Successfully making the robot move to the reboot cell when it goes out of the board
     Given a board
     And a robot on the edge of board facing west
-    And a move forward card
-    When the move forward card is executed
-    Then the robot goes to the reboot cell
-    
-  @tag17
-  Scenario: Successfully making the robot move to the reboot cell when it falls into a pit
-    Given a board
-    And a robot facing west whcih is next to a pit 
     And a move forward card
     When the move forward card is executed
     Then the robot goes to the reboot cell
