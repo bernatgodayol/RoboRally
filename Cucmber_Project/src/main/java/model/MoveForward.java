@@ -47,7 +47,7 @@ public class MoveForward implements Card {
 					System.out.println("The robot moves forward.");
 				}
 					
-				} if (robot.getDirection() == Direction.SOUTH) {
+			} else if (robot.getDirection() == Direction.SOUTH) {
 					if (!board.isInsideBoard(robot.geti()+1, robot.getj())) {
 						robot.seti(board.getRebooti());
 						robot.setj(board.getRebootj());
@@ -80,7 +80,7 @@ public class MoveForward implements Card {
 						System.out.println("The robot moves forward.");
 					}
 						
-					} if (robot.getDirection() == Direction.EAST) {
+			} else if (robot.getDirection() == Direction.EAST) {
 						if (!board.isInsideBoard(robot.geti(), robot.getj()+1)) {
 							robot.seti(board.getRebooti());
 							robot.setj(board.getRebootj());
@@ -113,7 +113,7 @@ public class MoveForward implements Card {
 							System.out.println("The robot moves forward.");
 						}
 							
-						} if (robot.getDirection() == Direction.WEST) {
+			} else if (robot.getDirection() == Direction.WEST) {
 							if (!board.isInsideBoard(robot.geti(), robot.getj()-1)) {
 								robot.seti(board.getRebooti());
 								robot.setj(board.getRebootj());
@@ -139,13 +139,12 @@ public class MoveForward implements Card {
 									robot.setj(robot.getj()-1);
 								} else {
 									System.out.println("The other robot does not move forward. The robot does not move forward.");
-								}
+									}
 							} else {
 								robot.seti(robot.geti());
 								robot.setj(robot.getj()-1);
 								System.out.println("The robot moves forward.");
-							}
-								
+								}
 							}
 			}
 	}

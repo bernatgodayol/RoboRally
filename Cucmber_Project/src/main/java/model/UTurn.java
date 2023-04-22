@@ -21,7 +21,6 @@ public class UTurn implements Card {
 		} else if (robot.getDirection() == Direction.EAST) {
 			robot.setDirection(Direction.WEST);
 		}
-
 	}
 
 }

@@ -57,7 +57,8 @@ public class StepsDefinition {
 	Laser laser;
 	int numCards9 = 9;
 	int numCards4 = 4;
-	int initialSizeProgrammingDeck;
+	int initialSizeProgrammingDeck1;
+	int initialSizeProgrammingDeck2;
 	int size1;
 	int size2;
 	int robot1PositionX;
@@ -352,9 +353,22 @@ public class StepsDefinition {
 	// U5 : MOVE 9 RANDOM CARDS //
 	//////////////////////////////
 	
+	@Given("a programming deck of cards that belongs to the player")
+	public void a_programming_deck_of_cards_that_belongs_to_the_player() {
+		programmingDeck1 = new Deck();
+		programmingDeck1.initializeProgrammingDeck();
+		player1.setProgrammingDeck(programmingDeck1);
+		initialSizeProgrammingDeck1 = programmingDeck1.getDeckSize();
+	}
+	
+	@Given("a playing deck of cards that belongs to the player")
+	public void a_playing_deck_of_cards_that_belongs_to_the_player() {
+		playingDeck1 = new Deck();
+		player1.setPlayingDeck(playingDeck1);
+	}
+	
 	@When("the {int} cards are moved from the programming deck to the playing deck")
 	public void the_cards_are_moved_from_the_programming_deck_to_the_playing_deck(int numCards9){
-		initialSizeProgrammingDeck = programmingDeck1.getDeckSize();
 		programmingDeck1.moveRandomCards(playingDeck1, numCards9);
 	}
 	
@@ -364,12 +378,26 @@ public class StepsDefinition {
 	}
 	@Then("the cards are not in the programming deck")
 	public void the_cards_are_not_in_the_programming_deck() {
-		assertTrue(programmingDeck1.getDeckSize() == initialSizeProgrammingDeck - 9);
+		assertTrue(programmingDeck1.getDeckSize() == initialSizeProgrammingDeck1 - 9);
+	}
+	
+	@Given("a second programming deck of cards that belongs to the second player")
+	public void a_second_programming_deck_of_cards_that_belongs_to_the_second_player() {
+		programmingDeck2 = new Deck();
+		programmingDeck2.initializeProgrammingDeck();
+		player1.setProgrammingDeck(programmingDeck2);
+		initialSizeProgrammingDeck2 = programmingDeck2.getDeckSize();
+	}
+	
+	@Given("a second playing deck of cards that belongs to the second player")
+	public void a_second_playing_deck_of_cards_that_belongs_to_the_second_player() {
+		playingDeck2 = new Deck();
+		player2.setPlayingDeck(playingDeck2);
 	}
 	
 	@When("the {int} cards are moved from the second programming deck to the second playing deck")
 	public void the_cards_are_moved_from_the_second_programming_deck_to_the_second_playing_deck(Integer numCards9) {
-		initialSizeProgrammingDeck = programmingDeck2.getDeckSize();
+		initialSizeProgrammingDeck2 = programmingDeck2.getDeckSize();
 		programmingDeck2.moveRandomCards(playingDeck2, numCards9);
 	}
 	@Then("the cards are in the second playing deck")
@@ -378,7 +406,7 @@ public class StepsDefinition {
 	}
 	@Then("the cards are not in the second programming deck")
 	public void the_cards_are_not_in_the_second_programming_deck() {
-		assertTrue(programmingDeck2.getDeckSize() == initialSizeProgrammingDeck - 9);
+		assertTrue(programmingDeck2.getDeckSize() == initialSizeProgrammingDeck2 - 9);
 	}
 	
 	//////////////////////////////
@@ -554,9 +582,6 @@ public class StepsDefinition {
 	}
 	@Then("the robot moves forward north")
 	public void the_robot_moves_forward_north() {
-		System.out.println("the robot moves forward north");
-	    System.out.println(robot1.geti());
-	    System.out.println(robot1.getj());
 	    assertFalse((robot1.geti() == oldRobot1i    ) && (robot1.getj() == oldRobot1j));
 	    assertTrue ((robot1.geti() == oldRobot1i - 1) && (robot1.getj() == oldRobot1j));
 	}
@@ -653,10 +678,20 @@ public class StepsDefinition {
 	
 	@Given("a east wall in the tile next right where the robot is")
 	public void a_east_wall_in_the_tile_next_right_where_the_robot_is() {
+		System.out.println("HOLA HOLA");
+		System.out.println(oldRobot1i);
+		System.out.println(oldRobot1j);
+		System.out.println(robot1.geti());
+		System.out.println(robot1.getj());
 		board.getTile(oldRobot1i, oldRobot1j + 1).setEastBarrier(new Wall());
 	}
 	@Then("the robot does not move forward west")
 	public void the_robot_does_not_move_forward_west() {
+		System.out.println("HOLA HOLA");
+		System.out.println(oldRobot1i);
+		System.out.println(oldRobot1j);
+		System.out.println(robot1.geti());
+		System.out.println(robot1.getj());
 		assertTrue ((robot1.geti() == oldRobot1i) && (robot1.getj() == oldRobot1j    ));
 	    assertFalse((robot1.geti() == oldRobot1i) && (robot1.getj() == oldRobot1j - 1));
 	}
@@ -813,13 +848,6 @@ public class StepsDefinition {
 	public void a_robot_that_belongs_to_the_player() {
 		robot1 = new Robot(Color.BLUE);
 		player1.setRobot(robot1);
-	}
-	
-	@Given("a programming deck of cards that belongs to the player")
-	public void a_programming_deck_of_cards_that_belongs_to_the_player() {
-		programmingDeck1 = new Deck();
-		programmingDeck1.initializeProgrammingDeck();
-		player1.setProgrammingDeck(programmingDeck1);
 	}
 	
 	@When("the robot is hit by the laser")
