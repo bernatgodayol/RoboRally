@@ -238,22 +238,14 @@ public class Board {
 	}
 	
 	public Robot whichRobot(int i, int j) {
-		if (!(robot1 == null)) {
-			if (robot1.geti()==i && robot1.getj()==j) {
-				return robot1;
-			}
-		} else if (!(robot2 == null)) {
-			if (robot2.geti()==i && robot2.getj()==j) {
-				return robot2;
-			}
-		} else if (!(robot3 == null)) {
-			if (robot3.geti()==i && robot3.getj()==j) {
-				return robot3;
-			}
-		} else if (!(robot4 == null)) {
-			if (robot4.geti()==i && robot4.getj()==j) {
-				return robot4;
-			}
+		if ((!(robot1 == null)) && (robot1.geti()==i && robot1.getj()==j)) {
+			return robot1;
+		} else if ((!(robot2 == null)) && (robot2.geti()==i && robot2.getj()==j)) {
+			return robot2;
+		} else if ((!(robot3 == null)) && (robot3.geti()==i && robot3.getj()==j)) {
+			return robot3;
+		} else if ((!(robot4 == null)) && (robot4.geti()==i && robot4.getj()==j)) {
+			return robot4;
 		}
 		return null;
 	}
