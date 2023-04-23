@@ -4,15 +4,15 @@ Feature: Complete programming phase
   @tag1
   Scenario: Successfully completing the programming phase
   Given a player
-  And a second player
-  And a programming deck of cards
-  And a playing deck of cards
-  And an action deck of cards
-  And a discard deck of cards
-  And a second programming deck of cards
-  And a second playing deck of cards
-  And a second action deck of cards
-  And a second discard deck of cards
+  And a second player 
+  And a programming deck of cards that belongs to the player
+  And a playing deck of cards that belongs to the player
+  And a action deck of cards that belongs to the player
+  And a discard deck of cards that belongs to the player
+  And a second programming deck of cards that belongs to the second player
+  And a second playing deck of cards that belongs to the second player
+  And a second action deck of that belongs to the second player
+  And a second discard deck of that belongs to the second player
   When the 9 cards are moved from the programming deck to the playing deck
   And the 9 cards are moved from the second programming deck to the second playing deck
   And the player moves the cards 2 5 4 8 7 from the playing deck to the action deck
