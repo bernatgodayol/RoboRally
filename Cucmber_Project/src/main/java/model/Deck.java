@@ -11,10 +11,8 @@ import controller.CardObserver;
 public class Deck {
 	
 	private Player player;
-
-	// comment 
 	private ArrayList<Card> deck = new ArrayList<Card>();
-	Set<CardObserver> registeredCardObservers = new HashSet<CardObserver>();
+	private Set<CardObserver> registeredCardObservers = new HashSet<CardObserver>();
 	
 	public ArrayList<Card> getDeck() {
 		return this.deck;

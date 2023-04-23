@@ -11,8 +11,7 @@ public class Player {
 	private Deck discardDeck;
 	private Deck playingDeck;
 	private Deck actionDeck;
-	
-	Set<PlayerObserver> registeredPlayerObservers = new HashSet<PlayerObserver>();
+	private Set<PlayerObserver> registeredPlayerObservers = new HashSet<PlayerObserver>();
 
 	public Player(String name) {
 		this.name = name;

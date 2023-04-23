@@ -10,7 +10,7 @@ import controller.PlayerStatusObserver;
 public class PlayerStatus implements PlayerObserver{
 	
 	private ArrayList<String> players = new ArrayList<String>();
-	Set<PlayerStatusObserver> registeredPlayerStatusObservers = new HashSet<PlayerStatusObserver>();
+	private Set<PlayerStatusObserver> registeredPlayerStatusObservers = new HashSet<PlayerStatusObserver>();
 	
 	@Override
 	public void playerUpdated(String name) {

@@ -5,7 +5,6 @@ public class CardStatus {
 	private String player;
 	private int[] cardGrid;
 	
-	
 	public CardStatus(int i, String player) {
 		this.cardGrid = new int[i];
 		this.player = player;

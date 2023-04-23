@@ -8,7 +8,7 @@ import controller.RobotObserver;
 
 public class Robot {
 	
-	Set<RobotObserver> registeredRobotObservers = new HashSet<RobotObserver>();
+	private Set<RobotObserver> registeredRobotObservers = new HashSet<RobotObserver>();
 	private Color color;
 	private Direction direction;
 	private Player player;

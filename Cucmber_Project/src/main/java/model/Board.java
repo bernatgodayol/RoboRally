@@ -8,7 +8,7 @@ import controller.CardObserver;
 
 public class Board {
 	
-	Set<BoardObserver> registeredBoardObservers = new HashSet<BoardObserver>();
+	private Set<BoardObserver> registeredBoardObservers = new HashSet<BoardObserver>();
 
 	private Tile[][] grid;
 	private int rebooti;
