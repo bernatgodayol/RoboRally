@@ -70,10 +70,10 @@ public class Player {
 	
 	public void setRegisteredPlayerObservers(PlayerObserver playerObserver) {
 		this.registeredPlayerObservers.add(playerObserver);	
-		notifyPlayerShift(this.name);
+		notifyPlayerUpdated(this.name);
 	}
 	
-	private void notifyPlayerShift(String name) {
+	private void notifyPlayerUpdated(String name) {
 //		PlayerStatus ps = new PlayerStatus(name);
 		for(PlayerObserver o : registeredPlayerObservers) {
 			o.playerUpdated(name);
