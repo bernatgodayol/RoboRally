@@ -867,9 +867,36 @@ public class StepsDefinition {
 		robot2.setDirection(Direction.NORTH);
 	}
 	@Given("the second robot in the tile below where the first robot is")
-	public void the_second_robot_in_the_tile_above_where_the_first_robot_is() {
+	public void the_second_robot_in_the_tile_below_where_the_first_robot_is() {
 		robot2.seti(robot1.geti() + 1);
 		robot2.setj(robot1.getj());
+		oldRobot1i = robot1.geti();
+		oldRobot1j = robot1.getj();
+		oldRobot2i = robot2.geti();
+		oldRobot2j = robot2.getj();
+	}
+	@Given("the second robot in the tile above where the first robot is")
+	public void the_second_robot_in_the_tile_above_where_the_first_robot_is() {
+		robot2.seti(robot1.geti() - 1);
+		robot2.setj(robot1.getj());
+		oldRobot1i = robot1.geti();
+		oldRobot1j = robot1.getj();
+		oldRobot2i = robot2.geti();
+		oldRobot2j = robot2.getj();
+	}
+	@Given("the second robot in the tile right where the first robot is")
+	public void the_second_robot_in_the_tile_right_where_the_first_robot_is() {
+		robot2.seti(robot1.geti());
+		robot2.setj(robot1.getj() + 1);
+		oldRobot1i = robot1.geti();
+		oldRobot1j = robot1.getj();
+		oldRobot2i = robot2.geti();
+		oldRobot2j = robot2.getj();
+	}
+	@Given("the second robot in the tile left where the first robot is")
+	public void the_second_robot_in_the_tile_left_where_the_first_robot_is() {
+		robot2.seti(robot1.geti());
+		robot2.setj(robot1.getj() - 1);
 		oldRobot1i = robot1.geti();
 		oldRobot1j = robot1.getj();
 		oldRobot2i = robot2.geti();
@@ -895,6 +922,22 @@ public class StepsDefinition {
 	public void a_north_wall_in_the_tile_where_the_first_robot_is() {
 		board.getTile(oldRobot1i, oldRobot1j).setNorthBarrier(new Wall());
 	}
+	
+	@Given("a east wall in the tile where the first robot is")
+	public void a_east_wall_in_the_tile_where_the_first_robot_is() {
+		board.getTile(oldRobot1i, oldRobot1j).setEastBarrier(new Wall());
+	}
+	
+	@Given("a south wall in the tile where the first robot is")
+	public void a_south_wall_in_the_tile_where_the_first_robot_is() {
+		board.getTile(oldRobot1i, oldRobot1j).setSouthBarrier(new Wall());
+	}
+	
+	@Given("a west wall in the tile where the first robot is")
+	public void a_west_wall_in_the_tile_where_the_first_robot_is() {
+		board.getTile(oldRobot1i, oldRobot1j).setWestBarrier(new Wall());
+	}
+	
 	@Then("the first robot does not move forward north")
 	public void the_first_robot_does_not_move_forward_north() {
 		assertTrue ((robot1.geti() == oldRobot1i    ) && (robot1.getj() == oldRobot1j));
@@ -915,6 +958,102 @@ public class StepsDefinition {
 	public void the_first_robot_goes_to_the_reboot_cell() {
 		assertTrue ((robot1.geti() == board.getRebooti()) && (robot1.getj() == board.getRebootj()));
 		assertFalse((robot1.geti() == oldRobot1i        ) && (robot1.getj() == oldRobot1j));
+	}
+	
+	@Given("the second robot facing west")
+	public void the_second_robot_facing_west() {
+		robot2.setDirection(Direction.WEST);
+	}
+	@Then("the first robot does not move forward west")
+	public void the_first_robot_does_not_move_forward_west() {
+		assertTrue ((robot1.geti() == oldRobot1i) && (robot1.getj() == oldRobot1j    ));
+		assertFalse((robot1.geti() == oldRobot1i) && (robot1.getj() == oldRobot1j - 1));
+	}
+	@Then("the second robot is not moved forward west")
+	public void the_second_robot_is_not_moved_forward_west() {
+		assertTrue ((robot2.geti() == oldRobot2i) && (robot2.getj() == oldRobot2j    ));
+		assertFalse((robot2.geti() == oldRobot2i) && (robot2.getj() == oldRobot2j - 1));
+	}
+	
+	@Given("the second robot facing south")
+	public void the_second_robot_facing_south() {
+	    robot2.setDirection(Direction.SOUTH);
+	}
+	
+	@Then("the first robot does not move forward east")
+	public void the_first_robot_does_not_move_forward_east() {
+		assertTrue ((robot1.geti() == oldRobot1i) && (robot1.getj() == oldRobot1j    ));
+		assertFalse((robot1.geti() == oldRobot1i) && (robot1.getj() == oldRobot1j + 1));
+	}
+	@Then("the second robot is not moved forward east")
+	public void the_second_robot_is_not_moved_forward_east() {
+		assertTrue ((robot2.geti() == oldRobot2i) && (robot2.getj() == oldRobot2j    ));
+		assertFalse((robot2.geti() == oldRobot2i) && (robot2.getj() == oldRobot2j + 1));
+	}
+	@Then("the first robot is moved forward east")
+	public void the_first_robot_is_moved_forward_east() {
+		assertFalse((robot1.geti() == oldRobot1i) && (robot1.getj() == oldRobot1j    ));
+		assertTrue ((robot1.geti() == oldRobot1i) && (robot1.getj() == oldRobot1j + 1));
+	}
+	@Given("the second robot facing east")
+	public void the_second_robot_facing_east() {
+		robot2.setDirection(Direction.EAST);
+	}
+	@Given("the first robot in the edge of the board east")
+	public void the_first_robot_in_the_edge_of_the_board_east() {
+		robot1.seti(5);
+		robot1.setj(9);
+	}
+	@Then("the second robot moves forward east")
+	public void the_second_robot_moves_forward_east() {
+		assertFalse((robot2.geti() == oldRobot2i) && (robot2.getj() == oldRobot2j    ));
+		assertTrue ((robot2.geti() == oldRobot2i) && (robot2.getj() == oldRobot2j + 1));
+	}
+	
+	@Then("the first robot is moved forward south")
+	public void the_first_robot_is_moved_forward_south() {
+		assertFalse((robot1.geti() == oldRobot1i    ) && (robot1.getj() == oldRobot1j));
+		assertTrue ((robot1.geti() == oldRobot1i + 1) && (robot1.getj() == oldRobot1j));
+	}
+	
+	@Then("the first robot does not move forward south")
+	public void the_first_robot_does_not_move_forward_south() {
+		assertTrue ((robot1.geti() == oldRobot1i    ) && (robot1.getj() == oldRobot1j));
+		assertFalse((robot1.geti() == oldRobot1i + 1) && (robot1.getj() == oldRobot1j));
+	}
+	
+	@Given("the first robot in the edge of the board south")
+	public void the_first_robot_in_the_edge_of_the_board_south() {
+		robot1.seti(12);
+		robot1.setj(6);
+	}
+	@Then("the second robot moves forward south")
+	public void the_second_robot_moves_forward_south() {
+		assertFalse((robot2.geti() == oldRobot2i    ) && (robot2.getj() == oldRobot2j));
+		assertTrue ((robot2.geti() == oldRobot2i + 1) && (robot2.getj() == oldRobot2j));
+	}
+
+	@Then("the first robot is moved forward west")
+	public void the_first_robot_is_moved_forward_west() {
+		assertFalse((robot1.geti() == oldRobot1i) && (robot1.getj() == oldRobot1j    ));
+		assertTrue ((robot1.geti() == oldRobot1i) && (robot1.getj() == oldRobot1j - 1));
+	}
+
+	@Given("the first robot in the edge of the board west")
+	public void the_first_robot_in_the_edge_of_the_board_west() {
+		robot1.seti(3);
+		robot1.setj(0);
+	}
+	@Then("the second robot moves forward west")
+	public void the_second_robot_moves_forward_west() {
+		assertFalse((robot2.geti() == oldRobot2i) && (robot2.getj() == oldRobot2j    ));
+		assertTrue ((robot2.geti() == oldRobot2i) && (robot2.getj() == oldRobot2j - 1));
+	}
+	
+	@Then("the second robot is not moved forward south")
+	public void the_second_robot_is_not_moved_forward_south() {
+		assertTrue ((robot2.geti() == oldRobot2i    ) && (robot2.getj() == oldRobot2j));
+		assertFalse((robot2.geti() == oldRobot2i + 1) && (robot2.getj() == oldRobot2j));
 	}
 	
 ////////////////////////////////////
