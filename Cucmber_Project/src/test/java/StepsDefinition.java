@@ -16,6 +16,7 @@ import model.Direction;
 import model.Laser;
 import model.LeftTurn;
 import model.MoveForward;
+import model.Pit;
 import model.Player;
 import model.RightTurn;
 import model.Robot;
@@ -55,6 +56,7 @@ public class StepsDefinition {
 	Deck actionDeck2;
 	Deck discardDeck2;
 	Laser laser;
+	Pit pit;
 	int numCards9 = 9;
 	int numCards4 = 4;
 	int initialSizeProgrammingDeck1;
@@ -748,6 +750,36 @@ public class StepsDefinition {
 		oldRobot1j = robot1.getj();
 	}
 	
+	//////////////////////////
+	// U9 : Falls in a pit ///
+	//////////////////////////
+	
+	@Given("a pit")
+	public void a_pit() {
+		pit = new Pit();
+	}
+	
+	@When("a pit is in the same tile as the robot")
+	public void a_pit_is_in_the_same_tile_as_the_robot() {
+		board.getTile(oldRobot1i, oldRobot1j).setWalkableElement(new Pit());
+		pit.action(robot1, board);
+		}
+	
+	
+	
+	@Given("a robot on the board that belongs to a player")
+	public void a_robot_on_the_board_that_belongs_to_a_player() {
+		robot1 = new Robot(Color.BLUE);
+		player1.setRobot(robot1);
+		board.setRobots(robot1);
+		robot1.setDirection(Direction.NORTH);
+		robot1.seti(3);
+		robot1.setj(4);
+		oldRobot1i = robot1.geti();
+		oldRobot1j = robot1.getj();
+		}
+	
+	
 	//////////////////////
 	// U9 : TURN ROBOT  //
 	//////////////////////
@@ -800,34 +832,11 @@ public class StepsDefinition {
 	// U10 : ACTIVATE LASER //
 	//////////////////////////
 	
-	@Given("an inactive laser")
+	@Given("a laser")
 	public void an_inactive_laser() {
 	    laser = new Laser();
 	}
 	
-	@When("the laser activates")
-	public void the_laser_activates() {
-	    laser.setStatus(true);
-	}
-	
-	@Then("the laser is active")
-	public void the_laser_is_active() {
-	    assertEquals(laser.getStatus(), true);
-	}
-	
-	@Given("an active laser")
-	public void an_active_laser() {
-	    laser = new Laser(true);
-	}
-	
-	@When("the laser inactivates")
-	public void the_laser_inactivates() {
-		laser.setStatus(false);
-	}
-	@Then("the laser is inactive")
-	public void the_laser_is_inactive() {
-		assertEquals(laser.getStatus(), false);
-	}
 
 	///////////////////////////////
 	// U11 : RECEIVE DAMAGE CARD //
@@ -843,12 +852,18 @@ public class StepsDefinition {
 	
 	@When("the robot is hit by the laser")
 	public void the_robot_is_hit_by_the_laser() {
-		 laser.action(robot1, board);
+		board.getTile(oldRobot1i, oldRobot1j).setWalkableElement(laser);
+		laser.action(robot1, board);
 	}
 	@Then("a damage card is in the programming deck")
 	public void a_damage_card_is_placed_in_the_programming_deck() {
 		assertTrue(programmingDeck1.contains(new Damage()));
 	}
+	
+	//////WHEN GOING TO THE REBOOT CELL
+	
+	
+	    
 	
 	//////////////////////////
 	// U? : ROBOT COLLISION //
