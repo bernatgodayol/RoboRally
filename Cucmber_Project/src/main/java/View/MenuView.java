@@ -125,7 +125,7 @@ public class MenuView {
 		root.getChildren().clear();
 		
 		Label text = new Label("Choose difficulty:");
-		root.add(text,0,0,2,1);
+		root.add(text,0,0,3,1);
 		
 		Button easyButton = new Button("Easy");
 		root.add(easyButton,0,1);
@@ -134,12 +134,20 @@ public class MenuView {
 				// Create 5B board
 			}
 		});
+		
+		Button mediumButton = new Button("Medium");
+		root.add(mediumButton,1,1);
+		mediumButton.setOnMouseClicked(new EventHandler<Event>() {
+			public void handle(Event event) {
+				// Create 2B board
+			}
+		});
 
 		Button hardButton = new Button("Hard");
-		root.add(hardButton,1,1);
+		root.add(hardButton,2,1);
 		hardButton.setOnMouseClicked(new EventHandler<Event>() {
 			public void handle(Event event) {
-				// Create other board with pits
+				// Create 4A board
 			}
 		});
 		

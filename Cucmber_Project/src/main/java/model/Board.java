@@ -70,15 +70,14 @@ public class Board {
 		this.getTile(5, 6).setWalkableElement(new Laser());
 		this.getTile(6, 6).setSouthBarrier(new Wall());
 		this.getTile(6, 6).setWalkableElement(new Laser());
+		
 		this.getTile(11, 2).setWestBarrier(new Wall());
 		this.getTile(10, 4).setNorthBarrier(new Wall());
 		this.getTile(10, 5).setNorthBarrier(new Wall());
 		this.getTile(11, 7).setEastBarrier(new Wall());
 		
-		// Decide which position we set for 5B
 		this.rebooti = 5;
 		this.rebootj = 3;
-		
 		
 		this.endi = 0;
 		this.endj = 3;
@@ -88,34 +87,61 @@ public class Board {
 	
 	public void initialize2B() {
 		this.getTile(2, 2).setNorthBarrier(new Wall());
+		this.getTile(3, 2).setSouthBarrier(new Wall());
 		this.getTile(2, 3).setWestBarrier(new Wall());
+		this.getTile(2, 4).setEastBarrier(new Wall());
+		this.getTile(2, 6).setWestBarrier(new Wall());
 		this.getTile(2, 7).setEastBarrier(new Wall());
 		this.getTile(3, 7).setNorthBarrier(new Wall());
+		this.getTile(4, 7).setSouthBarrier(new Wall());
+		this.getTile(5, 2).setNorthBarrier(new Wall());
 		this.getTile(6, 2).setSouthBarrier(new Wall());
 		this.getTile(7, 2).setWestBarrier(new Wall());
+		this.getTile(7, 3).setEastBarrier(new Wall());
+		this.getTile(7, 5).setWestBarrier(new Wall());
 		this.getTile(7, 6).setEastBarrier(new Wall());
 		this.getTile(7, 7).setSouthBarrier(new Wall());
+		this.getTile(6, 7).setNorthBarrier(new Wall());
+		
+		this.getTile(11, 2).setWestBarrier(new Wall());
+		this.getTile(10, 4).setNorthBarrier(new Wall());
+		this.getTile(10, 5).setNorthBarrier(new Wall());
+		this.getTile(11, 7).setEastBarrier(new Wall());
 		
 		this.getTile(1, 4).setWalkableElement(new Pit());
 		this.getTile(4, 8).setWalkableElement(new Pit());
 		this.getTile(5, 1).setWalkableElement(new Pit());
 		this.getTile(8, 5).setWalkableElement(new Pit());
 		
-		for (int i=2; i<9; i++) {
-			this.getTile(i, 2).setWalkableElement(new Laser());;
+		for (int i=2; i<8; i++) {
+			if (i!=4) {
+				this.getTile(i, 2).setWalkableElement(new Laser());;
+			}
 		}
 		
-		for (int i=2; i<9; i++) {
-			this.getTile(i, 7).setWalkableElement(new Laser());;
+		for (int i=2; i<8; i++) {
+			if (i!=5) {
+				this.getTile(i, 7).setWalkableElement(new Laser());;
+			}		
 		}
 		
-		for (int i=3; i<7; i++) {
-			this.getTile(2, i).setWalkableElement(new Laser());;
+		for (int j=2; j<8; j++) {
+			if (j!=5) {
+				this.getTile(2, j).setWalkableElement(new Laser());;
+			}		
 		}
 		
-		for (int i=3; i<7; i++) {
-			this.getTile(7, i).setWalkableElement(new Laser());;
+		for (int j=2; j<8; j++) {
+			if (j!=4) {
+				this.getTile(7, j).setWalkableElement(new Laser());;
+			}		
 		}
+		
+		this.rebooti = 9;
+		this.rebootj = 7;
+		
+		this.endi = 0;
+		this.endj = 3;
 		
 		notifyBoardUpdated();
 	}
@@ -129,9 +155,9 @@ public class Board {
 		this.getTile(4, 9).setSouthBarrier(new Wall());
 		
 		this.getTile(0, 6).setWestBarrier(new Wall());
-		this.getTile(0, 8).setEastBarrier(new Wall());
+		this.getTile(0, 7).setEastBarrier(new Wall());
 		this.getTile(9, 1).setWestBarrier(new Wall());
-		this.getTile(9, 3).setEastBarrier(new Wall());
+		this.getTile(9, 2).setEastBarrier(new Wall());
 		
 		this.getTile(3, 4).setWestBarrier(new Wall());
 		this.getTile(3, 5).setEastBarrier(new Wall());
@@ -139,9 +165,18 @@ public class Board {
 		this.getTile(6, 5).setEastBarrier(new Wall());
 		
 		this.getTile(2, 2).setNorthBarrier(new Wall());
+		this.getTile(3, 2).setSouthBarrier(new Wall());
+		this.getTile(6, 2).setNorthBarrier(new Wall());
 		this.getTile(7, 2).setSouthBarrier(new Wall());
 		this.getTile(2, 7).setNorthBarrier(new Wall());
+		this.getTile(3, 7).setSouthBarrier(new Wall());
+		this.getTile(6, 7).setNorthBarrier(new Wall());
 		this.getTile(7, 7).setSouthBarrier(new Wall());
+		
+		this.getTile(11, 2).setWestBarrier(new Wall());
+		this.getTile(10, 4).setNorthBarrier(new Wall());
+		this.getTile(10, 5).setNorthBarrier(new Wall());
+		this.getTile(11, 7).setEastBarrier(new Wall());
 		
 		this.getTile(2, 3).setWalkableElement(new Pit());
 		this.getTile(3, 3).setWalkableElement(new Pit());
@@ -152,29 +187,39 @@ public class Board {
 		this.getTile(6, 6).setWalkableElement(new Pit());
 		this.getTile(7, 6).setWalkableElement(new Pit());
 		
-		for (int i=6; i<9; i++) {
-			this.getTile(0, i).setWalkableElement(new Laser());;
+		for (int j=6; j<8; j++) {
+			this.getTile(0, j).setWalkableElement(new Laser());;
 		}
 		
-		for (int i=1; i<4; i++) {
-			this.getTile(9, i).setWalkableElement(new Laser());;
+		for (int j=1; j<3; j++) {
+			this.getTile(9, j).setWalkableElement(new Laser());;
 		}
 		
-		for (int i=4; i<6; i++) {
-			this.getTile(3, i).setWalkableElement(new Laser());;
+		for (int j=4; j<6; j++) {
+			this.getTile(3, j).setWalkableElement(new Laser());;
 		}
 		
-		for (int i=4; i<6; i++) {
-			this.getTile(6, i).setWalkableElement(new Laser());;
-		}
-		
-		for (int i=2; i<8; i++) {
-			this.getTile(i, 2).setWalkableElement(new Laser());;
+		for (int j=4; j<6; j++) {
+			this.getTile(6, j).setWalkableElement(new Laser());;
 		}
 		
 		for (int i=2; i<8; i++) {
-			this.getTile(i, 7).setWalkableElement(new Laser());;
+			if (i!=4 && i!=5) {
+				this.getTile(i, 2).setWalkableElement(new Laser());;
+			}
 		}
+		
+		for (int i=2; i<8; i++) {
+			if (i!=4 && i!=5) {
+				this.getTile(i, 7).setWalkableElement(new Laser());;
+			}		
+		}
+		
+		this.rebooti = 8;
+		this.rebootj = 5;
+		
+		this.endi = 0;
+		this.endj = 4;
 		
 		notifyBoardUpdated();
 	}
