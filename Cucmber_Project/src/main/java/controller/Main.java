@@ -15,6 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.Board;
 import model.Color;
+import model.Damage;
 import model.Deck;
 import model.Direction;
 import model.Player;
@@ -81,7 +82,9 @@ public class Main extends Application{
 		robot1.setDirection(Direction.EAST);
 		robot1.setj(8);
 		
-
+//		pd4.removeCard(0);
+//		pd4.addCard(new Damage());
+		
 		Stage stage = new Stage();
 		stage.setScene(boardView.getScene());
 //		stage.setResizable(false);

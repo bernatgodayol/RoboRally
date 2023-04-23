@@ -67,36 +67,31 @@ public class BoardView implements BoardObserver, CardObserver, PlayerStatusObser
 		
 		int j = 0;
 		boolean left = true;
+		Label name = new Label(newCardStatus.getPlayer());
 
 		if(players.get(0) == newCardStatus.getPlayer()) {
-			Label t1 = new Label(newCardStatus.getPlayer());
-			gridPaneLeft.add(t1, 0, 0);
+			gridPaneLeft.add(name, 0, 0);
 			j = 0;
 			left = true;
 		}
 		
 		else if(players.get(1) == newCardStatus.getPlayer()) {
-			Label t2 = new Label(newCardStatus.getPlayer());
-			gridPaneRight.add(t2, 0, 0);
+			gridPaneRight.add(name, 0, 0);
 			j = 0;
 			left = false;
 		}
 		
 		else if(players.size()>=3 && players.get(2) == newCardStatus.getPlayer()) {
-			Label t3 = new Label(newCardStatus.getPlayer());
-			gridPaneLeft.add(t3, 1, 0);
+			gridPaneLeft.add(name, 1, 0);
 			j = 1;
 			left = true;
 		}
 		
 		else if(players.size()>=4 && players.get(3) == newCardStatus.getPlayer()) {
-			Label t4 = new Label(newCardStatus.getPlayer());
-			gridPaneRight.add(t4, 1, 0);
+			gridPaneRight.add(name, 1, 0);
 			j = 1;
 			left = false;
 		}
-		
-		
 		
 		for(int i=0; i<9; i++) {
 			
