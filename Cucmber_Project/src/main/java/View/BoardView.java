@@ -31,7 +31,7 @@ public class BoardView implements BoardObserver, CardObserver, PlayerStatusObser
 	GridPane gridPaneCenter = new GridPane();
 	GridPane gridPaneLeft = new GridPane();
 	GridPane gridPaneRight = new GridPane();
-	Scene scene = new Scene(anchorPane,850,650);
+	Scene scene = new Scene(anchorPane,800,650);
 	
 	@Override
 	public void boardUpdated(BoardStatus newBoardStatus) {
@@ -61,40 +61,42 @@ public class BoardView implements BoardObserver, CardObserver, PlayerStatusObser
 	public void cardUpdated(CardStatus newCardStatus) {
 		
 		anchorPane.setLeft(gridPaneLeft);
-//		gridPaneLeft.setAlignment(Pos.CENTER);
+		gridPaneLeft.setAlignment(Pos.TOP_CENTER);
 		anchorPane.setRight(gridPaneRight);
-//		gridPaneRight.setAlignment(Pos.CENTER);
+		gridPaneRight.setAlignment(Pos.TOP_CENTER);
 		
 		int j = 0;
 		boolean left = true;
 
 		if(players.get(0) == newCardStatus.getPlayer()) {
-			Label t1 = new Label(" "+newCardStatus.getPlayer()+" ");
+			Label t1 = new Label(newCardStatus.getPlayer());
 			gridPaneLeft.add(t1, 0, 0);
 			j = 0;
 			left = true;
 		}
 		
 		else if(players.get(1) == newCardStatus.getPlayer()) {
-			Label t2 = new Label(" "+newCardStatus.getPlayer()+" ");
+			Label t2 = new Label(newCardStatus.getPlayer());
 			gridPaneRight.add(t2, 0, 0);
 			j = 0;
 			left = false;
 		}
 		
 		else if(players.size()>=3 && players.get(2) == newCardStatus.getPlayer()) {
-			Label t3 = new Label(" "+newCardStatus.getPlayer()+" ");
+			Label t3 = new Label(newCardStatus.getPlayer());
 			gridPaneLeft.add(t3, 1, 0);
 			j = 1;
 			left = true;
 		}
 		
 		else if(players.size()>=4 && players.get(3) == newCardStatus.getPlayer()) {
-			Label t4 = new Label(" "+newCardStatus.getPlayer()+" ");
+			Label t4 = new Label(newCardStatus.getPlayer());
 			gridPaneRight.add(t4, 1, 0);
 			j = 1;
 			left = false;
 		}
+		
+		
 		
 		for(int i=0; i<9; i++) {
 			
@@ -108,9 +110,9 @@ public class BoardView implements BoardObserver, CardObserver, PlayerStatusObser
 			});
 			
 			if (left) {
-				gridPaneLeft.add(imageView,j,i+1,2,2);
+				gridPaneLeft.add(imageView,j,i+1,1,1);
 			} else {
-				gridPaneRight.add(imageView,j,i+1,2,2);
+				gridPaneRight.add(imageView,j,i+1,1,1);
 			}
 		
 		}

@@ -32,13 +32,13 @@ public class Main extends Application{
 		board.initialize5B();
 		playerStatus.setRegisteredPlayerStatusObservers(boardView);
 		
-		Player player1 = new Player("Mejseeeeee");
+		Player player1 = new Player("Mejse");
 		player1.setRegisteredPlayerObservers(playerStatus);
-		Player player2 = new Player("Bernattttt");
+		Player player2 = new Player("Bernat");
 		player2.setRegisteredPlayerObservers(playerStatus);
-		Player player3 = new Player("Mathieuuuu");
+		Player player3 = new Player("Mathieu");
 		player3.setRegisteredPlayerObservers(playerStatus);
-		Player player4 = new Player("Ireneeeeee");
+		Player player4 = new Player("Irene");
 		player4.setRegisteredPlayerObservers(playerStatus);
 		
 		Deck pd1 = new Deck();
@@ -87,31 +87,6 @@ public class Main extends Application{
 //		stage.setResizable(false);
 		stage.setTitle("RoboRally group 4");
 		stage.show();
-		
-//		GridPane root = new GridPane();
-//		Scene scene = new Scene(root,700,650);
-//		
-//		root.setAlignment(Pos.CENTER);
-//		root.setHgap(10);
-//		root.setVgap(10);
-////		root.setPadding(new Insets(5,5,5,5));
-//		
-//		Label text = new Label("Choose difficulty:");
-//		root.add(text,0,0,2,1);
-//		
-//		Button easyButton = new Button("Easy");
-//		root.add(easyButton,0,1);
-//
-//		Button hardButton = new Button("Hard");
-//		root.add(hardButton,1,1);
-//		
-//		
-//		Stage stage = new Stage();
-//		stage.setScene(scene);
-////		stage.setResizable(false);
-//		stage.setTitle("RoboRally group 4");
-//		stage.show();
-		
 
 	}
 	public static void main(String[] args) {
