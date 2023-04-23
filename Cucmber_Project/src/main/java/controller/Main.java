@@ -1,10 +1,17 @@
 package controller;
 
 import View.BoardView;
+import View.MenuView;
 import View.PlayerStatus;
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.Board;
 import model.Color;
@@ -17,9 +24,6 @@ public class Main extends Application{
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		
-//		Group root = new Group();
-//		Scene scene = new Scene(root,500,650);//setResizeable...
 
 		BoardView boardView = new BoardView();
 		PlayerStatus playerStatus = new PlayerStatus();
@@ -30,9 +34,9 @@ public class Main extends Application{
 		
 		Player player1 = new Player("Mejse");
 		player1.setRegisteredPlayerObservers(playerStatus);
-		Player player2 = new Player("Mathieu");
+		Player player2 = new Player("Bernat");
 		player2.setRegisteredPlayerObservers(playerStatus);
-		Player player3 = new Player("Bernat");
+		Player player3 = new Player("Mathieu");
 		player3.setRegisteredPlayerObservers(playerStatus);
 		Player player4 = new Player("Irene");
 		player4.setRegisteredPlayerObservers(playerStatus);
@@ -80,7 +84,7 @@ public class Main extends Application{
 
 		Stage stage = new Stage();
 		stage.setScene(boardView.getScene());
-		stage.setResizable(false);
+//		stage.setResizable(false);
 		stage.setTitle("RoboRally group 4");
 		stage.show();
 
