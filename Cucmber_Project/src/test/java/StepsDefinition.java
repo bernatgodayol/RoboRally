@@ -43,9 +43,9 @@ public class StepsDefinition {
 	Card choosenCard9;
 	Card choosenCard10;
 	Card cardMoveForward;
-	Card UTurn;
-	Card RightTurn;
-	Card LeftTurn;
+	Card cardUTurn;
+	Card cardRightTurn;
+	Card cardLeftTurn;
 	Deck programmingDeck1;
 	Deck playingDeck1;
 	Deck actionDeck1;
@@ -567,10 +567,6 @@ public class StepsDefinition {
 		robot1.setj(4);
 		oldRobot1i = robot1.geti();
 		oldRobot1j = robot1.getj();
-		System.out.println("a robot on the board facing north");
-		System.out.println(robot1.getDirection().toString());
-	    System.out.println(robot1.geti());
-	    System.out.println(robot1.getj());
 		}
 	@Given("a move forward card")
 	public void a_move_forward_card() {
@@ -687,11 +683,6 @@ public class StepsDefinition {
 
 	@Then("the robot does not move forward west")
 	public void the_robot_does_not_move_forward_west() {
-		System.out.println("HOLA HOLA");
-		System.out.println(oldRobot1i);
-		System.out.println(oldRobot1j);
-		System.out.println(robot1.geti());
-		System.out.println(robot1.getj());
 		assertTrue ((robot1.geti() == oldRobot1i) && (robot1.getj() == oldRobot1j    ));
 	    assertFalse((robot1.geti() == oldRobot1i) && (robot1.getj() == oldRobot1j - 1));
 	}
@@ -763,11 +754,11 @@ public class StepsDefinition {
 	
 	@Given("a UTurn card")
 	public void a_u_turn_card() {
-		UTurn = new UTurn();
+		cardUTurn = new UTurn();
 	}
 	@When("the UTurn card is executed")
 	public void the_u_turn_card_is_executed() {
-	    UTurn.execute(robot1, board);
+	    cardUTurn.execute(robot1, board);
 	}
 	
 	@Then("the robot is facing south")
@@ -777,12 +768,12 @@ public class StepsDefinition {
 
 	@Given("a RightTurn card")
 	public void a_right_turn_card() {
-	    RightTurn = new RightTurn();
+	    cardRightTurn = new RightTurn();
 	}
 	
 	@When("the RightTurn card is executed")
 	public void the_right_turn_card_is_executed() {
-		RightTurn.execute(robot1, board);
+		cardRightTurn.execute(robot1, board);
 	}
 	
 	@Then("the robot is facing east")
@@ -798,11 +789,11 @@ public class StepsDefinition {
 	
 	@Given("a LeftTurn card")
 	public void a_left_turn_card() {
-		LeftTurn = new LeftTurn();
+		cardLeftTurn = new LeftTurn();
 	}
 	@When("the LeftTurn card is executed")
 	public void the_left_turn_card_is_executed() {
-		LeftTurn.execute(robot1, board);
+		cardLeftTurn.execute(robot1, board);
 	}
 	
 	//////////////////////////
@@ -859,34 +850,62 @@ public class StepsDefinition {
 		assertTrue(programmingDeck1.contains(new Damage()));
 	}
 	
-	////// WHEN FALL INTO A PIT
-	
 	//////////////////////////
 	// U? : ROBOT COLLISION //
 	//////////////////////////
 	
-	@Given("a second robot in the tile above where the robot is")
-	public void a_second_robot_in_the_tile_above_where_the_robot_is() {
-		robot2 = new Robot(Color.BLUE);
-		board.setRobots(robot2);
+	
+	@Given("two robots on the board")
+	public void two_robots_on_the_board() {
+		robot1 = new Robot(Color.BLUE);
+		robot2 = new Robot(Color.RED);
+		board.setRobots(robot1, robot2);
+	}
+	@Given("the second robot facing north in the tile below where the first robot is")
+	public void the_second_robot_facing_north_in_the_tile_below_where_the_first_robot_is() {
 		robot2.setDirection(Direction.NORTH);
-		robot2.seti(robot1.geti()-1);
+		robot1.seti(5);
+		robot1.setj(6);
+		robot2.seti(robot1.geti() + 1);
 		robot2.setj(robot1.getj());
+		oldRobot1i = robot1.geti();
+		oldRobot1j = robot1.getj();
 		oldRobot2i = robot2.geti();
 		oldRobot2j = robot2.getj();
 	}
-	@When("the robot moves forward")
-	public void the_robot_moves_forward() {
-		cardMoveForward = new MoveForward();
-		cardMoveForward.execute(robot1, board);
+	
+	@When("the second robot moves forward")
+	public void the_second_robot_moves_forward() {
+	    cardMoveForward = new MoveForward();
+	    cardMoveForward.execute(robot2, board);
 	}
 	
-	@Then("the second robot is moved forward north")
-	public void the_second_robot_is_moved_forward_north() {
+	@Then("the second robot moves forward north")
+	public void the_second_robot_moves_forward_north() {
+		assertFalse((robot2.geti() == oldRobot2i    ) && (robot2.getj() == oldRobot2j));
+	    assertTrue ((robot2.geti() == oldRobot2i - 1) && (robot2.getj() == oldRobot2j));
+	}
+	@Then("the first robot is moved forward north")
+	public void the_first_robot_is_moved_forward_north() {
 		assertFalse((robot1.geti() == oldRobot1i    ) && (robot1.getj() == oldRobot1j));
 	    assertTrue ((robot1.geti() == oldRobot1i - 1) && (robot1.getj() == oldRobot1j));
-	    assertFalse((robot2.geti() == oldRobot2i    ) && (robot2.getj() == oldRobot2j));
-	    assertTrue ((robot2.geti() == oldRobot2i - 1) && (robot1.getj() == oldRobot2j));
+	}
+	
+	@Given("a north wall in the tile where the first robot is")
+	public void a_north_wall_in_the_tile_where_the_first_robot_is() {
+	    board.getTile(oldRobot1i, oldRobot1j).setNorthBarrier(new Wall());;
+	}
+	
+	@Then("the second robot does not move forward north")
+	public void the_second_robot_does_not_move_forward_north() {
+		assertTrue ((robot2.geti() == oldRobot2i    ) && (robot2.getj() == oldRobot2j));
+	    assertFalse((robot2.geti() == oldRobot2i - 1) && (robot2.getj() == oldRobot2j));
+	}
+	
+	@Then("the first robot does not move forward north")
+	public void the_first_robot_does_not_move_forward_north() {
+		assertTrue ((robot1.geti() == oldRobot1i    ) && (robot1.getj() == oldRobot1j));
+	    assertFalse((robot1.geti() == oldRobot1i - 1) && (robot1.getj() == oldRobot1j));
 	}
 	
 ////////////////////////////////////
@@ -924,10 +943,10 @@ public class StepsDefinition {
 		actionDeck1 = new Deck();
 		player1.setActionDeck(actionDeck1);
 		actionDeck1.addCard(cardMoveForward);
-		actionDeck1.addCard(RightTurn);
+		actionDeck1.addCard(cardRightTurn);
 		actionDeck1.addCard(cardMoveForward);
 		actionDeck1.addCard(cardMoveForward);
-		actionDeck1.addCard(LeftTurn);
+		actionDeck1.addCard(cardLeftTurn);
 	}
 	@Given("a second action deck of that belongs to the second player")
 	public void a_second_action_deck_of_that_belongs_to_the_second_player() {
@@ -935,9 +954,9 @@ public class StepsDefinition {
 		player2.setActionDeck(actionDeck2);
 		actionDeck2.addCard(cardMoveForward);
 		actionDeck2.addCard(cardMoveForward);
-		actionDeck2.addCard(LeftTurn);
+		actionDeck2.addCard(cardLeftTurn);
 		actionDeck2.addCard(cardMoveForward);
-		actionDeck2.addCard(RightTurn);
+		actionDeck2.addCard(cardRightTurn);
 	}
 	@Given("a discard deck of cards that belongs to the player")
 	public void a_discard_deck_of_cards_that_belongs_to_the_player() {
