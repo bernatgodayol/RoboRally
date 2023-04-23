@@ -2,15 +2,6 @@ package model;
 
 public class Laser implements WalkableElement {
 	
-	private boolean active;
-	
-	public Laser() {
-		this.active = false;
-	}
-	
-	public Laser(boolean active) {
-		this.active = active;
-	}
 	
 	public void Action(Robot robot, Board board) {
 		robot.getPlayer().getProgrammingDeck().getDeck().add(new Damage());
@@ -29,14 +20,6 @@ public class Laser implements WalkableElement {
     public int hashCode() {
         return 1; // any constant value
     }
-
-	public void setStatus(boolean active) {
-		this.active = active;
-	}
-	
-	public boolean getStatus() {
-		return this.active;
-	}
 
 	@Override
 	public void action(Robot robot, Board board) {
