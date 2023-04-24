@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import View.PlayerStatus;
 import View.View;
+import model.AI;
 import model.Board;
 import model.Color;
 import model.Deck;
@@ -104,6 +105,17 @@ public class Setup implements ViewObserver, MenuHandlerObserver {
 			Deck programmingDeck4 = new Deck();
 			assignDecks(3,programmingDeck4);
 		}	
+		if (length==1) {
+			Player player2 = new AI();
+			player2.setRegisteredPlayerObservers(playerStatus);
+			players.add(player2);
+			
+			Robot robot2 = new Robot(Color.YELLOW);
+			robot2.setRegisteredRobotObservers(view);
+			players.get(1).setRobot(robot2);
+			Deck programmingDeck2 = new Deck();
+			assignDecks(1,programmingDeck2);
+		}
 	
 	}
 
