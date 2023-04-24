@@ -5,7 +5,7 @@ import javafx.scene.image.ImageView;
 
 public class CardManager {
 	
-	ClassLoader classLoader = getClass().getClassLoader();
+	private ClassLoader classLoader = getClass().getClassLoader();
 	private Image image;
 	private ImageView imageView;
 	

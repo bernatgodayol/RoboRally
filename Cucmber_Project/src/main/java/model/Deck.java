@@ -1,7 +1,6 @@
 package model;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -66,8 +65,6 @@ public class Deck {
 	            notifyCardsUpdated(card, i, cs);
 	   
 	        }
-	        
-	        // System.out.println("Successfully moved random cards!");
 	    } else {
 	        System.out.println("Cannot move random cards!");
 	    }
@@ -87,8 +84,6 @@ public class Deck {
 		for (int i=0; i<5; i++) {
 			this.deck.add(new RightTurn());
 		}
-
-		// System.out.println("Successfully initialized programming deck !!!!!");
 	}
 	
 	public void moveCard(int index, Deck otherDeck) {

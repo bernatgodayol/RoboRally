@@ -3,7 +3,6 @@ package model;
 import java.util.HashSet;
 import java.util.Set;
 
-import controller.CardObserver;
 import controller.RobotObserver;
 
 public class Robot {

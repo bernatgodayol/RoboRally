@@ -53,7 +53,6 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 	public void boardUpdated(BoardStatus newBoardStatus) {
 		
 		gridPaneCenter.getChildren().clear();
-//		anchorPane.setCenter(gridPaneCenter);
 		gridPaneCenter.setHgap(0);
 		gridPaneCenter.setVgap(0);
 		
@@ -181,7 +180,6 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		gridPaneCenter.setAlignment(Pos.CENTER);
 		gridPaneCenter.setHgap(10);
 		gridPaneCenter.setVgap(10);
-//		gridPaneCenter.setPadding(new Insets(25,25,25,25)); 
 		
 		Label text = new Label("How many players are playing?");
 		gridPaneCenter.add(text,0,0,4,1);
@@ -189,38 +187,18 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		Button button1 = new Button("1");
 		gridPaneCenter.add(button1,0,1);
 		button1.setOnMouseClicked(handler);
-//		button1.setOnMouseClicked(new EventHandler<Event>() {
-//			public void handle(Event event) {		
-//				typePlayerNames(1);
-//			}
-//		});
 		
 		Button button2 = new Button("2");
 		gridPaneCenter.add(button2,1,1);
 		button2.setOnMouseClicked(handler);
-//		button2.setOnMouseClicked(new EventHandler<Event>() {
-//			public void handle(Event event) {
-//				typePlayerNames(2);
-//			}
-//		});
 		
 		Button button3 = new Button("3");
 		gridPaneCenter.add(button3,2,1);
 		button3.setOnMouseClicked(handler);
-//		button3.setOnMouseClicked(new EventHandler<Event>() {
-//			public void handle(Event event) {
-//				typePlayerNames(3);
-//			}
-//		});
 		
 		Button button4 = new Button("4");
 		gridPaneCenter.add(button4,3,1);
 		button4.setOnMouseClicked(handler);
-//		button4.setOnMouseClicked(new EventHandler<Event>() {
-//			public void handle(Event event) {
-//				typePlayerNames(4);
-//			}
-//		});
 		
 		return scene;
 	}
@@ -277,7 +255,6 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 						names.add(textField4.getText());
 					}
 		
-//					System.out.println(names);
 					notifyMenuViewUpdated(names);
 					chooseDifficulty();
 				}
@@ -297,29 +274,14 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		Button easyButton = new Button("Easy");
 		gridPaneCenter.add(easyButton,0,1);
 		easyButton.setOnMouseClicked(handler);
-//		easyButton.setOnMouseClicked(new EventHandler<Event>() {
-//			public void handle(Event event) {
-//				// Create 5B board
-//			}
-//		});
 		
 		Button mediumButton = new Button("Medium");
 		gridPaneCenter.add(mediumButton,1,1);
 		mediumButton.setOnMouseClicked(handler);
-//		mediumButton.setOnMouseClicked(new EventHandler<Event>() {
-//			public void handle(Event event) {
-//				// Create 2B board
-//			}
-//		});
 
 		Button hardButton = new Button("Hard");
 		gridPaneCenter.add(hardButton,2,1);
 		hardButton.setOnMouseClicked(handler);
-//		hardButton.setOnMouseClicked(new EventHandler<Event>() {
-//			public void handle(Event event) {
-//				// Create 4A board
-//			}
-//		});
 		
 	}
 	

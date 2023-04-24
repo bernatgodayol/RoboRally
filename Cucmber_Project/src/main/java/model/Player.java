@@ -73,7 +73,6 @@ public class Player {
 	}
 	
 	private void notifyPlayerUpdated(String name) {
-//		PlayerStatus ps = new PlayerStatus(name);
 		for(PlayerObserver o : registeredPlayerObservers) {
 			o.playerUpdated(name);
 		}

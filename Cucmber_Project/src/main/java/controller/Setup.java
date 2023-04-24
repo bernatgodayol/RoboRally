@@ -52,12 +52,7 @@ public class Setup implements ViewObserver, MenuHandlerObserver {
 	
 	@Override
 	public void menuViewUpdated(ArrayList<String> names) {
-		
-//		// Initialize players
-//		for (String name: names) {
-//			players.add(new Player(name));
-//		}
-//		
+			
 		int length = names.size();
 		
 		// Initializing robots and decks and assigning them to players
@@ -147,41 +142,5 @@ public class Setup implements ViewObserver, MenuHandlerObserver {
 			board.initialize4A();
 			setRobots();
 		}
-	}
-	
-	
-	
-//	private Player player1;
-//	private Player player2;
-//	private Player player3;
-//	private Player player4;
-//	
-//	private Robot robot1;
-//	private Robot robot2;
-//	private Robot robot3;
-//	private Robot robot4;
-//	
-//	private Deck programmingDeck1;
-//	private Deck programmingDeck2;
-//	private Deck programmingDeck3;
-//	private Deck programmingDeck4;
-//	
-//	private Deck playingDeck1;
-//	private Deck playingDeck2;
-//	private Deck playingDeck3;
-//	private Deck playingDeck4;
-//	
-//	private Deck actionDeck1;
-//	private Deck actionDeck2;
-//	private Deck actionDeck3;
-//	private Deck actionDeck4;
-//	
-//	private Deck discardDeck1;
-//	private Deck discardDeck2;
-//	private Deck discardDeck3;
-//	private Deck discardDeck4;
-	
-	
-	
-	
+	}	
 }
