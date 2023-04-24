@@ -2,6 +2,7 @@ package model;
 
 public class LeftTurn implements Card {
 	
+	@Override
 	public boolean equals(Object otherObject) {
 		if (otherObject instanceof LeftTurn) {
 			return true;
