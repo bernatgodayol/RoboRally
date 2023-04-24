@@ -13,16 +13,16 @@ public class Main extends Application{
 
 		Stage stage = new Stage();
 		View view = new View();
-		
-		Setup gameSetup = new Setup(view);
-		gameSetup.getBoard().setRegisteredObservers(view);
-		view.setRegisteredObservers(gameSetup);
-		
 		PlayerStatus playerStatus = new PlayerStatus();
 		playerStatus.setRegisteredPlayerStatusObservers(view);
 		
+		Setup gameSetup = new Setup(view,playerStatus);
+		gameSetup.getBoard().setRegisteredObservers(view);
+		view.setRegisteredObservers(gameSetup);
+		
 		MenuHandler handler = new MenuHandler(view);
 		handler.setRegisteredObservers(gameSetup);
+		view.setMenuHandler(handler);
 		
 		stage.setScene(view.choosePlayerNum());
 		stage.setTitle("RoboRally group 4");

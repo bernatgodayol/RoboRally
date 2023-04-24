@@ -33,6 +33,7 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 	private RobotManager robotManager = new RobotManager();
 	private ArrayList<String> players = new ArrayList<String>();
 	private Set<ViewObserver> registeredMenuViewObservers = new HashSet<ViewObserver>();
+	private MenuHandler handler;
 
 	private BorderPane anchorPane = new BorderPane();
 	private GridPane gridPaneCenter = new GridPane();
@@ -44,12 +45,17 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		return scene;
 	}
 	
+	public void setMenuHandler(MenuHandler handler) {
+		this.handler = handler;
+	}
+	
 	@Override
 	public void boardUpdated(BoardStatus newBoardStatus) {
 		
 		gridPaneCenter.getChildren().clear();
 //		anchorPane.setCenter(gridPaneCenter);
-//		gridPaneCenter.setAlignment(Pos.CENTER);
+		gridPaneCenter.setHgap(0);
+		gridPaneCenter.setVgap(0);
 		
 		for(int i=0; i<13; i++) {
 			for(int j=0; j<10; j++) {
@@ -182,7 +188,7 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		
 		Button button1 = new Button("1");
 		gridPaneCenter.add(button1,0,1);
-		button1.setOnMouseClicked(new MenuHandler(this));
+		button1.setOnMouseClicked(handler);
 //		button1.setOnMouseClicked(new EventHandler<Event>() {
 //			public void handle(Event event) {		
 //				typePlayerNames(1);
@@ -191,7 +197,7 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		
 		Button button2 = new Button("2");
 		gridPaneCenter.add(button2,1,1);
-		button2.setOnMouseClicked(new MenuHandler(this));
+		button2.setOnMouseClicked(handler);
 //		button2.setOnMouseClicked(new EventHandler<Event>() {
 //			public void handle(Event event) {
 //				typePlayerNames(2);
@@ -200,7 +206,7 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		
 		Button button3 = new Button("3");
 		gridPaneCenter.add(button3,2,1);
-		button3.setOnMouseClicked(new MenuHandler(this));
+		button3.setOnMouseClicked(handler);
 //		button3.setOnMouseClicked(new EventHandler<Event>() {
 //			public void handle(Event event) {
 //				typePlayerNames(3);
@@ -209,7 +215,7 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		
 		Button button4 = new Button("4");
 		gridPaneCenter.add(button4,3,1);
-		button4.setOnMouseClicked(new MenuHandler(this));
+		button4.setOnMouseClicked(handler);
 //		button4.setOnMouseClicked(new EventHandler<Event>() {
 //			public void handle(Event event) {
 //				typePlayerNames(4);
@@ -290,7 +296,7 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		
 		Button easyButton = new Button("Easy");
 		gridPaneCenter.add(easyButton,0,1);
-		easyButton.setOnMouseClicked(new MenuHandler(this));
+		easyButton.setOnMouseClicked(handler);
 //		easyButton.setOnMouseClicked(new EventHandler<Event>() {
 //			public void handle(Event event) {
 //				// Create 5B board
@@ -299,7 +305,7 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		
 		Button mediumButton = new Button("Medium");
 		gridPaneCenter.add(mediumButton,1,1);
-		mediumButton.setOnMouseClicked(new MenuHandler(this));
+		mediumButton.setOnMouseClicked(handler);
 //		mediumButton.setOnMouseClicked(new EventHandler<Event>() {
 //			public void handle(Event event) {
 //				// Create 2B board
@@ -308,7 +314,7 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 
 		Button hardButton = new Button("Hard");
 		gridPaneCenter.add(hardButton,2,1);
-		hardButton.setOnMouseClicked(new MenuHandler(this));
+		hardButton.setOnMouseClicked(handler);
 //		hardButton.setOnMouseClicked(new EventHandler<Event>() {
 //			public void handle(Event event) {
 //				// Create 4A board

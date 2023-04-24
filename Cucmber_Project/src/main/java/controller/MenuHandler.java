@@ -38,7 +38,6 @@ public class MenuHandler implements EventHandler<MouseEvent> {
 			}
 			else if ("Easy".equals(buttonText)) {
 				notifyMenuHandlerUpdated(1);
-				System.out.println("handle");
 			}
 			else if ("Medium".equals(buttonText)) {
 				notifyMenuHandlerUpdated(2);
@@ -55,9 +54,7 @@ public class MenuHandler implements EventHandler<MouseEvent> {
 	}
 	
 	public void notifyMenuHandlerUpdated(int i) {
-		System.out.println("notifyMenuHandlerUpdated1");
 		for(MenuHandlerObserver o : registeredMenuHandlerObservers) {
-			System.out.println("notifyMenuHandlerUpdated2");
 			o.menuHandlerUpdated(i);
 		}
 	}
