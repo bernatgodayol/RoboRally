@@ -34,7 +34,8 @@ public class StepsDefinition {
 	Board board;
 	Direction direction;
 	Card card;
-	Card extractedCard;
+	Card extractedCard1;
+	Card extractedCard2;
 	Card choosenCard1;
 	Card choosenCard2;
 	Card choosenCard3;
@@ -62,6 +63,8 @@ public class StepsDefinition {
 	int numCards4 = 4;
 	int initialSizeProgrammingDeck1;
 	int initialSizeProgrammingDeck2;
+	int initialSizeActionDeck1;
+	int initialSizeActionDeck2;
 	int size1;
 	int size2;
 	int robot1PositionX;
@@ -1247,6 +1250,57 @@ public class StepsDefinition {
 	////////////////////////////////////
 	// U? : COMPLETE ACTIVATION PHASE //
 	////////////////////////////////////
+	
+	@Given("the first robot belongs to the player")
+	public void the_first_robot_belongs_to_the_player() {
+	    player1.setRobot(robot1);
+	}
+	@Given("the second robots belongs to the second player")
+	public void the_second_robots_belongs_to_the_second_player() {
+		player2.setRobot(robot2);
+	}
+	@Given("a non-empty action deck of cards that belongs to the player")
+	public void a_non_empty_action_deck_of_cards_that_belongs_to_the_player() {
+		actionDeck1 = new Deck();
+		actionDeck1.addCard(new MoveForward());
+		actionDeck1.addCard(new RightTurn());
+		actionDeck1.addCard(new MoveForward());
+		actionDeck1.addCard(new MoveForward());
+		actionDeck1.addCard(new LeftTurn());
+		player1.setActionDeck(actionDeck1);
+		initialSizeActionDeck2 = actionDeck2.getDeckSize();
+	}
+	@Given("a second non-empty action deck of cards that belongs to the second player")
+	public void a_second_non_empty_action_deck_of_cards_that_belongs_to_the_second_player() {
+		actionDeck2 = new Deck();
+		actionDeck2.addCard(new UTurn());
+		actionDeck2.addCard(new RightTurn());
+		actionDeck2.addCard(new MoveForward());
+		actionDeck2.addCard(new MoveForward());
+		actionDeck2.addCard(new MoveForward());
+		player2.setActionDeck(actionDeck2);
+		initialSizeActionDeck2 = actionDeck2.getDeckSize();
+	}
+	@When("the first card of the action deck of cards that belongs to the player is played")
+	public void the_first_card_of_the_action_deck_of_cards_that_belongs_to_the_player_is_played() {
+	   extractedCard1 = actionDeck1.extractCard(0);
+	   extractedCard1.execute(robot1, board);
+	}
+	@When("the second card of the action deck of cards that belongs to the second player is played")
+	public void the_second_card_of_the_action_deck_of_cards_that_belongs_to_the_second_player_is_played() {
+		extractedCard2 = actionDeck1.extractCard(0);
+		extractedCard1.execute(robot2, board);
+	}
+	@Then("the obstacles in the board activate")
+	public void the_obstacles_in_the_board_activate() {
+	    board.getTile(robot1.geti(), robot1.getj()).getWalkableElement().action(robot1, board);
+	    board.getTile(robot2.geti(), robot2.getj()).getWalkableElement().action(robot2, board);
+	}
+	@Then("the register is completed")
+	public void the_register_is_completed() {
+	    assertTrue(actionDeck1.getDeckSize() == initialSizeActionDeck1 - 1);
+	    assertTrue(actionDeck2.getDeckSize() == initialSizeActionDeck2 - 1);
+	}
 	
 ///////////////////////////
 //          AI           //
