@@ -58,6 +58,7 @@ public class StepsDefinition {
 	Deck actionDeck2;
 	Deck discardDeck2;
 	int numCards9 = 9;
+	int numCards5 = 5;
 	int numCards4 = 4;
 	int initialSizeProgrammingDeck1;
 	int initialSizeProgrammingDeck2;
@@ -445,12 +446,17 @@ public class StepsDefinition {
 	
 	@When("the player moves the cards {int} {int} {int} {int} {int} from the playing deck to the action deck")
 	public void the_player_moves_the_cards_from_the_playing_deck_to_the_action_deck(Integer int1, Integer int2, Integer int3, Integer int4, Integer int5) {
+		System.out.println("the player moves the cards {int} {int} {int} {int} {int} from the playing deck to the action deck");
+		System.out.println(playingDeck1.getDeckSize());
+    	System.out.println(actionDeck1.getDeckSize());
 		choosenCard1 = playingDeck1.getCard(int1-1);
 		choosenCard2 = playingDeck1.getCard(int2-1);
 		choosenCard3 = playingDeck1.getCard(int3-1);
 		choosenCard4 = playingDeck1.getCard(int4-1);
 		choosenCard5 = playingDeck1.getCard(int5-1);
     	playingDeck1.moveCard(int1, int2, int3, int4, int5, actionDeck1);
+    	System.out.println(playingDeck1.getDeckSize());
+    	System.out.println(actionDeck1.getDeckSize());
 	}
 	
 	@Given("a second playing deck of cards with {int} cards")
@@ -488,7 +494,6 @@ public class StepsDefinition {
 	@Then("the {int} cards are in the action deck")
 	public void the_cards_are_in_the_action_deck(Integer numCards5) {
 		assertTrue(actionDeck1.getDeckSize() == numCards5);
-		
 	}
 	@Then("the {int} cards are in the second action deck")
 	public void the_cards_are_in_the_second_action_deck(Integer numCards5) {
@@ -1206,6 +1211,30 @@ public class StepsDefinition {
 	// U? : COMPLETE PROGRAMMING PHASE //
 	/////////////////////////////////////
 	
+	@Given("an action deck of cards that belongs to the player")
+	public void an_action_deck_of_cards_that_belongs_to_the_player() {
+		actionDeck1 = new Deck();
+		player1.setActionDeck(actionDeck1);
+	}
+	
+	@Given("a second action deck of cards that belongs to the second player")
+	public void a_second_action_deck_of_cards_that_belongs_to_the_second_player() {
+		actionDeck2 = new Deck();
+		player2.setActionDeck(actionDeck2);
+	}
+	
+	@Given("a discard deck of cards that belongs to the player")
+	public void a_discard_deck_of_cards_that_belongs_to_the_player() {
+		discardDeck1 = new Deck();
+		player1.setActionDeck(discardDeck1);
+	}
+	
+	@Given("a second discard deck of cards that belongs to the second player")
+	public void a_second_discard_deck_of_cards_that_belongs_to_the_second_player() {
+		discardDeck2 = new Deck();
+		player2.setActionDeck(discardDeck2);
+	}
+	
 	@Then("the playing deck is empty")
 	public void the_playing_deck_is_empty() {
 	    assertTrue(playingDeck1.deckIsEmpty());
@@ -1218,62 +1247,6 @@ public class StepsDefinition {
 	////////////////////////////////////
 	// U? : COMPLETE ACTIVATION PHASE //
 	////////////////////////////////////
-	
-	@Given("a second robot that belongs to the second player")
-	public void a_second_robot_that_belongs_to_the_second_player() {
-		robot2 = new Robot(Color.RED);
-		player2.setRobot(robot2);
-	}
-	@Given("a action deck of cards that belongs to the player")
-	public void a_action_deck_of_cards_that_belongs_to_the_player() {
-		actionDeck1 = new Deck();
-		player1.setActionDeck(actionDeck1);
-		actionDeck1.addCard(cardMoveForward);
-		actionDeck1.addCard(cardRightTurn);
-		actionDeck1.addCard(cardMoveForward);
-		actionDeck1.addCard(cardMoveForward);
-		actionDeck1.addCard(cardLeftTurn);
-	}
-	@Given("a second action deck of that belongs to the second player")
-	public void a_second_action_deck_of_that_belongs_to_the_second_player() {
-		actionDeck2 = new Deck();
-		player2.setActionDeck(actionDeck2);
-		actionDeck2.addCard(cardMoveForward);
-		actionDeck2.addCard(cardMoveForward);
-		actionDeck2.addCard(cardLeftTurn);
-		actionDeck2.addCard(cardMoveForward);
-		actionDeck2.addCard(cardRightTurn);
-	}
-	@Given("a discard deck of cards that belongs to the player")
-	public void a_discard_deck_of_cards_that_belongs_to_the_player() {
-		discardDeck1 = new Deck();
-		player1.setDiscardDeck(discardDeck1);
-	}
-	@Given("a second discard deck of that belongs to the second player")
-	public void a_second_discard_deck_of_that_belongs_to_the_second_player() {
-		discardDeck2 = new Deck();
-		player2.setDiscardDeck(discardDeck2);
-	}
-	@Given("a 5B board")
-	public void a_5b_board() {
-		board = new Board();
-		board.initialize5B();
-	}
-	@When("the first card in the action deck is played")
-	public void the_first_card_in_the_action_deck_is_played() {
-
-	}
-	@When("the first card in the second action deck is played")
-	public void the_first_card_in_the_second_action_deck_is_played() {
-
-	}
-	@When("the obstacles are activated")
-	public void the_obstacles_are_activated() {
-	}
-	@Then("the register is completed")
-	public void the_register_is_completed() {
-	    assertTrue(true);
-	}
 	
 ///////////////////////////
 //          AI           //
