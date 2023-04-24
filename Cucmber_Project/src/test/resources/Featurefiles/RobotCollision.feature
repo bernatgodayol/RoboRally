@@ -1,6 +1,8 @@
 @tag
 Feature: Robot collision
-
+	
+	# two robots north push
+	
   @tag1
   Scenario: Successfully pushing a robot (collision between two robots)
   Given a board
@@ -19,10 +21,21 @@ Feature: Robot collision
   And the second robot in the tile below where the first robot is
   And a north wall in the tile where the first robot is
   When the second robot moves forward
-  Then the first robot does not move forward north
+  Then the first robot is not moved forward north
   And the second robot does not move forward north
   
   @tag3
+  Scenario: Successfully pushing a robot (collision between two robots)
+  Given a board
+  And two robots on the board
+  And the second robot facing north
+  And the second robot in the tile below where the first robot is
+  And a south wall in the tile above where the first robot is
+  When the second robot moves forward
+  Then the first robot is not moved forward north
+  And the second robot does not move forward north
+  
+  @tag4
   Scenario: Successfully pushing a robot (collision between two robots)
   Given a board
   And two robots on the board
@@ -33,6 +46,8 @@ Feature: Robot collision
   Then the second robot moves forward north
   And the first robot goes to the reboot cell
  
+ 	# two robots east push
+ 	
   @tag4
   Scenario: Successfully pushing a robot (collision between two robots)
   Given a board
@@ -49,9 +64,20 @@ Feature: Robot collision
   And two robots on the board
   And the second robot facing east
   And the second robot in the tile left where the first robot is
-  And a east wall in the tile where the first robot is
+  And an east wall in the tile where the first robot is
   When the second robot moves forward
-  Then the first robot does not move forward east
+  Then the first robot is not moved forward east
+  And the second robot does not move forward east
+  
+  @tag5
+  Scenario: Successfully pushing a robot (collision between two robots)
+  Given a board
+  And two robots on the board
+  And the second robot facing east
+  And the second robot in the tile left where the first robot is
+  And a west wall in the tile right the first robot is
+  When the second robot moves forward
+  Then the first robot is not moved forward east
   And the second robot does not move forward east
  
   @tag6
@@ -60,11 +86,13 @@ Feature: Robot collision
   And two robots on the board
   And the second robot facing east
   And the first robot in the edge of the board east
-  And the second robot in the tile left where the first robot is
+  And the second robot in the tile right where the first robot is
   When the second robot moves forward
   Then the second robot moves forward east
   And the first robot goes to the reboot cell
- 
+ 	
+ 	# two robots south push
+ 	
   @tag7
   Scenario: Successfully pushing a robot (collision between two robots)
   Given a board
@@ -83,7 +111,18 @@ Feature: Robot collision
   And the second robot in the tile above where the first robot is
   And a south wall in the tile where the first robot is
   When the second robot moves forward
-  Then the first robot does not move forward south
+  Then the first robot is not moved forward south
+  And the second robot does not move forward south
+  
+  @tag8
+  Scenario: Successfully pushing a robot (collision between two robots)
+  Given a board
+  And two robots on the board
+  And the second robot facing south
+  And the second robot in the tile above where the first robot is
+  And a north wall in the tile below where the first robot is
+  When the second robot moves forward
+  Then the first robot is not moved forward south
   And the second robot does not move forward south
   
   @tag9
@@ -96,7 +135,9 @@ Feature: Robot collision
   When the second robot moves forward
   Then the second robot moves forward south
   And the first robot goes to the reboot cell
- 
+ 	
+ 	# two robots west push
+ 	
   @tag10
   Scenario: Successfully pushing a robot (collision between two robots)
   Given a board
@@ -115,7 +156,18 @@ Feature: Robot collision
   And the second robot in the tile right where the first robot is
   And a west wall in the tile where the first robot is
   When the second robot moves forward
-  Then the first robot does not move forward west
+  Then the first robot is not moved forward west
+  And the second robot does not move forward west
+  
+  @tag11
+  Scenario: Successfully pushing a robot (collision between two robots)
+  Given a board
+  And two robots on the board
+  And the second robot facing west
+  And the second robot in the tile right where the first robot is
+  And an east wall in the tile left where the first robot is
+  When the second robot moves forward
+  Then the first robot is not moved forward west
   And the second robot does not move forward west
   
   @tag12
