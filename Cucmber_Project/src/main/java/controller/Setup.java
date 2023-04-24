@@ -12,14 +12,15 @@ import model.Robot;
 
 public class Setup implements ViewObserver, MenuHandlerObserver {
 	
-	private Board board = new Board();
+	private Board board;
 	private ArrayList<Player> players = new ArrayList<Player>();
-	private PlayerStatus playerStatus = new PlayerStatus();
+	private PlayerStatus playerStatus;
 	private View view;
 	
-	public Setup(View view) {
+	public Setup(View view, PlayerStatus playerStatus) {
 		this.view = view;
-		playerStatus.setRegisteredPlayerStatusObservers(view);
+		this.playerStatus = playerStatus;
+		board = new Board();
 	}
 	
 	public Board getBoard() {
@@ -105,28 +106,38 @@ public class Setup implements ViewObserver, MenuHandlerObserver {
 		}	
 	
 	}
-	
-	@Override
-	public void menuViewUpdated() {
-		// TODO Auto-generated method stub
-		
-	}
 
+	
+	private void setRobots() {
+		if (players.size()==2) {
+			board.setRobots(players.get(0).getRobot(), players.get(1).getRobot());
+		}
+		else if (players.size()==3) {
+			board.setRobots(players.get(0).getRobot(), players.get(1).getRobot(), players.get(2).getRobot());
+		}
+		else if (players.size()==4) {
+			board.setRobots(players.get(0).getRobot(), players.get(1).getRobot(), players.get(2).getRobot(), players.get(3).getRobot());
+		}
+	}
+	
+	
 	@Override
 	public void menuHandlerUpdated(int i) {
 		if (i==1) {
 			board.initialize5B();
-			System.out.println("1");
+			setRobots();
 		}
 		else if (i==2) {
 			board.initialize2B();
-			System.out.println("2");
+			setRobots();
 		}
 		else if (i==3) {
 			board.initialize4A();
-			System.out.println("3");
+			setRobots();
 		}
 	}
+	
+	
 	
 //	private Player player1;
 //	private Player player2;
