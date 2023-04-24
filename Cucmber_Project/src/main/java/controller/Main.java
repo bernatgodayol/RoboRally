@@ -1,25 +1,9 @@
 package controller;
 
-import View.BoardView;
-import View.MenuView;
+import View.View;
 import View.PlayerStatus;
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import model.Board;
-import model.Color;
-import model.Damage;
-import model.Deck;
-import model.Direction;
-import model.Player;
-import model.Robot;
 
 
 public class Main extends Application{
@@ -27,20 +11,20 @@ public class Main extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		MenuView menuView = new MenuView();
-		BoardView boardView = new BoardView();
-		Board board = new Board();
-		board.setRegisteredObservers(boardView);
-		PlayerStatus playerStatus = new PlayerStatus();
-		playerStatus.setRegisteredPlayerStatusObservers(boardView);
-		
-		Player player1;
-		Player player2;
-		Player player3;
-		Player player4;
-		
 		Stage stage = new Stage();
-		stage.setScene(menuView.choosePlayerNum());
+		View view = new View();
+		
+		Setup gameSetup = new Setup(view);
+		gameSetup.getBoard().setRegisteredObservers(view);
+		view.setRegisteredObservers(gameSetup);
+		
+		PlayerStatus playerStatus = new PlayerStatus();
+		playerStatus.setRegisteredPlayerStatusObservers(view);
+		
+		MenuHandler handler = new MenuHandler(view);
+		handler.setRegisteredObservers(gameSetup);
+		
+		stage.setScene(view.choosePlayerNum());
 		stage.setTitle("RoboRally group 4");
 		stage.show();
 		
