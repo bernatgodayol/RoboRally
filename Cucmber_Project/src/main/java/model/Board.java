@@ -13,6 +13,7 @@ public class Board {
 	private Tile[][] grid;
 	private int rebooti;
 	private int rebootj;
+	
 	private int endi;
 	private int endj;
 	private int ROWS = 13;
@@ -43,6 +44,14 @@ public class Board {
 	
 	public int getRebootj() {
 		return rebootj;
+	}
+	
+	public int getEndi() {
+		return endi;
+	}
+	
+	public int getEndj() {
+		return endj;
 	}
 	
 	public int getROWS() {
@@ -117,6 +126,12 @@ public class Board {
 			this.getTile(7, i).setWalkableElement(new Laser());;
 		}
 		
+		this.rebooti = 9;
+		this.rebootj = 5;
+		
+		this.endi = 4;
+		this.endj = 4;
+		
 		notifyBoardUpdated();
 	}
 	
@@ -175,6 +190,12 @@ public class Board {
 		for (int i=2; i<8; i++) {
 			this.getTile(i, 7).setWalkableElement(new Laser());;
 		}
+		
+		this.rebooti = 8;
+		this.rebootj = 9;
+		
+		this.endi = 4;
+		this.endj = 4;
 		
 		notifyBoardUpdated();
 	}
@@ -235,6 +256,10 @@ public class Board {
 	
 	public boolean isInsideBoard(int i, int j) {
 		return ((i > -1) && (i < this.ROWS) && (j > -1) && (j < this.COLUMNS));
+	}
+	
+	public boolean isInEndpoint(Robot robot) {
+		return (robot.geti()== this.endi && robot.getj()== this.endj);
 	}
 	
 	public Robot whichRobot(int i, int j) {

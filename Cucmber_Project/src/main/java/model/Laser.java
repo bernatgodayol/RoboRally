@@ -3,9 +3,11 @@ package model;
 public class Laser implements WalkableElement {
 	
 	
-	public void Action(Robot robot, Board board) {
-		robot.getPlayer().getProgrammingDeck().getDeck().add(new Damage());
+	public void action(Robot robot, Board board) {
+		robot.getPlayer().getProgrammingDeck().addCard(new Damage());
 	}
+	
+	
 	
 	@Override
 	public boolean equals(Object object) {
@@ -21,9 +23,6 @@ public class Laser implements WalkableElement {
         return 1; // any constant value
     }
 
-	@Override
-	public void action(Robot robot, Board board) {
-		// TODO Auto-generated method stub
-	}
+	
 	
 }
