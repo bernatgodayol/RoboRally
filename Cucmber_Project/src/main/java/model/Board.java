@@ -4,7 +4,6 @@ import java.util.Set;
 
 import View.BoardStatus;
 import controller.BoardObserver;
-import controller.CardObserver;
 
 public class Board {
 	
@@ -361,14 +360,6 @@ public class Board {
 						(this.getTile(i, j).getWalkableElement() instanceof Pit)) {
 					bs.setElementType(13, i, j);
 				}
-//				else if (!(this.getTile(i, j).getNorthBarrier() instanceof Wall) &&
-//						!(this.getTile(i, j).getSouthBarrier() instanceof Wall) &&
-//						!(this.getTile(i, j).getEastBarrier() instanceof Wall) &&
-//						!(this.getTile(i, j).getWestBarrier() instanceof Wall) &&
-//						!(this.getTile(i, j).getWalkableElement() instanceof Pit) &&
-//						(i != rebooti) && (j != rebootj) && (i != endi) && (j!= endj)) {
-//					bs.setElementType(14, i, j);
-//				}
 				else {
 					bs.setElementType(14, i, j);
 				}
