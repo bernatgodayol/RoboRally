@@ -57,8 +57,6 @@ public class StepsDefinition {
 	Deck playingDeck2;
 	Deck actionDeck2;
 	Deck discardDeck2;
-	Laser laser;
-	Pit pit;
 	int numCards9 = 9;
 	int numCards4 = 4;
 	int initialSizeProgrammingDeck1;
@@ -759,34 +757,6 @@ public class StepsDefinition {
 		oldRobot1j = robot1.getj();
 	}
 	
-	//////////////////////////
-	// U9 : Falls in a pit ///
-	//////////////////////////
-	
-	@Given("a pit")
-	public void a_pit() {
-		pit = new Pit();
-	}
-	
-	@When("a pit is in the same tile as the robot")
-	public void a_pit_is_in_the_same_tile_as_the_robot() {
-		board.getTile(oldRobot1i, oldRobot1j).setWalkableElement(new Pit());
-		pit.action(robot1, board);
-		}
-
-	@Given("a robot on the board that belongs to a player")
-	public void a_robot_on_the_board_that_belongs_to_a_player() {
-		robot1 = new Robot(Color.BLUE);
-		player1.setRobot(robot1);
-		board.setRobots(robot1);
-		robot1.setDirection(Direction.NORTH);
-		robot1.seti(3);
-		robot1.setj(4);
-		oldRobot1i = robot1.geti();
-		oldRobot1j = robot1.getj();
-		}
-	
-	
 	//////////////////////
 	// U9 : TURN ROBOT  //
 	//////////////////////
@@ -819,8 +789,6 @@ public class StepsDefinition {
 	public void the_robot_is_facing_east() {
 		assertTrue(robot1.getDirection() == Direction.EAST);
 	}
-	
-	
 	@Then("the robot is facing west")
 	public void the_robot_is_facing_west() {
 		assertTrue(robot1.getDirection() == Direction.WEST);
@@ -835,36 +803,44 @@ public class StepsDefinition {
 		cardLeftTurn.execute(robot1, board);
 	}
 	
-	//////////////////////////
-	// U10 : ACTIVATE LASER //
-	//////////////////////////
-	
-	@Given("a laser")
-	public void an_inactive_laser() {
-	    laser = new Laser();
-	}
-	
-
-	///////////////////////////////
-	// U11 : RECEIVE DAMAGE CARD //
-	///////////////////////////////
+	/////////////////////////
+	// U11 : PUNISH PLAYER //
+	/////////////////////////
 	
 	////// WHEN HIT BY LASER
 	
-	@Given("a robot that belongs to the player")
-	public void a_robot_that_belongs_to_the_player() {
-		robot1 = new Robot(Color.BLUE);
-		player1.setRobot(robot1);
+	@Given("a robot on the board that belongs to the player")
+	public void a_robot_on_the_board_that_belongs_to_the_player() {
+	    robot1 = new Robot(Color.BLUE);
+	    player1.setRobot(robot1);
+	    board.setRobots(robot1);
+	    oldRobot1i = robot1.geti();
+		oldRobot1j = robot1.getj();
 	}
-	
+	@Given("a laser on the tile where the robot is")
+	public void a_laser_on_the_tile_where_the_robot_is() {
+	    board.getTile(robot1.geti(), robot1.getj()).setWalkableElement(new Laser());
+	}
 	@When("the robot is hit by the laser")
 	public void the_robot_is_hit_by_the_laser() {
-		board.getTile(oldRobot1i, oldRobot1j).setWalkableElement(laser);
-		laser.action(robot1, board);
+		board.getTile(robot1.geti(), robot1.getj()).getWalkableElement().action(robot1, board);
 	}
-	@Then("a damage card is in the programming deck")
-	public void a_damage_card_is_placed_in_the_programming_deck() {
-		assertTrue(programmingDeck1.contains(new Damage()));
+	@Then("a damage card is placed in the programming deck of the player")
+	public void a_damage_card_is_placed_in_the_programming_deck_of_the_player() {
+	    assertTrue(programmingDeck1.getDeckSize() == initialSizeProgrammingDeck1 + 1);
+	    assertTrue(programmingDeck1.contains(new Damage()));
+	}
+
+	////// WHEN FALL INTO A PIT
+	
+
+	@Given("a pit on the tile where the robot is")
+	public void a_pit_on_the_tile_where_the_robot_is() {
+		board.getTile(robot1.geti(), robot1.getj()).setWalkableElement(new Pit());
+	}
+	@When("the robot falls into the pit")
+	public void the_robot_falls_into_the_pit() {
+		board.getTile(robot1.geti(), robot1.getj()).getWalkableElement().action(robot1, board);
 	}
 	
 	//////////////////////////

@@ -1,12 +1,7 @@
 package model;
 
 public class Laser implements WalkableElement {
-	
-	
-	public void Action(Robot robot, Board board) {
-		robot.getPlayer().getProgrammingDeck().getDeck().add(new Damage());
-	}
-	
+
 	@Override
 	public boolean equals(Object object) {
 	    if (object instanceof Laser) {
@@ -23,7 +18,7 @@ public class Laser implements WalkableElement {
 
 	@Override
 	public void action(Robot robot, Board board) {
-		// TODO Auto-generated method stub
+		robot.getPlayer().getProgrammingDeck().getDeck().add(new Damage());
 	}
 	
 }
