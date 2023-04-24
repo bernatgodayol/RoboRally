@@ -7,6 +7,7 @@ import java.util.Random;
 import java.util.Set;
 import View.CardStatus;
 import controller.CardObserver;
+import java.util.Arrays;
 
 public class Deck {
 	
@@ -101,41 +102,22 @@ public class Deck {
 	}
 	
 	public void moveCard(int int1, int int2, int int3, int int4, int int5, Deck otherDeck) { 
-	    if (((this.getDeckSize() > int1-1) && (int1-1 > -1)) &&
-	    	((this.getDeckSize() > int2-1) && (int2-1 > -1)) &&
-	    	((this.getDeckSize() > int3-1) && (int3-1 > -1)) &&
-	    	((this.getDeckSize() > int4-1) && (int4-1 > -1)) &&
-	    	((this.getDeckSize() > int5-1) && (int5-1 > -1))) {
-	    	Card card1 = this.getCard(int1-1);
-	    	Card card2 = this.getCard(int2-1);
-	    	Card card3 = this.getCard(int3-1);
-	    	Card card4 = this.getCard(int4-1);
-	    	Card card5 = this.getCard(int5-1);	
-	    	ArrayList<Integer> arraylist = new ArrayList<Integer>();
-	    	
-	    	arraylist.add(int1-1);
-	        arraylist.add(int2-1);
-	        arraylist.add(int3-1);
-	        arraylist.add(int4-1);
-	        arraylist.add(int5-1);
-	        
-	    	// Sorting ArrayList in descending order
-		     Collections.sort(arraylist, new Comparator<Integer>() {
-		    	 @Override
-		         public int compare(Integer o1, Integer o2) {
-		            return o2.compareTo(o1);
-		         }
-		      });
-	    	for (int i : arraylist) {
-	    		this.removeCard(i);
+	    Integer [] indices = {int1, int2, int3, int4, int5};
+	    for (int i : indices) {
+	    	if (i < 1 || i > this.getDeckSize()) {
+	    		System.out.println("Index of card not valid");
 	    	}
-	    	otherDeck.addCard(card1);
-	    	otherDeck.addCard(card2);
-	    	otherDeck.addCard(card3);
-	    	otherDeck.addCard(card4);
-	    	otherDeck.addCard(card5);
-	    } else {
-	    	System.out.println("Indexes are not valid");
+	    // add to the action deck
+	    } 
+	    for (int i : indices) {
+	    	otherDeck.addCard(this.getCard(i-1));
+	    	
+	    } 
+	    // Sort the array in descending order
+	    Arrays.sort(indices, Collections.reverseOrder());
+	    // remove from the playing deck
+	    for( int i : indices) {
+	    	this.removeCard(i-1);
 	    }
 	}
 	
