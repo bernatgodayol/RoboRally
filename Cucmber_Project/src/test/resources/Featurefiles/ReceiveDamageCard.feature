@@ -20,4 +20,3 @@ Feature: Receive damage card
   And a robot on the board that belongs to a player
   When a pit is in the same tile as the robot
   Then a damage card is in the programming deck
- 

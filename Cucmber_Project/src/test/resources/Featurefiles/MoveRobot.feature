@@ -70,19 +70,19 @@ Feature: Move robot
     Then the robot does not move forward north
     
   @tag9
-  Scenario: Successfully making the robot stop when it hits a east wall
+  Scenario: Successfully making the robot stop when it hits an east wall
     Given a board
     And a robot on the board facing east
-    And a east wall in the tile where the robot is
+    And an east wall in the tile where the robot is
     And a move forward card
     When the move forward card is executed
     Then the robot does not move forward east
     
   @tag10
-  Scenario: Successfully making the robot stop when it hits a east wall
+  Scenario: Successfully making the robot stop when it hits an east wall
     Given a board
     And a robot on the board facing west
-    And a east wall in the tile next left where the robot is
+    And an east wall in the tile left where the robot is
     And a move forward card
     When the move forward card is executed
     Then the robot does not move forward west
@@ -100,7 +100,7 @@ Feature: Move robot
   Scenario: Successfully making the robot stop when it hits a west wall
     Given a board
     And a robot on the board facing east
-    And a west wall in the tile next right where the robot is
+    And a west wall in the tile right where the robot is
     And a move forward card
     When the move forward card is executed
     Then the robot does not move forward east
