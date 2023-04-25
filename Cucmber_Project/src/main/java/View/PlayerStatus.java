@@ -17,14 +17,15 @@ public class PlayerStatus implements PlayerObserver{
 		if(!players.contains(name) && players.size()<5) {
 			players.add(name);
 			
-			notifyPlayerStatusUpdated();
+			notifyPlayerStatusUpdated(name);
+//			notifyPlayerStatusUpdated(name);
 			
 		}	
 	}
 	
-	private void notifyPlayerStatusUpdated() {
+	private void notifyPlayerStatusUpdated(String name) {
 		for(PlayerStatusObserver o : registeredPlayerStatusObservers) {
-			o.playerStatusUpdated(this.players);
+			o.playerStatusUpdated(this.players, name);
 		}
 	}
 

@@ -28,6 +28,10 @@ public class Setup implements ViewObserver, MenuHandlerObserver {
 		return board;
 	}
 	
+	public View getView() {
+		return view;
+	}
+	
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
@@ -47,6 +51,8 @@ public class Setup implements ViewObserver, MenuHandlerObserver {
 		
 		// Discard deck
 		players.get(playerNo).setDiscardDeck(new Deck());
+		
+		players.get(playerNo).getProgrammingDeck().moveRandomCards(players.get(playerNo).getPlayingDeck(),9);
 		
 	}
 	
@@ -142,5 +148,17 @@ public class Setup implements ViewObserver, MenuHandlerObserver {
 			board.initialize4A();
 			setRobots();
 		}
+	}
+
+	@Override
+	public void menuHandlerUpdated() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void menuViewUpdated(int num, String player) {
+		// TODO Auto-generated method stub
+		
 	}	
 }

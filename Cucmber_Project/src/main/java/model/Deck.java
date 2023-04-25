@@ -53,7 +53,7 @@ public class Deck {
 	public void moveRandomCards(Deck otherDeck, Integer numCards) {
 	    Random rand = new Random();
 	    
-	    CardStatus cs = notifyCardsUpdated(numCards, player.getName());
+//	    CardStatus cs = notifyCardsUpdated(numCards, player.getName());
 	    
 	    if (this.deck.size() > numCards) {
 	        for (int i = 0; i < numCards; i++) {
@@ -62,7 +62,8 @@ public class Deck {
 	            otherDeck.getDeck().add(card);
 	            this.deck.remove(index);
 	            
-	            notifyCardsUpdated(card, i, cs);
+	            notifyCardsUpdated(card, i, player.getName());
+//	            notifyCardsUpdated(card, i, cs);
 	   
 	        }
 	    } else {
@@ -128,35 +129,60 @@ public class Deck {
 		this.registeredCardObservers.add(cardObserver);	
 	}
 	
-	private void notifyCardsUpdated(Card card, int i, CardStatus cs) {
-
+//	private void notifyCardsUpdated(Card card, int i, CardStatus cs) {
+//
+//		if (card instanceof MoveForward) {
+//			cs.setCards(1, i);
+//		}
+//		else if (card instanceof RightTurn) {
+//			cs.setCards(2, i);
+//		}
+//		else if (card instanceof LeftTurn) {
+//			cs.setCards(3, i);
+//		}
+//		else if (card instanceof UTurn) {
+//			cs.setCards(4, i);
+//		}
+//		else {
+//			cs.setCards(5, i);
+//		}
+//		
+//		for(CardObserver o : registeredCardObservers) {
+//			o.cardUpdated(cs);
+//		}
+//		
+//	}
+	
+	private void notifyCardsUpdated(Card card, int i, String player) {
+		
+		int numCard;
+		
 		if (card instanceof MoveForward) {
-			cs.setCards(1, i);
+			numCard = 1;
 		}
 		else if (card instanceof RightTurn) {
-			cs.setCards(2, i);
+			numCard = 2;
 		}
 		else if (card instanceof LeftTurn) {
-			cs.setCards(3, i);
+			numCard = 3;
 		}
 		else if (card instanceof UTurn) {
-			cs.setCards(4, i);
+			numCard = 4;
 		}
 		else {
-			cs.setCards(5, i);
+			numCard = 5;
 		}
 		
 		for(CardObserver o : registeredCardObservers) {
-			o.cardUpdated(cs);
-		}
-		
+			o.cardUpdated(card, i, numCard, player);
+		}		
 	}
 		
-		private CardStatus notifyCardsUpdated(int numCards, String player) {
-			CardStatus cs = new CardStatus(numCards, player);
-			for(CardObserver o : registeredCardObservers) {
-				o.cardUpdated(cs);
-			}
-			return cs;
-		}
+//		private CardStatus notifyCardsUpdated(int numCards, String player) {
+//			CardStatus cs = new CardStatus(numCards, player);
+//			for(CardObserver o : registeredCardObservers) {
+//				o.cardUpdated(cs);
+//			}
+//			return cs;
+//		}
 }

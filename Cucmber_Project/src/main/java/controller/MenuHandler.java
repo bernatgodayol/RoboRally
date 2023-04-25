@@ -4,15 +4,19 @@ package controller;
 import java.util.HashSet;
 import java.util.Set;
 
+import View.CardManager;
 import View.View;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 public class MenuHandler implements EventHandler<MouseEvent> {
 
 	private View view;
 	private Set<MenuHandlerObserver> registeredMenuHandlerObservers = new HashSet<MenuHandlerObserver>();
+//	private CardManager cardManager = new CardManager();
 	
 	public MenuHandler(View view) {
 		this.view = view;
@@ -20,6 +24,7 @@ public class MenuHandler implements EventHandler<MouseEvent> {
 
 	@Override
 	public void handle(MouseEvent event) {
+		System.out.println(event.getSource());
 		if (event.getSource() instanceof Button) {
 			Button button = (Button) event.getSource();
 			String buttonText = button.getText();
@@ -45,10 +50,20 @@ public class MenuHandler implements EventHandler<MouseEvent> {
 			else if ("Hard".equals(buttonText)) {
 				notifyMenuHandlerUpdated(3);
 			}
+//		if (event.getSource() instanceof ImageView) {
+//			notifyMenuHandlerUpdated();
+//			System.out.println("Im clicked!");
+//		}
 			
 		}
 	}
 	
+	private void notifyMenuHandlerUpdated() {
+		for(MenuHandlerObserver o : registeredMenuHandlerObservers) {
+			o.menuHandlerUpdated();
+		}
+	}
+
 	public void setRegisteredObservers(MenuHandlerObserver observer) {
 		this.registeredMenuHandlerObservers.add(observer);	
 	}
