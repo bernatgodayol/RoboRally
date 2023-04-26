@@ -44,14 +44,6 @@ public class Board {
 		return rebootj;
 	}
 	
-	public int getROWS() {
-		return ROWS;
-	}
-	
-	public int getCOLUMNS() {
-		return COLUMNS;
-	}
-	
 	public void initialize5B() {
 		this.getTile(3, 3).setNorthBarrier(new Wall());
 		this.getTile(3, 3).setWalkableElement(new Laser());
