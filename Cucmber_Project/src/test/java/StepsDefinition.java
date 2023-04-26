@@ -1446,13 +1446,13 @@ public class StepsDefinition {
 // ROBO RALLY : THE LIGHT VERSION //
 ////////////////////////////////////
 	
-	//////////////////////////
-	// U? : SET UP THE GAME //
-	//////////////////////////
+	/////////////////////
+	// SET UP THE GAME //
+	/////////////////////
 	
-	/////////////////////////////////////
-	// U? : COMPLETE PROGRAMMING PHASE //
-	/////////////////////////////////////
+	////////////////////////////////
+	// COMPLETE PROGRAMMING PHASE //
+	////////////////////////////////
 	
 	@Given("an action deck of cards that belongs to the player")
 	public void an_action_deck_of_cards_that_belongs_to_the_player() {
@@ -1484,9 +1484,9 @@ public class StepsDefinition {
 		assertTrue(playingDeck2.deckIsEmpty());
 	}
 	
-	////////////////////////////////////
-	// U? : COMPLETE ACTIVATION PHASE //
-	////////////////////////////////////
+	///////////////////////////////
+	// COMPLETE ACTIVATION PHASE //
+	///////////////////////////////
 	
 	@Given("the first robot belongs to the player")
 	public void the_first_robot_belongs_to_the_player() {
