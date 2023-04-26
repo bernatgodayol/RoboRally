@@ -86,49 +86,53 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		
 //		boolean left = true;
 		Label labelname = new Label(name);
-
+		
+		
 		if(players.get(0) == name) {
 			gridPaneLeft.add(labelname, 0, 0);
 			this.j = 0;
 			this.left = true;
 		}
-		
+			
 		else if(players.get(1) == name) {
 			gridPaneRight.add(labelname, 0, 0);
 			this.j = 0;
 			this.left = false;
 		}
-		
+			
 		else if(players.size()>=3 && players.get(2) == name) {
 			gridPaneLeft.add(labelname, 1, 0);
 			this.j = 1;
 			this.left = true;
 		}
-		
+			
 		else if(players.size()>=4 && players.get(3) == name) {
 			gridPaneRight.add(labelname, 1, 0);
 			this.j = 1;
 			this.left = false;
-		}		
+		}
 	}
 	
 
 	@Override
 	public void cardUpdated(Card card, int index, int numCard, String player) {
-		imageView = cardManager.getCardImage(numCard);	
-		imageView.setFitHeight(40);
-		imageView.setFitWidth(40);
-		imageView.setOnMouseClicked(new EventHandler<Event>() {
-				public void handle(Event event) {
-					notifyMenuViewUpdated(index, player);
+		
+		if (player != "AI") {
+			imageView = cardManager.getCardImage(numCard);	
+			imageView.setFitHeight(40);
+			imageView.setFitWidth(40);
+			imageView.setOnMouseClicked(new EventHandler<Event>() {
+					public void handle(Event event) {
+						notifyMenuViewUpdated(index, player);
+					}
+				});
+				
+				if (left) {
+					gridPaneLeft.add(imageView,j,index+1,1,1);
+				} else {
+					gridPaneRight.add(imageView,j,index+1,1,1);
 				}
-			});
-			
-			if (left) {
-				gridPaneLeft.add(imageView,j,index+1,1,1);
-			} else {
-				gridPaneRight.add(imageView,j,index+1,1,1);
-			}
+		}
 	}
 	
 	

@@ -1,23 +1,39 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 import model.Board;
 import model.Player;
 
 public class ActionPhase implements StartActionPhaseObserver{
 	
-	//private ArrayList<Player> players;
-	
 	@Override
-	public void startActionPhase(ArrayList<Player> players, Board board) {
-		//this.players = players;
+	public void startActionPhase(ArrayList<Player> players, Board board, boolean isRobot) {
+		
+		if (isRobot) {
+			players.get(1).getPlayingDeck().moveRandomCards(players.get(1).getActionDeck(), 5);
+			
+			for (int i=0; i<4; i++) {
+				players.get(1).getPlayingDeck().moveCard(0, players.get(1).getDiscardDeck());
+			}
+		}
 		
 		if (players.size()==2) {
-			for (int i=0; i<5; i++) {
-				players.get(0).getActionDeck().getCard(i).execute(players.get(0).getRobot(), board);
-				players.get(1).getActionDeck().getCard(i).execute(players.get(1).getRobot(), board);
+			if (isRobot) {
+				for (int i=0; i<5; i++) {
+					players.get(0).getActionDeck().getCard(i).execute(players.get(0).getRobot(), board);
+					players.get(1).getActionDeck().getCard(i).execute(players.get(1).getRobot(), board);
+				}
+				for (int i=0; i<4; i++) {
+					players.get(1).getActionDeck().moveCard(0,players.get(1).getDiscardDeck());
+				}
+				
+			}
+			else {
+				for (int i=0; i<5; i++) {
+					players.get(0).getActionDeck().getCard(i).execute(players.get(0).getRobot(), board);
+					players.get(1).getActionDeck().getCard(i).execute(players.get(1).getRobot(), board);
+				}
 			}
 		}
 		if (players.size()==3) {

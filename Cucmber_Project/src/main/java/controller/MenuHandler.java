@@ -57,12 +57,6 @@ public class MenuHandler implements EventHandler<MouseEvent> {
 			
 		}
 	}
-	
-	private void notifyMenuHandlerUpdated() {
-		for(MenuHandlerObserver o : registeredMenuHandlerObservers) {
-			o.menuHandlerUpdated();
-		}
-	}
 
 	public void setRegisteredObservers(MenuHandlerObserver observer) {
 		this.registeredMenuHandlerObservers.add(observer);	

@@ -17,6 +17,7 @@ public class Setup implements ViewObserver, MenuHandlerObserver {
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private PlayerStatus playerStatus;
 	private View view;
+	private boolean isRobot = false;
 	
 	public Setup(View view, PlayerStatus playerStatus) {
 		this.view = view;
@@ -34,6 +35,10 @@ public class Setup implements ViewObserver, MenuHandlerObserver {
 	
 	public ArrayList<Player> getPlayers() {
 		return players;
+	}
+	
+	public boolean getIsRobot() {
+		return isRobot;
 	}
 
 	private void assignDecks(int playerNo, Deck programmingDeck) {
@@ -116,6 +121,8 @@ public class Setup implements ViewObserver, MenuHandlerObserver {
 			players.get(1).setRobot(robot2);
 			Deck programmingDeck2 = new Deck();
 			assignDecks(1,programmingDeck2);
+			
+			isRobot = true;
 		}
 	
 	}
