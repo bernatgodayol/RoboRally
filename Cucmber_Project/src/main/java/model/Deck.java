@@ -98,18 +98,19 @@ public class Deck {
 	
 	public void moveCard(int int1, int int2, int int3, int int4, int int5, Deck otherDeck) { 
 	    Integer [] indices = {int1, int2, int3, int4, int5};
+	    
 	    for (int i : indices) {
 	    	if (i < 1 || i > this.getDeckSize()) {
 	    		System.out.println("Index of card not valid");
+	    	} else {
+	    		// add to action deck
+	    		otherDeck.addCard(this.getCard(i-1));
 	    	}
-	    // add to the action deck
-	    } 
-	    for (int i : indices) {
-	    	otherDeck.addCard(this.getCard(i-1));
-	    	
-	    } 
+	    }
+	    
 	    // Sort the array in descending order
 	    Arrays.sort(indices, Collections.reverseOrder());
+	    
 	    // remove from the playing deck
 	    for( int i : indices) {
 	    	this.removeCard(i-1);
