@@ -99,7 +99,7 @@ public class Deck {
 		Integer [] indices = {int1, int2, int3, int4, int5};
 	    
 	    for (int i : indices) {
-	    	if (i < 1 || i > this.getDeckSize()) {
+	    	if (i < 0 || i > (this.getDeckSize()-1)) {
 	    		System.out.println("Index of card not valid");
 	    	} else {
 	    		// add to action deck

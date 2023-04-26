@@ -7,6 +7,6 @@ import model.Player;
 
 public interface ProgrammingPhaseObserver {
 
-	public void startActivationPhase(ArrayList<Player> players, Board board, boolean isRobot);
+	public void startActivationPhase(ArrayList<Player> players, Board board);
 
 }

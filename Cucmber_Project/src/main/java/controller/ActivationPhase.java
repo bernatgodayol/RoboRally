@@ -8,47 +8,15 @@ import model.Player;
 public class ActivationPhase implements ProgrammingPhaseObserver{
 	
 	@Override
-	public void startActivationPhase(ArrayList<Player> players, Board board, boolean isRobot) {
-		
-//		if (isRobot) {
-////			if (players.get(1) instanceof AI) {
-////				AI playerAI = (AI) players.get(1);
-////				playerAI.pickCards(5);
-////			}
-////			players.get(1).getPlayingDeck().moveCard(0,1,2,3, players.get(1).getDiscardDeck());
-////			for (int i=0; i<4; i++) {
-////				players.get(1).getPlayingDeck().moveCard(0, players.get(1).getDiscardDeck());
-////			}
-//		}
+	public void startActivationPhase(ArrayList<Player> players, Board board) {
 		
 		if (players.size()==2) {
-			if (isRobot) {
-				for (int i=0; i<5; i++) {
-					players.get(0).getActionDeck().getCard(i).execute(players.get(0).getRobot(), board);
-					players.get(1).getActionDeck().getCard(i).execute(players.get(1).getRobot(), board);
-					
-					// End of register: activation of the obstacles (WalkableElement)
-					activateObstacles(players,board,2);
-					
-				}
-				for (int i=0; i<5; i++) {
-					players.get(0).getActionDeck().moveCard(0,players.get(0).getDiscardDeck());
-					players.get(1).getActionDeck().moveCard(0,players.get(1).getDiscardDeck());
-				}
+			for (int i=0; i<5; i++) {
+				players.get(0).getActionDeck().getCard(i).execute(players.get(0).getRobot(), board);
+				players.get(1).getActionDeck().getCard(i).execute(players.get(1).getRobot(), board);
 				
-////			try {
-////			Thread.sleep(1000);
-////		} catch (InterruptedException e) {
-////			// TODO Auto-generated catch block
-////			e.printStackTrace();
-////		}
-				
-			}
-			else {
-				for (int i=0; i<5; i++) {
-					players.get(0).getActionDeck().getCard(i).execute(players.get(0).getRobot(), board);
-					players.get(1).getActionDeck().getCard(i).execute(players.get(1).getRobot(), board);
-				}
+				// End of register: activation of the obstacles (WalkableElement)
+				activateObstacles(players,board,2);
 			}
 		}
 		if (players.size()==3) {
@@ -71,6 +39,9 @@ public class ActivationPhase implements ProgrammingPhaseObserver{
 			}
 		}
 		
+		for (int i=0; i<players.size(); i++) {
+			players.get(i).getActionDeck().moveCard(0,1,2,3,4, players.get(i).getDiscardDeck());
+		}
 	}
 	
 	private void activateObstacles(ArrayList<Player> players, Board board, int playerNum) {
@@ -82,5 +53,4 @@ public class ActivationPhase implements ProgrammingPhaseObserver{
 			}
 		}
 	}
-
 }

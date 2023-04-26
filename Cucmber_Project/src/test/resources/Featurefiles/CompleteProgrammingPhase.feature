@@ -16,7 +16,7 @@ Feature: Complete programming phase
   When the 9 cards are moved from the programming deck to the playing deck
   And the 9 cards are moved from the second programming deck to the second playing deck
   And the player moves the cards 2 5 4 8 7 from the playing deck to the action deck
-  And the second player moves the cards 6 3 2 9 1 from the second playing deck to the second action deck
+  And the second player moves the cards 6 3 2 8 1 from the second playing deck to the second action deck
   And the remaining cards are moved from the playing deck to the discard deck
   And the remaining cards are moved from the second playing deck to the second discard deck
   Then the cards are not in the programming deck
