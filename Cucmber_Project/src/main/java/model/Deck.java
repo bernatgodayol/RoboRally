@@ -22,10 +22,6 @@ public class Deck {
 		this.player = player;
 	}
 	
-	public Player getPlayer() {
-		return this.player;
-	}
-	
 	public int getDeckSize() {
 		return this.deck.size();
 	}
@@ -97,7 +93,8 @@ public class Deck {
 	}
 	
 	public void moveCard(int int1, int int2, int int3, int int4, int int5, Deck otherDeck) { 
-	    Integer [] indices = {int1, int2, int3, int4, int5};
+	    
+		Integer [] indices = {int1, int2, int3, int4, int5};
 	    
 	    for (int i : indices) {
 	    	if (i < 1 || i > this.getDeckSize()) {
@@ -107,10 +104,8 @@ public class Deck {
 	    		otherDeck.addCard(this.getCard(i-1));
 	    	}
 	    }
-	    
 	    // Sort the array in descending order
 	    Arrays.sort(indices, Collections.reverseOrder());
-	    
 	    // remove from the playing deck
 	    for( int i : indices) {
 	    	this.removeCard(i-1);
@@ -128,32 +123,6 @@ public class Deck {
 	public void setRegisteredCardObservers(CardObserver cardObserver) {
 		this.registeredCardObservers.add(cardObserver);	
 	}
-	
-//	private void notifyCardsUpdated(Card card, int i, CardStatus cs) {
-//		
-//		cs.setCards(card, i);
-		
-//		if (card instanceof MoveForward) {
-//			cs.setCards(1, i);
-//		}
-//		else if (card instanceof RightTurn) {
-//			cs.setCards(2, i);
-//		}
-//		else if (card instanceof LeftTurn) {
-//			cs.setCards(3, i);
-//		}
-//		else if (card instanceof UTurn) {
-//			cs.setCards(4, i);
-//		}
-//		else {
-//			cs.setCards(5, i);
-//		}
-		
-//		for(CardObserver o : registeredCardObservers) {
-//			o.cardUpdated(cs);
-//		}
-		
-//	}
 	
 	private void notifyCardsUpdated(Card card, int index, String player) {
 		
@@ -179,12 +148,5 @@ public class Deck {
 			o.cardUpdated(card, index, numCard, player);
 		}		
 	}
-		
-//		private CardStatus notifyCardsUpdated(int numCards, String player) {
-//			CardStatus cs = new CardStatus(numCards, player);
-//			for(CardObserver o : registeredCardObservers) {
-//				o.cardUpdated(cs);
-//			}
-//			return cs;
-//		}
+	
 }

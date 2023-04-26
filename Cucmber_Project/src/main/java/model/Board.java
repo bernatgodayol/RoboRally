@@ -233,7 +233,7 @@ public class Board {
 		robot2.seti(12);
 		robot2.setj(6);
 		this.robot2 = robot2;
-		}
+	}
 	
 	public void setRobots(Robot robot1, Robot robot2, Robot robot3) {
 		robot1.setDirection(Direction.NORTH);
@@ -365,4 +365,5 @@ public class Board {
 		}
 		}
 	}
+	
 }

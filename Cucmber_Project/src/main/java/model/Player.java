@@ -77,4 +77,5 @@ public class Player {
 			o.playerUpdated(name);
 		}
 	}
+	
 }

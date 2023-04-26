@@ -73,10 +73,10 @@ public class Tile {
 	}
 	
 	public boolean isEmpty() {
-		return ((this.northBarrier == null) &&
-				(this.eastBarrier == null) &&
-				(this.southBarrier == null) &&
-				(this.westBarrier == null) &&
+		return ((this.northBarrier    == null) &&
+				(this.eastBarrier     == null) &&
+				(this.southBarrier    == null) &&
+				(this.westBarrier     == null) &&
 				(this.walkableElement == null));
 	}
 	

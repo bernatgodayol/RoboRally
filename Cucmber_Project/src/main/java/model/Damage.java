@@ -4,11 +4,7 @@ public class Damage implements Card {
 
 	@Override
 	public boolean equals(Object otherObject) {
-		if (otherObject instanceof Damage) {
-			return true;
-		} else {
-			return false;
-		}
+		return (otherObject instanceof Damage);
 	}
 	
 	@Override

@@ -18,7 +18,7 @@ Feature: Place robot on the board
     And the two robots are facing north
     
   @tag3
-  Scenario: Succesfully placing two robots on the board
+  Scenario: Succesfully placing three robots on the board
     Given a robot
     And a second robot
     And a third robot
@@ -28,7 +28,7 @@ Feature: Place robot on the board
     And the three robots are facing north
    
   @tag4
-  Scenario: Succesfully placing two robots on the board
+  Scenario: Succesfully placing four robots on the board
     Given a robot
     And a second robot
     And a third robot
