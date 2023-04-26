@@ -5,9 +5,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import controller.BoardObserver;
+import controller.BoardViewObserver;
 import controller.CardObserver;
 import controller.MenuHandler;
-import controller.ViewObserver;
+import controller.MenuViewObserver;
 import controller.PlayerStatusObserver;
 import controller.RobotObserver;
 import javafx.event.Event;
@@ -33,7 +34,8 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 	private CardManager cardManager = new CardManager();
 	private RobotManager robotManager = new RobotManager();
 	private ArrayList<String> players = new ArrayList<String>();
-	private Set<ViewObserver> registeredMenuViewObservers = new HashSet<ViewObserver>();
+	private Set<BoardViewObserver> registeredBoardViewObservers = new HashSet<BoardViewObserver>();
+	private Set<MenuViewObserver> registeredMenuViewObservers = new HashSet<MenuViewObserver>();
 	private MenuHandler handler;
 
 	private BorderPane anchorPane = new BorderPane();
@@ -120,7 +122,7 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		imageView.setFitWidth(40);
 		imageView.setOnMouseClicked(new EventHandler<Event>() {
 				public void handle(Event event) {
-					notifyMenuViewUpdated(index, player);
+					notifyBoardViewUpdated(index, player);
 				}
 			});
 			
@@ -129,13 +131,6 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 			} else {
 				gridPaneRight.add(imageView,j,index+1,1,1);
 			}
-	}
-	
-	
-	protected void notifyMenuViewUpdated(int num, String player) {
-		for(ViewObserver o : registeredMenuViewObservers) {
-			o.menuViewUpdated(num, player);
-		}
 	}
 
 	@Override
@@ -294,13 +289,23 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		
 	}
 	
-	public void setRegisteredObservers(ViewObserver observer) {
+	public void setRegisteredMenuViewObservers(MenuViewObserver observer) {
 		this.registeredMenuViewObservers.add(observer);	
 	}
 	
+	public void setRegisteredBoardViewObservers(BoardViewObserver observer) {
+		this.registeredBoardViewObservers.add(observer);	
+	}
+	
 	public void notifyMenuViewUpdated(ArrayList<String> names) {
-		for(ViewObserver o : registeredMenuViewObservers) {
+		for(MenuViewObserver o : registeredMenuViewObservers) {
 			o.menuViewUpdated(names);
+		}
+	}
+	
+	protected void notifyBoardViewUpdated(int num, String player) {
+		for(BoardViewObserver o : registeredBoardViewObservers) {
+			o.boardViewUpdated(num, player);
 		}
 	}
 }

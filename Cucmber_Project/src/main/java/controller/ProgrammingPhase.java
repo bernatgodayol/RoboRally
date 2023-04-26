@@ -7,7 +7,7 @@ import java.util.Set;
 import View.CardStatus;
 import model.Card;
 
-public class ProgrammingPhase implements ViewObserver{
+public class ProgrammingPhase implements BoardViewObserver{
 	
 	Setup gamesetup;
 	CardStatus cs;
@@ -48,13 +48,7 @@ public class ProgrammingPhase implements ViewObserver{
 	}
 
 	@Override
-	public void menuViewUpdated(ArrayList<String> names) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void menuViewUpdated(int index, String player) {
+	public void boardViewUpdated(int index, String player) {
 		
 		if (gamesetup.getPlayers().size()>1) {
 			if (gamesetup.getPlayers().get(0).getName() == player) {

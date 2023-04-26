@@ -2,9 +2,9 @@ package View;
 
 import java.util.ArrayList;
 
-import controller.ViewObserver;
+import controller.MenuViewObserver;
 
-public class CardStatus implements ViewObserver {
+public class CardStatus implements MenuViewObserver {
 	
 	ArrayList<ArrayList<Integer>> cardGrids = new ArrayList<ArrayList<Integer>>();
 	
@@ -51,12 +51,6 @@ public class CardStatus implements ViewObserver {
 		for (int i=0; i<names.size(); i++) {
 			cardGrids.add(new ArrayList<Integer>());
 		}
-		
-	}
-
-	@Override
-	public void menuViewUpdated(int i, String player) {
-		// TODO Auto-generated method stub
 		
 	}
 }
