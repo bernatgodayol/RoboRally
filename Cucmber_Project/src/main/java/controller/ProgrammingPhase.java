@@ -47,6 +47,7 @@ public class ProgrammingPhase implements BoardViewObserver{
 				int index3 = cs.getCardGrids().get(i).get(2);
 				int index4 = cs.getCardGrids().get(i).get(3);
 				int index5 = cs.getCardGrids().get(i).get(4);
+				
 				gamesetup.getPlayers().get(i).getPlayingDeck().moveCard(index1, index2, index3, index4, index5, gamesetup.getPlayers().get(i).getActionDeck());
 				
 				for (int j=0; j<4; j++) {
@@ -55,7 +56,7 @@ public class ProgrammingPhase implements BoardViewObserver{
 			}
 		}
 				
-		notifyActionPhaseStart(gamesetup.getIsAI());
+		notifyActionPhaseStart();
 	}
 
 	@Override
@@ -128,9 +129,9 @@ public class ProgrammingPhase implements BoardViewObserver{
 		this.registeredActionObservers.add(actionObserver);	
 	}
 
-	private void notifyActionPhaseStart(boolean isRobot) {
+	private void notifyActionPhaseStart() {
 		for(ProgrammingPhaseObserver o : registeredActionObservers) {
-			o.startActivationPhase(gamesetup.getPlayers(), gamesetup.getBoard(), isRobot);
+			o.startActivationPhase(gamesetup.getPlayers(), gamesetup.getBoard());
 		}
 	}	
 }
