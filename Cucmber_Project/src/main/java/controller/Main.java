@@ -22,8 +22,9 @@ public class Main extends Application{
 		view.setRegisteredObservers(gameSetup);
 		
 		MenuHandler handler = new MenuHandler(view);
-		CardStatus cs = new CardStatus();
 		ProgrammingPhase gameProgramming;
+		CardStatus cs = new CardStatus();
+		view.setRegisteredObservers(cs);
 		gameProgramming = new ProgrammingPhase(gameSetup, cs);
 		view.setRegisteredObservers(gameProgramming);
 		handler.setRegisteredObservers(gameSetup);
@@ -31,7 +32,7 @@ public class Main extends Application{
 		ActionPhase actionPhase = new ActionPhase();
 		gameProgramming.setRegisteredActionObservers(actionPhase);
 				
-		stage.setScene(view.choosePlayerNum());
+		stage.setScene(view.choosePlayerNum());		
 		stage.setTitle("RoboRally group 4");
 		stage.show();
 		
