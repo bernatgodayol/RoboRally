@@ -4,22 +4,22 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import View.View;
-import model.Board;
-import model.Player;
+import View.CardStatus;
 
 public class ProgrammingPhase implements ViewObserver{
 	
-	View view;
-	ArrayList<Player> players;
-	Board board;
+	Setup gamesetup;
+	CardStatus cs;
+//	View view;
+//	ArrayList<Player> players;
+//	Board board;
 	int numplayer;
 	private Set<StartActionPhaseObserver> registeredActionObservers = new HashSet<StartActionPhaseObserver>();
 	
-	public ProgrammingPhase(ArrayList<Player> players, View view, Board board) {
-		this.view = view;
-		this.players = players;
-		this.board = board;
+	public ProgrammingPhase(Setup gamesetup, CardStatus cs) {
+		this.gamesetup = gamesetup;
+		this.cs = cs;
+//		this.board = board;
 //		if (this.players.size()>1) {
 //			this.players.get(0).getProgrammingDeck().moveRandomCards(this.players.get(0).getPlayingDeck(), 9);
 //			this.players.get(1).getProgrammingDeck().moveRandomCards(this.players.get(1).getPlayingDeck(), 9);
@@ -41,55 +41,55 @@ public class ProgrammingPhase implements ViewObserver{
 	@Override
 	public void menuViewUpdated(int index, String player) {
 		
-		if (players.size()>1) {
-			if (players.get(0).getName() == player) {
+		if (gamesetup.getPlayers().size()>1) {
+			if (gamesetup.getPlayers().get(0).getName() == player) {
 				numplayer = 0;
 			}
-			if (players.get(1).getName() == player) {
+			if (gamesetup.getPlayers().get(1).getName() == player) {
 				numplayer = 1;
 			}
 		}
-		if (players.size()>2) {
-			if (players.get(2).getName() == player) {
+		if (gamesetup.getPlayers().size()>2) {
+			if (gamesetup.getPlayers().get(2).getName() == player) {
 				numplayer = 2;
 			}
 		}
-		if (players.size()>3) {
-			if (players.get(3).getName() == player) {
+		if (gamesetup.getPlayers().size()>3) {
+			if (gamesetup.getPlayers().get(3).getName() == player) {
 				numplayer = 3;
 			}
 		}
 		
 		
-		if (players.size()==2) {
-			if (players.get(0).getActionDeck().getDeckSize() == 5 && 
-					players.get(1).getActionDeck().getDeckSize() == 5) {
+		if (gamesetup.getPlayers().size()==2) {
+			if (gamesetup.getPlayers().get(0).getActionDeck().getDeckSize() == 5 && 
+					gamesetup.getPlayers().get(1).getActionDeck().getDeckSize() == 5) {
 				notifyActionPhaseStart();				
 			}
 		}
-		else if (players.size()==3) {
-			if (players.get(0).getActionDeck().getDeckSize() == 5 && 
-					players.get(1).getActionDeck().getDeckSize() == 5 &&
-					players.get(2).getActionDeck().getDeckSize() == 5) {
+		else if (gamesetup.getPlayers().size()==3) {
+			if (gamesetup.getPlayers().get(0).getActionDeck().getDeckSize() == 5 && 
+					gamesetup.getPlayers().get(1).getActionDeck().getDeckSize() == 5 &&
+							gamesetup.getPlayers().get(2).getActionDeck().getDeckSize() == 5) {
 				notifyActionPhaseStart();			
 			}
 		}
-		else if (players.size()==4) {
-			if (players.get(0).getActionDeck().getDeckSize() == 5 && 
-					players.get(1).getActionDeck().getDeckSize() == 5 &&
-					players.get(2).getActionDeck().getDeckSize() == 5 &&
-					players.get(3).getActionDeck().getDeckSize() == 5) {
+		else if (gamesetup.getPlayers().size()==4) {
+			if (gamesetup.getPlayers().get(0).getActionDeck().getDeckSize() == 5 && 
+					gamesetup.getPlayers().get(1).getActionDeck().getDeckSize() == 5 &&
+					gamesetup.getPlayers().get(2).getActionDeck().getDeckSize() == 5 &&
+					gamesetup.getPlayers().get(3).getActionDeck().getDeckSize() == 5) {
 				notifyActionPhaseStart();				
 			}
 		}
 		
-		if (players.get(numplayer).getActionDeck().getDeckSize() < 5) {
-			players.get(numplayer).getPlayingDeck().moveCard(index, players.get(numplayer).getActionDeck());
+		if (gamesetup.getPlayers().get(numplayer).getActionDeck().getDeckSize() < 5) {
+			gamesetup.getPlayers().get(numplayer).getPlayingDeck().moveCard(index, gamesetup.getPlayers().get(numplayer).getActionDeck());
 		}
 		else {
 			System.out.println("No more cards can be choosen for player " + player);
-			for (int i=0; i<players.get(numplayer).getPlayingDeck().getDeckSize(); i++) {
-				players.get(numplayer).getPlayingDeck().moveCard(i, players.get(numplayer).getDiscardDeck());
+			for (int i=0; i<gamesetup.getPlayers().get(numplayer).getPlayingDeck().getDeckSize(); i++) {
+				gamesetup.getPlayers().get(numplayer).getPlayingDeck().moveCard(i, gamesetup.getPlayers().get(numplayer).getDiscardDeck());
 			}
 		}
 //			if (card.equals()) {
@@ -120,7 +120,7 @@ public class ProgrammingPhase implements ViewObserver{
 
 	private void notifyActionPhaseStart() {
 		for(StartActionPhaseObserver o : registeredActionObservers) {
-			o.startActionPhase(players, board);
+			o.startActionPhase(gamesetup.getPlayers(), gamesetup.getBoard());
 		}
 	}	
 }
