@@ -992,12 +992,7 @@ public class StepsDefinition {
 	public void a_west_wall_in_the_tile_where_the_robot_is() {
 		board.getTile(oldRobot1i, oldRobot1j).setWestBarrier(new Wall());
 	}
-	
-	@Given("a west wall in the tile next left where the robot is")
-	public void a_west_wall_in_the_tile_left_where_the_robot_is() {
-		board.getTile(oldRobot1i, oldRobot1j - 1).setWestBarrier(new Wall());
-	}
-	
+
 	////// GO OUT OF THE BOARD
 	
 	@Given("a robot on the edge of board facing north")

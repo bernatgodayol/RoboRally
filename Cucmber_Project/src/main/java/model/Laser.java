@@ -4,11 +4,7 @@ public class Laser implements WalkableElement {
 
 	@Override
 	public boolean equals(Object object) {
-	    if (object instanceof Laser) {
-	        return true;
-	    } else {
-	    	return false;
-	    }
+	    return (object instanceof Laser);
 	}
 	
 	@Override
