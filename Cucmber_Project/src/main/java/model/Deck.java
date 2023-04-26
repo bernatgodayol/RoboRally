@@ -70,7 +70,7 @@ public class Deck {
 	
 
 	public void initializeProgrammingDeck() {
-		for (int i=0; i<5; i++) {
+		for (int i=0; i<10; i++) {
 			this.deck.add(new MoveForward());
 		}
 		for (int i=0; i<2; i++) {
