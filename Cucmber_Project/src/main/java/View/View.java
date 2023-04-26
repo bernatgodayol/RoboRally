@@ -109,11 +109,7 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 			gridPaneRight.add(labelname, 1, 0);
 			this.j = 1;
 			this.left = false;
-		}
-		
-		
-		
-		
+		}		
 	}
 	
 
@@ -124,10 +120,9 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		imageView.setFitWidth(40);
 		imageView.setOnMouseClicked(new EventHandler<Event>() {
 				public void handle(Event event) {
-					notifyMenuViewUpdated(numCard, player);
+					notifyMenuViewUpdated(index, player);
 				}
 			});
-//			imageView.setOnMouseClicked(handler);
 			
 			if (left) {
 				gridPaneLeft.add(imageView,j,index+1,1,1);

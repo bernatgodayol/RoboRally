@@ -1,6 +1,7 @@
 package controller;
 
 import View.View;
+import View.CardStatus;
 import View.PlayerStatus;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -22,14 +23,16 @@ public class Main extends Application{
 		
 		MenuHandler handler = new MenuHandler(view);
 		ProgrammingPhase gameProgramming;
-		gameProgramming = new ProgrammingPhase(gameSetup.getPlayers(), gameSetup.getView(), gameSetup.getBoard());
+		CardStatus cs = new CardStatus();
+		view.setRegisteredObservers(cs);
+		gameProgramming = new ProgrammingPhase(gameSetup, cs);
 		view.setRegisteredObservers(gameProgramming);
 		handler.setRegisteredObservers(gameSetup);
 		view.setMenuHandler(handler);
 		ActionPhase actionPhase = new ActionPhase();
 		gameProgramming.setRegisteredActionObservers(actionPhase);
 				
-		stage.setScene(view.choosePlayerNum());
+		stage.setScene(view.choosePlayerNum());		
 		stage.setTitle("RoboRally group 4");
 		stage.show();
 		

@@ -1,55 +1,62 @@
 package View;
 
-import model.Card;
-import model.LeftTurn;
-import model.MoveForward;
-import model.RightTurn;
-import model.UTurn;
+import java.util.ArrayList;
 
-public class CardStatus {
-	
-	private String player;
-	private Card[] cardGrid;
-	private int[] cardNumGrid;
-	
-	public CardStatus(int i, String player) {
-		this.cardGrid = new Card[i];
-		this.player = player;
+import controller.ViewObserver;
 
+public class CardStatus implements ViewObserver {
+	
+	ArrayList<ArrayList<Integer>> cardGrids = new ArrayList<ArrayList<Integer>>();
+	
+	public void setCards(int index, int player) {		
+		
+		cardGrids.get(player).add(index);
+		
+//		
+//		if (players.size()>1) {
+//			
+//			if (players.get(0).getName() == player) {
+//				cardGrids.get(0).add(index);
+//			}
+//			
+//			else if (players.get(1).getName() == player) {
+//				cardGrids.get(1).add(index);
+//			}
+//		}
+//		if (players.size()>2) {
+//			
+//			if (players.get(2).getName() == player) {
+//				cardGrids.get(2).add(index);
+//			}
+//			
+//		}
+//		if (players.size()>3) {
+//			if (players.get(3).getName() == player) {
+//				cardGrids.get(3).add(index);
+//			}
+//		}
 	}
 	
-//	public void setCards(int num, int i) {		
-//		cardGrid[i] = num;
+	public ArrayList<ArrayList<Integer>> getCardGrids() {
+		return cardGrids;
+	}
+//	
+//	public String getPlayer() {
+//		return player;
 //	}
-	public void setCards(Card card, int i) {
-		if (card instanceof MoveForward) {
-			cardNumGrid[i] = 1;
-		}
-		else if (card instanceof RightTurn) {
-			cardNumGrid[i] = 2;
-		}
-		else if (card instanceof LeftTurn) {
-			cardNumGrid[i] = 3;
-		}
-		else if (card instanceof UTurn) {
-			cardNumGrid[i] = 4;
-		}
-		else {
-			cardNumGrid[i] = 5;
+
+
+	@Override
+	public void menuViewUpdated(ArrayList<String> names) {
+		for (int i=0; i<names.size(); i++) {
+			cardGrids.add(new ArrayList<Integer>());
 		}
 		
-		cardGrid[i] = card;
 	}
-	
-	public Card[] getCards() {
-		return cardGrid;
-	}
-	
-	public int[] getCardsNum() {
-		return cardNumGrid;
-	}
-	
-	public String getPlayer() {
-		return player;
+
+	@Override
+	public void menuViewUpdated(int i, String player) {
+		// TODO Auto-generated method stub
+		
 	}
 }
