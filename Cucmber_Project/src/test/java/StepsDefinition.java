@@ -1268,7 +1268,7 @@ public class StepsDefinition {
 		actionDeck1.addCard(new MoveForward());
 		actionDeck1.addCard(new LeftTurn());
 		player1.setActionDeck(actionDeck1);
-		initialSizeActionDeck2 = actionDeck2.getDeckSize();
+		initialSizeActionDeck1 = actionDeck1.getDeckSize();
 	}
 	@Given("a second non-empty action deck of cards that belongs to the second player")
 	public void a_second_non_empty_action_deck_of_cards_that_belongs_to_the_second_player() {
@@ -1288,13 +1288,17 @@ public class StepsDefinition {
 	}
 	@When("the second card of the action deck of cards that belongs to the second player is played")
 	public void the_second_card_of_the_action_deck_of_cards_that_belongs_to_the_second_player_is_played() {
-		extractedCard2 = actionDeck1.extractCard(0);
-		extractedCard1.execute(robot2, board);
+		extractedCard2 = actionDeck2.extractCard(0);
+		extractedCard2.execute(robot2, board);
 	}
 	@Then("the obstacles in the board activate")
 	public void the_obstacles_in_the_board_activate() {
-	    board.getTile(robot1.geti(), robot1.getj()).getWalkableElement().action(robot1, board);
-	    board.getTile(robot2.geti(), robot2.getj()).getWalkableElement().action(robot2, board);
+		if (!(board.getTile(robot1.geti(), robot1.getj()).getWalkableElement() == null)) {
+			board.getTile(robot1.geti(), robot1.getj()).getWalkableElement().action(robot1, board);
+		}
+		if (!(board.getTile(robot2.geti(), robot2.getj()).getWalkableElement() == null)) {
+			board.getTile(robot2.geti(), robot2.getj()).getWalkableElement().action(robot2, board);
+		}
 	}
 	@Then("the register is completed")
 	public void the_register_is_completed() {
