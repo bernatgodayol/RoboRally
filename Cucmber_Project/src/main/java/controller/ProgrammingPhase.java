@@ -1,14 +1,12 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import View.View;
 import model.Board;
-import model.LeftTurn;
-import model.MoveForward;
 import model.Player;
-import model.RightTurn;
-import model.UTurn;
 
 public class ProgrammingPhase implements ViewObserver{
 	
@@ -16,6 +14,7 @@ public class ProgrammingPhase implements ViewObserver{
 	ArrayList<Player> players;
 	Board board;
 	int numplayer;
+	private Set<StartActionPhaseObserver> registeredActionObservers = new HashSet<StartActionPhaseObserver>();
 	
 	public ProgrammingPhase(ArrayList<Player> players, View view, Board board) {
 		this.view = view;
@@ -40,12 +39,11 @@ public class ProgrammingPhase implements ViewObserver{
 	}
 
 	@Override
-	public void menuViewUpdated(int num, String player) {
-		System.out.println("menuViewUpdated");
+	public void menuViewUpdated(int index, String player) {
+		
 		if (players.size()>1) {
 			if (players.get(0).getName() == player) {
 				numplayer = 0;
-				System.out.println("player 1 choosen");
 			}
 			if (players.get(1).getName() == player) {
 				numplayer = 1;
@@ -62,29 +60,67 @@ public class ProgrammingPhase implements ViewObserver{
 			}
 		}
 		
-		if (num == 1) {
-			System.out.println("player 1 moved forward");
-			MoveForward forward = new MoveForward();
-			forward.execute(players.get(numplayer).getRobot(), board);
+		
+		if (players.size()==2) {
+			if (players.get(0).getActionDeck().getDeckSize() == 5 && 
+					players.get(1).getActionDeck().getDeckSize() == 5) {
+				notifyActionPhaseStart();				
+			}
 		}
-		else if (num == 2) {
-			RightTurn right = new RightTurn();
-			right.execute(players.get(numplayer).getRobot(), board);
+		else if (players.size()==3) {
+			if (players.get(0).getActionDeck().getDeckSize() == 5 && 
+					players.get(1).getActionDeck().getDeckSize() == 5 &&
+					players.get(2).getActionDeck().getDeckSize() == 5) {
+				notifyActionPhaseStart();			
+			}
 		}
-		else if (num == 3) {
-			LeftTurn left = new LeftTurn();
-			left.execute(players.get(numplayer).getRobot(), board);
-		}
-		else if (num == 4) {
-			UTurn uturn = new UTurn();
-			uturn.execute(players.get(numplayer).getRobot(), board);
+		else if (players.size()==4) {
+			if (players.get(0).getActionDeck().getDeckSize() == 5 && 
+					players.get(1).getActionDeck().getDeckSize() == 5 &&
+					players.get(2).getActionDeck().getDeckSize() == 5 &&
+					players.get(3).getActionDeck().getDeckSize() == 5) {
+				notifyActionPhaseStart();				
+			}
 		}
 		
+		if (players.get(numplayer).getActionDeck().getDeckSize() < 5) {
+			players.get(numplayer).getPlayingDeck().moveCard(index, players.get(numplayer).getActionDeck());
+		}
+		else {
+			System.out.println("No more cards can be choosen for player " + player);
+			for (int i=0; i<players.get(numplayer).getPlayingDeck().getDeckSize(); i++) {
+				players.get(numplayer).getPlayingDeck().moveCard(i, players.get(numplayer).getDiscardDeck());
+			}
+		}
+//			if (card.equals()) {
+//				MoveForward forward = new MoveForward();
+//				players.get(numplayer).getActionDeck().addCard(forward);
+////				forward.execute(players.get(numplayer).getRobot(), board);
+//			}
+//			else if (num == 2) {
+//				RightTurn right = new RightTurn();
+//				players.get(numplayer).getActionDeck().addCard(right);
+////				right.execute(players.get(numplayer).getRobot(), board);
+//			}
+//			else if (num == 3) {
+//				LeftTurn left = new LeftTurn();
+//				players.get(numplayer).getActionDeck().addCard(left);
+////				left.execute(players.get(numplayer).getRobot(), board);
+//			}
+//			else if (num == 4) {
+//				UTurn uturn = new UTurn();
+//				players.get(numplayer).getActionDeck().addCard(uturn);
+////				uturn.execute(players.get(numplayer).getRobot(), board);
+//			}
 	}
 	
-	
-	
-	
-	
-	
+	public void setRegisteredActionObservers(StartActionPhaseObserver actionObserver) {
+		this.registeredActionObservers.add(actionObserver);	
+	}
+
+	private void notifyActionPhaseStart() {
+		for(StartActionPhaseObserver o : registeredActionObservers) {
+			o.startActionPhase(players, board);
+		}
+	}	
 }
