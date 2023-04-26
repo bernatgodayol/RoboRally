@@ -210,15 +210,15 @@ public class StepsDefinition {
 		
 		assertTrue(board.getTile(5, 3).getWestBarrier() instanceof Wall);
 		
-		assertTrue(board.getTile(4, 0).getNorthBarrier() instanceof Wall);
-		assertTrue(board.getTile(5, 0).getSouthBarrier()instanceof Wall);
-		assertTrue(board.getTile(4, 9).getNorthBarrier()instanceof Wall);
-		assertTrue(board.getTile(5, 9).getSouthBarrier()instanceof Wall);
+		assertTrue(board.getTile(3, 0).getNorthBarrier() instanceof Wall);
+		assertTrue(board.getTile(4, 0).getSouthBarrier()instanceof Wall);
+		assertTrue(board.getTile(3, 9).getNorthBarrier()instanceof Wall);
+		assertTrue(board.getTile(4, 9).getSouthBarrier()instanceof Wall);
 		
 		assertTrue(board.getTile(0, 6).getWestBarrier()instanceof Wall);
-		assertTrue(board.getTile(0, 8).getEastBarrier()instanceof Wall);
+		assertTrue(board.getTile(0, 7).getEastBarrier()instanceof Wall);
 		assertTrue(board.getTile(9, 1).getWestBarrier()instanceof Wall);
-		assertTrue(board.getTile(9, 3).getEastBarrier()instanceof Wall);
+		assertTrue(board.getTile(9, 2).getEastBarrier()instanceof Wall);
 		
 		assertTrue(board.getTile(3, 4).getWestBarrier()instanceof Wall);
 		assertTrue(board.getTile(3, 5).getEastBarrier()instanceof Wall);
@@ -226,9 +226,19 @@ public class StepsDefinition {
 		assertTrue(board.getTile(6, 5).getEastBarrier()instanceof Wall);
 		
 		assertTrue(board.getTile(2, 2).getNorthBarrier()instanceof Wall);
+		assertTrue(board.getTile(3, 2).getSouthBarrier()instanceof Wall);
+		assertTrue(board.getTile(6, 2).getNorthBarrier()instanceof Wall);
 		assertTrue(board.getTile(7, 2).getSouthBarrier()instanceof Wall);
 		assertTrue(board.getTile(2, 7).getNorthBarrier()instanceof Wall);
+		assertTrue(board.getTile(3, 7).getSouthBarrier()instanceof Wall);
+		assertTrue(board.getTile(6, 7).getNorthBarrier()instanceof Wall);
 		assertTrue(board.getTile(7, 7).getSouthBarrier()instanceof Wall);
+		
+		assertTrue(board.getTile(11, 2).getWestBarrier()instanceof Wall);
+		assertTrue(board.getTile(10, 4).getNorthBarrier()instanceof Wall);
+		assertTrue(board.getTile(10, 5).getNorthBarrier()instanceof Wall);
+		assertTrue(board.getTile(11, 7).getEastBarrier()instanceof Wall);
+		
 		
 		assertTrue(board.getTile(2, 3).getWalkableElement()instanceof Pit);
 		assertTrue(board.getTile(3, 3).getWalkableElement()instanceof Pit);
@@ -239,29 +249,110 @@ public class StepsDefinition {
 		assertTrue(board.getTile(6, 6).getWalkableElement()instanceof Pit);
 		assertTrue(board.getTile(7, 6).getWalkableElement()instanceof Pit);
 		
-		for (int i=6; i<9; i++) {
-			assertTrue(board.getTile(0, i).getWalkableElement()instanceof Laser);
+		for (int j=6; j<8; j++) {
+			assertTrue(board.getTile(0, j).getWalkableElement()instanceof Laser);
 		}
 		
-		for (int i=1; i<4; i++) {
-			assertTrue(board.getTile(9, i).getWalkableElement()instanceof Laser);
+		for (int j=1; j<3; j++) {
+			assertTrue(board.getTile(9, j).getWalkableElement()instanceof Laser);
 		}
 		
-		for (int i=4; i<6; i++) {
-			assertTrue(board.getTile(3, i).getWalkableElement()instanceof Laser);
+		for (int j=4; j<6; j++) {
+			assertTrue(board.getTile(3, j).getWalkableElement()instanceof Laser);
 		}
 		
-		for (int i=4; i<6; i++) {
-			assertTrue(board.getTile(6, i).getWalkableElement()instanceof Laser);
-		}
-		
-		for (int i=2; i<8; i++) {
-			assertTrue(board.getTile(i, 2).getWalkableElement()instanceof Laser);
+		for (int j=4; j<6; j++) {
+			assertTrue(board.getTile(6, j).getWalkableElement()instanceof Laser);
 		}
 		
 		for (int i=2; i<8; i++) {
-			assertTrue(board.getTile(i, 7).getWalkableElement()instanceof Laser);
-		}	
+			if (i!=4 && i!=5) {
+				assertTrue(board.getTile(i, 2).getWalkableElement()instanceof Laser);
+			}
+		}
+		
+		for (int i=2; i<8; i++) {
+			if (i!=4 && i!=5) {
+				assertTrue(board.getTile(i, 7).getWalkableElement()instanceof Laser);
+			}		
+		}
+		
+		///Empty
+		for (int i=0; i<10; i++) {
+			if (i!=3 && i!=4) {
+				assertTrue((board.getTile(i, 0).isEmpty()));
+			}
+		}
+		
+		for (int i=0; i<9; i++) {
+			assertTrue((board.getTile(i, 1).isEmpty()));	
+		}
+		
+		for (int i=0; i<10; i++) {
+			if (i!=2 && i!=3 && i!=6 && i!=7 && i!=9) {
+				assertTrue((board.getTile(i, 2).isEmpty()));
+			}
+		}
+		
+		for (int i=0; i<10; i++) {
+			if (i!=2 && i!=3 && i!=6 && i!=7 && i!=5) {
+				assertTrue((board.getTile(i, 3).isEmpty()));
+			}
+		}
+		
+		for (int i=0; i<10; i++) {
+			if (i!=3 && i!=6 ) {
+				assertTrue((board.getTile(i, 4).isEmpty()));
+			}
+		}
+		
+		for (int i=0; i<10; i++) {
+			if (i!=3 && i!=6 ) {
+				assertTrue((board.getTile(i, 5).isEmpty()));
+			}
+		}
+		
+		for (int i=0; i<10; i++) {
+			if (i!=2 && i!=3 && i!=6 && i!=7 && i!=0) {
+				assertTrue((board.getTile(i, 6).isEmpty()));
+			}
+		}
+		
+		for (int i=0; i<10; i++) {
+			if (i!=2 && i!=3 && i!=6 && i!=7 && i!=0) {
+				assertTrue((board.getTile(i, 7).isEmpty()));
+			}
+		}
+		
+		for (int i=0; i<10; i++) {
+			assertTrue((board.getTile(i, 8).isEmpty()));
+		}
+		
+		for (int i=0; i<10; i++) {
+			if (i!=3 && i!=4) {
+				assertTrue((board.getTile(i, 9).isEmpty()));
+			}
+		}
+		
+		///starting board
+		for (int i=0; i<10; i++) {
+			if (i!=4 && i!=5) {
+				assertTrue((board.getTile(10, i).isEmpty()));
+			}
+		}
+		
+		for (int i=0; i<10; i++) {
+			if (i!=2 && i!=7) {
+				assertTrue((board.getTile(11, i).isEmpty()));
+			}
+		}
+		
+		for (int i=0; i<10; i++) {
+			assertTrue((board.getTile(12, i).isEmpty()));	
+		}
+		
+		
+		
 		
 	}
 	
@@ -269,34 +360,57 @@ public class StepsDefinition {
 	public void the_obstacles_of_the_2B_board_are_in_the_expected_tiles() {
 
 		
-		assertTrue(board.getTile(2, 2).getNorthBarrier() instanceof Wall);
+		assertTrue(board.getTile(2, 2).getNorthBarrier()instanceof Wall);
+		assertTrue(board.getTile(3, 2).getSouthBarrier()instanceof Wall);
 		assertTrue(board.getTile(2, 3).getWestBarrier()instanceof Wall);
+		assertTrue(board.getTile(2, 4).getEastBarrier()instanceof Wall);
+		assertTrue(board.getTile(2, 6).getWestBarrier()instanceof Wall);
 		assertTrue(board.getTile(2, 7).getEastBarrier()instanceof Wall);
+		
 		assertTrue(board.getTile(3, 7).getNorthBarrier()instanceof Wall);
+		assertTrue(board.getTile(4, 7).getSouthBarrier()instanceof Wall);
+		assertTrue(board.getTile(5, 2).getNorthBarrier()instanceof Wall);
 		assertTrue(board.getTile(6, 2).getSouthBarrier()instanceof Wall);
 		assertTrue(board.getTile(7, 2).getWestBarrier()instanceof Wall);
+		assertTrue(board.getTile(7, 3).getEastBarrier()instanceof Wall);
+		assertTrue(board.getTile(7, 5).getWestBarrier()instanceof Wall);
 		assertTrue(board.getTile(7, 6).getEastBarrier()instanceof Wall);
 		assertTrue(board.getTile(7, 7).getSouthBarrier()instanceof Wall);
+		assertTrue(board.getTile(6, 7).getNorthBarrier()instanceof Wall);
+		
+		assertTrue(board.getTile(11, 2).getWestBarrier()instanceof Wall);
+		assertTrue(board.getTile(10, 4).getNorthBarrier()instanceof Wall);
+		assertTrue(board.getTile(10, 5).getNorthBarrier()instanceof Wall);
+		assertTrue(board.getTile(11, 7).getEastBarrier()instanceof Wall);
 		
 		assertTrue(board.getTile(1, 4).getWalkableElement()instanceof Pit);
 		assertTrue(board.getTile(4, 8).getWalkableElement()instanceof Pit);
 		assertTrue(board.getTile(5, 1).getWalkableElement()instanceof Pit);
 		assertTrue(board.getTile(8, 5).getWalkableElement()instanceof Pit);
+	
 		
 		for (int i=2; i<8; i++) {
-			assertTrue(board.getTile(i, 2).getWalkableElement()instanceof Laser);
+			if (i!=4) {
+				assertTrue(board.getTile(i, 2).getWalkableElement()instanceof Laser);
+			}
 		}
 		
 		for (int i=2; i<8; i++) {
-			assertTrue(board.getTile(i, 7).getWalkableElement()instanceof Laser);
+			if (i!=5) {
+				assertTrue(board.getTile(i, 7).getWalkableElement()instanceof Laser);
+			}		
 		}
 		
-		for (int i=3; i<7; i++) {
-			assertTrue(board.getTile(2, i).getWalkableElement()instanceof Laser);
+		for (int j=2; j<8; j++) {
+			if (j!=5) {
+				assertTrue(board.getTile(2, j).getWalkableElement()instanceof Laser);
+			}		
 		}
 		
-		for (int i=3; i<7; i++) {
-			assertTrue(board.getTile(7, i).getWalkableElement()instanceof Laser);
+		for (int j=2; j<8; j++) {
+			if (j!=4) {
+				assertTrue(board.getTile(7, j).getWalkableElement()instanceof Laser);
+			}		
 		}
 		
 		for (int i=0; i<10; i++) {
@@ -341,6 +455,28 @@ public class StepsDefinition {
 	    		}
 	    	}
 		
+		assertTrue((board.getTile(2, 5).isEmpty()));
+		assertTrue((board.getTile(4, 2).isEmpty()));
+		assertTrue((board.getTile(5, 7).isEmpty()));
+		assertTrue((board.getTile(7, 4).isEmpty()));
+		
+		
+		///starting board
+		for (int i=0; i<10; i++) {
+			if (i!=4 && i!=5) {
+				assertTrue((board.getTile(10, i).isEmpty()));
+			}
+		}
+				
+		for (int i=0; i<10; i++) {
+			if (i!=2 && i!=7) {
+				assertTrue((board.getTile(11, i).isEmpty()));
+			}
+		}
+				
+		for (int i=0; i<10; i++) {
+			assertTrue((board.getTile(12, i).isEmpty()));	
+		}
 	}
 	
 	///////////////////////////////

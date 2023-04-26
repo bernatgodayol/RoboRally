@@ -91,6 +91,7 @@ public class Board {
 		this.getTile(2, 4).setEastBarrier(new Wall());
 		this.getTile(2, 6).setWestBarrier(new Wall());
 		this.getTile(2, 7).setEastBarrier(new Wall());
+		
 		this.getTile(3, 7).setNorthBarrier(new Wall());
 		this.getTile(4, 7).setSouthBarrier(new Wall());
 		this.getTile(5, 2).setNorthBarrier(new Wall());
