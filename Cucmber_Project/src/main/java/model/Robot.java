@@ -36,7 +36,6 @@ public class Robot {
 		int oldJ = j;
 		notifyRobotUpdated(i,j, oldI, oldJ);
 	}
-	
 
 	public Direction getDirection() {
 		return direction;
@@ -63,13 +62,13 @@ public class Robot {
 		int oldJ = this.j;
 		this.j = jPosition;
 		
-		notifyRobotUpdated(i,j,oldI,oldJ);
+		notifyRobotUpdated(i, j, oldI, oldJ);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof Robot) {
-			Robot otherRobot = (Robot) obj;
+	public boolean equals(Object object) {
+		if (object instanceof Robot) {
+			Robot otherRobot = (Robot) object;
 			return (this.color == otherRobot.getColor());
 		} else {
 			return false;
@@ -86,34 +85,27 @@ public class Robot {
 		
 		if (color == Color.BLUE) {
 			robotColor = 1;
-		}
-		else if (color == Color.GREEN) {
+		} else if (color == Color.GREEN) {
 			robotColor = 2;
-		}
-		else if (color == Color.RED) {
+		} else if (color == Color.RED) {
 			robotColor = 3;
-		}
-		else {
+		} else {
 			robotColor = 4;
 		}
 		
 		if (direction == Direction.NORTH) {
 			robotDirection = 0;
-		}
-		else if (direction == Direction.SOUTH) {
+		} else if (direction == Direction.SOUTH) {
 			robotDirection = 180;
-		}
-		else if (direction == Direction.WEST) {
+		} else if (direction == Direction.WEST) {
 			robotDirection = 270;
-		}
-		else {
+		} else {
 			robotDirection = 90;
 		}
 		
 		for(RobotObserver o : registeredRobotObservers) {
 			o.robotUpdated(i2, j2, oldI, oldJ, robotColor, robotDirection);
 		}	
-	}
-	
+	}	
 
 }

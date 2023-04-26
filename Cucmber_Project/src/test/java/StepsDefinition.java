@@ -87,7 +87,7 @@ public class StepsDefinition {
 	int int8 = 2;
 	int int9 = 9;
 	int int10 = 1;
-	AI AIPlayer;
+	AI AI;
 	
 /////////////////
 // GAME SET UP //
@@ -101,40 +101,33 @@ public class StepsDefinition {
 	public void a_robot() {
 		robot1 = new Robot(Color.BLUE);
 	}
-	
 	@Given("a player")
 	public void a_player() {
 		player1 = new Player("Mejse");
 	}
-	
 	@When("the robot is assigned to the player")
 	public void the_robot_is_assigned_to_the_player() {
 		player1.setRobot(robot1);
 	}
-	
 	@Then("the robot belongs to the player")
 	public void the_robot_belongs_to_the_player() {
-		assertTrue(player1.getRobot().equals(new Robot(Color.BLUE))); 
+		assertEquals(player1.getRobot(), new Robot(Color.BLUE)); 
 	}
-	
 	@Given("a second robot")
 	public void a_second_robot() {
 	    robot2 = new Robot(Color.RED);
 	}
-	
 	@Given("a second player")
 	public void a_second_player() {
 		player2 = new Player("Bernat");
 	}
-	
 	@When("the second robot is assigned to the second player")
 	public void the_robots_are_assigned_to_the_player() {
 		player2.setRobot(robot2);
 	}
-	
 	@Then("the second robot belongs to the second player")
 	public void the_second_robot_belongs_to_the_second_player() {
-		assertTrue(player2.getRobot().equals(new Robot(Color.RED)));
+		assertEquals(player2.getRobot(), new Robot(Color.RED));
 	}
 	
     ///////////////////////////
@@ -145,12 +138,10 @@ public class StepsDefinition {
 	public void a_board() {
 		board = new Board();
 	}
-	
 	@When("the 5B board is initialised")
 	public void the_5b_board_is_initialised() {
 		board.initialize5B();
 	}
-	
 	@When("the 4A board is initialised")
 	public void the_4a_board_is_initialised() {
 		board.initialize4A();
@@ -159,46 +150,44 @@ public class StepsDefinition {
 	public void the_2b_board_is_initialised() {
 		board.initialize2B();
 	}
-	
 	@Then("the obstacles of the 5B board are in the expected tiles")
 	public void the_obstacles_of_the_5B_board_are_in_the_expected_tiles() {
-	    // Write code here that turns the phrase above into concrete actions
 	    for (int i=0; i<13; i++) {
 	    	for (int j=0; j<10; j++) {
 	    		if (i==3 && j==3) {
-	    			assertTrue(board.getTile(i, j).getNorthBarrier() instanceof Wall);
-	    			assertTrue(board.getTile(i, j).getWalkableElement() instanceof Laser);
+	    			assertEquals(board.getTile(i, j).getNorthBarrier(), new Wall());
+	    			assertEquals(board.getTile(i, j).getWalkableElement(), new Laser());
 	    		} else if (i==4 && j==3) {
-	    			assertTrue(board.getTile(i, j).getSouthBarrier() instanceof Wall);
-	    			assertTrue(board.getTile(i, j).getWalkableElement() instanceof Laser);
+	    			assertEquals(board.getTile(i, j).getSouthBarrier(), new Wall());
+	    			assertEquals(board.getTile(i, j).getWalkableElement(), new Laser());
 	    		} else if (i==3 && j==5) {
-	    			assertTrue(board.getTile(i, j).getWestBarrier() instanceof Wall);
-	    			assertTrue(board.getTile(i, j).getWalkableElement() instanceof Laser);
+	    			assertEquals(board.getTile(i, j).getWestBarrier(), new Wall());
+	    			assertEquals(board.getTile(i, j).getWalkableElement(), new Laser());
 	    		} else if (i==3 && j==6) {
-	    			assertTrue(board.getTile(i, j).getEastBarrier() instanceof Wall);
-	    			assertTrue(board.getTile(i, j).getWalkableElement() instanceof Laser);
+	    			assertEquals(board.getTile(i, j).getEastBarrier(), new Wall());
+	    			assertEquals(board.getTile(i, j).getWalkableElement(), new Laser());
 	    		} else if (i==6 && j==3) {
-	    			assertTrue(board.getTile(i, j).getWestBarrier() instanceof Wall);
-	    			assertTrue(board.getTile(i, j).getWalkableElement() instanceof Laser);
+	    			assertEquals(board.getTile(i, j).getWestBarrier(), new Wall());
+	    			assertEquals(board.getTile(i, j).getWalkableElement(), new Laser());
 	    		} else if (i==6 && j==4) {
-	    			assertTrue(board.getTile(i, j).getEastBarrier() instanceof Wall);
-	    			assertTrue(board.getTile(i, j).getWalkableElement() instanceof Laser);
+	    			assertEquals(board.getTile(i, j).getEastBarrier(), new Wall());
+	    			assertEquals(board.getTile(i, j).getWalkableElement(), new Laser());
 	    		} else if (i==5 && j==6) {
-	    			assertTrue(board.getTile(i, j).getNorthBarrier() instanceof Wall);
-	    			assertTrue(board.getTile(i, j).getWalkableElement() instanceof Laser);
+	    			assertEquals(board.getTile(i, j).getNorthBarrier(), new Wall());
+	    			assertEquals(board.getTile(i, j).getWalkableElement(), new Laser());
 	    		} else if (i==6 && j==6) {
-	    			assertTrue(board.getTile(i, j).getSouthBarrier() instanceof Wall);
-	    			assertTrue(board.getTile(i, j).getWalkableElement() instanceof Laser);
+	    			assertEquals(board.getTile(i, j).getSouthBarrier(), new Wall());
+	    			assertEquals(board.getTile(i, j).getWalkableElement(), new Laser());
 	    		} else if (i==11 && j==2) {
-	    			assertTrue(board.getTile(i, j).getWestBarrier() instanceof Wall);
+	    			assertEquals(board.getTile(i, j).getWestBarrier(), new Wall());
 	    		} else if (i==10 && j==4) {
-	    			assertTrue(board.getTile(i, j).getNorthBarrier() instanceof Wall);
+	    			assertEquals(board.getTile(i, j).getNorthBarrier(), new Wall());
 	    		} else if (i==10 && j==5) {
-	    			assertTrue(board.getTile(i, j).getNorthBarrier() instanceof Wall);
+	    			assertEquals(board.getTile(i, j).getNorthBarrier(), new Wall());
 	    		} else if (i==11 && j==7) {
-	    			assertTrue(board.getTile(i, j).getEastBarrier() instanceof Wall);
+	    			assertEquals(board.getTile(i, j).getEastBarrier(), new Wall());
 	    		} else {
-	    			assertTrue((board.getTile(i, j).isEmpty()));
+	    			assertTrue(board.getTile(i, j).isEmpty());
 	    		}
 	    	}
 	    }
@@ -206,276 +195,228 @@ public class StepsDefinition {
 	
 	@Then("the obstacles of the 4A board are in the expected tiles")
 	public void the_obstacles_of_the_4A_board_are_in_the_expected_tiles() {
+		assertEquals(board.getTile(5, 3).getWestBarrier(), new Wall());
+		assertEquals(board.getTile(3, 0).getNorthBarrier(), new Wall());
+		assertEquals(board.getTile(4, 0).getSouthBarrier(), new Wall());
+		assertEquals(board.getTile(3, 9).getNorthBarrier(), new Wall());
+		assertEquals(board.getTile(4, 9).getSouthBarrier(), new Wall());
+		
+		assertEquals(board.getTile(0, 6).getWestBarrier(), new Wall());
+		assertEquals(board.getTile(0, 7).getEastBarrier(), new Wall());
+		assertEquals(board.getTile(9, 1).getWestBarrier(), new Wall());
+		assertEquals(board.getTile(9, 2).getEastBarrier(), new Wall());
+		
+		assertEquals(board.getTile(3, 4).getWestBarrier(), new Wall());
+		assertEquals(board.getTile(3, 5).getEastBarrier(), new Wall());
+		assertEquals(board.getTile(6, 4).getWestBarrier(), new Wall());
+		assertEquals(board.getTile(6, 5).getEastBarrier(), new Wall());
+		
+		assertEquals(board.getTile(2, 2).getNorthBarrier(), new Wall());
+		assertEquals(board.getTile(3, 2).getSouthBarrier(), new Wall());
+		assertEquals(board.getTile(6, 2).getNorthBarrier(), new Wall());
+		assertEquals(board.getTile(7, 2).getSouthBarrier(), new Wall());
+		assertEquals(board.getTile(2, 7).getNorthBarrier(), new Wall());
+		assertEquals(board.getTile(3, 7).getSouthBarrier(), new Wall());
+		assertEquals(board.getTile(6, 7).getNorthBarrier(), new Wall());
+		assertEquals(board.getTile(7, 7).getSouthBarrier(), new Wall());
+		
+		assertEquals(board.getTile(11, 2).getWestBarrier(), new Wall());
+		assertEquals(board.getTile(10, 4).getNorthBarrier(), new Wall());
+		assertEquals(board.getTile(10, 5).getNorthBarrier(), new Wall());
+		assertEquals(board.getTile(11, 7).getEastBarrier(), new Wall());
 		
 		
-		assertTrue(board.getTile(5, 3).getWestBarrier() instanceof Wall);
-		
-		assertTrue(board.getTile(3, 0).getNorthBarrier() instanceof Wall);
-		assertTrue(board.getTile(4, 0).getSouthBarrier()instanceof Wall);
-		assertTrue(board.getTile(3, 9).getNorthBarrier()instanceof Wall);
-		assertTrue(board.getTile(4, 9).getSouthBarrier()instanceof Wall);
-		
-		assertTrue(board.getTile(0, 6).getWestBarrier()instanceof Wall);
-		assertTrue(board.getTile(0, 7).getEastBarrier()instanceof Wall);
-		assertTrue(board.getTile(9, 1).getWestBarrier()instanceof Wall);
-		assertTrue(board.getTile(9, 2).getEastBarrier()instanceof Wall);
-		
-		assertTrue(board.getTile(3, 4).getWestBarrier()instanceof Wall);
-		assertTrue(board.getTile(3, 5).getEastBarrier()instanceof Wall);
-		assertTrue(board.getTile(6, 4).getWestBarrier()instanceof Wall);
-		assertTrue(board.getTile(6, 5).getEastBarrier()instanceof Wall);
-		
-		assertTrue(board.getTile(2, 2).getNorthBarrier()instanceof Wall);
-		assertTrue(board.getTile(3, 2).getSouthBarrier()instanceof Wall);
-		assertTrue(board.getTile(6, 2).getNorthBarrier()instanceof Wall);
-		assertTrue(board.getTile(7, 2).getSouthBarrier()instanceof Wall);
-		assertTrue(board.getTile(2, 7).getNorthBarrier()instanceof Wall);
-		assertTrue(board.getTile(3, 7).getSouthBarrier()instanceof Wall);
-		assertTrue(board.getTile(6, 7).getNorthBarrier()instanceof Wall);
-		assertTrue(board.getTile(7, 7).getSouthBarrier()instanceof Wall);
-		
-		assertTrue(board.getTile(11, 2).getWestBarrier()instanceof Wall);
-		assertTrue(board.getTile(10, 4).getNorthBarrier()instanceof Wall);
-		assertTrue(board.getTile(10, 5).getNorthBarrier()instanceof Wall);
-		assertTrue(board.getTile(11, 7).getEastBarrier()instanceof Wall);
-		
-		
-		assertTrue(board.getTile(2, 3).getWalkableElement()instanceof Pit);
-		assertTrue(board.getTile(3, 3).getWalkableElement()instanceof Pit);
-		assertTrue(board.getTile(6, 3).getWalkableElement()instanceof Pit);
-		assertTrue(board.getTile(7, 3).getWalkableElement()instanceof Pit);
-		assertTrue(board.getTile(2, 6).getWalkableElement()instanceof Pit);
-		assertTrue(board.getTile(3, 6).getWalkableElement()instanceof Pit);
-		assertTrue(board.getTile(6, 6).getWalkableElement()instanceof Pit);
-		assertTrue(board.getTile(7, 6).getWalkableElement()instanceof Pit);
+		assertEquals(board.getTile(2, 3).getWalkableElement(), new Pit());
+		assertEquals(board.getTile(3, 3).getWalkableElement(), new Pit());
+		assertEquals(board.getTile(6, 3).getWalkableElement(), new Pit());
+		assertEquals(board.getTile(7, 3).getWalkableElement(), new Pit());
+		assertEquals(board.getTile(2, 6).getWalkableElement(), new Pit());
+		assertEquals(board.getTile(3, 6).getWalkableElement(), new Pit());
+		assertEquals(board.getTile(6, 6).getWalkableElement(), new Pit());
+		assertEquals(board.getTile(7, 6).getWalkableElement(), new Pit());
 		
 		for (int j=6; j<8; j++) {
-			assertTrue(board.getTile(0, j).getWalkableElement()instanceof Laser);
+			assertEquals(board.getTile(0, j).getWalkableElement(), new Laser());
 		}
-		
 		for (int j=1; j<3; j++) {
-			assertTrue(board.getTile(9, j).getWalkableElement()instanceof Laser);
+			assertEquals(board.getTile(9, j).getWalkableElement(), new Laser());
 		}
-		
 		for (int j=4; j<6; j++) {
-			assertTrue(board.getTile(3, j).getWalkableElement()instanceof Laser);
+			assertEquals(board.getTile(3, j).getWalkableElement(), new Laser());
 		}
-		
 		for (int j=4; j<6; j++) {
-			assertTrue(board.getTile(6, j).getWalkableElement()instanceof Laser);
+			assertEquals(board.getTile(6, j).getWalkableElement(), new Laser());
 		}
-		
 		for (int i=2; i<8; i++) {
 			if (i!=4 && i!=5) {
-				assertTrue(board.getTile(i, 2).getWalkableElement()instanceof Laser);
+				assertEquals(board.getTile(i, 2).getWalkableElement(), new Laser());
 			}
 		}
-		
 		for (int i=2; i<8; i++) {
 			if (i!=4 && i!=5) {
-				assertTrue(board.getTile(i, 7).getWalkableElement()instanceof Laser);
+				assertEquals(board.getTile(i, 7).getWalkableElement(), new Laser());
 			}		
 		}
-		
-		///Empty
 		for (int i=0; i<10; i++) {
 			if (i!=3 && i!=4) {
-				assertTrue((board.getTile(i, 0).isEmpty()));
+				assertTrue(board.getTile(i, 0).isEmpty());
 			}
 		}
-		
 		for (int i=0; i<9; i++) {
-			assertTrue((board.getTile(i, 1).isEmpty()));	
+			assertTrue(board.getTile(i, 1).isEmpty());	
 		}
-		
 		for (int i=0; i<10; i++) {
 			if (i!=2 && i!=3 && i!=6 && i!=7 && i!=9) {
-				assertTrue((board.getTile(i, 2).isEmpty()));
+				assertTrue(board.getTile(i, 2).isEmpty());
 			}
 		}
-		
 		for (int i=0; i<10; i++) {
 			if (i!=2 && i!=3 && i!=6 && i!=7 && i!=5) {
-				assertTrue((board.getTile(i, 3).isEmpty()));
+				assertTrue(board.getTile(i, 3).isEmpty());
 			}
 		}
-		
 		for (int i=0; i<10; i++) {
 			if (i!=3 && i!=6 ) {
-				assertTrue((board.getTile(i, 4).isEmpty()));
+				assertTrue(board.getTile(i, 4).isEmpty());
 			}
 		}
-		
 		for (int i=0; i<10; i++) {
 			if (i!=3 && i!=6 ) {
-				assertTrue((board.getTile(i, 5).isEmpty()));
+				assertTrue(board.getTile(i, 5).isEmpty());
 			}
 		}
-		
 		for (int i=0; i<10; i++) {
 			if (i!=2 && i!=3 && i!=6 && i!=7 && i!=0) {
-				assertTrue((board.getTile(i, 6).isEmpty()));
+				assertTrue(board.getTile(i, 6).isEmpty());
 			}
 		}
-		
 		for (int i=0; i<10; i++) {
 			if (i!=2 && i!=3 && i!=6 && i!=7 && i!=0) {
-				assertTrue((board.getTile(i, 7).isEmpty()));
+				assertTrue(board.getTile(i, 7).isEmpty());
 			}
 		}
-		
 		for (int i=0; i<10; i++) {
-			assertTrue((board.getTile(i, 8).isEmpty()));
+			assertTrue(board.getTile(i, 8).isEmpty());
 		}
-		
 		for (int i=0; i<10; i++) {
 			if (i!=3 && i!=4) {
-				assertTrue((board.getTile(i, 9).isEmpty()));
+				assertTrue(board.getTile(i, 9).isEmpty());
 			}
 		}
-		
-		///starting board
 		for (int i=0; i<10; i++) {
 			if (i!=4 && i!=5) {
-				assertTrue((board.getTile(10, i).isEmpty()));
+				assertTrue(board.getTile(10, i).isEmpty());
 			}
 		}
-		
 		for (int i=0; i<10; i++) {
 			if (i!=2 && i!=7) {
-				assertTrue((board.getTile(11, i).isEmpty()));
+				assertTrue(board.getTile(11, i).isEmpty());
 			}
 		}
-		
 		for (int i=0; i<10; i++) {
-			assertTrue((board.getTile(12, i).isEmpty()));	
-		}
-		
-		
-		
-		
+			assertTrue(board.getTile(12, i).isEmpty());	
+		}	
 	}
 	
 	@Then("the obstacles of the 2B board are in the expected tiles")
 	public void the_obstacles_of_the_2B_board_are_in_the_expected_tiles() {
-
-		
-		assertTrue(board.getTile(2, 2).getNorthBarrier()instanceof Wall);
-		assertTrue(board.getTile(3, 2).getSouthBarrier()instanceof Wall);
-		assertTrue(board.getTile(2, 3).getWestBarrier()instanceof Wall);
-		assertTrue(board.getTile(2, 4).getEastBarrier()instanceof Wall);
-		assertTrue(board.getTile(2, 6).getWestBarrier()instanceof Wall);
-		assertTrue(board.getTile(2, 7).getEastBarrier()instanceof Wall);
-		
-		assertTrue(board.getTile(3, 7).getNorthBarrier()instanceof Wall);
-		assertTrue(board.getTile(4, 7).getSouthBarrier()instanceof Wall);
-		assertTrue(board.getTile(5, 2).getNorthBarrier()instanceof Wall);
-		assertTrue(board.getTile(6, 2).getSouthBarrier()instanceof Wall);
-		assertTrue(board.getTile(7, 2).getWestBarrier()instanceof Wall);
-		assertTrue(board.getTile(7, 3).getEastBarrier()instanceof Wall);
-		assertTrue(board.getTile(7, 5).getWestBarrier()instanceof Wall);
-		assertTrue(board.getTile(7, 6).getEastBarrier()instanceof Wall);
-		assertTrue(board.getTile(7, 7).getSouthBarrier()instanceof Wall);
-		assertTrue(board.getTile(6, 7).getNorthBarrier()instanceof Wall);
-		
-		assertTrue(board.getTile(11, 2).getWestBarrier()instanceof Wall);
-		assertTrue(board.getTile(10, 4).getNorthBarrier()instanceof Wall);
-		assertTrue(board.getTile(10, 5).getNorthBarrier()instanceof Wall);
-		assertTrue(board.getTile(11, 7).getEastBarrier()instanceof Wall);
-		
-		assertTrue(board.getTile(1, 4).getWalkableElement()instanceof Pit);
-		assertTrue(board.getTile(4, 8).getWalkableElement()instanceof Pit);
-		assertTrue(board.getTile(5, 1).getWalkableElement()instanceof Pit);
-		assertTrue(board.getTile(8, 5).getWalkableElement()instanceof Pit);
-	
-		
+		assertEquals(board.getTile(2, 2).getNorthBarrier(), new Wall());
+		assertEquals(board.getTile(3, 2).getSouthBarrier(), new Wall());
+		assertEquals(board.getTile(2, 3).getWestBarrier(), new Wall());
+		assertEquals(board.getTile(2, 4).getEastBarrier(), new Wall());
+		assertEquals(board.getTile(2, 6).getWestBarrier(), new Wall());
+		assertEquals(board.getTile(2, 7).getEastBarrier(), new Wall());
+		assertEquals(board.getTile(3, 7).getNorthBarrier(), new Wall());
+		assertEquals(board.getTile(4, 7).getSouthBarrier(), new Wall());
+		assertEquals(board.getTile(5, 2).getNorthBarrier(), new Wall());
+		assertEquals(board.getTile(6, 2).getSouthBarrier(), new Wall());
+		assertEquals(board.getTile(7, 2).getWestBarrier(), new Wall());
+		assertEquals(board.getTile(7, 3).getEastBarrier(), new Wall());
+		assertEquals(board.getTile(7, 5).getWestBarrier(), new Wall());
+		assertEquals(board.getTile(7, 6).getEastBarrier(), new Wall());
+		assertEquals(board.getTile(7, 7).getSouthBarrier(), new Wall());
+		assertEquals(board.getTile(6, 7).getNorthBarrier(), new Wall());
+		assertEquals(board.getTile(11, 2).getWestBarrier(), new Wall());
+		assertEquals(board.getTile(10, 4).getNorthBarrier(), new Wall());
+		assertEquals(board.getTile(10, 5).getNorthBarrier(), new Wall());
+		assertEquals(board.getTile(11, 7).getEastBarrier(), new Wall());
+		assertEquals(board.getTile(1, 4).getWalkableElement(), new Pit());
+		assertEquals(board.getTile(4, 8).getWalkableElement(), new Pit());
+		assertEquals(board.getTile(5, 1).getWalkableElement(), new Pit());
+		assertEquals(board.getTile(8, 5).getWalkableElement(), new Pit());	
 		for (int i=2; i<8; i++) {
 			if (i!=4) {
-				assertTrue(board.getTile(i, 2).getWalkableElement()instanceof Laser);
+				assertEquals(board.getTile(i, 2).getWalkableElement(), new Laser());
 			}
 		}
-		
 		for (int i=2; i<8; i++) {
 			if (i!=5) {
-				assertTrue(board.getTile(i, 7).getWalkableElement()instanceof Laser);
+				assertEquals(board.getTile(i, 7).getWalkableElement(), new Laser());
 			}		
 		}
-		
 		for (int j=2; j<8; j++) {
 			if (j!=5) {
-				assertTrue(board.getTile(2, j).getWalkableElement()instanceof Laser);
+				assertEquals(board.getTile(2, j).getWalkableElement(), new Laser());
 			}		
 		}
-		
 		for (int j=2; j<8; j++) {
 			if (j!=4) {
-				assertTrue(board.getTile(7, j).getWalkableElement()instanceof Laser);
+				assertEquals(board.getTile(7, j).getWalkableElement(), new Laser());
 			}		
 		}
-		
 		for (int i=0; i<10; i++) {
 	    	for (int j=0; j<2; j++) {
 	    		if (i == 5 && j == 1) {
 	                continue; 
 	            }
-	    		assertTrue((board.getTile(i, j).isEmpty()));
+	    		assertTrue(board.getTile(i, j).isEmpty());
 	    		}
 	    	}
-		
 		for (int i=0; i<10; i++) {
 	    	for (int j=8; j<10; j++) {
 	    		if (i == 4 && j == 8) {
 	                continue; 
 	            }
-	    		assertTrue((board.getTile(i, j).isEmpty()));
+	    		assertTrue(board.getTile(i, j).isEmpty());
 	    		}
 	    	}
-		
 		for (int i=0; i<2; i++) {
 	    	for (int j=2; j<8; j++) {
 	    		if (i == 1 && j == 4) {
 	                continue; 
 	            }
-	    		assertTrue((board.getTile(i, j).isEmpty()));
+	    		assertTrue(board.getTile(i, j).isEmpty());
 	    		}
 	    	}
-		
 		for (int i=8; i<10; i++) {
 	    	for (int j=2; j<8; j++) {
 	    		if (i == 8 && j == 5) {
 	                continue; 
 	            }
-	    		assertTrue((board.getTile(i, j).isEmpty()));
+	    		assertTrue(board.getTile(i, j).isEmpty());
 	    		}
 	    	}
-		
 		for (int i=3; i<7; i++) {
 	    	for (int j=3; j<7; j++) {
-	    		assertTrue((board.getTile(i, j).isEmpty()));
+	    		assertTrue(board.getTile(i, j).isEmpty());
 	    		}
 	    	}
-		
-		assertTrue((board.getTile(2, 5).isEmpty()));
-		assertTrue((board.getTile(4, 2).isEmpty()));
-		assertTrue((board.getTile(5, 7).isEmpty()));
-		assertTrue((board.getTile(7, 4).isEmpty()));
-		
-		
-		///starting board
+		assertTrue(board.getTile(2, 5).isEmpty());
+		assertTrue(board.getTile(4, 2).isEmpty());
+		assertTrue(board.getTile(5, 7).isEmpty());
+		assertTrue(board.getTile(7, 4).isEmpty());
 		for (int i=0; i<10; i++) {
 			if (i!=4 && i!=5) {
-				assertTrue((board.getTile(10, i).isEmpty()));
+				assertTrue(board.getTile(10, i).isEmpty());
 			}
-		}
-				
+		}	
 		for (int i=0; i<10; i++) {
 			if (i!=2 && i!=7) {
-				assertTrue((board.getTile(11, i).isEmpty()));
+				assertTrue(board.getTile(11, i).isEmpty());
 			}
-		}
-				
+		}	
 		for (int i=0; i<10; i++) {
-			assertTrue((board.getTile(12, i).isEmpty()));	
+			assertTrue(board.getTile(12, i).isEmpty());	
 		}
 	}
 	
@@ -488,23 +429,19 @@ public class StepsDefinition {
 		programmingDeck1 = new Deck();
 		programmingDeck1.initializeProgrammingDeck();
 	}
-	
 	@When("the player is assigned the programming deck of cards")
 	public void the_player_is_assigned_the_programming_deck_of_cards() {
 	    player1.setProgrammingDeck(programmingDeck1);
 	}
-	
 	@Then("the player has a programming deck of cards")
 	public void the_player_has_a_programming_deck_of_cards() {
-	    assertTrue(player1.getProgrammingDeck().equals(programmingDeck1));
+	    assertEquals(player1.getProgrammingDeck(), programmingDeck1);
 	    assertTrue(player1.getProgrammingDeck().getDeckSize() == 17);
 	}
-
 	@Given("a playing deck of cards")
 	public void a_playing_deck_of_cards() {
 		playingDeck1 = new Deck();
 	}
-	
 	@When("the player is assigned the playing deck of cards")
 	public void the_player_is_assigned_the_playing_deck_of_cards() {
 	    // Write code here that turns the phrase above into concrete actions
@@ -512,56 +449,46 @@ public class StepsDefinition {
 	}
 	@Then("the player has a playing deck of cards")
 	public void the_player_has_a_playing_deck_of_cards() {
-	    assertTrue(player1.getPlayingDeck().equals(playingDeck1));
+	    assertEquals(player1.getPlayingDeck(), playingDeck1);
 	}
-	
 	@Given("an action deck of cards")
 	public void an_action_deck_of_cards() {
 	    actionDeck1 = new Deck();
 	}
-	
 	@When("the player is assigned the action deck of cards")
 	public void the_player_is_assigned_the_action_deck_of_cards() {
 	    player1.setActionDeck(actionDeck1);
 	}
-	
 	@Then("the player has an action deck of cards")
 	public void the_player_has_an_action_deck_of_cards() {
-	    assertTrue(player1.getActionDeck().equals(actionDeck1));
+	    assertEquals(player1.getActionDeck(), actionDeck1);
 	}
-
 	@Given("a discard deck of cards")
 	public void a_discard_deck_of_cards() {
 	    discardDeck1 = new Deck();
 	}
-	
 	@When("the player is assigned the discard deck of cards")
 	public void the_is_assigned_the_discard_deck_of_cards() {
 	    player1.setDiscardDeck(discardDeck1);
 	}
-	
 	@Then("the player has a discard deck of cards")
 	public void the_player_has_a_discard_deck_of_cards() {
-		assertTrue(player1.getDiscardDeck().equals(discardDeck1));
+		assertEquals(player1.getDiscardDeck(), discardDeck1);
 	}
-	
 	@Given("a second programming deck of cards")
 	public void a_second_programming_deck_of_cards() {
 		programmingDeck2 = new Deck();
 		programmingDeck2.initializeProgrammingDeck();
 	}
-	
 	@When("the second player is assigned the second programming deck of cards")
 	public void the_second_player_is_assigned_the_second_programming_deck_of_cards() {
 		player2.setProgrammingDeck(programmingDeck2);
 	}
-	
 	@Then("the second player has a programming deck of cards")
 	public void the_second_player_has_a_programming_deck_of_cards() {
-		assertTrue(player2.getProgrammingDeck().equals(programmingDeck2));
+		assertEquals(player2.getProgrammingDeck(), programmingDeck2);
 	    assertTrue(player2.getProgrammingDeck().getDeckSize() == 17);
 	}
-	
 	@Given("a second playing deck of cards")
 	public void a_second_playing_deck_of_cards() {
 		playingDeck2 = new Deck();
@@ -572,9 +499,8 @@ public class StepsDefinition {
 	}
 	@Then("the second player has a playing deck of cards")
 	public void the_second_player_has_a_playing_deck_of_cards() {
-		assertTrue(player2.getPlayingDeck().equals(playingDeck2));
+		assertEquals(player2.getPlayingDeck(), playingDeck2);
 	}
-	
 	@Given("a second action deck of cards")
 	public void a_second_action_deck_of_cards() {
 		actionDeck2 = new Deck();
@@ -585,22 +511,19 @@ public class StepsDefinition {
 	}
 	@Then("the second player has an action deck of cards")
 	public void the_second_player_has_an_action_deck_of_cards() {
-		assertTrue(player2.getActionDeck().equals(actionDeck2));
+		assertEquals(player2.getActionDeck(), actionDeck2);
 	}
-	
 	@Given("a second discard deck of cards")
 	public void a_second_discard_deck_of_cards() {
 		discardDeck2 = new Deck();
 	}
-	
 	@When("the second player is assigned the second discard deck of cards")
 	public void the_second_player_is_assigned_the_second_discard_deck_of_cards() {
 		player2.setDiscardDeck(discardDeck2);
 	}
-	
 	@Then("the second player has a discard deck of cards")
 	public void the_second_player_has_a_discard_deck_of_cards() {
-		assertTrue(player2.getDiscardDeck().equals(discardDeck2));
+		assertEquals(player2.getDiscardDeck(), discardDeck2);
 	}
 	
 	///////////////////////////////////
@@ -611,22 +534,18 @@ public class StepsDefinition {
 	public void the_robot_is_placed_on_the_board() {
 		board.setRobots(robot1);
 	}
-	
 	@Then("the robot is in the initial position of the board")
 	public void the_robot_is_in_the_initial_position_of_the_board() {
 		assertTrue(robot1.geti() == 12 && robot1.getj() == 3);
 	}
-	
 	@Then("the robot is facing north")
 	public void the_robot_is_facing_north() {
-		assertTrue(robot1.getDirection().equals(Direction.NORTH));
+		assertTrue(robot1.getDirection() == Direction.NORTH);
 	}
-	
 	@When("the two robots are placed on the board")
 	public void the_two_robots_are_placed_on_the_board() {
 		board.setRobots(robot1, robot2);
 	}
-	
 	@When("the three robots are placed on the board")
 	public void the_three_robots_are_placed_on_the_board() {
 		board.setRobots(robot1, robot2, robot3);
@@ -635,30 +554,25 @@ public class StepsDefinition {
 	public void the_four_robots_are_placed_on_the_board() {
 		board.setRobots(robot1, robot2, robot3, robot4);
 	}
-	
 	@Then("the two robots are in the initial positions of the board")
 	public void the_two_robots_are_in_the_initial_positions_of_the_board() {
 		assertTrue(robot1.geti() == 12 && robot1.getj() == 3);
 		assertTrue(robot2.geti() == 12 && robot2.getj() == 6);
 	}
-	
 	@Given("a third robot")
 	public void a_third_robot() {
 	    robot3 = new Robot(Color.GREEN);
 	}
-	
 	@Given("a fourth robot")
 	public void a_fourth_robot() {
 	    robot4 = new Robot(Color.YELLOW);
 	}
-	
 	@Then("the three robots are in the initial positions of the board")
 	public void the_three_robots_are_in_the_initial_positions_of_the_board() {
 		assertTrue(robot1.geti() == 12 && robot1.getj() == 3);
 		assertTrue(robot2.geti() == 12 && robot2.getj() == 6);
 		assertTrue(robot3.geti() == 11 && robot3.getj() == 4);
 	}
-	
 	@Then("the four robots are in the initial positions of the board")
 	public void the_four_robots_are_in_the_initial_positions_of_the_board() {
 		assertTrue(robot1.geti() == 12 && robot1.getj() == 3);
@@ -668,23 +582,21 @@ public class StepsDefinition {
 	}
 	@Then("the two robots are facing north")
 	public void the_two_robots_are_facing_north() {
-	assertTrue(robot1.getDirection().equals(Direction.NORTH));
-	assertTrue(robot2.getDirection().equals(Direction.NORTH));
+		assertTrue(robot1.getDirection() == Direction.NORTH);
+		assertTrue(robot2.getDirection() == Direction.NORTH);
 	}
-	
 	@Then("the three robots are facing north")
 	public void the_three_robots_are_facing_north() {
-	assertTrue(robot1.getDirection().equals(Direction.NORTH));
-	assertTrue(robot2.getDirection().equals(Direction.NORTH));
-	assertTrue(robot3.getDirection().equals(Direction.NORTH));
+		assertTrue(robot1.getDirection() == Direction.NORTH);
+		assertTrue(robot2.getDirection() == Direction.NORTH);
+		assertTrue(robot3.getDirection() == Direction.NORTH);
 	}
-	
 	@Then("the four robots are facing north")
 	public void the_four_robots_are_facing_north() {
-	assertTrue(robot1.getDirection().equals(Direction.NORTH));
-	assertTrue(robot2.getDirection().equals(Direction.NORTH));
-	assertTrue(robot3.getDirection().equals(Direction.NORTH));
-	assertTrue(robot4.getDirection().equals(Direction.NORTH));
+		assertTrue(robot1.getDirection() == Direction.NORTH);
+		assertTrue(robot2.getDirection() == Direction.NORTH);
+		assertTrue(robot3.getDirection() == Direction.NORTH);
+		assertTrue(robot4.getDirection() == Direction.NORTH);
 	}
 	
 ///////////////////////
@@ -702,18 +614,15 @@ public class StepsDefinition {
 		player1.setProgrammingDeck(programmingDeck1);
 		initialSizeProgrammingDeck1 = programmingDeck1.getDeckSize();
 	}
-	
 	@Given("a playing deck of cards that belongs to the player")
 	public void a_playing_deck_of_cards_that_belongs_to_the_player() {
 		playingDeck1 = new Deck();
 		player1.setPlayingDeck(playingDeck1);
 	}
-	
 	@When("the {int} cards are moved from the programming deck to the playing deck")
 	public void the_cards_are_moved_from_the_programming_deck_to_the_playing_deck(int numCards9){
 		programmingDeck1.moveRandomCards(playingDeck1, numCards9);
 	}
-	
 	@Then("the cards are in the playing deck")
 	public void the_cards_are_in_the_playing_deck() {
 		assertTrue(playingDeck1.getDeckSize() == 9);
@@ -722,7 +631,6 @@ public class StepsDefinition {
 	public void the_cards_are_not_in_the_programming_deck() {
 		assertTrue(programmingDeck1.getDeckSize() == initialSizeProgrammingDeck1 - 9);
 	}
-	
 	@Given("a second programming deck of cards that belongs to the second player")
 	public void a_second_programming_deck_of_cards_that_belongs_to_the_second_player() {
 		programmingDeck2 = new Deck();
@@ -730,13 +638,11 @@ public class StepsDefinition {
 		player1.setProgrammingDeck(programmingDeck2);
 		initialSizeProgrammingDeck2 = programmingDeck2.getDeckSize();
 	}
-	
 	@Given("a second playing deck of cards that belongs to the second player")
 	public void a_second_playing_deck_of_cards_that_belongs_to_the_second_player() {
 		playingDeck2 = new Deck();
 		player2.setPlayingDeck(playingDeck2);
 	}
-	
 	@When("the {int} cards are moved from the second programming deck to the second playing deck")
 	public void the_cards_are_moved_from_the_second_programming_deck_to_the_second_playing_deck(Integer numCards9) {
 		initialSizeProgrammingDeck2 = programmingDeck2.getDeckSize();
@@ -893,6 +799,27 @@ public class StepsDefinition {
 	public void the_remaining_cards_are_not_in_the_second_playing_deck() {
 		assertTrue(playingDeck2.deckIsEmpty());
 	}
+	
+	///////////////////////////////////
+	// U? : CHOOSE 5 RANDOM CARDS AI //
+	///////////////////////////////////
+	
+	@Given("an AI")
+	public void an_ai() {
+		AI = new AI();
+	}
+	@Given("the playing deck belongs to the AI")
+	public void the_playing_deck_belongs_to_the_ai() {
+		AI.setPlayingDeck(playingDeck1);
+	}
+	@Given("the action deck belongs to the AI")
+	public void the_action_deck_belongs_to_the_ai() {
+		AI.setActionDeck(actionDeck1);
+	}
+	@When("the AI picks {int} random cards from the playing deck and they are moved to the action deck")
+	public void the_ai_picks_random_cards_from_the_playing_deck_and_they_are_moved_to_the_action_deck(Integer int1) {
+		AI.pickCards(numCards5);
+	}
 
 //////////////////////
 // ACTIVATION PHASE //
@@ -913,7 +840,7 @@ public class StepsDefinition {
 		robot1.setj(4);
 		oldRobot1i = robot1.geti();
 		oldRobot1j = robot1.getj();
-		}
+	}
 	@Given("a move forward card")
 	public void a_move_forward_card() {
 	    cardMoveForward = new MoveForward();
@@ -927,7 +854,6 @@ public class StepsDefinition {
 	    assertFalse((robot1.geti() == oldRobot1i    ) && (robot1.getj() == oldRobot1j));
 	    assertTrue ((robot1.geti() == oldRobot1i - 1) && (robot1.getj() == oldRobot1j));
 	}
-	
 	@Given("a robot on the board facing south")
 	public void a_robot_on_the_board_facing_south() {
 		robot1 = new Robot(Color.BLUE);
@@ -937,13 +863,12 @@ public class StepsDefinition {
 		robot1.setj(4);
 		oldRobot1i = robot1.geti();
 		oldRobot1j = robot1.getj();
-		}
+	}
 	@Then("the robot moves forward south")
 	public void the_robot_moves_forward_south() {
 		assertFalse((robot1.geti() == oldRobot1i    ) && (robot1.getj() == oldRobot1j));
 	    assertTrue ((robot1.geti() == oldRobot1i + 1) && (robot1.getj() == oldRobot1j));
 	}
-	
 	@Given("a robot on the board facing east")
 	public void a_robot_on_the_board_facing_east() {
 		robot1 = new Robot(Color.BLUE);
@@ -953,13 +878,12 @@ public class StepsDefinition {
 		robot1.setj(4);
 		oldRobot1i = robot1.geti();
 		oldRobot1j = robot1.getj();
-		}
+	}
 	@Then("the robot moves forward east")
 	public void the_robot_moves_forward_east() {
 		assertFalse((robot1.geti() == oldRobot1i) && (robot1.getj() == oldRobot1j    ));
 	    assertTrue ((robot1.geti() == oldRobot1i) && (robot1.getj() == oldRobot1j + 1));
 	}
-	
 	@Given("a robot on the board facing west")
 	public void a_robot_on_the_board_facing_west() {
 		robot1 = new Robot(Color.BLUE);
@@ -969,7 +893,7 @@ public class StepsDefinition {
 		robot1.setj(4);
 		oldRobot1i = robot1.geti();
 		oldRobot1j = robot1.getj();
-		}
+	}
 	@Then("the robot moves forward west")
 	public void the_robot_moves_forward_west() {
 		assertFalse((robot1.geti() == oldRobot1i) && (robot1.getj() == oldRobot1j    ));
@@ -987,7 +911,6 @@ public class StepsDefinition {
 		assertTrue ((robot1.geti() == oldRobot1i    ) && (robot1.getj() == oldRobot1j));
 	    assertFalse((robot1.geti() == oldRobot1i - 1) && (robot1.getj() == oldRobot1j));
 	}
-	
 	@Given("a north wall in the tile below where the robot is")
 	public void a_north_wall_in_the_tile_below_where_the_robot_is() {
 		board.getTile(oldRobot1i + 1, oldRobot1j).setNorthBarrier(new Wall());
@@ -997,17 +920,14 @@ public class StepsDefinition {
 		assertTrue ((robot1.geti() == oldRobot1i    ) && (robot1.getj() == oldRobot1j));
 	    assertFalse((robot1.geti() == oldRobot1i + 1) && (robot1.getj() == oldRobot1j));
 	}
-	
 	@Given("a south wall in the tile where the robot is")
 	public void a_south_wall_in_the_tile_where_the_robot_is() {
 		board.getTile(oldRobot1i, oldRobot1j).setSouthBarrier(new Wall());
 	}
-	
 	@Given("a south wall in the tile above where the robot is")
 	public void a_south_wall_in_the_tile_above_where_the_robot_is() {
 		board.getTile(oldRobot1i - 1, oldRobot1j).setSouthBarrier(new Wall());
 	}
-	
 	@Given("an east wall in the tile where the first robot is")
 	public void an_east_wall_in_the_tile_where_the_first_robot_is() {
 		board.getTile(oldRobot1i, oldRobot1j).setEastBarrier(new Wall());
@@ -1029,13 +949,11 @@ public class StepsDefinition {
 	public void a_west_wall_in_the_tile_right_where_the_robot_is() {
 		board.getTile(oldRobot1i, oldRobot1j + 1).setWestBarrier(new Wall());
 	}
-
 	@Then("the robot does not move forward west")
 	public void the_robot_does_not_move_forward_west() {
 		assertTrue ((robot1.geti() == oldRobot1i) && (robot1.getj() == oldRobot1j    ));
 	    assertFalse((robot1.geti() == oldRobot1i) && (robot1.getj() == oldRobot1j - 1));
 	}
-	
 	@Given("a west wall in the tile where the robot is")
 	public void a_west_wall_in_the_tile_where_the_robot_is() {
 		board.getTile(oldRobot1i, oldRobot1j).setWestBarrier(new Wall());
@@ -1058,7 +976,6 @@ public class StepsDefinition {
 		assertTrue ((robot1.geti() == board.getRebooti()) && (robot1.getj() == board.getRebootj()));
 	    assertFalse((robot1.geti() == oldRobot1i) && (robot1.getj() == oldRobot1j));
 	}
-	
 	@Given("a robot on the edge of board facing south")
 	public void a_robot_on_the_edge_of_board_facing_south() {
 		robot1 = new Robot(Color.BLUE);
@@ -1069,7 +986,6 @@ public class StepsDefinition {
 		oldRobot1i = robot1.geti();
 		oldRobot1j = robot1.getj();
 	}
-	
 	@Given("a robot on the edge of board facing east")
 	public void a_robot_on_the_edge_of_board_facing_east() {
 		robot1 = new Robot(Color.BLUE);
@@ -1080,7 +996,6 @@ public class StepsDefinition {
 		oldRobot1i = robot1.geti();
 		oldRobot1j = robot1.getj();
 	}
-	
 	@Given("a robot on the edge of board facing west")
 	public void a_robot_on_the_edge_of_board_facing_west() {
 		robot1 = new Robot(Color.BLUE);
@@ -1104,22 +1019,18 @@ public class StepsDefinition {
 	public void the_u_turn_card_is_executed() {
 	    cardUTurn.execute(robot1, board);
 	}
-	
 	@Then("the robot is facing south")
 	public void the_robot_is_facing_south() {
 	    assertTrue(robot1.getDirection() == Direction.SOUTH);
 	}
-
 	@Given("a RightTurn card")
 	public void a_right_turn_card() {
 	    cardRightTurn = new RightTurn();
 	}
-	
 	@When("the RightTurn card is executed")
 	public void the_right_turn_card_is_executed() {
 		cardRightTurn.execute(robot1, board);
 	}
-	
 	@Then("the robot is facing east")
 	public void the_robot_is_facing_east() {
 		assertTrue(robot1.getDirection() == Direction.EAST);
@@ -1128,7 +1039,6 @@ public class StepsDefinition {
 	public void the_robot_is_facing_west() {
 		assertTrue(robot1.getDirection() == Direction.WEST);
 	}
-	
 	@Given("a LeftTurn card")
 	public void a_left_turn_card() {
 		cardLeftTurn = new LeftTurn();
@@ -1529,6 +1439,7 @@ public class StepsDefinition {
 		assertTrue ((robot3.geti() == oldRobot3i) && (robot3.getj() == oldRobot3j    ));
 		assertFalse((robot3.geti() == oldRobot3i) && (robot3.getj() == oldRobot3j - 1));
 	}
+	
 ////////////////////////////////////
 // ROBO RALLY : THE LIGHT VERSION //
 ////////////////////////////////////
@@ -1546,13 +1457,11 @@ public class StepsDefinition {
 		actionDeck1 = new Deck();
 		player1.setActionDeck(actionDeck1);
 	}
-	
 	@Given("a second action deck of cards that belongs to the second player")
 	public void a_second_action_deck_of_cards_that_belongs_to_the_second_player() {
 		actionDeck2 = new Deck();
 		player2.setActionDeck(actionDeck2);
 	}
-	
 	@Given("a discard deck of cards that belongs to the player")
 	public void a_discard_deck_of_cards_that_belongs_to_the_player() {
 		discardDeck1 = new Deck();
@@ -1564,7 +1473,6 @@ public class StepsDefinition {
 		discardDeck2 = new Deck();
 		player2.setActionDeck(discardDeck2);
 	}
-	
 	@Then("the playing deck is empty")
 	public void the_playing_deck_is_empty() {
 	    assertTrue(playingDeck1.deckIsEmpty());
@@ -1633,32 +1541,5 @@ public class StepsDefinition {
 	    assertTrue(actionDeck2.getDeckSize() == initialSizeActionDeck2 - 1);
 	}
 	
-///////////////////////////
-//          AI           //
-///////////////////////////
-	
-	/////////////////////////////////
-	// U? : CHOOSE 5 RANDOM CARDS  //
-	/////////////////////////////////
-	
-	@Given("an AI")
-	public void an_ai() {
-	    AIPlayer = new AI();
-	}
-	
-	@Given("the playing deck belongs to the AI")
-	public void the_playing_deck_belongs_to_the_ai() {
-	    AIPlayer.setPlayingDeck(playingDeck1);
-	}
-	
-	@Given("the action deck belongs to the AI")
-	public void the_action_deck_belongs_to_the_ai() {
-	    AIPlayer.setActionDeck(actionDeck1);
-	}
-	
-	@When("the AI picks {int} random cards from the playing deck and they are moved to the action deck")
-	public void the_ai_picks_random_cards_from_the_playing_deck_and_they_are_moved_to_the_action_deck(Integer int1) {
-	    AIPlayer.pickCards();
-	}
 }
 

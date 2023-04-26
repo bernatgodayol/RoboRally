@@ -3,11 +3,7 @@ package model;
 public class MoveForward implements Card {
 	
 	public boolean equals(Object otherObject) {
-		if (otherObject instanceof MoveForward) {
-			return true;
-		} else {
-			return false;
-		}
+		return (otherObject instanceof MoveForward);
 	}
 	
 	public void execute(Robot robot, Board board) {
@@ -148,4 +144,5 @@ public class MoveForward implements Card {
 							}
 			}
 	}
+	
 }
