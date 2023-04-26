@@ -9,12 +9,17 @@ public class CardManager {
 	private Image image;
 	private ImageView imageView;
 	int card;
+//	int cardNum;
 	
-	public int getNumCard() {
+//	public Card getCard() {
+//		return card;
+//	}
+	
+	public int getCard() {
 		return card;
 	}
 	
-	public ImageView getCard(int num){
+	public ImageView getCardImage(int num){
 		if(num == 1) {
 			String imageUrl = classLoader.getResource("Cards/MoveForwardCard.png").toExternalForm();
 			image = new Image(imageUrl);

@@ -26,6 +26,8 @@ public class Main extends Application{
 		view.setRegisteredObservers(gameProgramming);
 		handler.setRegisteredObservers(gameSetup);
 		view.setMenuHandler(handler);
+		ActionPhase actionPhase = new ActionPhase();
+		gameProgramming.setRegisteredActionObservers(actionPhase);
 				
 		stage.setScene(view.choosePlayerNum());
 		stage.setTitle("RoboRally group 4");
