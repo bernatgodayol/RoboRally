@@ -11,11 +11,8 @@ public class ProgrammingPhase implements BoardViewObserver{
 	
 	Setup gamesetup;
 	CardStatus cs;
-//	View view;
-//	ArrayList<Player> players;
-//	Board board;
 	int numplayer;
-	private Set<StartActionPhaseObserver> registeredActionObservers = new HashSet<StartActionPhaseObserver>();
+	private Set<ProgrammingPhaseObserver> registeredActionObservers = new HashSet<ProgrammingPhaseObserver>();
 	
 	public ProgrammingPhase(Setup gamesetup, CardStatus cs) {
 		this.gamesetup = gamesetup;
@@ -106,13 +103,13 @@ public class ProgrammingPhase implements BoardViewObserver{
 		}
 	}
 	
-	public void setRegisteredActionObservers(StartActionPhaseObserver actionObserver) {
+	public void setRegisteredActionObservers(ProgrammingPhaseObserver actionObserver) {
 		this.registeredActionObservers.add(actionObserver);	
 	}
 
 	private void notifyActionPhaseStart() {
-		for(StartActionPhaseObserver o : registeredActionObservers) {
-			o.startActionPhase(gamesetup.getPlayers(), gamesetup.getBoard());
+		for(ProgrammingPhaseObserver o : registeredActionObservers) {
+			o.startActivationPhase(gamesetup.getPlayers(), gamesetup.getBoard());
 		}
 	}	
 }

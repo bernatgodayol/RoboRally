@@ -8,12 +8,7 @@ public class CardManager {
 	private ClassLoader classLoader = getClass().getClassLoader();
 	private Image image;
 	private ImageView imageView;
-	int card;
-//	int cardNum;
-	
-//	public Card getCard() {
-//		return card;
-//	}
+	private int card;
 	
 	public int getCard() {
 		return card;

@@ -86,7 +86,6 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		anchorPane.setRight(gridPaneRight);
 		gridPaneRight.setAlignment(Pos.TOP_CENTER);
 		
-//		boolean left = true;
 		Label labelname = new Label(name);
 
 		if(players.get(0) == name) {

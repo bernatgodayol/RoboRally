@@ -1,18 +1,14 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 import model.Board;
 import model.Player;
 
-public class ActionPhase implements StartActionPhaseObserver{
-	
-	//private ArrayList<Player> players;
+public class ActivationPhase implements ProgrammingPhaseObserver{
 	
 	@Override
-	public void startActionPhase(ArrayList<Player> players, Board board) {
-		//this.players = players;
+	public void startActivationPhase(ArrayList<Player> players, Board board) {
 		
 		if (players.size()==2) {
 			for (int i=0; i<5; i++) {

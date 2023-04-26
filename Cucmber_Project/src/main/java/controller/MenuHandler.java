@@ -16,7 +16,6 @@ public class MenuHandler implements EventHandler<MouseEvent> {
 
 	private View view;
 	private Set<MenuHandlerObserver> registeredMenuHandlerObservers = new HashSet<MenuHandlerObserver>();
-//	private CardManager cardManager = new CardManager();
 	
 	public MenuHandler(View view) {
 		this.view = view;
@@ -50,10 +49,6 @@ public class MenuHandler implements EventHandler<MouseEvent> {
 			else if ("Hard".equals(buttonText)) {
 				notifyMenuHandlerUpdated(3);
 			}
-//		if (event.getSource() instanceof ImageView) {
-//			notifyMenuHandlerUpdated();
-//			System.out.println("Im clicked!");
-//		}
 			
 		}
 	}
