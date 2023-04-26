@@ -12,14 +12,20 @@ public class PlayerStatus implements PlayerObserver{
 	private ArrayList<String> players = new ArrayList<String>();
 	private Set<PlayerStatusObserver> registeredPlayerStatusObservers = new HashSet<PlayerStatusObserver>();
 	
+	public ArrayList<String> getPlayerStatus() {
+		return players;
+	}
+
+	public void setRegisteredPlayerStatusObservers(PlayerStatusObserver observer) {
+		this.registeredPlayerStatusObservers.add(observer);	
+	}
+	
 	@Override
 	public void playerUpdated(String name) {
-		if(!players.contains(name) && players.size()<5) {
+		if(!players.contains(name) && players.size()<4) {
 			players.add(name);
 			
-//			notifyPlayerStatusUpdated();
 			notifyPlayerStatusUpdated(name);
-			
 		}	
 	}
 	
@@ -27,17 +33,6 @@ public class PlayerStatus implements PlayerObserver{
 		for(PlayerStatusObserver o : registeredPlayerStatusObservers) {
 			o.playerStatusUpdated(this.players, name);
 		}
-//		for(PlayerStatusObserver o : registeredPlayerStatusObservers) {
-//			o.playerStatusUpdated(this.players);
-//		}
-	}
-
-	public ArrayList<String> getPlayerStatus() {
-		return players;
-	}
-
-	public void setRegisteredPlayerStatusObservers(PlayerStatusObserver observer) {
-		this.registeredPlayerStatusObservers.add(observer);	
 	}
 		
 }

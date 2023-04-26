@@ -19,17 +19,17 @@ public class Main extends Application{
 		
 		Setup gameSetup = new Setup(view,playerStatus);
 		gameSetup.getBoard().setRegisteredObservers(view);
-		view.setRegisteredObservers(gameSetup);
+		view.setRegisteredMenuViewObservers(gameSetup);
 		
 		MenuHandler handler = new MenuHandler(view);
 		ProgrammingPhase gameProgramming;
 		CardStatus cs = new CardStatus();
-		view.setRegisteredObservers(cs);
+		view.setRegisteredMenuViewObservers(cs);
 		gameProgramming = new ProgrammingPhase(gameSetup, cs);
-		view.setRegisteredObservers(gameProgramming);
+		view.setRegisteredBoardViewObservers(gameProgramming);
 		handler.setRegisteredObservers(gameSetup);
 		view.setMenuHandler(handler);
-		ActionPhase actionPhase = new ActionPhase();
+		ActivationPhase actionPhase = new ActivationPhase();
 		gameProgramming.setRegisteredActionObservers(actionPhase);
 				
 		stage.setScene(view.choosePlayerNum());		

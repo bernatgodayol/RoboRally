@@ -1,23 +1,26 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 import model.Board;
 import model.Player;
 
-public class ActionPhase implements StartActionPhaseObserver{
-	
-	//private ArrayList<Player> players;
+public class ActivationPhase implements ProgrammingPhaseObserver{
 	
 	@Override
-	public void startActionPhase(ArrayList<Player> players, Board board) {
-		//this.players = players;
+	public void startActivationPhase(ArrayList<Player> players, Board board) {
 		
 		if (players.size()==2) {
 			for (int i=0; i<5; i++) {
 				players.get(0).getActionDeck().getCard(i).execute(players.get(0).getRobot(), board);
 				players.get(1).getActionDeck().getCard(i).execute(players.get(1).getRobot(), board);
+				
+//				try {
+//					Thread.sleep(1000);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 			}
 		}
 		if (players.size()==3) {

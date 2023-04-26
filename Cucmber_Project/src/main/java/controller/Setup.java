@@ -11,7 +11,7 @@ import model.Deck;
 import model.Player;
 import model.Robot;
 
-public class Setup implements ViewObserver, MenuHandlerObserver {
+public class Setup implements MenuViewObserver, MenuHandlerObserver {
 	
 	private Board board;
 	private ArrayList<Player> players = new ArrayList<Player>();
@@ -149,16 +149,5 @@ public class Setup implements ViewObserver, MenuHandlerObserver {
 			setRobots();
 		}
 	}
-
-	@Override
-	public void menuHandlerUpdated() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void menuViewUpdated(int num, String player) {
-		// TODO Auto-generated method stub
-		
-	}	
+	
 }
