@@ -58,7 +58,9 @@ public class Deck {
 	            otherDeck.getDeck().add(card);
 	            this.deck.remove(index);
 	            
-	            notifyCardsUpdated(card, i, player.getName());
+	            if (numCards == 9) {
+	            	notifyCardsUpdated(card, i, player.getName());
+	            }
 	   
 	        }
 	    } else {

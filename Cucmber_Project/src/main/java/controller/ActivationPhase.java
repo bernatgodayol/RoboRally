@@ -8,19 +8,39 @@ import model.Player;
 public class ActivationPhase implements ProgrammingPhaseObserver{
 	
 	@Override
-	public void startActivationPhase(ArrayList<Player> players, Board board) {
+	public void startActivationPhase(ArrayList<Player> players, Board board, boolean isRobot) {
+		
+		if (isRobot) {
+			players.get(1).getPlayingDeck().moveRandomCards(players.get(1).getActionDeck(), 5);
+			
+			for (int i=0; i<4; i++) {
+				players.get(1).getPlayingDeck().moveCard(0, players.get(1).getDiscardDeck());
+			}
+		}
 		
 		if (players.size()==2) {
-			for (int i=0; i<5; i++) {
-				players.get(0).getActionDeck().getCard(i).execute(players.get(0).getRobot(), board);
-				players.get(1).getActionDeck().getCard(i).execute(players.get(1).getRobot(), board);
+			if (isRobot) {
+				for (int i=0; i<5; i++) {
+					players.get(0).getActionDeck().getCard(i).execute(players.get(0).getRobot(), board);
+					players.get(1).getActionDeck().getCard(i).execute(players.get(1).getRobot(), board);
+				}
+				for (int i=0; i<4; i++) {
+					players.get(1).getActionDeck().moveCard(0,players.get(1).getDiscardDeck());
+				}
 				
-//				try {
-//					Thread.sleep(1000);
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
+////			try {
+////			Thread.sleep(1000);
+////		} catch (InterruptedException e) {
+////			// TODO Auto-generated catch block
+////			e.printStackTrace();
+////		}
+				
+			}
+			else {
+				for (int i=0; i<5; i++) {
+					players.get(0).getActionDeck().getCard(i).execute(players.get(0).getRobot(), board);
+					players.get(1).getActionDeck().getCard(i).execute(players.get(1).getRobot(), board);
+				}
 			}
 		}
 		if (players.size()==3) {
