@@ -622,21 +622,69 @@ public class StepsDefinition {
 		assertTrue(robot1.getDirection().equals(Direction.NORTH));
 	}
 	
-	@When("the robots are placed on the board")
-	public void the_robots_are_placed_on_the_board() {
+	@When("the two robots are placed on the board")
+	public void the_two_robots_are_placed_on_the_board() {
 		board.setRobots(robot1, robot2);
 	}
 	
-	@Then("the robots are in the initial positions of the board")
-	public void the_robots_are_in_the_initial_positions_of_the_board() {
+	@When("the three robots are placed on the board")
+	public void the_three_robots_are_placed_on_the_board() {
+		board.setRobots(robot1, robot2, robot3);
+	}
+	@When("the four robots are placed on the board")
+	public void the_four_robots_are_placed_on_the_board() {
+		board.setRobots(robot1, robot2, robot3, robot4);
+	}
+	
+	@Then("the two robots are in the initial positions of the board")
+	public void the_two_robots_are_in_the_initial_positions_of_the_board() {
 		assertTrue(robot1.geti() == 12 && robot1.getj() == 3);
 		assertTrue(robot2.geti() == 12 && robot2.getj() == 6);
 	}
 	
-	@Then("the robots are facing north")
-	public void the_robots_are_facing_north() {
+	@Given("a third robot")
+	public void a_third_robot() {
+	    robot3 = new Robot(Color.GREEN);
+	}
+	
+	@Given("a fourth robot")
+	public void a_fourth_robot() {
+	    robot4 = new Robot(Color.YELLOW);
+	}
+	
+	@Then("the three robots are in the initial positions of the board")
+	public void the_three_robots_are_in_the_initial_positions_of_the_board() {
+		assertTrue(robot1.geti() == 12 && robot1.getj() == 3);
+		assertTrue(robot2.geti() == 12 && robot2.getj() == 6);
+		assertTrue(robot3.geti() == 11 && robot3.getj() == 4);
+	}
+	
+	@Then("the four robots are in the initial positions of the board")
+	public void the_four_robots_are_in_the_initial_positions_of_the_board() {
+		assertTrue(robot1.geti() == 12 && robot1.getj() == 3);
+		assertTrue(robot2.geti() == 12 && robot2.getj() == 6);
+		assertTrue(robot3.geti() == 11 && robot3.getj() == 4);
+		assertTrue(robot4.geti() == 11 && robot4.getj() == 5);
+	}
+	@Then("the two robots are facing north")
+	public void the_two_robots_are_facing_north() {
 	assertTrue(robot1.getDirection().equals(Direction.NORTH));
 	assertTrue(robot2.getDirection().equals(Direction.NORTH));
+	}
+	
+	@Then("the three robots are facing north")
+	public void the_three_robots_are_facing_north() {
+	assertTrue(robot1.getDirection().equals(Direction.NORTH));
+	assertTrue(robot2.getDirection().equals(Direction.NORTH));
+	assertTrue(robot3.getDirection().equals(Direction.NORTH));
+	}
+	
+	@Then("the four robots are facing north")
+	public void the_four_robots_are_facing_north() {
+	assertTrue(robot1.getDirection().equals(Direction.NORTH));
+	assertTrue(robot2.getDirection().equals(Direction.NORTH));
+	assertTrue(robot3.getDirection().equals(Direction.NORTH));
+	assertTrue(robot4.getDirection().equals(Direction.NORTH));
 	}
 	
 ///////////////////////

@@ -19,7 +19,7 @@ Feature: Set up the game
   When the robot is assigned to the player
   And the second robot is assigned to the second player
   And the 5B board is initialised
-  And the robots are placed on the board
+  And the two robots are placed on the board
   And the player is assigned the programming deck of cards
   And the second player is assigned the second programming deck of cards
   And the player is assigned the playing deck of cards
@@ -31,8 +31,8 @@ Feature: Set up the game
   Then the robot belongs to the player
   And the second robot belongs to the second player
   And the obstacles of the 5B board are in the expected tiles
-  And the robots are in the initial positions of the board
-  And the robots are facing north
+  And the two robots are in the initial positions of the board
+  And the two robots are facing north
   And the player has a programming deck of cards
   And the player has a playing deck of cards
   And the player has an action deck of cards
