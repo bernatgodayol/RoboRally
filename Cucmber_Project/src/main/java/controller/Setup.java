@@ -1,6 +1,8 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import View.PlayerStatus;
 import View.View;
@@ -18,6 +20,7 @@ public class Setup implements MenuViewObserver, MenuHandlerObserver {
 	private PlayerStatus playerStatus;
 	private View view;
 	private boolean isAI = false;
+	private Set<PhaseShiftObserver> registeredObservers = new HashSet<PhaseShiftObserver>();
 	
 	public Setup(View view, PlayerStatus playerStatus) {
 		this.view = view;
@@ -57,7 +60,7 @@ public class Setup implements MenuViewObserver, MenuHandlerObserver {
 		// Discard deck
 		players.get(playerNo).setDiscardDeck(new Deck());
 		
-		players.get(playerNo).getProgrammingDeck().moveRandomCards(players.get(playerNo).getPlayingDeck(),9);
+//		players.get(playerNo).getProgrammingDeck().moveRandomCards(players.get(playerNo).getPlayingDeck(),9);
 		
 	}
 	
@@ -143,6 +146,9 @@ public class Setup implements MenuViewObserver, MenuHandlerObserver {
 	
 	@Override
 	public void menuHandlerUpdated(int i) {
+		
+		notifyPhaseShift();
+		
 		if (i==1) {
 			board.initialize5B();
 			setRobots();
@@ -156,5 +162,16 @@ public class Setup implements MenuViewObserver, MenuHandlerObserver {
 			setRobots();
 		}
 	}
+	
+	private void notifyPhaseShift() {
+		for(PhaseShiftObserver o : registeredObservers) {
+			o.startProgrammingPhase();
+	}
+	}
+
+	public void setRegisteredObservers(PhaseShiftObserver observer) {
+		this.registeredObservers.add(observer);	
+	}	
+	
 	
 }

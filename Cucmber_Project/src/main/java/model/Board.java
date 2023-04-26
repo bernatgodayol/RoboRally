@@ -44,6 +44,14 @@ public class Board {
 		return rebootj;
 	}
 	
+	public int getEndi() {
+		return endi;
+	}
+
+	public int getEndj() {
+		return endj;
+	}
+	
 	public void initialize5B() {
 		this.getTile(3, 3).setNorthBarrier(new Wall());
 		this.getTile(3, 3).setWalkableElement(new Laser());

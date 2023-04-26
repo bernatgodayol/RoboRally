@@ -70,16 +70,16 @@ public class Deck {
 	
 
 	public void initializeProgrammingDeck() {
-		for (int i=0; i<10; i++) {
+		for (int i=0; i<1000; i++) {
 			this.deck.add(new MoveForward());
 		}
-		for (int i=0; i<2; i++) {
+		for (int i=0; i<200; i++) {
 			this.deck.add(new UTurn());
 		}
-		for (int i=0; i<5; i++) {
+		for (int i=0; i<500; i++) {
 			this.deck.add(new LeftTurn());
 		}
-		for (int i=0; i<5; i++) {
+		for (int i=0; i<500; i++) {
 			this.deck.add(new RightTurn());
 		}
 	}
@@ -120,6 +120,12 @@ public class Deck {
 	
 	public void removeCard(int index) {
 		this.deck.remove(index);
+	}
+	
+	public void refillDeck(Deck otherDeck) {
+		for(int i=0; i<otherDeck.getDeckSize(); i++) {
+			this.moveCard(0,otherDeck);
+		}
 	}
 	
 	public void setRegisteredCardObservers(CardObserver cardObserver) {

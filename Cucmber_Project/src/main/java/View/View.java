@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import controller.ActivationPhaseObserver;
 import controller.BoardObserver;
 import controller.BoardViewObserver;
 import controller.CardObserver;
@@ -11,9 +12,11 @@ import controller.MenuHandler;
 import controller.MenuViewObserver;
 import controller.PlayerStatusObserver;
 import controller.RobotObserver;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,7 +26,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import model.Card;
 
-public class View implements BoardObserver, CardObserver, PlayerStatusObserver, RobotObserver{
+public class View implements BoardObserver, CardObserver, PlayerStatusObserver, RobotObserver, ActivationPhaseObserver{
 	
 	private ImageView imageView;
 	private ImageView robot1;
@@ -45,8 +48,8 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 	Scene scene = new Scene(anchorPane,800,650);
 	
 	private String name;
-	private int j;
-	private boolean left;
+//	private int j;
+//	private boolean left;
 	
 	public Scene getScene() {
 		return scene;
@@ -80,59 +83,96 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		this.players = players;
 		this.name = name;
 		
-		gridPaneCenter.getChildren().clear();
-		anchorPane.setLeft(gridPaneLeft);
-		gridPaneLeft.setAlignment(Pos.TOP_CENTER);
-		anchorPane.setRight(gridPaneRight);
-		gridPaneRight.setAlignment(Pos.TOP_CENTER);
-		
-		Label labelname = new Label(name);
-		
-		
-		if(players.get(0) == name) {
-			gridPaneLeft.add(labelname, 0, 0);
-			this.j = 0;
-			this.left = true;
-		}
-			
-		else if(players.get(1) == name) {
-			gridPaneRight.add(labelname, 0, 0);
-			this.j = 0;
-			this.left = false;
-		}
-			
-		else if(players.size()>=3 && players.get(2) == name) {
-			gridPaneLeft.add(labelname, 1, 0);
-			this.j = 1;
-			this.left = true;
-		}
-			
-		else if(players.size()>=4 && players.get(3) == name) {
-			gridPaneRight.add(labelname, 1, 0);
-			this.j = 1;
-			this.left = false;
-		}
+//		gridPaneCenter.getChildren().clear();
+//		anchorPane.setLeft(gridPaneLeft);
+//		gridPaneLeft.setAlignment(Pos.TOP_CENTER);
+//		anchorPane.setRight(gridPaneRight);
+//		gridPaneRight.setAlignment(Pos.TOP_CENTER);
+//		
+//		Label labelname = new Label(name);
+//		
+//		
+//		if(players.get(0) == name) {
+//			gridPaneLeft.add(labelname, 0, 0);
+//			this.j = 0;
+//			this.left = true;
+//		}
+//			
+//		else if(players.get(1) == name) {
+//			gridPaneRight.add(labelname, 0, 0);
+//			this.j = 0;
+//			this.left = false;
+//		}
+//			
+//		else if(players.size()>=3 && players.get(2) == name) {
+//			gridPaneLeft.add(labelname, 1, 0);
+//			this.j = 1;
+//			this.left = true;
+//		}
+//			
+//		else if(players.size()>=4 && players.get(3) == name) {
+//			gridPaneRight.add(labelname, 1, 0);
+//			this.j = 1;
+//			this.left = false;
+//		}
 	}
 	
 
 	@Override
 	public void cardUpdated(Card card, int index, int numCard, String player) {
-	
+		
+//		gridPaneCenter.getChildren().clear();
+		anchorPane.setLeft(gridPaneLeft);
+		gridPaneLeft.setAlignment(Pos.TOP_CENTER);
+		anchorPane.setRight(gridPaneRight);
+		gridPaneRight.setAlignment(Pos.TOP_CENTER);
+		
+		Label labelname = new Label(player);
+		int j = 0;
+		boolean left = false;
+		
+		if(players.get(0) == player) {
+			gridPaneLeft.add(labelname, 0, 0);
+			j = 0;
+			left = true;
+		}
+			
+		else if(players.get(1) == player) {
+			gridPaneRight.add(labelname, 0, 0);
+			j = 0;
+			left = false;
+		}
+			
+		else if(players.size()>=3 && players.get(2) == player) {
+			gridPaneLeft.add(labelname, 1, 0);
+			j = 1;
+			left = true;
+		}
+			
+		else if(players.size()>=4 && players.get(3) == player) {
+			gridPaneRight.add(labelname, 1, 0);
+			j = 1;
+			left = false;
+		}
+
+		
 		if (player != "AI") {
 			imageView = cardManager.getCardImage(numCard);	
 			imageView.setFitHeight(40);
 			imageView.setFitWidth(40);
 			imageView.setOnMouseClicked(new EventHandler<Event>() {
-					public void handle(Event event) {
-						notifyBoardViewUpdated(index, player);
-					}
-				});
-				
-				if (left) {
-					gridPaneLeft.add(imageView,j,index+1,1,1);
-				} else {
-					gridPaneRight.add(imageView,j,index+1,1,1);
+				public void handle(Event event) {
+					notifyBoardViewUpdated(index, player);
 				}
+			});			
+			
+			if (left) {
+//				gridPaneLeft.getChildren().removeIf( node -> GridPane.getColumnIndex(node) == j && GridPane.getRowIndex(node) == (index+1));
+				gridPaneLeft.add(imageView,j,index+1,1,1);
+			} else {
+//				gridPaneRight.getChildren().removeIf( node -> GridPane.getColumnIndex(node) == j && GridPane.getRowIndex(node) == (index+1));
+				gridPaneRight.add(imageView,j,index+1,1,1);
+			}
 		}
 	}
 
@@ -311,4 +351,28 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 			o.boardViewUpdated(num, player);
 		}
 	}
+
+	@Override
+	public void winnerFound(String player) {
+		gridPaneCenter.getChildren().clear();
+		gridPaneLeft.getChildren().clear();
+		gridPaneRight.getChildren().clear();
+		
+		Label text = new Label(player + " has won!");
+		
+		gridPaneCenter.add(text,0,0);
+		
+	}
+	
+//	public Node removeNodeByRowColumnIndex(final int row,final int column,GridPane gridPane) {
+//
+//		ObservableList<Node> childrens = gridPane.getChildren();
+//		for(Node node : childrens) {
+//		    if(node instanceof ImageView && gridPane.getRowIndex(node) == row && gridPane.getColumnIndex(node) == column) {
+//		        ImageView imageView = ImageView(node); // use what you want to remove
+//		        gridPane.getChildren().remove(imageView);
+//		        break;
+//		    }
+//		  } 
+//		   }
 }

@@ -5,9 +5,8 @@ import java.util.Set;
 
 import View.CardStatus;
 import model.AI;
-import model.Card;
 
-public class ProgrammingPhase implements BoardViewObserver{
+public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 	
 	Setup gamesetup;
 	CardStatus cs;
@@ -53,6 +52,10 @@ public class ProgrammingPhase implements BoardViewObserver{
 				for (int j=0; j<4; j++) {
 					gamesetup.getPlayers().get(i).getPlayingDeck().moveCard(0, gamesetup.getPlayers().get(i).getDiscardDeck());
 				}
+				for (int j=0; j<5; j++) {
+					cs.getCardGrids().get(i).remove(0);
+				}
+				
 			}
 		}
 				
@@ -132,6 +135,18 @@ public class ProgrammingPhase implements BoardViewObserver{
 	private void notifyActionPhaseStart() {
 		for(ProgrammingPhaseObserver o : registeredActionObservers) {
 			o.startActivationPhase(gamesetup.getPlayers(), gamesetup.getBoard());
+		}
+	}
+
+	@Override
+	public void startProgrammingPhase() {
+		
+		
+		for(int i=0; i<gamesetup.getPlayers().size(); i++) {
+			if (gamesetup.getPlayers().get(i).getProgrammingDeck().getDeckSize()<9) {
+				gamesetup.getPlayers().get(i).getProgrammingDeck().refillDeck(gamesetup.getPlayers().get(i).getDiscardDeck());
+			}
+			gamesetup.getPlayers().get(i).getProgrammingDeck().moveRandomCards(gamesetup.getPlayers().get(i).getPlayingDeck(),9);
 		}
 	}	
 }

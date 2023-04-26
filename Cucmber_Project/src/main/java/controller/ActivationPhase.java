@@ -1,11 +1,17 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import model.Board;
 import model.Player;
 
 public class ActivationPhase implements ProgrammingPhaseObserver{
+	
+	private Set<PhaseShiftObserver> registeredObservers = new HashSet<PhaseShiftObserver>();
+	private Set<ActivationPhaseObserver> registeredEndObservers = new HashSet<ActivationPhaseObserver>();
+	private boolean end = false;
 	
 	@Override
 	public void startActivationPhase(ArrayList<Player> players, Board board) {
@@ -17,6 +23,7 @@ public class ActivationPhase implements ProgrammingPhaseObserver{
 				
 				// End of register: activation of the obstacles (WalkableElement)
 				activateObstacles(players,board,2);
+				
 			}
 		}
 		if (players.size()==3) {
@@ -42,6 +49,11 @@ public class ActivationPhase implements ProgrammingPhaseObserver{
 		for (int i=0; i<players.size(); i++) {
 			players.get(i).getActionDeck().moveCard(0,1,2,3,4, players.get(i).getDiscardDeck());
 		}
+		
+		if(!end) {
+			notifyPhaseShift();
+		}
+		
 	}
 	
 	private void activateObstacles(ArrayList<Player> players, Board board, int playerNum) {
@@ -51,6 +63,33 @@ public class ActivationPhase implements ProgrammingPhaseObserver{
 			if (board.getTile(i1, j1).getWalkableElement()!=null) {
 				board.getTile(i1, j1).getWalkableElement().action(players.get(j).getRobot(), board);
 			}
+			if (board.getEndi()==i1 && board.getEndj()==j1) {
+				end = true;
+				notifyGameEnds(players.get(j).getName());
+			}
+			
+			
+			
 		}
+	}
+	
+	private void notifyGameEnds(String name) {
+		for(ActivationPhaseObserver o : registeredEndObservers) {
+			o.winnerFound(name);
+		}
+	}
+
+	private void notifyPhaseShift() {
+		for(PhaseShiftObserver o : registeredObservers) {
+			o.startProgrammingPhase();
+		}
+	}
+
+	public void setRegisteredObservers(PhaseShiftObserver observer) {
+		this.registeredObservers.add(observer);	
+	}
+	
+	public void registeredEndObservers(ActivationPhaseObserver observer) {
+		this.registeredEndObservers.add(observer);	
 	}
 }
