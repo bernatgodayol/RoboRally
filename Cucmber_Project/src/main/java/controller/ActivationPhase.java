@@ -14,6 +14,13 @@ public class ActivationPhase implements ProgrammingPhaseObserver{
 			for (int i=0; i<5; i++) {
 				players.get(0).getActionDeck().getCard(i).execute(players.get(0).getRobot(), board);
 				players.get(1).getActionDeck().getCard(i).execute(players.get(1).getRobot(), board);
+				
+//				try {
+//					Thread.sleep(1000);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 			}
 		}
 		if (players.size()==3) {
