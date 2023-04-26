@@ -110,11 +110,11 @@ public class Board {
 		this.getTile(5, 1).setWalkableElement(new Pit());
 		this.getTile(8, 5).setWalkableElement(new Pit());
 		
-		for (int i=2; i<9; i++) {
+		for (int i=2; i<8; i++) {
 			this.getTile(i, 2).setWalkableElement(new Laser());;
 		}
 		
-		for (int i=2; i<9; i++) {
+		for (int i=2; i<8; i++) {
 			this.getTile(i, 7).setWalkableElement(new Laser());;
 		}
 		
@@ -138,10 +138,10 @@ public class Board {
 	public void initialize4A() {
 		this.getTile(5, 3).setWestBarrier(new Wall());
 		
-		this.getTile(3, 0).setNorthBarrier(new Wall());
-		this.getTile(4, 0).setSouthBarrier(new Wall());
-		this.getTile(3, 9).setNorthBarrier(new Wall());
-		this.getTile(4, 9).setSouthBarrier(new Wall());
+		this.getTile(4, 0).setNorthBarrier(new Wall());
+		this.getTile(5, 0).setSouthBarrier(new Wall());
+		this.getTile(4, 9).setNorthBarrier(new Wall());
+		this.getTile(5, 9).setSouthBarrier(new Wall());
 		
 		this.getTile(0, 6).setWestBarrier(new Wall());
 		this.getTile(0, 8).setEastBarrier(new Wall());
