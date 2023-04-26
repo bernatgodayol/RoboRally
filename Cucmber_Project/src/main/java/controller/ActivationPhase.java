@@ -10,13 +10,16 @@ public class ActivationPhase implements ProgrammingPhaseObserver{
 	@Override
 	public void startActivationPhase(ArrayList<Player> players, Board board, boolean isRobot) {
 		
-		if (isRobot) {
-			players.get(1).getPlayingDeck().moveRandomCards(players.get(1).getActionDeck(), 5);
-			
-			for (int i=0; i<4; i++) {
-				players.get(1).getPlayingDeck().moveCard(0, players.get(1).getDiscardDeck());
-			}
-		}
+//		if (isRobot) {
+////			if (players.get(1) instanceof AI) {
+////				AI playerAI = (AI) players.get(1);
+////				playerAI.pickCards(5);
+////			}
+////			players.get(1).getPlayingDeck().moveCard(0,1,2,3, players.get(1).getDiscardDeck());
+////			for (int i=0; i<4; i++) {
+////				players.get(1).getPlayingDeck().moveCard(0, players.get(1).getDiscardDeck());
+////			}
+//		}
 		
 		if (players.size()==2) {
 			if (isRobot) {
@@ -24,7 +27,8 @@ public class ActivationPhase implements ProgrammingPhaseObserver{
 					players.get(0).getActionDeck().getCard(i).execute(players.get(0).getRobot(), board);
 					players.get(1).getActionDeck().getCard(i).execute(players.get(1).getRobot(), board);
 				}
-				for (int i=0; i<4; i++) {
+				for (int i=0; i<5; i++) {
+					players.get(0).getActionDeck().moveCard(0,players.get(0).getDiscardDeck());
 					players.get(1).getActionDeck().moveCard(0,players.get(1).getDiscardDeck());
 				}
 				

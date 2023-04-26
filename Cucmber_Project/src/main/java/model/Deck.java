@@ -103,14 +103,14 @@ public class Deck {
 	    		System.out.println("Index of card not valid");
 	    	} else {
 	    		// add to action deck
-	    		otherDeck.addCard(this.getCard(i-1));
+	    		otherDeck.addCard(this.getCard(i));
 	    	}
 	    }
 	    // Sort the array in descending order
 	    Arrays.sort(indices, Collections.reverseOrder());
 	    // remove from the playing deck
-	    for( int i : indices) {
-	    	this.removeCard(i-1);
+	    for(int i : indices) {
+	    	this.removeCard(i);
 	    }
 	}
 	

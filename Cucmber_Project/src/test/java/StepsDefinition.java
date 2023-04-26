@@ -85,7 +85,7 @@ public class StepsDefinition {
 	int int6 = 6;
 	int int7 = 3;
 	int int8 = 2;
-	int int9 = 9;
+	int int9 = 0;
 	int int10 = 1;
 	AI AI;
 	
@@ -690,11 +690,11 @@ public class StepsDefinition {
 		System.out.println("the player moves the cards {int} {int} {int} {int} {int} from the playing deck to the action deck");
 		System.out.println(playingDeck1.getDeckSize());
     	System.out.println(actionDeck1.getDeckSize());
-		choosenCard1 = playingDeck1.getCard(int1-1);
-		choosenCard2 = playingDeck1.getCard(int2-1);
-		choosenCard3 = playingDeck1.getCard(int3-1);
-		choosenCard4 = playingDeck1.getCard(int4-1);
-		choosenCard5 = playingDeck1.getCard(int5-1);
+		choosenCard1 = playingDeck1.getCard(int1);
+		choosenCard2 = playingDeck1.getCard(int2);
+		choosenCard3 = playingDeck1.getCard(int3);
+		choosenCard4 = playingDeck1.getCard(int4);
+		choosenCard5 = playingDeck1.getCard(int5);
     	playingDeck1.moveCard(int1, int2, int3, int4, int5, actionDeck1);
     	System.out.println(playingDeck1.getDeckSize());
     	System.out.println(actionDeck1.getDeckSize());
@@ -725,11 +725,11 @@ public class StepsDefinition {
 	
 	@When("the second player moves the cards {int} {int} {int} {int} {int} from the second playing deck to the second action deck")
 	public void the_second_player_moves_the_cards_from_the_second_playing_deck_to_the_second_action_deck(Integer int6, Integer int7, Integer int8, Integer int9, Integer int10) {
-		choosenCard6 = playingDeck2.getCard(int6-1);
-		choosenCard7 = playingDeck2.getCard(int7-1);
-		choosenCard8 = playingDeck2.getCard(int8-1);
-		choosenCard9 = playingDeck2.getCard(int9-1);
-		choosenCard10 = playingDeck2.getCard(int10-1);
+		choosenCard6 = playingDeck2.getCard(int6);
+		choosenCard7 = playingDeck2.getCard(int7);
+		choosenCard8 = playingDeck2.getCard(int8);
+		choosenCard9 = playingDeck2.getCard(int9);
+		choosenCard10 = playingDeck2.getCard(int10);
     	playingDeck2.moveCard(int6, int7, int8, int9, int10, actionDeck2);
 	}
 	@Then("the {int} cards are in the action deck")

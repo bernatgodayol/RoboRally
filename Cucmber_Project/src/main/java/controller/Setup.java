@@ -17,7 +17,7 @@ public class Setup implements MenuViewObserver, MenuHandlerObserver {
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private PlayerStatus playerStatus;
 	private View view;
-	private boolean isRobot = false;
+	private boolean isAI = false;
 	
 	public Setup(View view, PlayerStatus playerStatus) {
 		this.view = view;
@@ -37,8 +37,8 @@ public class Setup implements MenuViewObserver, MenuHandlerObserver {
 		return players;
 	}
 	
-	public boolean getIsRobot() {
-		return isRobot;
+	public boolean getIsAI() {
+		return isAI;
 	}
 
 	private void assignDecks(int playerNo, Deck programmingDeck) {
@@ -122,7 +122,7 @@ public class Setup implements MenuViewObserver, MenuHandlerObserver {
 			Deck programmingDeck2 = new Deck();
 			assignDecks(1,programmingDeck2);
 			
-			isRobot = true;
+			isAI = true;
 		}
 	
 	}

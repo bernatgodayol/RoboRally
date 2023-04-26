@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import View.CardStatus;
+import model.AI;
 import model.Card;
 
 public class ProgrammingPhase implements BoardViewObserver{
@@ -20,31 +21,41 @@ public class ProgrammingPhase implements BoardViewObserver{
 	
 	public void initializeActionPhase() {
 		
-		if (gamesetup.getIsRobot()) {
-			for (int j=0; j<5; j++) {
-				Card card = gamesetup.getPlayers().get(0).getPlayingDeck().getCard(cs.getCardGrids().get(0).get(j));
-				gamesetup.getPlayers().get(0).getActionDeck().addCard(card);
+		if (gamesetup.getIsAI()) {
+			if (gamesetup.getPlayers().get(1) instanceof AI) {
+				AI playerAI = (AI) gamesetup.getPlayers().get(1);
+				playerAI.pickCards(5);
 			}
 			
-			for (int j=0; j<9; j++) {
+			int index1 = cs.getCardGrids().get(0).get(0);
+			int index2 = cs.getCardGrids().get(0).get(1);
+			int index3 = cs.getCardGrids().get(0).get(2);
+			int index4 = cs.getCardGrids().get(0).get(3);
+			int index5 = cs.getCardGrids().get(0).get(4);
+			
+			gamesetup.getPlayers().get(0).getPlayingDeck().moveCard(index1, index2, index3, index4, index5, gamesetup.getPlayers().get(0).getActionDeck());
+			
+			for (int j=0; j<4; j++) {
 				gamesetup.getPlayers().get(0).getPlayingDeck().moveCard(0, gamesetup.getPlayers().get(0).getDiscardDeck());
+				gamesetup.getPlayers().get(1).getPlayingDeck().moveCard(0, gamesetup.getPlayers().get(1).getDiscardDeck());
 			}
 		}
 		else {
 			for (int i=0; i<gamesetup.getPlayers().size(); i++) {
-					
-				for (int j=0; j<5; j++) {
-					Card card = gamesetup.getPlayers().get(i).getPlayingDeck().getCard(cs.getCardGrids().get(i).get(j));
-					gamesetup.getPlayers().get(i).getActionDeck().addCard(card);
-				}
+				int index1 = cs.getCardGrids().get(i).get(0);
+				int index2 = cs.getCardGrids().get(i).get(1);
+				int index3 = cs.getCardGrids().get(i).get(2);
+				int index4 = cs.getCardGrids().get(i).get(3);
+				int index5 = cs.getCardGrids().get(i).get(4);
+				gamesetup.getPlayers().get(i).getPlayingDeck().moveCard(index1, index2, index3, index4, index5, gamesetup.getPlayers().get(i).getActionDeck());
 				
-				for (int j=0; j<9; j++) {
+				for (int j=0; j<4; j++) {
 					gamesetup.getPlayers().get(i).getPlayingDeck().moveCard(0, gamesetup.getPlayers().get(i).getDiscardDeck());
 				}
 			}
 		}
 				
-		notifyActionPhaseStart(gamesetup.getIsRobot());
+		notifyActionPhaseStart(gamesetup.getIsAI());
 	}
 
 	@Override
@@ -81,7 +92,7 @@ public class ProgrammingPhase implements BoardViewObserver{
 		
 		
 		if (gamesetup.getPlayers().size()==2) {
-			if (gamesetup.getIsRobot()) {
+			if (gamesetup.getIsAI()) {
 				if (cs.getCardGrids().get(0).size() == 5) {
 					initializeActionPhase();				
 				}
