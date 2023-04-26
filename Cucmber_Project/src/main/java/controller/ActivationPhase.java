@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import model.Board;
 import model.Player;
 
-public class ActionPhase implements StartActionPhaseObserver{
+public class ActivationPhase implements ProgrammingPhaseObserver{
 	
 	@Override
 	public void startActionPhase(ArrayList<Player> players, Board board, boolean isRobot) {

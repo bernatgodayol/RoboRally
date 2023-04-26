@@ -15,7 +15,7 @@ public class ProgrammingPhase implements ViewObserver{
 //	ArrayList<Player> players;
 //	Board board;
 	private int numplayer;
-	private Set<StartActionPhaseObserver> registeredActionObservers = new HashSet<StartActionPhaseObserver>();
+	private Set<ProgrammingPhaseObserver> registeredActionObservers = new HashSet<ProgrammingPhaseObserver>();
 	
 	public ProgrammingPhase(Setup gamesetup, CardStatus cs) {
 		this.gamesetup = gamesetup;
@@ -133,12 +133,12 @@ public class ProgrammingPhase implements ViewObserver{
 		}
 	}
 	
-	public void setRegisteredActionObservers(StartActionPhaseObserver actionObserver) {
+	public void setRegisteredActionObservers(ProgrammingPhaseObserver actionObserver) {
 		this.registeredActionObservers.add(actionObserver);	
 	}
 
 	private void notifyActionPhaseStart(boolean isRobot) {
-		for(StartActionPhaseObserver o : registeredActionObservers) {
+		for(ProgrammingPhaseObserver o : registeredActionObservers) {
 			o.startActionPhase(gamesetup.getPlayers(), gamesetup.getBoard(), isRobot);
 		}
 	}	

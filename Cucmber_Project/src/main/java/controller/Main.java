@@ -29,7 +29,7 @@ public class Main extends Application{
 		view.setRegisteredObservers(gameProgramming);
 		handler.setRegisteredObservers(gameSetup);
 		view.setMenuHandler(handler);
-		ActionPhase actionPhase = new ActionPhase();
+		ActivationPhase actionPhase = new ActivationPhase();
 		gameProgramming.setRegisteredActionObservers(actionPhase);
 				
 		stage.setScene(view.choosePlayerNum());		
