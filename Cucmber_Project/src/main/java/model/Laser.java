@@ -6,11 +6,6 @@ public class Laser implements WalkableElement {
 	public boolean equals(Object object) {
 	    return (object instanceof Laser);
 	}
-	
-	@Override
-    public int hashCode() {
-        return 1; // any constant value
-    }
 
 	@Override
 	public void action(Robot robot, Board board) {

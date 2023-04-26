@@ -7,8 +7,4 @@ public class Wall extends BarrierElement {
 	    return (object instanceof Wall);
 	}
 	
-	@Override
-    public int hashCode() {
-        return 2;
-    }
 }

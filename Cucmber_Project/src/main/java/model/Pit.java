@@ -7,11 +7,6 @@ public class Pit implements WalkableElement {
 	    return (object instanceof Pit);
 	}
 	
-	@Override
-    public int hashCode() {
-        return 3;
-    }
-	
 	public void action(Robot robot, Board board) {
 		robot.seti(board.getRebooti());
 		robot.setj(board.getRebootj());
