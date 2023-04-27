@@ -22,8 +22,8 @@ public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 		
 		for (int i=0; i<gamesetup.getPlayers().size(); i++) {
 			if (gamesetup.getPlayers().get(i).getProgrammingDeck().getDeckSize()<10) {
-				System.out.println(gamesetup.getPlayers().get(i).getDiscardDeck().getDeckSize() + " discard after refill");
-				System.out.println(gamesetup.getPlayers().get(i).getProgrammingDeck().getDeckSize() + " programming after refill");
+//				System.out.println(gamesetup.getPlayers().get(i).getDiscardDeck().getDeckSize() + " discard after refill");
+//				System.out.println(gamesetup.getPlayers().get(i).getProgrammingDeck().getDeckSize() + " programming after refill");
 			}
 		}
 		
@@ -151,11 +151,14 @@ public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 			
 			System.out.println(gamesetup.getPlayers().get(i).getDiscardDeck().getDeckSize() + " discard before refill");
 			System.out.println(gamesetup.getPlayers().get(i).getProgrammingDeck().getDeckSize() + " programming before refill");
-			gamesetup.getPlayers().get(i).getProgrammingDeck().moveRandomCards(gamesetup.getPlayers().get(i).getPlayingDeck(),9);
-			
 			if (gamesetup.getPlayers().get(i).getProgrammingDeck().getDeckSize()<10) {
-				gamesetup.getPlayers().get(i).getDiscardDeck().refillDeck(gamesetup.getPlayers().get(i).getProgrammingDeck());
+				gamesetup.getPlayers().get(i).getProgrammingDeck().refillDeck(gamesetup.getPlayers().get(i).getDiscardDeck());
+				System.out.println(gamesetup.getPlayers().get(i).getDiscardDeck().getDeckSize() + " discard after refill");
+				System.out.println(gamesetup.getPlayers().get(i).getProgrammingDeck().getDeckSize() + " programming after refill");
 			}
+			
+			gamesetup.getPlayers().get(i).getProgrammingDeck().moveRandomCards(gamesetup.getPlayers().get(i).getPlayingDeck(),9);
+
 		}
 	}	
 }
