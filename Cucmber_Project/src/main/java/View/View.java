@@ -51,7 +51,6 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 	private GridPane gridPaneCenter = new GridPane();
 	private GridPane gridPaneLeft = new GridPane();
 	private GridPane gridPaneRight = new GridPane();
-//	private Rectangle border = new Rectangle();
 	Scene scene = new Scene(anchorPane,800,650);
 	
 	private String name;
@@ -163,14 +162,14 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 							}
 						}
 					}
-					else if(players.size()>2){
+					if(players.size()>2){
 						if(players.get(2) == player){
 							if(cardstatus.getCardGrids().get(2).size()<5) {
 								notify = true;
 							}
 						}
 					}
-					else if(players.size()>3){
+					if(players.size()>3){
 						if(players.get(3) == player){
 							if(cardstatus.getCardGrids().get(3).size()<5) {
 								notify = true;
@@ -313,34 +312,103 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 				gridPaneCenter.add(text4,0,6);
 				gridPaneCenter.add(textField4,0,7);
 			}
-			
-			Button button = new Button("Next");
-			gridPaneCenter.add(button,0,i*2);			
-			button.setOnMouseClicked(new EventHandler<Event>() {
-				public void handle(Event event) {
-					
-					if (i>0) {				
-						names.add(textField1.getText());
-					}
-					if (i>1) {
-						names.add(textField2.getText());
-					}
-					if (i>2) {
-						names.add(textField3.getText());
-					}
-					if (i>3) {
-						names.add(textField4.getText());
-					}
+		}
 		
+		
+		Button button = new Button("Next");
+		gridPaneCenter.add(button,0,i*2);			
+		button.setOnMouseClicked(new EventHandler<Event>() {
+			public void handle(Event event) {
+				if (i == 1 && !textField1.getText().isEmpty() && !textField1.getText().equals("AI")) {
+					names.add(textField1.getText());
 					notifyMenuViewUpdated(names);
 					chooseDifficulty();
 				}
-			});
-					
-		}else {
-			System.out.println("There cannot be less than 1 player or more than 4 players");
-		}		
+				else if (i == 2 && !textField1.getText().isEmpty() && !textField2.getText().isEmpty() && 
+						!textField1.getText().equals("AI") && !textField2.getText().equals("AI") &&
+						!textField1.getText().equals(textField2.getText())) {
+					names.add(textField1.getText());
+					names.add(textField2.getText());
+					notifyMenuViewUpdated(names);
+					chooseDifficulty();
+				}
+				else if (i == 3 && !textField1.getText().isEmpty() && !textField2.getText().isEmpty() && 
+						!textField3.getText().isEmpty() && !textField1.getText().equals("AI") && 
+						!textField2.getText().equals("AI") && !textField3.getText().equals("AI") &&
+						!textField1.getText().equals(textField2.getText()) && 
+						!textField1.getText().equals(textField3.getText()) && 
+						!textField3.getText().equals(textField2.getText())){
+					names.add(textField1.getText());
+					names.add(textField2.getText());
+					names.add(textField3.getText());
+					notifyMenuViewUpdated(names);
+					chooseDifficulty();
+				}
+				else if (i == 4 && !textField1.getText().isEmpty() && !textField2.getText().isEmpty() && 
+						!textField3.getText().isEmpty() && !textField4.getText().isEmpty() &&
+						!textField1.getText().equals("AI") && !textField2.getText().equals("AI") && 
+						!textField3.getText().equals("AI") && !textField4.getText().equals("AI") &&
+						!textField1.getText().equals(textField2.getText()) && 
+						!textField1.getText().equals(textField3.getText()) && 
+						!textField3.getText().equals(textField2.getText()) &&
+						!textField1.getText().equals(textField4.getText()) &&
+						!textField2.getText().equals(textField4.getText()) &&
+						!textField3.getText().equals(textField4.getText())){
+					names.add(textField1.getText());
+					names.add(textField2.getText());
+					names.add(textField3.getText());
+					names.add(textField4.getText());
+					notifyMenuViewUpdated(names);
+					chooseDifficulty();
+				}
+				else {
+					Label text1 = new Label("Please choose a unique name for each player.\n"
+							+ "Player cannot be named called 'AI'");
+					text1.setStyle("-fx-text-fill: red;");
+					gridPaneCenter.add(text1,0,(i*2+1));
+				}
+			
+			}
+		});
 	}
+		
+//	int rowCount = 0;
+//    TextField[] textField = new TextField[i];
+//    Label[] text = new Label[i];
+//    String[] robotNames = {"Green", "Yellow", "Red", "Blue"};
+//	
+//	for (int j = 0; j < i; j++) {
+//        text[j] = new Label("Type the name of player " + (j + 1) + " (" + robotNames[j] + " robot):");
+//        gridPaneCenter.add(text[j], 0, rowCount++);
+//        textField[j] = new TextField();
+//        gridPaneCenter.add(textField[j], 0, rowCount++);
+//    }
+//		Button button = new Button("Next");
+//		gridPaneCenter.add(button,0,i*2);			
+//		button.setOnMouseClicked(new EventHandler<Event>() {
+//			public void handle(Event event) {
+	//		     boolean valid = true;
+	//	            for (int j = 0; j < i; j++) {
+	//	                if (textField[j].getText().isEmpty() || textField[j].getText().equals("AI")) {
+	//	                    valid = false;
+	//	                    break;
+	//	                }
+	//	                for (int k = j + 1; k < i; k++) {
+	//	                    if (textField[j].getText().equals(textField[k].getText())) {
+	//	                        valid = false;
+	//	                        break;
+	//	                    }
+	//	                }
+	//	                if (!valid) {
+	//	                    break;
+	//	                }
+	//	                names.add(textField[j].getText());
+	//	            }
+	//	            if (valid) {
+	//	                notifyMenuViewUpdated(names);
+	//	                chooseDifficulty();
+	//	            }
+            	
 	
 	public void chooseDifficulty() {
 		gridPaneCenter.getChildren().clear();
@@ -399,6 +467,7 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		gridPaneRight.getChildren().clear();
 		
 		Label text = new Label(player + " has won!");
+		text.setStyle("-fx-text-fill: red;-fx-font-size: 16px;");
 		
 		gridPaneCenter.add(text,0,0);
 		
