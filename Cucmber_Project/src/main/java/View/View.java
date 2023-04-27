@@ -38,6 +38,7 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 	private ImageView robot2;
 	private ImageView robot3;
 	private ImageView robot4;
+	private Button nextButton = new Button("Next");
 	private TileManager tilemanager = new TileManager();
 	private CardManager cardManager = new CardManager();
 	private RobotManager robotManager = new RobotManager();
@@ -405,13 +406,25 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 	}
 	
 	@Override
-	public void activationPhaseUpdated(ArrayList<Player> players, Board board) {
-		Button nextButton = new Button("Next");
-		gridPaneRight.add(nextButton, 0, 15);
-		nextButton.setOnMouseClicked(new EventHandler<Event>() {
-			public void handle(Event event) {
-				notifyActivationViewUpdated(players,board);
-			}
-		});	
+	public void activationPhaseUpdated(ArrayList<Player> players, Board board, boolean endActivationPhase) {
+		if (!endActivationPhase) {
+			Button nextButton = new Button("Next");
+			gridPaneRight.add(nextButton, 0, 15);
+			nextButton.setOnMouseClicked(new EventHandler<Event>() {
+				public void handle(Event event) {
+					notifyActivationViewUpdated(players,board);
+				}
+			});
+		}else {
+			gridPaneRight.getChildren().removeIf(node -> GridPane.getColumnIndex(node)==0 && 
+					GridPane.getRowIndex(node)==15);
+//			Button nextButton = new Button("Next");
+//			gridPaneRight.add(nextButton, 0, 15);
+//			nextButton.setOnMouseClicked(new EventHandler<Event>() {
+//				public void handle(Event event) {
+//				
+//				}
+//			});
+		}	
 	}
 }
