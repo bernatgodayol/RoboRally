@@ -4,12 +4,9 @@ package controller;
 import java.util.HashSet;
 import java.util.Set;
 
-import View.CardManager;
 import View.View;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 public class MenuHandler implements EventHandler<MouseEvent> {

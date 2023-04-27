@@ -154,23 +154,23 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		}
 
 		
+		imageView = cardManager.getCardImage(numCard);	
+		imageView.setFitHeight(40);
+		imageView.setFitWidth(40);
+		
 		if (player != "AI") {
-			imageView = cardManager.getCardImage(numCard);	
-			imageView.setFitHeight(40);
-			imageView.setFitWidth(40);
 			imageView.setOnMouseClicked(new EventHandler<Event>() {
 				public void handle(Event event) {
 					notifyBoardViewUpdated(index, player);
 				}
 			});			
-			
-			if (left) {
-//				gridPaneLeft.getChildren().removeIf( node -> GridPane.getColumnIndex(node) == j && GridPane.getRowIndex(node) == (index+1));
-				gridPaneLeft.add(imageView,j,index+1,1,1);
-			} else {
-//				gridPaneRight.getChildren().removeIf( node -> GridPane.getColumnIndex(node) == j && GridPane.getRowIndex(node) == (index+1));
-				gridPaneRight.add(imageView,j,index+1,1,1);
-			}
+		}
+		if (left) {
+//			gridPaneLeft.getChildren().removeIf( node -> GridPane.getColumnIndex(node) == j && GridPane.getRowIndex(node) == (index+1));
+			gridPaneLeft.add(imageView,j,index+1,1,1);
+		} else {
+//			gridPaneRight.getChildren().removeIf( node -> GridPane.getColumnIndex(node) == j && GridPane.getRowIndex(node) == (index+1));
+			gridPaneRight.add(imageView,j,index+1,1,1);
 		}
 	}
 

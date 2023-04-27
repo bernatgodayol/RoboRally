@@ -23,6 +23,9 @@ public class ActivationPhase implements ProgrammingPhaseObserver{
 				// End of register: activation of the obstacles (WalkableElement)
 				activateObstacles(players,board,2);
 				
+				if(end) {
+					break;
+				}
 			}
 		}
 		if (players.size()==3) {
@@ -32,6 +35,10 @@ public class ActivationPhase implements ProgrammingPhaseObserver{
 				players.get(2).getActionDeck().getCard(i).execute(players.get(2).getRobot(), board);
 				// End of register: activation of the obstacles (WalkableElement)
 				activateObstacles(players,board,3);
+				
+				if(end) {
+					break;
+				}
 			}
 		}
 		if (players.size()==4) {
@@ -42,6 +49,10 @@ public class ActivationPhase implements ProgrammingPhaseObserver{
 				players.get(3).getActionDeck().getCard(i).execute(players.get(3).getRobot(), board);
 				// End of register: activation of the obstacles (WalkableElement)
 				activateObstacles(players,board,4);
+				
+				if(end) {
+					break;
+				}
 			}
 		}
 		
@@ -66,9 +77,6 @@ public class ActivationPhase implements ProgrammingPhaseObserver{
 				end = true;
 				notifyGameEnds(players.get(j).getName());
 			}
-			
-			
-			
 		}
 	}
 	
