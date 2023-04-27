@@ -150,15 +150,15 @@ public class Setup implements MenuViewObserver, MenuHandlerObserver {
 		notifyPhaseShift();
 		
 		if (i==1) {
-			board.initialize5B();
+			board.initializeEASY();
 			setRobots();
 		}
 		else if (i==2) {
-			board.initialize2B();
+			board.initializeMEDIUM();
 			setRobots();
 		}
 		else if (i==3) {
-			board.initialize4A();
+			board.initializeHARD();
 			setRobots();
 		}
 	}
