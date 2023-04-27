@@ -19,7 +19,8 @@ public class ActivationPhase implements ProgrammingPhaseObserver, ActivationView
 	@Override
 	public void startActivationPhase(ArrayList<Player> players, Board board) {
 		
-		notifyActivationPhaseUpdated(players,board);
+//		continueActivationPhase(players,board);
+		notifyActivationPhaseUpdated(players,board,false);
 		
 //		if (players.size()==2) {
 //			for (int i=0; i<5; i++) {
@@ -85,10 +86,13 @@ public class ActivationPhase implements ProgrammingPhaseObserver, ActivationView
 			activateObstacles(players,board,players.size());
 			
 			if (!end) {
-				notifyActivationPhaseUpdated(players,board);
+				notifyActivationPhaseUpdated(players,board,false);
 			}
 		
 		}else {
+			if (!end) {
+				notifyActivationPhaseUpdated(players,board,true);
+			}
 			notifyPhaseShift();
 		}
 	}
@@ -119,9 +123,9 @@ public class ActivationPhase implements ProgrammingPhaseObserver, ActivationView
 		}
 	}
 	
-	private void notifyActivationPhaseUpdated(ArrayList<Player> players, Board board) {
+	private void notifyActivationPhaseUpdated(ArrayList<Player> players, Board board, boolean endActivationPhase) {
 		for(ActivationPhaseObserver o : registeredActivationPhaseObservers) {
-			o.activationPhaseUpdated(players,board);
+			o.activationPhaseUpdated(players,board,endActivationPhase);
 		}
 	}
 

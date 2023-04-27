@@ -151,7 +151,13 @@ public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 	@Override
 	public void startProgrammingPhase() {
 		
-		
+//		if (cs.getCardGrids().get(0).size()!=0) {
+//			for (int i=0; i<gamesetup.getPlayers().size(); i++) {
+//				for (int j=0; j<5; j++) {
+//					cs.getCardGrids().get(i).remove(0);
+//				}
+//			}
+//		}
 		
 		for(int i=0; i<gamesetup.getPlayers().size(); i++) {
 			
