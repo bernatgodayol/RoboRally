@@ -10,8 +10,8 @@ import model.AI;
 
 public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 	
-	Setup gamesetup;
-	CardStatus cs;
+	private Setup gamesetup;
+	private CardStatus cs;
 	private int numplayer;
 	private Set<ProgrammingPhaseObserver> registeredActionObservers = new HashSet<ProgrammingPhaseObserver>();
 	private ClassLoader classLoader = getClass().getClassLoader();
@@ -161,12 +161,8 @@ public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 		
 		for(int i=0; i<gamesetup.getPlayers().size(); i++) {
 			
-			System.out.println(gamesetup.getPlayers().get(i).getDiscardDeck().getDeckSize() + " discard before refill");
-			System.out.println(gamesetup.getPlayers().get(i).getProgrammingDeck().getDeckSize() + " programming before refill");
 			if (gamesetup.getPlayers().get(i).getProgrammingDeck().getDeckSize()<10) {
 				gamesetup.getPlayers().get(i).getProgrammingDeck().refillDeck(gamesetup.getPlayers().get(i).getDiscardDeck());
-				System.out.println(gamesetup.getPlayers().get(i).getDiscardDeck().getDeckSize() + " discard after refill");
-				System.out.println(gamesetup.getPlayers().get(i).getProgrammingDeck().getDeckSize() + " programming after refill");
 			}
 			
 			gamesetup.getPlayers().get(i).getProgrammingDeck().moveRandomCards(gamesetup.getPlayers().get(i).getPlayingDeck(),9);

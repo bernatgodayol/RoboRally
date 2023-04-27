@@ -24,6 +24,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import model.Board;
@@ -400,9 +402,10 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		gridPaneRight.getChildren().clear();
 		
 		Label text = new Label(player + " has won!");
-		
 		gridPaneCenter.add(text,0,0);
 		
+		Sound sound = new Sound();
+		sound.playSound("fanfare");
 	}
 	
 	@Override
@@ -418,13 +421,6 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		}else {
 			gridPaneRight.getChildren().removeIf(node -> GridPane.getColumnIndex(node)==0 && 
 					GridPane.getRowIndex(node)==15);
-//			Button nextButton = new Button("Next");
-//			gridPaneRight.add(nextButton, 0, 15);
-//			nextButton.setOnMouseClicked(new EventHandler<Event>() {
-//				public void handle(Event event) {
-//				
-//				}
-//			});
 		}	
 	}
 }

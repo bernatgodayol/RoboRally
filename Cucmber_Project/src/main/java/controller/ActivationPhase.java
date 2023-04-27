@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import View.Sound;
 import javafx.scene.media.*;
 
 import model.Board;
@@ -14,62 +15,12 @@ public class ActivationPhase implements ProgrammingPhaseObserver, ActivationView
 	private Set<PhaseShiftObserver> registeredPhaseShiftObservers = new HashSet<PhaseShiftObserver>();
 	private Set<ActivationPhaseObserver> registeredActivationPhaseObservers = new HashSet<ActivationPhaseObserver>();
 	private boolean end = false;
-	private ClassLoader classLoader = getClass().getClassLoader();
+	private Sound sound = new Sound();
 	
 	@Override
 	public void startActivationPhase(ArrayList<Player> players, Board board) {
-		
-//		continueActivationPhase(players,board);
+		sound.playSound("yeah");
 		notifyActivationPhaseUpdated(players,board,false);
-		
-//		if (players.size()==2) {
-//			for (int i=0; i<5; i++) {
-//				players.get(0).getActionDeck().getCard(i).execute(players.get(0).getRobot(), board);
-//				players.get(1).getActionDeck().getCard(i).execute(players.get(1).getRobot(), board);
-//				// End of register: activation of the obstacles (WalkableElement)
-//				activateObstacles(players,board,2);
-//				
-//				if(end) {
-//					break;
-//				}
-//			}
-//		}
-//		if (players.size()==3) {
-//			for (int i=0; i<5; i++) {
-//				players.get(0).getActionDeck().getCard(i).execute(players.get(0).getRobot(), board);
-//				players.get(1).getActionDeck().getCard(i).execute(players.get(1).getRobot(), board);
-//				players.get(2).getActionDeck().getCard(i).execute(players.get(2).getRobot(), board);
-//				// End of register: activation of the obstacles (WalkableElement)
-//				activateObstacles(players,board,3);
-//				
-//				if(end) {
-//					break;
-//				}
-//			}
-//		}
-//		if (players.size()==4) {
-//			for (int i=0; i<5; i++) {
-//				players.get(0).getActionDeck().getCard(i).execute(players.get(0).getRobot(), board);
-//				players.get(1).getActionDeck().getCard(i).execute(players.get(1).getRobot(), board);
-//				players.get(2).getActionDeck().getCard(i).execute(players.get(2).getRobot(), board);
-//				players.get(3).getActionDeck().getCard(i).execute(players.get(3).getRobot(), board);
-//				// End of register: activation of the obstacles (WalkableElement)
-//				activateObstacles(players,board,4);
-//				
-//				if(end) {
-//					break;
-//				}
-//			}
-//		}
-//		
-//		for (int i=0; i<players.size(); i++) {
-//			players.get(i).getActionDeck().moveCard(0,1,2,3,4, players.get(i).getDiscardDeck());
-//		}
-		
-//		if(!end) {
-//			notifyPhaseShift();
-//		}
-		
 	}
 	
 	@Override
@@ -103,12 +54,7 @@ public class ActivationPhase implements ProgrammingPhaseObserver, ActivationView
 			int j1 = players.get(j).getRobot().getj();
 			if (board.getTile(i1, j1).getWalkableElement()!=null) {
 				board.getTile(i1, j1).getWalkableElement().action(players.get(j).getRobot(), board);
-				
-				String imageUrl = classLoader.getResource("Sounds/robot_damaged.mp3").toExternalForm();
-				Media sound = new Media(imageUrl);
-				MediaPlayer mediaPlayer = new MediaPlayer(sound);
-				mediaPlayer.play();
-				
+				sound.playSound("robot_damaged");	
 			}
 			if (board.getEndi()==i1 && board.getEndj()==j1) {
 				end = true;
