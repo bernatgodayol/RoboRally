@@ -20,6 +20,16 @@ public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 	
 	public void initializeActionPhase() {
 		
+		for (int i=0; i<gamesetup.getPlayers().size(); i++) {
+			if (gamesetup.getPlayers().get(i).getProgrammingDeck().getDeckSize()<10) {
+				gamesetup.getPlayers().get(i).getDiscardDeck().refillDeck(gamesetup.getPlayers().get(i).getProgrammingDeck());
+				
+				
+				System.out.println(gamesetup.getPlayers().get(i).getDiscardDeck().getDeckSize() + " discard");
+				System.out.println(gamesetup.getPlayers().get(i).getProgrammingDeck().getDeckSize() + " programming");
+			}
+		}
+		
 		if (gamesetup.getIsAI()) {
 			if (gamesetup.getPlayers().get(1) instanceof AI) {
 				AI playerAI = (AI) gamesetup.getPlayers().get(1);
@@ -37,6 +47,9 @@ public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 			for (int j=0; j<4; j++) {
 				gamesetup.getPlayers().get(0).getPlayingDeck().moveCard(0, gamesetup.getPlayers().get(0).getDiscardDeck());
 				gamesetup.getPlayers().get(1).getPlayingDeck().moveCard(0, gamesetup.getPlayers().get(1).getDiscardDeck());
+			}
+			for (int j=0; j<5; j++) {
+				cs.getCardGrids().get(0).remove(0);
 			}
 		}
 		else {
@@ -96,17 +109,13 @@ public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 		
 		
 		if (gamesetup.getPlayers().size()==2) {
-			if (gamesetup.getIsAI()) {
-				if (cs.getCardGrids().get(0).size() == 5) {
-					initializeActionPhase();				
-				}
+			if (cs.getCardGrids().get(0).size() == 5 && gamesetup.getIsAI()) {
+				initializeActionPhase();				
 			}
-			else {
-				if (cs.getCardGrids().get(0).size() == 5 && 
-						cs.getCardGrids().get(1).size() == 5) {
+			if (cs.getCardGrids().get(0).size() == 5 && 
+					cs.getCardGrids().get(1).size() == 5) {
 					
-					initializeActionPhase();				
-				}
+				initializeActionPhase();				
 			}
 		}
 		else if (gamesetup.getPlayers().size()==3) {
@@ -141,11 +150,10 @@ public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 	@Override
 	public void startProgrammingPhase() {
 		
-		
 		for(int i=0; i<gamesetup.getPlayers().size(); i++) {
-			if (gamesetup.getPlayers().get(i).getProgrammingDeck().getDeckSize()<9) {
-				gamesetup.getPlayers().get(i).getProgrammingDeck().refillDeck(gamesetup.getPlayers().get(i).getDiscardDeck());
-			}
+//			if (gamesetup.getPlayers().get(i).getProgrammingDeck().getDeckSize()<9) {
+//				gamesetup.getPlayers().get(i).getDiscardDeck().refillDeck(gamesetup.getPlayers().get(i).getProgrammingDeck());
+//			}
 			gamesetup.getPlayers().get(i).getProgrammingDeck().moveRandomCards(gamesetup.getPlayers().get(i).getPlayingDeck(),9);
 		}
 	}	
