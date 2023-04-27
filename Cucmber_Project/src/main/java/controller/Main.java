@@ -33,8 +33,8 @@ public class Main extends Application{
 		gameProgramming.setRegisteredActionObservers(actionPhase);
 		actionPhase.setRegisteredObservers(gameProgramming);
 		gameSetup.setRegisteredObservers(gameProgramming);
-		actionPhase.setRegisteredEndObservers(view);
-		
+		actionPhase.setRegisteredActivationPhaseObservers(view);
+		view.setRegisteredActivationViewObservers(actionPhase);
 		
 		stage.setScene(view.choosePlayerNum());		
 		stage.setTitle("RoboRally group 4");

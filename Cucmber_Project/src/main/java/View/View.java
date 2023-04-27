@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import controller.ActivationPhaseObserver;
+import controller.ActivationViewObserver;
 import controller.BoardObserver;
 import controller.BoardViewObserver;
 import controller.CardObserver;
@@ -29,7 +30,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import model.Board;
 import model.Card;
+import model.Player;
 
 public class View implements BoardObserver, CardObserver, PlayerStatusObserver, RobotObserver, ActivationPhaseObserver{
 	
@@ -44,6 +47,7 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 	private ArrayList<String> players = new ArrayList<String>();
 	private Set<BoardViewObserver> registeredBoardViewObservers = new HashSet<BoardViewObserver>();
 	private Set<MenuViewObserver> registeredMenuViewObservers = new HashSet<MenuViewObserver>();
+	private Set<ActivationViewObserver> registeredActivationViewObservers = new HashSet<ActivationViewObserver>();
 	private MenuHandler handler;
 
 	private BorderPane anchorPane = new BorderPane();
@@ -373,6 +377,10 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		this.registeredBoardViewObservers.add(observer);	
 	}
 	
+	public void setRegisteredActivationViewObservers(ActivationViewObserver observer) {
+		this.registeredActivationViewObservers.add(observer);	
+	}
+	
 	public void notifyMenuViewUpdated(ArrayList<String> names) {
 		for(MenuViewObserver o : registeredMenuViewObservers) {
 			o.menuViewUpdated(names);
@@ -383,6 +391,12 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		for(BoardViewObserver o : registeredBoardViewObservers) {
 			o.boardViewUpdated(num, player);
 		}
+	}
+	
+	private void notifyActivationViewUpdated(ArrayList<Player> players, Board board) {
+		for(ActivationViewObserver o : registeredActivationViewObservers) {
+			o.continueActivationPhase(players, board);
+		}		
 	}
 
 	@Override
@@ -395,6 +409,17 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		
 		gridPaneCenter.add(text,0,0);
 		
+	}
+
+	@Override
+	public void activationPhaseUpdated(ArrayList<Player> players, Board board) {
+		Button nextButton = new Button("Next");
+		gridPaneRight.add(nextButton, 0, 15);
+		nextButton.setOnMouseClicked(new EventHandler<Event>() {
+			public void handle(Event event) {
+				notifyActivationViewUpdated(players,board);
+			}
+		});	
 	}
 	
 //	public Node removeNodeByRowColumnIndex(final int row,final int column,GridPane gridPane) {
