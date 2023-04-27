@@ -16,13 +16,17 @@ import controller.RobotObserver;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -258,6 +262,18 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		gridPaneCenter.setAlignment(Pos.CENTER);
 		gridPaneCenter.setHgap(10);
 		gridPaneCenter.setVgap(10);
+		
+		BackgroundFill backgroundFill =
+		        new BackgroundFill(
+		                Color.valueOf("#add8e6"),
+		                new CornerRadii(10),
+		                new Insets(10)
+		                );
+
+		Background background =
+		        new Background(backgroundFill);
+
+		gridPaneCenter.setBackground(background);
 		
 		Label text = new Label("How many players are playing?");
 		gridPaneCenter.add(text,0,0,4,1);
