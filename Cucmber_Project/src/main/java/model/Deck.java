@@ -53,10 +53,15 @@ public class Deck {
 	    
 	    if (this.deck.size() > numCards) {
 	        for (int i = 0; i < numCards; i++) {
-	            int index = rand.nextInt(deck.size());
+	            int index = rand.nextInt(this.deck.size());
 	            Card card = this.deck.get(index);
 	            otherDeck.getDeck().add(card);
 	            this.deck.remove(index);
+//	            this.moveCard(index, otherDeck);
+	            
+	            if (numCards == 5) {
+	            	System.out.println(deck.size() + " AI playingdeck size");
+	            }
 	            
 	            if (numCards == 9) {
 	            	notifyCardsUpdated(card, i, player.getName());
@@ -70,16 +75,16 @@ public class Deck {
 	
 
 	public void initializeProgrammingDeck() {
-		for (int i=0; i<1000; i++) {
+		for (int i=0; i<5; i++) {
 			this.deck.add(new MoveForward());
 		}
-		for (int i=0; i<200; i++) {
+		for (int i=0; i<2; i++) {
 			this.deck.add(new UTurn());
 		}
-		for (int i=0; i<500; i++) {
+		for (int i=0; i<5; i++) {
 			this.deck.add(new LeftTurn());
 		}
-		for (int i=0; i<500; i++) {
+		for (int i=0; i<5; i++) {
 			this.deck.add(new RightTurn());
 		}
 	}
