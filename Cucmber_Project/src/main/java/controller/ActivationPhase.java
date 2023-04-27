@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import javafx.scene.media.*;
+
 import model.Board;
 import model.Player;
 
@@ -12,6 +14,7 @@ public class ActivationPhase implements ProgrammingPhaseObserver{
 	private Set<PhaseShiftObserver> registeredObservers = new HashSet<PhaseShiftObserver>();
 	private Set<ActivationPhaseObserver> registeredEndObservers = new HashSet<ActivationPhaseObserver>();
 	private boolean end = false;
+	private ClassLoader classLoader = getClass().getClassLoader();
 	
 	@Override
 	public void startActivationPhase(ArrayList<Player> players, Board board) {
@@ -72,6 +75,12 @@ public class ActivationPhase implements ProgrammingPhaseObserver{
 			int j1 = players.get(j).getRobot().getj();
 			if (board.getTile(i1, j1).getWalkableElement()!=null) {
 				board.getTile(i1, j1).getWalkableElement().action(players.get(j).getRobot(), board);
+				
+				String imageUrl = classLoader.getResource("Sounds/robot_damaged.mp3").toExternalForm();
+				Media sound = new Media(imageUrl);
+				MediaPlayer mediaPlayer = new MediaPlayer(sound);
+				mediaPlayer.play();
+				
 			}
 			if (board.getEndi()==i1 && board.getEndj()==j1) {
 				end = true;
