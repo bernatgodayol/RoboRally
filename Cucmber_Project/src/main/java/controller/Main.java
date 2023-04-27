@@ -33,6 +33,7 @@ public class Main extends Application{
 		gameProgramming.setRegisteredActionObservers(actionPhase);
 		actionPhase.setRegisteredObservers(gameProgramming);
 		gameSetup.setRegisteredObservers(gameProgramming);
+		actionPhase.setRegisteredEndObservers(view);
 		
 		
 		stage.setScene(view.choosePlayerNum());		

@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
-import View.CardStatus;
 import controller.CardObserver;
 import java.util.Arrays;
 
@@ -75,16 +74,16 @@ public class Deck {
 	
 
 	public void initializeProgrammingDeck() {
-		for (int i=0; i<5; i++) {
+		for (int i=0; i<500; i++) {
 			this.deck.add(new MoveForward());
 		}
-		for (int i=0; i<2; i++) {
+		for (int i=0; i<200; i++) {
 			this.deck.add(new UTurn());
 		}
-		for (int i=0; i<5; i++) {
+		for (int i=0; i<500; i++) {
 			this.deck.add(new LeftTurn());
 		}
-		for (int i=0; i<5; i++) {
+		for (int i=0; i<500; i++) {
 			this.deck.add(new RightTurn());
 		}
 	}

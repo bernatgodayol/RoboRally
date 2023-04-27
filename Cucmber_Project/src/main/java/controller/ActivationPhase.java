@@ -20,7 +20,6 @@ public class ActivationPhase implements ProgrammingPhaseObserver{
 			for (int i=0; i<5; i++) {
 				players.get(0).getActionDeck().getCard(i).execute(players.get(0).getRobot(), board);
 				players.get(1).getActionDeck().getCard(i).execute(players.get(1).getRobot(), board);
-				
 				// End of register: activation of the obstacles (WalkableElement)
 				activateObstacles(players,board,2);
 				
@@ -89,7 +88,7 @@ public class ActivationPhase implements ProgrammingPhaseObserver{
 		this.registeredObservers.add(observer);	
 	}
 	
-	public void registeredEndObservers(ActivationPhaseObserver observer) {
+	public void setRegisteredEndObservers(ActivationPhaseObserver observer) {
 		this.registeredEndObservers.add(observer);	
 	}
 }

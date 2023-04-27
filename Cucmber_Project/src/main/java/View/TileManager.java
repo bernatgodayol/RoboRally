@@ -1,5 +1,7 @@
 package View;
 
+import java.util.Random;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -93,7 +95,10 @@ public class TileManager {
 			String imageUrl = classLoader.getResource("Tiles/BasicTile.png").toExternalForm();
 			image = new Image(imageUrl);
 			imageView = new ImageView(image);
-			setRotate(0);
+			Random rand = new Random();
+			int index = rand.nextInt(4);
+			int[] rot = new int[]{0, 90, 180, 270};
+			setRotate(rot[index]);
 		}
 		else if(num == 15) {
 			String imageUrl = classLoader.getResource("Tiles/RebootTile3.png").toExternalForm();
