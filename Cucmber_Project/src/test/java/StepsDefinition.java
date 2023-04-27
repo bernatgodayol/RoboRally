@@ -65,6 +65,7 @@ public class StepsDefinition {
 	int initialSizeProgrammingDeck2;
 	int initialSizeActionDeck1;
 	int initialSizeActionDeck2;
+	int initialSizeDiscardDeck1;
 	int size1;
 	int size2;
 	int robot1PositionX;
@@ -139,15 +140,15 @@ public class StepsDefinition {
 		board = new Board();
 	}
 	@When("the EASY board is initialised")
-	public void the_5b_board_is_initialised() {
+	public void the_easy_board_is_initialised() {
 		board.initializeEASY();
 	}
 	@When("the HARD board is initialised")
-	public void the_4a_board_is_initialised() {
+	public void the_hard_board_is_initialised() {
 		board.initializeHARD();
 	}
 	@When("the MEDIUM board is initialised")
-	public void the_2b_board_is_initialised() {
+	public void the_medium_board_is_initialised() {
 		board.initializeMEDIUM();
 	}
 	@Then("the obstacles of the EASY board are in the expected tiles")
@@ -1440,7 +1441,35 @@ public class StepsDefinition {
 		board.getTile(robot1.geti(), robot1.getj()).getWalkableElement().action(robot1, board);
 	}
 	
+	/////////////////
+	// REFILL DECK //
+	/////////////////
 	
+	@Given("a programming deck of cards with less than {int} cards")
+	public void a_programming_deck_of_cards_with_less_than_cards(Integer int1) {
+	    programmingDeck1 = new Deck();
+	    initialSizeProgrammingDeck1 = programmingDeck1.getDeckSize();
+	}
+	@Given("a non-empty discard deck of cards")
+	public void a_non_empty_discard_deck_of_cards() {
+	    discardDeck1 = new Deck();
+	    for (int i=0; i<20; i++) {
+	    	discardDeck1.addCard(new RightTurn());
+	    }
+	    initialSizeDiscardDeck1 = discardDeck1.getDeckSize();
+	}
+	@When("the cards from the discard deck are moved to the programming deck")
+	public void the_cards_from_the_discard_deck_are_moved_to_the_programming_deck() {
+	    programmingDeck1.refillDeck(discardDeck1);
+	}
+	@Then("the programming deck is refilled")
+	public void the_programming_deck_is_refilled() {
+	    assertTrue(programmingDeck1.getDeckSize() == initialSizeDiscardDeck1 + initialSizeProgrammingDeck1);
+	}
+	@Then("the discard deck is empty")
+	public void the_discard_deck_is_empty() {
+	    assertTrue(discardDeck1.deckIsEmpty());
+	}
 	
 ////////////////////////////////////
 // ROBO RALLY : THE LIGHT VERSION //

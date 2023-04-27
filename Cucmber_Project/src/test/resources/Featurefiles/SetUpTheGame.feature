@@ -18,7 +18,7 @@ Feature: Set up the game
   And a second discard deck of cards
   When the robot is assigned to the player
   And the second robot is assigned to the second player
-  And the 5B board is initialised
+  And the EASY board is initialised
   And the two robots are placed on the board
   And the player is assigned the programming deck of cards
   And the second player is assigned the second programming deck of cards
@@ -30,7 +30,7 @@ Feature: Set up the game
   And the second player is assigned the second discard deck of cards
   Then the robot belongs to the player
   And the second robot belongs to the second player
-  And the obstacles of the 5B board are in the expected tiles
+  And the obstacles of the EASY board are in the expected tiles
   And the two robots are in the initial positions of the board
   And the two robots are facing north
   And the player has a programming deck of cards
