@@ -138,20 +138,20 @@ public class StepsDefinition {
 	public void a_board() {
 		board = new Board();
 	}
-	@When("the 5B board is initialised")
+	@When("the EASY board is initialised")
 	public void the_5b_board_is_initialised() {
-		board.initialize5B();
+		board.initializeEASY();
 	}
-	@When("the 4A board is initialised")
+	@When("the HARD board is initialised")
 	public void the_4a_board_is_initialised() {
-		board.initialize4A();
+		board.initializeHARD();
 	}
-	@When("the 2B board is initialised")
+	@When("the MEDIUM board is initialised")
 	public void the_2b_board_is_initialised() {
-		board.initialize2B();
+		board.initializeMEDIUM();
 	}
-	@Then("the obstacles of the 5B board are in the expected tiles")
-	public void the_obstacles_of_the_5B_board_are_in_the_expected_tiles() {
+	@Then("the obstacles of the EASY board are in the expected tiles")
+	public void the_obstacles_of_the_EASY_board_are_in_the_expected_tiles() {
 	    for (int i=0; i<13; i++) {
 	    	for (int j=0; j<10; j++) {
 	    		if (i==3 && j==3) {
@@ -193,8 +193,8 @@ public class StepsDefinition {
 	    }
 	}
 	
-	@Then("the obstacles of the 4A board are in the expected tiles")
-	public void the_obstacles_of_the_4A_board_are_in_the_expected_tiles() {
+	@Then("the obstacles of the HARD board are in the expected tiles")
+	public void the_obstacles_of_the_HARD_board_are_in_the_expected_tiles() {
 		assertEquals(board.getTile(5, 3).getWestBarrier(), new Wall());
 		assertEquals(board.getTile(3, 0).getNorthBarrier(), new Wall());
 		assertEquals(board.getTile(4, 0).getSouthBarrier(), new Wall());
@@ -318,8 +318,8 @@ public class StepsDefinition {
 		}	
 	}
 	
-	@Then("the obstacles of the 2B board are in the expected tiles")
-	public void the_obstacles_of_the_2B_board_are_in_the_expected_tiles() {
+	@Then("the obstacles of the MEDIUM board are in the expected tiles")
+	public void the_obstacles_of_the_MEDIUM_board_are_in_the_expected_tiles() {
 		assertEquals(board.getTile(2, 2).getNorthBarrier(), new Wall());
 		assertEquals(board.getTile(3, 2).getSouthBarrier(), new Wall());
 		assertEquals(board.getTile(2, 3).getWestBarrier(), new Wall());
