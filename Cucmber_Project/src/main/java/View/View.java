@@ -12,8 +12,13 @@ import controller.MenuHandler;
 import controller.MenuViewObserver;
 import controller.PlayerStatusObserver;
 import controller.RobotObserver;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.css.PseudoClass;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -22,6 +27,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import model.Card;
 
 public class View implements BoardObserver, CardObserver, PlayerStatusObserver, RobotObserver, ActivationPhaseObserver{
@@ -46,6 +53,7 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 	Scene scene = new Scene(anchorPane,800,650);
 	
 	private String name;
+	private boolean isBorderVisible = false;
 //	private int j;
 //	private boolean left;
 	
@@ -125,6 +133,8 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		anchorPane.setRight(gridPaneRight);
 		gridPaneRight.setAlignment(Pos.TOP_CENTER);
 		
+		isBorderVisible = false;
+		
 		Label labelname = new Label(player);
 		int j = 0;
 		boolean left = false;
@@ -153,25 +163,50 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 			left = false;
 		}
 
-		
 		imageView = cardManager.getCardImage(numCard);	
 		imageView.setFitHeight(40);
 		imageView.setFitWidth(40);
 		
-		if (player != "AI") {
+		Rectangle border = new Rectangle();
+		border.setFill(Color.TRANSPARENT);
+	    border.setStroke(Color.YELLOW);
+	    border.setStrokeWidth(2);
+	    border.setWidth(imageView.getFitWidth()-14);
+	    border.setHeight(imageView.getFitHeight()-3);
+	    border.setVisible(isBorderVisible);
+	    
+		if (player != "AI" && !isBorderVisible) {
 			imageView.setOnMouseClicked(new EventHandler<Event>() {
 				public void handle(Event event) {
+//					border.setVisible(true);
 					notifyBoardViewUpdated(index, player);
+					isBorderVisible = true;
+					border.setVisible(isBorderVisible);
 				}
-			});			
+			});	
+			
+//			isBorderVisible = true;
+			
 		}
+		
 		if (left) {
-//			gridPaneLeft.getChildren().removeIf( node -> GridPane.getColumnIndex(node) == j && GridPane.getRowIndex(node) == (index+1));
+//			gridPaneLeft.getChildren().removeIf( node -> GridPane.getColumnIndex(node) == j && GridPane.getRowIndex(node) == (index+1));   
 			gridPaneLeft.add(imageView,j,index+1,1,1);
+			gridPaneLeft.add(border, j,index+1,1,1);
+//			gridPaneLeft.setHalignment(imageView, HPos.CENTER);
+//			gridPaneLeft.setHalignment(border, HPos.CENTER);
+//			gridPaneLeft.setHalignment(labelname, HPos.CENTER);
+			
 		} else {
 //			gridPaneRight.getChildren().removeIf( node -> GridPane.getColumnIndex(node) == j && GridPane.getRowIndex(node) == (index+1));
 			gridPaneRight.add(imageView,j,index+1,1,1);
+			gridPaneRight.add(border, j,index+1,1,1);
+		
 		}
+		
+		GridPane.setHalignment(imageView, HPos.CENTER);
+		GridPane.setHalignment(border, HPos.CENTER);
+		GridPane.setHalignment(labelname, HPos.CENTER);
 	}
 
 	@Override
