@@ -12,13 +12,9 @@ import controller.MenuHandler;
 import controller.MenuViewObserver;
 import controller.PlayerStatusObserver;
 import controller.RobotObserver;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.css.PseudoClass;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -54,8 +50,7 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 	
 	private String name;
 	private boolean isBorderVisible = false;
-//	private int j;
-//	private boolean left;
+	private int j = 0;
 	
 	public Scene getScene() {
 		return scene;
@@ -88,46 +83,12 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 	public void playerStatusUpdated(ArrayList<String> players, String name) {
 		this.players = players;
 		this.name = name;
-		
-//		gridPaneCenter.getChildren().clear();
-//		anchorPane.setLeft(gridPaneLeft);
-//		gridPaneLeft.setAlignment(Pos.TOP_CENTER);
-//		anchorPane.setRight(gridPaneRight);
-//		gridPaneRight.setAlignment(Pos.TOP_CENTER);
-//		
-//		Label labelname = new Label(name);
-//		
-//		
-//		if(players.get(0) == name) {
-//			gridPaneLeft.add(labelname, 0, 0);
-//			this.j = 0;
-//			this.left = true;
-//		}
-//			
-//		else if(players.get(1) == name) {
-//			gridPaneRight.add(labelname, 0, 0);
-//			this.j = 0;
-//			this.left = false;
-//		}
-//			
-//		else if(players.size()>=3 && players.get(2) == name) {
-//			gridPaneLeft.add(labelname, 1, 0);
-//			this.j = 1;
-//			this.left = true;
-//		}
-//			
-//		else if(players.size()>=4 && players.get(3) == name) {
-//			gridPaneRight.add(labelname, 1, 0);
-//			this.j = 1;
-//			this.left = false;
-//		}
 	}
 	
 
 	@Override
 	public void cardUpdated(Card card, int index, int numCard, String player) {
 		
-//		gridPaneCenter.getChildren().clear();
 		anchorPane.setLeft(gridPaneLeft);
 		gridPaneLeft.setAlignment(Pos.TOP_CENTER);
 		anchorPane.setRight(gridPaneRight);
@@ -136,7 +97,6 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		isBorderVisible = false;
 		
 		Label labelname = new Label(player);
-		int j = 0;
 		boolean left = false;
 		
 		if(players.get(0) == player) {
@@ -169,7 +129,7 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		
 		Rectangle border = new Rectangle();
 		border.setFill(Color.TRANSPARENT);
-	    border.setStroke(Color.YELLOW);
+	    border.setStroke(Color.GREEN);
 	    border.setStrokeWidth(2);
 	    border.setWidth(imageView.getFitWidth()-14);
 	    border.setHeight(imageView.getFitHeight()-3);
@@ -178,27 +138,22 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		if (player != "AI" && !isBorderVisible) {
 			imageView.setOnMouseClicked(new EventHandler<Event>() {
 				public void handle(Event event) {
-//					border.setVisible(true);
 					notifyBoardViewUpdated(index, player);
 					isBorderVisible = true;
 					border.setVisible(isBorderVisible);
 				}
 			});	
-			
-//			isBorderVisible = true;
-			
 		}
 		
 		if (left) {
-//			gridPaneLeft.getChildren().removeIf( node -> GridPane.getColumnIndex(node) == j && GridPane.getRowIndex(node) == (index+1));   
+			gridPaneLeft.getChildren().removeIf(node -> GridPane.getColumnIndex(node) == j && 
+					GridPane.getRowIndex(node) == index+1);
 			gridPaneLeft.add(imageView,j,index+1,1,1);
 			gridPaneLeft.add(border, j,index+1,1,1);
-//			gridPaneLeft.setHalignment(imageView, HPos.CENTER);
-//			gridPaneLeft.setHalignment(border, HPos.CENTER);
-//			gridPaneLeft.setHalignment(labelname, HPos.CENTER);
 			
 		} else {
-//			gridPaneRight.getChildren().removeIf( node -> GridPane.getColumnIndex(node) == j && GridPane.getRowIndex(node) == (index+1));
+			gridPaneRight.getChildren().removeIf(node -> GridPane.getColumnIndex(node) == j && 
+					GridPane.getRowIndex(node) == index+1);
 			gridPaneRight.add(imageView,j,index+1,1,1);
 			gridPaneRight.add(border, j,index+1,1,1);
 		
@@ -396,16 +351,4 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		gridPaneCenter.add(text,0,0);
 		
 	}
-	
-//	public Node removeNodeByRowColumnIndex(final int row,final int column,GridPane gridPane) {
-//
-//		ObservableList<Node> childrens = gridPane.getChildren();
-//		for(Node node : childrens) {
-//		    if(node instanceof ImageView && gridPane.getRowIndex(node) == row && gridPane.getColumnIndex(node) == column) {
-//		        ImageView imageView = ImageView(node); // use what you want to remove
-//		        gridPane.getChildren().remove(imageView);
-//		        break;
-//		    }
-//		  } 
-//		   }
 }
