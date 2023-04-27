@@ -2,19 +2,19 @@
 Feature: Initialise board
 
   @tag1
-  Scenario: Succesfully initialising the 5B board
+  Scenario: Succesfully initialising the EASY board
     Given a board
-    When the 5B board is initialised 
-    Then the obstacles of the 5B board are in the expected tiles
+    When the EASY board is initialised 
+    Then the obstacles of the EASY board are in the expected tiles
     
   @tag2
-  Scenario: Succesfully initialising the 2B board
+  Scenario: Succesfully initialising the MEDIUM board
     Given a board
-    When the 2B board is initialised 
-    Then the obstacles of the 2B board are in the expected tiles
+    When the MEDIUM board is initialised 
+    Then the obstacles of the MEDIUM board are in the expected tiles
     
   @tag3
-  Scenario: Succesfully initialising the 4A board
+  Scenario: Succesfully initialising the HARD board
     Given a board
-    When the 4A board is initialised 
-    Then the obstacles of the 4A board are in the expected tiles
+    When the HARD board is initialised 
+    Then the obstacles of the HARD board are in the expected tiles

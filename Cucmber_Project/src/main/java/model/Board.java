@@ -52,7 +52,7 @@ public class Board {
 		return endj;
 	}
 	
-	public void initialize5B() {
+	public void initializeEASY() {
 		this.getTile(3, 3).setNorthBarrier(new Wall());
 		this.getTile(3, 3).setWalkableElement(new Laser());
 		this.getTile(4, 3).setSouthBarrier(new Wall());
@@ -84,7 +84,7 @@ public class Board {
 		notifyBoardUpdated();
 	}
 	
-	public void initialize2B() {
+	public void initializeMEDIUM() {
 		this.getTile(2, 2).setNorthBarrier(new Wall());
 		this.getTile(3, 2).setSouthBarrier(new Wall());
 		this.getTile(2, 3).setWestBarrier(new Wall());
@@ -146,7 +146,7 @@ public class Board {
 		notifyBoardUpdated();
 	}
 	
-	public void initialize4A() {
+	public void initializeHARD() {
 		this.getTile(5, 3).setWestBarrier(new Wall());
 		
 		this.getTile(3, 0).setNorthBarrier(new Wall());
