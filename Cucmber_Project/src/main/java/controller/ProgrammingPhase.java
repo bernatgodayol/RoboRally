@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import View.CardStatus;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import model.AI;
 
 public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
@@ -12,6 +14,7 @@ public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 	CardStatus cs;
 	private int numplayer;
 	private Set<ProgrammingPhaseObserver> registeredActionObservers = new HashSet<ProgrammingPhaseObserver>();
+	private ClassLoader classLoader = getClass().getClassLoader();
 	
 	public ProgrammingPhase(Setup gamesetup, CardStatus cs) {
 		this.gamesetup = gamesetup;
@@ -68,8 +71,9 @@ public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 				
 			}
 		}
-				
+		
 		notifyActionPhaseStart();
+		
 	}
 
 	@Override
@@ -147,6 +151,8 @@ public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 	@Override
 	public void startProgrammingPhase() {
 		
+		
+		
 		for(int i=0; i<gamesetup.getPlayers().size(); i++) {
 			
 			System.out.println(gamesetup.getPlayers().get(i).getDiscardDeck().getDeckSize() + " discard before refill");
@@ -160,5 +166,11 @@ public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 			gamesetup.getPlayers().get(i).getProgrammingDeck().moveRandomCards(gamesetup.getPlayers().get(i).getPlayingDeck(),9);
 
 		}
+		
+		String imageUrl = classLoader.getResource("Sounds/call-to-attention.mp3").toExternalForm();
+		Media sound = new Media(imageUrl);
+		MediaPlayer mediaPlayer = new MediaPlayer(sound);
+		mediaPlayer.play();
+		
 	}	
 }
