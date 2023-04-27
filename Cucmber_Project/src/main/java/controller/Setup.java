@@ -58,15 +58,12 @@ public class Setup implements MenuViewObserver, MenuHandlerObserver {
 		players.get(playerNo).setActionDeck(new Deck());
 		
 		// Discard deck
-		players.get(playerNo).setDiscardDeck(new Deck());
-		
-//		players.get(playerNo).getProgrammingDeck().moveRandomCards(players.get(playerNo).getPlayingDeck(),9);
-		
+		players.get(playerNo).setDiscardDeck(new Deck());		
 	}
 	
 	@Override
 	public void menuViewUpdated(ArrayList<String> names) {
-			
+				
 		int length = names.size();
 		
 		// Initializing robots and decks and assigning them to players
@@ -146,7 +143,7 @@ public class Setup implements MenuViewObserver, MenuHandlerObserver {
 	
 	@Override
 	public void menuHandlerUpdated(int i) {
-		
+				
 		notifyPhaseShift();
 		
 		if (i==1) {
@@ -166,7 +163,7 @@ public class Setup implements MenuViewObserver, MenuHandlerObserver {
 	private void notifyPhaseShift() {
 		for(PhaseShiftObserver o : registeredObservers) {
 			o.startProgrammingPhase();
-	}
+		}
 	}
 
 	public void setRegisteredObservers(PhaseShiftObserver observer) {

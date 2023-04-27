@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import View.Sound;
-import javafx.scene.media.*;
 
 import model.Board;
 import model.Player;
@@ -25,7 +24,6 @@ public class ActivationPhase implements ProgrammingPhaseObserver, ActivationView
 	
 	@Override
 	public void continueActivationPhase(ArrayList<Player> players, Board board) {
-		
 		if (players.get(0).getActionDeck().getDeckSize()!=0) {
 			for (int i=0; i<players.size(); i++) {
 				// Execute card:

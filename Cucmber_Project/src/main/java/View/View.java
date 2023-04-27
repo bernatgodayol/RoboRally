@@ -40,7 +40,6 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 	private ImageView robot2;
 	private ImageView robot3;
 	private ImageView robot4;
-	private Button nextButton = new Button("Next");
 	private TileManager tilemanager = new TileManager();
 	private CardManager cardManager = new CardManager();
 	private RobotManager robotManager = new RobotManager();
@@ -54,8 +53,7 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 	private GridPane gridPaneCenter = new GridPane();
 	private GridPane gridPaneLeft = new GridPane();
 	private GridPane gridPaneRight = new GridPane();
-//	private Rectangle border = new Rectangle();
-	Scene scene = new Scene(anchorPane,800,650);
+	private Scene scene = new Scene(anchorPane,800,650);
 	
 	private String name;
 	private boolean isBorderVisible = false;
