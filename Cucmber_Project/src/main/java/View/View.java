@@ -29,6 +29,7 @@ import model.Card;
 
 public class View implements BoardObserver, CardObserver, PlayerStatusObserver, RobotObserver, ActivationPhaseObserver{
 	
+	private CardStatus cardstatus;
 	private ImageView imageView;
 	private ImageView robot1;
 	private ImageView robot2;
@@ -46,6 +47,7 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 	private GridPane gridPaneCenter = new GridPane();
 	private GridPane gridPaneLeft = new GridPane();
 	private GridPane gridPaneRight = new GridPane();
+//	private Rectangle border = new Rectangle();
 	Scene scene = new Scene(anchorPane,800,650);
 	
 	private String name;
@@ -54,6 +56,10 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 	
 	public Scene getScene() {
 		return scene;
+	}
+	
+	public void setCardStatus(CardStatus cardstatus) {
+		this.cardstatus = cardstatus;
 	}
 	
 	public void setMenuHandler(MenuHandler handler) {
@@ -138,9 +144,41 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		if (player != "AI" && !isBorderVisible) {
 			imageView.setOnMouseClicked(new EventHandler<Event>() {
 				public void handle(Event event) {
-					notifyBoardViewUpdated(index, player);
-					isBorderVisible = true;
-					border.setVisible(isBorderVisible);
+					
+					boolean notify = false;
+					
+					if(players.size()>1) {
+						if(players.get(0) == player){
+							if(cardstatus.getCardGrids().get(0).size()<5) {
+								notify = true;
+							}
+						}
+						else if(players.get(1) == player) {
+							if(cardstatus.getCardGrids().get(1).size()<5) {
+								notify = true;
+							}
+						}
+					}
+					else if(players.size()>2){
+						if(players.get(2) == player){
+							if(cardstatus.getCardGrids().get(2).size()<5) {
+								notify = true;
+							}
+						}
+					}
+					else if(players.size()>3){
+						if(players.get(3) == player){
+							if(cardstatus.getCardGrids().get(3).size()<5) {
+								notify = true;
+							}
+						}
+					}
+					
+					if(notify) {
+						notifyBoardViewUpdated(index, player);
+						isBorderVisible = true;
+						border.setVisible(isBorderVisible);
+					}
 				}
 			});	
 		}

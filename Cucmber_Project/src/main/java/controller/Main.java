@@ -24,6 +24,8 @@ public class Main extends Application{
 		MenuHandler handler = new MenuHandler(view);
 		ProgrammingPhase gameProgramming;
 		CardStatus cs = new CardStatus();
+		view.setCardStatus(cs);
+		
 		view.setRegisteredMenuViewObservers(cs);
 		gameProgramming = new ProgrammingPhase(gameSetup, cs);
 		view.setRegisteredBoardViewObservers(gameProgramming);
