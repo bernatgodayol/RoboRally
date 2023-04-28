@@ -489,7 +489,11 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		gridPaneCenter.add(text,0,0);
 		
 		Sound sound = new Sound();
-		sound.playSound("fanfare");
+		try {
+			sound.playSound("fanfare");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override

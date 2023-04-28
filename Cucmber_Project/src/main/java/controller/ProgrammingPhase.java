@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import View.CardStatus;
+import View.Sound;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import model.AI;
@@ -14,7 +15,7 @@ public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 	private CardStatus cs;
 	private int numplayer;
 	private Set<ProgrammingPhaseObserver> registeredActionObservers = new HashSet<ProgrammingPhaseObserver>();
-	private ClassLoader classLoader = getClass().getClassLoader();
+	private Sound sound = new Sound();
 	
 	public ProgrammingPhase(Setup gamesetup, CardStatus cs) {
 		this.gamesetup = gamesetup;
@@ -164,10 +165,11 @@ public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 
 		}
 		
-		String imageUrl = classLoader.getResource("Sounds/call-to-attention.mp3").toExternalForm();
-		Media sound = new Media(imageUrl);
-		MediaPlayer mediaPlayer = new MediaPlayer(sound);
-		mediaPlayer.play();
+		try {
+			sound.playSound("Start_programming");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}	
 }

@@ -18,7 +18,11 @@ public class ActivationPhase implements ProgrammingPhaseObserver, ActivationView
 	
 	@Override
 	public void startActivationPhase(ArrayList<Player> players, Board board) {
-		sound.playSound("yeah");
+		try {
+			sound.playSound("Robots_activate");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		notifyActivationPhaseUpdated(players,board,false);
 	}
 	
@@ -52,7 +56,11 @@ public class ActivationPhase implements ProgrammingPhaseObserver, ActivationView
 			int j1 = players.get(j).getRobot().getj();
 			if (board.getTile(i1, j1).getWalkableElement()!=null) {
 				board.getTile(i1, j1).getWalkableElement().action(players.get(j).getRobot(), board);
-				sound.playSound("robot_damaged");	
+				try {
+					sound.playSound("robot_damaged");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}	
 			}
 			if (board.getEndi()==i1 && board.getEndj()==j1) {
 				end = true;
