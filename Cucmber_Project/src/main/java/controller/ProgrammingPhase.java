@@ -41,9 +41,6 @@ public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 				gamesetup.getPlayers().get(0).getPlayingDeck().moveCard(0, gamesetup.getPlayers().get(0).getDiscardDeck());
 				gamesetup.getPlayers().get(1).getPlayingDeck().moveCard(0, gamesetup.getPlayers().get(1).getDiscardDeck());
 			}
-			for (int j=0; j<5; j++) {
-				cs.getCardGrids().get(0).remove(0);
-			}
 		}
 		else {
 			for (int i=0; i<gamesetup.getPlayers().size(); i++) {
@@ -57,9 +54,6 @@ public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 				
 				for (int j=0; j<4; j++) {
 					gamesetup.getPlayers().get(i).getPlayingDeck().moveCard(0, gamesetup.getPlayers().get(i).getDiscardDeck());
-				}
-				for (int j=0; j<5; j++) {
-					cs.getCardGrids().get(i).remove(0);
 				}
 			}
 		}
@@ -142,14 +136,23 @@ public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 
 	@Override
 	public void startProgrammingPhase() {
-		
-//		for (int i=0; i<gamesetup.getPlayers().size(); i++) {
-//			if (cs.getCardGrids().get(i).size()!=0) {
-//				for (int j=0; j<5; j++) {
-//					cs.getCardGrids().get(i).remove(0);
-//				}
-//			}
-//		}
+
+		if (gamesetup.getIsAI()){
+			if (cs.getCardGrids().get(0).size()!=0) {
+				for (int j=0; j<5; j++) {
+					cs.getCardGrids().get(0).remove(0);
+				}
+			}
+		} 
+		else {
+			for (int i=0; i<gamesetup.getPlayers().size(); i++) {
+				if (cs.getCardGrids().get(i).size()!=0) {
+					for (int j=0; j<5; j++) {
+						cs.getCardGrids().get(i).remove(0);
+					}
+				}
+			}
+		}
 		
 		for(int i=0; i<gamesetup.getPlayers().size(); i++) {
 			
