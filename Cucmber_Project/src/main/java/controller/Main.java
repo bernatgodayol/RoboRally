@@ -25,7 +25,6 @@ public class Main extends Application{
 		gameSetup.getBoard().setRegisteredObservers(view);
 		menuView.setRegisteredMenuViewObservers(gameSetup);
 		
-		ViewHandler handler = new ViewHandler(menuView);
 		ProgrammingPhase gameProgramming;
 		CardStatus cs = new CardStatus();
 		view.setCardStatus(cs);
@@ -33,8 +32,7 @@ public class Main extends Application{
 		menuView.setRegisteredMenuViewObservers(cs);
 		gameProgramming = new ProgrammingPhase(gameSetup, cs);
 		view.setRegisteredBoardViewObservers(gameProgramming);
-		handler.setRegisteredObservers(gameSetup);
-		menuView.setMenuHandler(handler);
+		menuView.setRegisteredMenuViewObservers(gameSetup);
 		ActivationPhase actionPhase = new ActivationPhase();
 		gameProgramming.setRegisteredActionObservers(actionPhase);
 		actionPhase.setRegisteredObservers(gameProgramming);

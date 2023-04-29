@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import controller.MenuViewObserver;
-import controller.ViewHandler;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -23,7 +22,6 @@ import javafx.scene.paint.Color;
 
 public class MenuView {
 	
-	private ViewHandler handler;
 	private BorderPane anchorPane = new BorderPane();
 	private GridPane gridPaneCenter = new GridPane();
 	private Scene scene = new Scene(anchorPane,800,650);
@@ -65,20 +63,41 @@ public class MenuView {
 			
 			Button button1 = new Button("1");
 			gridPaneCenter.add(button1,0,1);
-			button1.setOnMouseClicked(handler);
+			button1.setOnMouseClicked(new EventHandler<Event>() {
+				public void handle(Event event) {
+					typePlayerNames(1);
+				}
+			});
+//			button1.setOnMouseClicked(handler);
 			
 			Button button2 = new Button("2");
 			gridPaneCenter.add(button2,1,1);
-			button2.setOnMouseClicked(handler);
+			button2.setOnMouseClicked(new EventHandler<Event>() {
+				public void handle(Event event) {
+					typePlayerNames(2);
+				}
+			});
+//			button2.setOnMouseClicked(handler);
 			
 			Button button3 = new Button("3");
 			gridPaneCenter.add(button3,2,1);
-			button3.setOnMouseClicked(handler);
+			button3.setOnMouseClicked(new EventHandler<Event>() {
+				public void handle(Event event) {
+					typePlayerNames(3);
+				}
+			});
+//			button3.setOnMouseClicked(handler);
 			
 			Button button4 = new Button("4");
 			gridPaneCenter.add(button4,3,1);
-			button4.setOnMouseClicked(handler);
-			
+			button4.setOnMouseClicked(new EventHandler<Event>() {
+				public void handle(Event event) {
+					typePlayerNames(4);
+				}
+			});
+//			button4.setOnMouseClicked(handler);
+		
+				
 			return scene;
 		}
 	
@@ -183,15 +202,27 @@ public class MenuView {
 		
 		Button easyButton = new Button("Easy");
 		gridPaneCenter.add(easyButton,0,1);
-		easyButton.setOnMouseClicked(handler);
+		easyButton.setOnMouseClicked(new EventHandler<Event>() {
+			public void handle(Event event) {
+				notifyMenuViewUpdated(1);
+			}
+		});
 		
 		Button mediumButton = new Button("Medium");
 		gridPaneCenter.add(mediumButton,1,1);
-		mediumButton.setOnMouseClicked(handler);
+		mediumButton.setOnMouseClicked(new EventHandler<Event>() {
+			public void handle(Event event) {
+				notifyMenuViewUpdated(2);
+			}
+		});
 
 		Button hardButton = new Button("Hard");
 		gridPaneCenter.add(hardButton,2,1);
-		hardButton.setOnMouseClicked(handler);
+		hardButton.setOnMouseClicked(new EventHandler<Event>() {
+			public void handle(Event event) {
+				notifyMenuViewUpdated(3);
+			}
+		});
 		
 	}
 	
@@ -205,9 +236,9 @@ public class MenuView {
 			o.menuViewUpdated(names);
 		}
 	}
-	public void setMenuHandler(ViewHandler handler) {
-		this.handler = handler;
-		
+	protected void notifyMenuViewUpdated(int i) {
+		for(MenuViewObserver o : registeredMenuViewObservers) {
+			o.menuViewUpdated(i);
+		}
 	}
-	
 }

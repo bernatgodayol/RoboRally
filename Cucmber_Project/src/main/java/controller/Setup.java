@@ -13,7 +13,7 @@ import model.Deck;
 import model.Player;
 import model.Robot;
 
-public class Setup implements MenuViewObserver, ViewHandlerObserver {
+public class Setup implements MenuViewObserver {
 	
 	private Board board;
 	private ArrayList<Player> players = new ArrayList<Player>();
@@ -140,11 +140,9 @@ public class Setup implements MenuViewObserver, ViewHandlerObserver {
 		}
 	}
 	
-	
 	@Override
-	public void menuHandlerUpdated(int i) {
-				
-		notifyPhaseShift();
+	public void menuViewUpdated(int i) {
+	notifyPhaseShift();
 		
 		if (i==1) {
 			board.initializeEASY();
@@ -159,6 +157,24 @@ public class Setup implements MenuViewObserver, ViewHandlerObserver {
 			setRobots();
 		}
 	}
+//	@Override
+//	public void menuHandlerUpdated(int i) {
+//				
+//		notifyPhaseShift();
+//		
+//		if (i==1) {
+//			board.initializeEASY();
+//			setRobots();
+//		}
+//		else if (i==2) {
+//			board.initializeMEDIUM();
+//			setRobots();
+//		}
+//		else if (i==3) {
+//			board.initializeHARD();
+//			setRobots();
+//		}
+//	}
 	
 	private void notifyPhaseShift() {
 		for(PhaseShiftObserver o : registeredObservers) {
@@ -169,6 +185,4 @@ public class Setup implements MenuViewObserver, ViewHandlerObserver {
 	public void setRegisteredObservers(PhaseShiftObserver observer) {
 		this.registeredObservers.add(observer);	
 	}	
-	
-	
 }

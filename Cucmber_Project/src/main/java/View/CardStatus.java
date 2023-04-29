@@ -23,4 +23,9 @@ public class CardStatus implements MenuViewObserver {
 		}
 		
 	}
+
+	@Override
+	public void menuViewUpdated(int i) {
+
+	}
 }
