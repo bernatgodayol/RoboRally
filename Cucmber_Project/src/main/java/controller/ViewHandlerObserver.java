@@ -1,6 +1,6 @@
 package controller;
 
 
-public interface MenuHandlerObserver {
+public interface ViewHandlerObserver {
 	public void menuHandlerUpdated(int i);
 }

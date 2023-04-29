@@ -21,7 +21,7 @@ public class Main extends Application{
 		gameSetup.getBoard().setRegisteredObservers(view);
 		view.setRegisteredMenuViewObservers(gameSetup);
 		
-		MenuHandler handler = new MenuHandler(view);
+		ViewHandler handler = new ViewHandler(view);
 		ProgrammingPhase gameProgramming;
 		CardStatus cs = new CardStatus();
 		view.setCardStatus(cs);

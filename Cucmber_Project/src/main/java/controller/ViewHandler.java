@@ -9,18 +9,17 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 
-public class MenuHandler implements EventHandler<MouseEvent> {
+public class ViewHandler implements EventHandler<MouseEvent> {
 
 	private View view;
-	private Set<MenuHandlerObserver> registeredMenuHandlerObservers = new HashSet<MenuHandlerObserver>();
+	private Set<ViewHandlerObserver> registeredMenuHandlerObservers = new HashSet<ViewHandlerObserver>();
 	
-	public MenuHandler(View view) {
+	public ViewHandler(View view) {
 		this.view = view;
 	}
 
 	@Override
 	public void handle(MouseEvent event) {
-		System.out.println(event.getSource());
 		if (event.getSource() instanceof Button) {
 			Button button = (Button) event.getSource();
 			String buttonText = button.getText();
@@ -50,12 +49,12 @@ public class MenuHandler implements EventHandler<MouseEvent> {
 		}
 	}
 
-	public void setRegisteredObservers(MenuHandlerObserver observer) {
+	public void setRegisteredObservers(ViewHandlerObserver observer) {
 		this.registeredMenuHandlerObservers.add(observer);	
 	}
 	
 	public void notifyMenuHandlerUpdated(int i) {
-		for(MenuHandlerObserver o : registeredMenuHandlerObservers) {
+		for(ViewHandlerObserver o : registeredMenuHandlerObservers) {
 			o.menuHandlerUpdated(i);
 		}
 	}

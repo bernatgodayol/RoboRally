@@ -9,8 +9,6 @@ public class RightTurn implements Card {
 	
 	@Override
 	public void execute(Robot robot, Board board) {
-		System.out.println("The robot turns right.");
-
 		if (robot.getDirection() == Direction.NORTH) {
 			robot.setDirection(Direction.EAST);
 		} else if(robot.getDirection()==Direction.EAST) {

@@ -40,7 +40,6 @@ public class MoveForward implements Card {
 				} else {
 					robot.seti(robot.geti() - 1);
 					robot.setj(robot.getj());
-					System.out.println("The robot moves forward.");
 				}
 					
 			} else if (robot.getDirection() == Direction.SOUTH) {
@@ -73,7 +72,6 @@ public class MoveForward implements Card {
 					} else {
 						robot.seti(robot.geti() + 1);
 						robot.setj(robot.getj());
-						System.out.println("The robot moves forward.");
 					}
 						
 			} else if (robot.getDirection() == Direction.EAST) {
@@ -106,7 +104,6 @@ public class MoveForward implements Card {
 						} else {
 							robot.seti(robot.geti());
 							robot.setj(robot.getj()+1);
-							System.out.println("The robot moves forward.");
 						}
 							
 			} else if (robot.getDirection() == Direction.WEST) {
@@ -130,7 +127,6 @@ public class MoveForward implements Card {
 								anotherRobot.setDirection(anotherRobotOldDirection);
 								
 								if (!(anotherRobotOldi == anotherRobot.geti() && anotherRobotOldj == anotherRobot.getj())) {
-									System.out.println("The other robot moves forward. The robot moves forward.");
 									robot.seti(robot.geti());
 									robot.setj(robot.getj() - 1);
 								} else {
@@ -139,7 +135,6 @@ public class MoveForward implements Card {
 							} else {
 								robot.seti(robot.geti());
 								robot.setj(robot.getj() - 1);
-								System.out.println("The robot moves forward.");
 								}
 							}
 			}

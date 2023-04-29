@@ -13,7 +13,7 @@ import model.Deck;
 import model.Player;
 import model.Robot;
 
-public class Setup implements MenuViewObserver, MenuHandlerObserver {
+public class Setup implements MenuViewObserver, ViewHandlerObserver {
 	
 	private Board board;
 	private ArrayList<Player> players = new ArrayList<Player>();

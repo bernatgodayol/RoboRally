@@ -7,6 +7,7 @@ import java.util.Set;
 import View.Sound;
 
 import model.Board;
+import model.Damage;
 import model.Player;
 
 public class ActivationPhase implements ProgrammingPhaseObserver, ActivationViewObserver {
@@ -33,7 +34,11 @@ public class ActivationPhase implements ProgrammingPhaseObserver, ActivationView
 				// Execute card:
 				players.get(i).getActionDeck().getCard(0).execute(players.get(i).getRobot(), board);
 				// Move executed card to discard deck:
-				players.get(i).getActionDeck().moveCard(0, players.get(i).getDiscardDeck());
+				if (players.get(i).getActionDeck().getCard(0) instanceof Damage) {
+					players.get(i).getActionDeck().removeCard(0);
+				}else {
+					players.get(i).getActionDeck().moveCard(0, players.get(i).getDiscardDeck());
+				}
 			}
 			// End of register: activation of the obstacles (WalkableElement)
 			activateObstacles(players,board,players.size());

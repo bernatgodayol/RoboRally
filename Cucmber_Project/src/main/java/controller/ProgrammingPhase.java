@@ -5,8 +5,6 @@ import java.util.Set;
 
 import View.CardStatus;
 import View.Sound;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import model.AI;
 
 public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
@@ -88,10 +86,6 @@ public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 		
 		if (cs.getCardGrids().get(numplayer).size() < 5) {
 			cs.setCards(index, numplayer);
-			System.out.println(cs.getCardGrids());
-		}
-		else {
-			System.out.println("No more cards can be choosen for player " + player);
 		}
 		
 		
@@ -137,7 +131,7 @@ public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 
 	@Override
 	public void startProgrammingPhase() {
-
+		
 		if (gamesetup.getIsAI()){
 			if (cs.getCardGrids().get(0).size()!=0) {
 				for (int j=0; j<5; j++) {

@@ -40,15 +40,11 @@ public class Deck {
 	public Card extractCard(int index) {
 		Card card = this.deck.get(index);
 		this.deck.remove(index);
-		System.out.print(this.deck.isEmpty());
-		System.out.println("Successfully extracted card !!!!");
 		return card;
 	}
 	
 	public void moveRandomCards(Deck otherDeck, Integer numCards) {
 	    Random rand = new Random();
-	    
-//	    CardStatus cs = notifyCardsUpdated(numCards, player.getName());
 	    
 	    if (this.deck.size() > numCards) {
 	        for (int i = 0; i < numCards; i++) {
@@ -56,11 +52,6 @@ public class Deck {
 	            Card card = this.deck.get(index);
 	            otherDeck.getDeck().add(card);
 	            this.deck.remove(index);
-//	            this.moveCard(index, otherDeck);
-	            
-	            if (numCards == 5) {
-	            	System.out.println(deck.size() + " AI playingdeck size");
-	            }
 	            
 	            if (numCards == 9) {
 	            	notifyCardsUpdated(card, i, player.getName());

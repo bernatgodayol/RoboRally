@@ -9,7 +9,7 @@ import controller.ActivationViewObserver;
 import controller.BoardObserver;
 import controller.BoardViewObserver;
 import controller.CardObserver;
-import controller.MenuHandler;
+import controller.ViewHandler;
 import controller.MenuViewObserver;
 import controller.PlayerStatusObserver;
 import controller.RobotObserver;
@@ -28,8 +28,6 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import model.Board;
@@ -51,7 +49,7 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 	private Set<BoardViewObserver> registeredBoardViewObservers = new HashSet<BoardViewObserver>();
 	private Set<MenuViewObserver> registeredMenuViewObservers = new HashSet<MenuViewObserver>();
 	private Set<ActivationViewObserver> registeredActivationViewObservers = new HashSet<ActivationViewObserver>();
-	private MenuHandler handler;
+	private ViewHandler handler;
 
 	private BorderPane anchorPane = new BorderPane();
 	private GridPane gridPaneCenter = new GridPane();
@@ -71,7 +69,7 @@ public class View implements BoardObserver, CardObserver, PlayerStatusObserver, 
 		this.cardstatus = cardstatus;
 	}
 	
-	public void setMenuHandler(MenuHandler handler) {
+	public void setMenuHandler(ViewHandler handler) {
 		this.handler = handler;
 	}
 	

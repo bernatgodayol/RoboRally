@@ -8,7 +8,6 @@ public class UTurn implements Card {
 	
 	@Override
 	public void execute(Robot robot, Board board) {
-		System.out.println("The robot turns U.");
 
 		if(robot.getDirection() == Direction.NORTH) {
 			robot.setDirection(Direction.SOUTH);
