@@ -1,7 +1,9 @@
 package controller;
 
-import View.View;
+import View.BoardView;
+import View.WinnerView;
 import View.CardStatus;
+import View.MenuView;
 import View.PlayerStatus;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -13,32 +15,34 @@ public class Main extends Application{
 	public void start(Stage primaryStage) throws Exception {
 
 		Stage stage = new Stage();
-		View view = new View();
+		MenuView menuView = new MenuView();
+		BoardView view = new BoardView(menuView.getAnchorPane(), menuView.getGridPaneCenter(), menuView.getScene());
+		WinnerView winnerView = new WinnerView(view.getGridPaneCenter(), view.getGridPaneLeft(), view.getGridPaneRight());
 		PlayerStatus playerStatus = new PlayerStatus();
 		playerStatus.setRegisteredPlayerStatusObservers(view);
 		
 		Setup gameSetup = new Setup(view,playerStatus);
 		gameSetup.getBoard().setRegisteredObservers(view);
-		view.setRegisteredMenuViewObservers(gameSetup);
+		menuView.setRegisteredMenuViewObservers(gameSetup);
 		
-		ViewHandler handler = new ViewHandler(view);
+		ViewHandler handler = new ViewHandler(menuView);
 		ProgrammingPhase gameProgramming;
 		CardStatus cs = new CardStatus();
 		view.setCardStatus(cs);
 		
-		view.setRegisteredMenuViewObservers(cs);
+		menuView.setRegisteredMenuViewObservers(cs);
 		gameProgramming = new ProgrammingPhase(gameSetup, cs);
 		view.setRegisteredBoardViewObservers(gameProgramming);
 		handler.setRegisteredObservers(gameSetup);
-		view.setMenuHandler(handler);
+		menuView.setMenuHandler(handler);
 		ActivationPhase actionPhase = new ActivationPhase();
 		gameProgramming.setRegisteredActionObservers(actionPhase);
 		actionPhase.setRegisteredObservers(gameProgramming);
 		gameSetup.setRegisteredObservers(gameProgramming);
-		actionPhase.setRegisteredActivationPhaseObservers(view);
-		view.setRegisteredActivationViewObservers(actionPhase);
-		
-		stage.setScene(view.choosePlayerNum());		
+		actionPhase.setRegisteredActivationPhaseObservers(winnerView);
+		winnerView.setRegisteredActivationViewObservers(actionPhase);
+			
+		stage.setScene(menuView.choosePlayerNum());
 		stage.setTitle("RoboRally group 4");
 		stage.show();
 		

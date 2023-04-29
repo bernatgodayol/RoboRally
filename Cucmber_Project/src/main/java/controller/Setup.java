@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import View.PlayerStatus;
-import View.View;
+import View.BoardView;
 import model.AI;
 import model.Board;
 import model.Color;
@@ -18,11 +18,11 @@ public class Setup implements MenuViewObserver, ViewHandlerObserver {
 	private Board board;
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private PlayerStatus playerStatus;
-	private View view;
+	private BoardView view;
 	private boolean isAI = false;
 	private Set<PhaseShiftObserver> registeredObservers = new HashSet<PhaseShiftObserver>();
 	
-	public Setup(View view, PlayerStatus playerStatus) {
+	public Setup(BoardView view, PlayerStatus playerStatus) {
 		this.view = view;
 		this.playerStatus = playerStatus;
 		board = new Board();
@@ -32,7 +32,7 @@ public class Setup implements MenuViewObserver, ViewHandlerObserver {
 		return board;
 	}
 	
-	public View getView() {
+	public BoardView getView() {
 		return view;
 	}
 	
