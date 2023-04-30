@@ -74,10 +74,15 @@ public class BoardView implements BoardObserver, CardObserver, PlayerStatusObser
 	
 	@Override
 	public void boardUpdated(BoardStatus newBoardStatus) {
+		//Prints the board on the scene when board is initialized
+		
+		//The scene is cleared
 		gridPaneCenter.getChildren().clear();
 		gridPaneCenter.setHgap(0);
 		gridPaneCenter.setVgap(0);
 		
+		/*The matrix in the BoardStatus class is run through. An image that corresponds
+		to the tile integer is found using the class TileManager*/
 		for(int i=0; i<13; i++) {
 			for(int j=0; j<10; j++) {
 				imageView = tilemanager.getImage(newBoardStatus.getStatusBoard()[i][j]);	
@@ -91,11 +96,15 @@ public class BoardView implements BoardObserver, CardObserver, PlayerStatusObser
 	
 	@Override
 	public void playerStatusUpdated(String name) {
+		//When the player status is updated, an array with player names is created
 		this.players.add(name);
 	}
 	
 	@Override
 	public void cardUpdated(Card card, int index, int numCard, String player) {
+		/*Prints the playing cards on the scene when the random cards are moved from
+		 *the programming deck to the playing deck*/
+		
 		anchorPane.setLeft(gridPaneLeft);
 		gridPaneLeft.setAlignment(Pos.TOP_CENTER);
 		anchorPane.setRight(gridPaneRight);
@@ -103,9 +112,12 @@ public class BoardView implements BoardObserver, CardObserver, PlayerStatusObser
 		
 		isBorderVisible = false;
 		
+		//creating a label for the player name
 		Label labelname = new Label(player);
 		boolean left = false;
 		
+		/*According to the numbers of players, the label and cards gets a different 
+		 *position on the scene*/
 		if(players.get(0) == player) {
 			gridPaneLeft.add(labelname, 0, 0);
 			j = 0;
@@ -129,11 +141,13 @@ public class BoardView implements BoardObserver, CardObserver, PlayerStatusObser
 			j = 1;
 			left = false;
 		}
-
+		
+		//The correct image for each card is found using the class CardManager
 		imageView = cardManager.getCardImage(numCard);	
 		imageView.setFitHeight(40);
 		imageView.setFitWidth(40);
 		
+		//A border is created. This will be printed on top of the cards
 		Rectangle border = new Rectangle();
 		border.setFill(Color.TRANSPARENT);
 	    border.setStroke(Color.GREEN);
@@ -142,6 +156,9 @@ public class BoardView implements BoardObserver, CardObserver, PlayerStatusObser
 	    border.setHeight(imageView.getFitHeight()-3);
 	    border.setVisible(isBorderVisible);
 	    
+	    /*Sets the border visible and notifies BoardViewObserver that the board has updated
+	     * if the player is not an AI, is clicking on an already chosen card and has space 
+	     * in their action deck.*/
 		if (player != "AI" && !isBorderVisible) {
 			imageView.setOnMouseClicked(new EventHandler<Event>() {
 				public void handle(Event event) {
@@ -183,6 +200,7 @@ public class BoardView implements BoardObserver, CardObserver, PlayerStatusObser
 			});	
 		}
 		
+		//prints the cards and names on the scene and removes previously printed cards
 		if (left) {
 			gridPaneLeft.getChildren().removeIf(node -> GridPane.getColumnIndex(node) == j && 
 					GridPane.getRowIndex(node) == index+1);
@@ -204,6 +222,9 @@ public class BoardView implements BoardObserver, CardObserver, PlayerStatusObser
 
 	@Override
 	public void robotUpdated(int i, int j, int oldI, int oldJ, int color, int direction) {
+		/*When the robot position is updated, the robots are moved from their previous 
+		 * position and printed on their new position on the board. The correct picture
+		 * of the robots are found using the class RobotManager.*/
 		if (color == 1) {
 			if(robot1 != null) {
 				gridPaneCenter.getChildren().remove(robot1);
@@ -251,6 +272,7 @@ public class BoardView implements BoardObserver, CardObserver, PlayerStatusObser
 	}
 	
 	private void notifyBoardViewUpdated(int num, String player) {
+		//BoardViewObservers are notified that the board is changed
 		for(BoardViewObserver o : registeredBoardViewObservers) {
 			o.boardViewUpdated(num, player);
 		}

@@ -321,12 +321,14 @@ public class Board {
 		return null;
 	}
 	
-
+	
 	public void setRegisteredObservers(BoardObserver boardObserver) {
 		this.registeredBoardObservers.add(boardObserver);	
 	}	
 	
 	private void notifyBoardUpdated() {
+		/*Assigning the different elements on the board an integer and putting them into the
+		 *BoardStatus class.*/
 		
 		BoardStatus bs = new BoardStatus(ROWS, COLUMNS);
 		
@@ -393,7 +395,8 @@ public class Board {
 			}
 		bs.setElementType(15, rebooti, rebootj);
 		bs.setElementType(16, endi, endj);
-			
+		
+		//Notifies the BoardViewObservers that the Board is updated.
 		for(BoardObserver o : registeredBoardObservers) {
 				o.boardUpdated(bs);
 		}

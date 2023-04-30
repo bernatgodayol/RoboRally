@@ -129,6 +129,7 @@ public class Deck {
 	}
 	
 	private void notifyCardsUpdated(Card card, int index, String player) {
+		//Assigning the different types of cards an integer
 		
 		int numCard;
 		
@@ -148,6 +149,7 @@ public class Deck {
 			numCard = 5;
 		}
 		
+		//Notifying the CardObserver that the playing deck is updated
 		for(CardObserver o : registeredCardObservers) {
 			o.cardUpdated(card, index, numCard, player);
 		}		

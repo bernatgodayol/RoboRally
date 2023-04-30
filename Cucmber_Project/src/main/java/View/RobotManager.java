@@ -10,6 +10,8 @@ public class RobotManager {
 	private ImageView imageView;
 	
 	public ImageView getImage(int num){
+		//Returns an imageView of a robot according to the integer the robot is assigned.
+		
 		if(num == 1) {
 			String imageUrl = classLoader.getResource("Robots/BlueRobot.png").toExternalForm();
 			image = new Image(imageUrl);

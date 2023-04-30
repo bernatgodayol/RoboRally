@@ -19,6 +19,7 @@ public class ActivationPhase implements ProgrammingPhaseObserver, ActivationView
 	
 	@Override
 	public void startActivationPhase(ArrayList<Player> players, Board board) {
+		//A sound is played at the beginning of the activation phase.
 		try {
 			sound.playSound("Robots_activate");
 		} catch (Exception e) {
@@ -29,6 +30,8 @@ public class ActivationPhase implements ProgrammingPhaseObserver, ActivationView
 	
 	@Override
 	public void continueActivationPhase(ArrayList<Player> players, Board board) {
+		/*The cards in the action deck are executed and moved to the discard deck.
+		 * The card is removed from the deck if it is a damage card.*/
 		if (players.get(0).getActionDeck().getDeckSize()!=0) {
 			for (int i=0; i<players.size(); i++) {
 				// Execute card:
@@ -55,6 +58,9 @@ public class ActivationPhase implements ProgrammingPhaseObserver, ActivationView
 	}
 
 	private void activateObstacles(ArrayList<Player> players, Board board, int playerNum) {
+		/*The obstacles are activated after each card is executed. If robot hits laser, 
+		 * a sound is played. The method keeps track of if a robot has reached the end tile.*/
+		
 		for (int j=0; j<playerNum; j++) {
 			int i1 = players.get(j).getRobot().geti();
 			int j1 = players.get(j).getRobot().getj();
@@ -74,18 +80,21 @@ public class ActivationPhase implements ProgrammingPhaseObserver, ActivationView
 	}
 	
 	private void notifyGameEnds(String name) {
+		//ActivationPhaseObservers are notified that a robot has reached the end tile.
 		for(ActivationPhaseObserver o : registeredActivationPhaseObservers) {
 			o.winnerFound(name);
 		}
 	}
 	
 	private void notifyActivationPhaseUpdated(ArrayList<Player> players, Board board, boolean endActivationPhase) {
+		//ActivationPhaseObservers are notified that the activation phase has updated.
 		for(ActivationPhaseObserver o : registeredActivationPhaseObservers) {
 			o.activationPhaseUpdated(players,board,endActivationPhase);
 		}
 	}
 
 	private void notifyPhaseShift() {
+		//PhaseShiftObservers are notified that the programming phase can begin.
 		for(PhaseShiftObserver o : registeredPhaseShiftObservers) {
 			o.startProgrammingPhase();
 		}

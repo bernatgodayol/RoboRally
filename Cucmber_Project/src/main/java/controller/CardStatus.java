@@ -16,6 +16,7 @@ public class CardStatus implements MenuViewPlayerObserver {
 
 	@Override
 	public void menuViewUpdated(ArrayList<String> names) {
+		//The cardGrids are initialized according to the number of players.
 		for (int i=0; i<names.size(); i++) {
 			cardGrids.add(new ArrayList<Integer>());
 		}
