@@ -43,7 +43,11 @@ public class Setup implements MenuViewPlayerObserver, MenuViewBoardObserver {
 	}
 	
 	@Override
-	public void menuViewUpdated(ArrayList<String> names) {	
+	public void menuViewUpdated(ArrayList<String> names) {
+		/*When the menuView is updated with player names, the players, players decks and 
+		 * robots are initialized.*/
+		
+		
 		int playerNum = names.size();
 		
 		// Initializing robots and decks and assigning them to players
@@ -91,6 +95,8 @@ public class Setup implements MenuViewPlayerObserver, MenuViewBoardObserver {
 			Deck programmingDeck4 = new Deck();
 			assignDecks(3,programmingDeck4);
 		}	
+		
+		//If only one player is playing the game, a player named 'AI' is created
 		if (playerNum==1) {
 			Player player2 = new AI();
 			notifyPlayerUpdated("AI");
@@ -108,6 +114,9 @@ public class Setup implements MenuViewPlayerObserver, MenuViewBoardObserver {
 
 	@Override
 	public void menuViewUpdated(int i) {
+	/*The boards are initialized and the robots are placed on the board with the method 
+	 * 'setRobots'*/
+		
 	notifyPhaseShift();
 		
 		if (i==1) {
@@ -125,6 +134,8 @@ public class Setup implements MenuViewPlayerObserver, MenuViewBoardObserver {
 	}
 	
 	private void assignDecks(int playerNo, Deck programmingDeck) {
+		//Decks are assigned to the players.
+		
 		// Programming deck
 		programmingDeck.initializeProgrammingDeck();
 		players.get(playerNo).setProgrammingDeck(programmingDeck);
@@ -141,6 +152,8 @@ public class Setup implements MenuViewPlayerObserver, MenuViewBoardObserver {
 	}
 	
 	private void setRobots() {
+		//The robots are placed on the board according to the number of players in the game.
+		
 		if (players.size()==2) {
 			board.setRobots(players.get(0).getRobot(), players.get(1).getRobot());
 		}
@@ -161,12 +174,14 @@ public class Setup implements MenuViewPlayerObserver, MenuViewBoardObserver {
 	}
 	
 	private void notifyPhaseShift() {
+		//PhaseShiftObservers are notified that the programming phase can begin
 		for(PhaseShiftObserver o : registeredPhaseShiftObservers) {
 			o.startProgrammingPhase();
 		}
 	}
 	
 	private void notifyPlayerUpdated(String name) {
+		//PlayerStatusObservers are notified that players have been created
 		for(PlayerStatusObserver o : registeredPlayerObservers) {
 			o.playerStatusUpdated(name);
 		}

@@ -80,6 +80,8 @@ public class Robot {
 	}
 	
 	private void notifyRobotUpdated(int i2, int j2, int oldI, int oldJ) {
+		//Assigning the robot an integer for its color and direction
+		
 		int robotColor;
 		int robotDirection;
 		
@@ -103,6 +105,8 @@ public class Robot {
 			robotDirection = 90;
 		}
 		
+		/*The RobotObservers is notifies that the robots color, direction, new position 
+		 *and old position is updated*/
 		for(RobotObserver o : registeredRobotObservers) {
 			o.robotUpdated(i2, j2, oldI, oldJ, robotColor, robotDirection);
 		}	

@@ -40,59 +40,68 @@ public class MenuView {
 	}
 	
 	public Scene choosePlayerNum() {
-			anchorPane.setCenter(gridPaneCenter);		
-			gridPaneCenter.setAlignment(Pos.CENTER);
-			gridPaneCenter.setHgap(10);
-			gridPaneCenter.setVgap(10);
-			
-			BackgroundFill backgroundFill = new BackgroundFill(
-			                Color.valueOf("#add8e6"),
-			                new CornerRadii(10),
-			                new Insets(10)
-			                );
-	
-			Background background = new Background(backgroundFill);
-			gridPaneCenter.setBackground(background);
-			
-			Label text = new Label("How many players are playing?");
-			gridPaneCenter.add(text,0,0,4,1);
-			
-			Button button1 = new Button("1");
-			gridPaneCenter.add(button1,0,1);
-			button1.setOnMouseClicked(new EventHandler<Event>() {
-				public void handle(Event event) {
-					typePlayerNames(1);
-				}
-			});
-			
-			Button button2 = new Button("2");
-			gridPaneCenter.add(button2,1,1);
-			button2.setOnMouseClicked(new EventHandler<Event>() {
-				public void handle(Event event) {
-					typePlayerNames(2);
-				}
-			});
-			
-			Button button3 = new Button("3");
-			gridPaneCenter.add(button3,2,1);
-			button3.setOnMouseClicked(new EventHandler<Event>() {
-				public void handle(Event event) {
-					typePlayerNames(3);
-				}
-			});
-			
-			Button button4 = new Button("4");
-			gridPaneCenter.add(button4,3,1);
-			button4.setOnMouseClicked(new EventHandler<Event>() {
-				public void handle(Event event) {
-					typePlayerNames(4);
-				}
-			});
-			
-			return scene;
-		}
+		/*A scene is created where the player can choose the number of players 
+		 *playing the game */
+		
+		anchorPane.setCenter(gridPaneCenter);		
+		gridPaneCenter.setAlignment(Pos.CENTER);
+		gridPaneCenter.setHgap(10);
+		gridPaneCenter.setVgap(10);
+		
+		//A background color is created and drawn
+		BackgroundFill backgroundFill = new BackgroundFill(
+		                Color.valueOf("#add8e6"),
+		                new CornerRadii(10),
+		                new Insets(10)
+		                );
+
+		Background background = new Background(backgroundFill);
+		gridPaneCenter.setBackground(background);
+		
+		//The label is drawn
+		Label text = new Label("How many players are playing?");
+		gridPaneCenter.add(text,0,0,4,1);
+		
+		//The buttons are drawn and if pressed on, the method typePlayerNames is run
+		Button button1 = new Button("1");
+		gridPaneCenter.add(button1,0,1);
+		button1.setOnMouseClicked(new EventHandler<Event>() {
+			public void handle(Event event) {
+				typePlayerNames(1);
+			}
+		});
+		
+		Button button2 = new Button("2");
+		gridPaneCenter.add(button2,1,1);
+		button2.setOnMouseClicked(new EventHandler<Event>() {
+			public void handle(Event event) {
+				typePlayerNames(2);
+			}
+		});
+		
+		Button button3 = new Button("3");
+		gridPaneCenter.add(button3,2,1);
+		button3.setOnMouseClicked(new EventHandler<Event>() {
+			public void handle(Event event) {
+				typePlayerNames(3);
+			}
+		});
+		
+		Button button4 = new Button("4");
+		gridPaneCenter.add(button4,3,1);
+		button4.setOnMouseClicked(new EventHandler<Event>() {
+			public void handle(Event event) {
+				typePlayerNames(4);
+			}
+		});
+		
+		return scene;
+	}
 	
 	public void typePlayerNames(int i) {
+		//Scene where the players names are written so the players can be initialized
+		
+		//The scene is cleared
 		gridPaneCenter.getChildren().clear();
 		ArrayList<String> names = new ArrayList<String>();
 		
@@ -101,6 +110,7 @@ public class MenuView {
 		TextField textField3 = new TextField();
 		TextField textField4 = new TextField();
 		
+		//The textfields are drawn according to the number of players
 		if (i>0 && i<5) {
 			if (i>0) {
 				Label text1 = new Label("Type the name of player 1 (Green robot):");
@@ -127,6 +137,9 @@ public class MenuView {
 			}
 		}
 		
+		/*Checking that the textfields contains unique names, no field is blank or 
+		 *contains the string 'AI' when nutton 'next' is clicked on. The methods 
+		 *'notifyMenuViewUpdated' and 'chooseDifficulty' are called */
 		Button button = new Button("Next");
 		gridPaneCenter.add(button,0,i*2);			
 		button.setOnMouseClicked(new EventHandler<Event>() {
@@ -174,6 +187,7 @@ public class MenuView {
 					chooseDifficulty();
 				}
 				else {
+					//An error message is printed on the scene
 					Label text1 = new Label("Please choose a unique name for each player.\n"
 							+ "Player cannot be named 'AI'");
 					text1.setStyle("-fx-text-fill: red;");
@@ -184,11 +198,17 @@ public class MenuView {
 	}
 	
 	public void chooseDifficulty() {
+		//The player can chooses the difficulty of the game so the board can be initialized
+		
+		//The scene is cleared 
 		gridPaneCenter.getChildren().clear();
 		
+		//The label is drawn
 		Label text = new Label("Choose difficulty:");
 		gridPaneCenter.add(text,0,0,3,1);
 		
+		/*Three buttons 'easy', 'medium' and 'hard' are printed on the scene. If a button is
+		 *clicked on, the method 'notifyMenuViewUpdated' is called*/
 		Button easyButton = new Button("Easy");
 		gridPaneCenter.add(easyButton,0,1);
 		easyButton.setOnMouseClicked(new EventHandler<Event>() {
@@ -222,11 +242,14 @@ public class MenuView {
 		this.registeredMenuViewBoardObservers.add(observer);	
 	}
 	
+	//MenuViewPlayerObservers are notified that the player names are updated
 	private void notifyMenuViewUpdated(ArrayList<String> names) {
 		for(MenuViewPlayerObserver o : registeredMenuViewPlayerObservers) {
 			o.menuViewUpdated(names);
 		}
 	}
+	
+	//MenuViewBoardObservers are notified that the board difficulty is updated
 	private void notifyMenuViewUpdated(int i) {
 		for(MenuViewBoardObserver o : registeredMenuViewBoardObservers) {
 			o.menuViewUpdated(i);

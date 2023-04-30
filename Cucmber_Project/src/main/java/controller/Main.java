@@ -23,11 +23,10 @@ public class Main extends Application{
 		menuView.setRegisteredMenuViewBoardObservers(gameSetup);
 		gameSetup.setRegisteredPlayerObservers(boardView);
 		
-		ProgrammingPhase programmingPhase;
 		CardStatus cs = new CardStatus();
 		boardView.setCardStatus(cs);
 		menuView.setRegisteredMenuViewPlayerObservers(cs);
-		programmingPhase = new ProgrammingPhase(gameSetup, cs);
+		ProgrammingPhase programmingPhase = new ProgrammingPhase(gameSetup, cs);
 		boardView.setRegisteredBoardViewObservers(programmingPhase);
 		gameSetup.setRegisteredObservers(programmingPhase);
 		

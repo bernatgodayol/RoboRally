@@ -10,6 +10,8 @@ public class CardManager {
 	private ImageView imageView;
 	
 	public ImageView getCardImage(int num){
+		//Returns an imageView of a card according to the integer the card is assigned.
+		
 		if(num == 1) {
 			String imageUrl = classLoader.getResource("Cards/MoveForwardCard.png").toExternalForm();
 			image = new Image(imageUrl);

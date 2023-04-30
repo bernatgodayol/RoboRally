@@ -13,6 +13,10 @@ public class TileManager {
 	private int rotate;
 	
 	public ImageView getImage(int num){
+		/*Returns an imageView of a tile according to the integer the element is assigned. 
+		 * The images are rotated to fit the direction of the element. The basic tile is 
+		 * rotated randomly.*/
+		
 		if(num == 1) {
 			String imageUrl = classLoader.getResource("Tiles/Wall2Tile.png").toExternalForm();
 			image = new Image(imageUrl);

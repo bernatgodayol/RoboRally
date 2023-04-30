@@ -25,6 +25,9 @@ public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 	
 	@Override
 	public void startProgrammingPhase() {
+		/*The indexes saved in the cardstatus are removed in the beginning of each 
+		 * programming phase*/
+		
 		if (gamesetup.getIsAI()){
 			if (cs.getCardGrids().get(0).size()!=0) {
 				for (int j=0; j<5; j++) {
@@ -42,16 +45,21 @@ public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 			}
 		}
 		
+		
+		/*Refills the programming deck with the cards from the discard deck if the
+		 * programming deck is too small*/
 		for(int i=0; i<players.size(); i++) {
 			
 			if (players.get(i).getProgrammingDeck().getDeckSize()<10) {
 				players.get(i).getProgrammingDeck().refillDeck(players.get(i).getDiscardDeck());
 			}
 			
+			//The players playing deck is filled with cards from the programming deck
 			players.get(i).getProgrammingDeck().moveRandomCards(players.get(i).getPlayingDeck(),9);
 
 		}
 		
+		//A sound is played
 		try {
 			sound.playSound("Start_programming");
 		} catch (Exception e) {
@@ -61,6 +69,8 @@ public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 	
 	@Override
 	public void boardViewUpdated(int index, String player) {
+		//Assigns each player an integer 'numplayer'.
+		
 		if (players.size()>1) {
 			if (players.get(0).getName() == player) {
 				numplayer = 0;
@@ -80,11 +90,16 @@ public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 			}
 		}
 
+		/*If the players actiondeck is not full yet, the int index is saved in the players 
+		 * cardstatus*/
 		
 		if (cs.getCardGrids().get(numplayer).size() < 5) {
 			cs.setCards(index, numplayer);
 		}
 		
+		
+		/*Checking that the all the players actiondecks are full before starting the 
+		 * activation phase*/
 		if (players.size()==2) {
 			if (cs.getCardGrids().get(0).size() == 5 && gamesetup.getIsAI()) {
 				initializeActivationPhase();				
@@ -115,6 +130,9 @@ public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 	}
 	
 	public void initializeActivationPhase() {
+		/*The chosen cards from the players playing deck is moved to the action deck. 
+		 * The remaining cards in the playing deck is moved to the discard deck.*/
+		
 		if (gamesetup.getIsAI()) {
 			if (players.get(1) instanceof AI) {
 				AI playerAI = (AI) players.get(1);
@@ -158,6 +176,7 @@ public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 	}
 
 	private void notifyActivationPhaseStart() {
+		//The ProgrammingPhaseObservers are notified that the activation phase can start.
 		for(ProgrammingPhaseObserver o : registeredProgrammingPhaseObservers) {
 			o.startActivationPhase(players, gamesetup.getBoard());
 		}
