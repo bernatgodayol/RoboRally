@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import View.PlayerStatus;
 import View.BoardView;
 import model.AI;
 import model.Board;
@@ -17,14 +16,13 @@ public class Setup implements MenuViewObserver {
 	
 	private Board board;
 	private ArrayList<Player> players = new ArrayList<Player>();
-	private PlayerStatus playerStatus;
 	private BoardView view;
 	private boolean isAI = false;
-	private Set<PhaseShiftObserver> registeredObservers = new HashSet<PhaseShiftObserver>();
+	private Set<PhaseShiftObserver> registeredPhaseShiftObservers = new HashSet<PhaseShiftObserver>();
+	private Set<PlayerStatusObserver> registeredPlayerObservers = new HashSet<PlayerStatusObserver>();
 	
-	public Setup(BoardView view, PlayerStatus playerStatus) {
+	public Setup(BoardView view) {
 		this.view = view;
-		this.playerStatus = playerStatus;
 		board = new Board();
 	}
 	
@@ -51,7 +49,7 @@ public class Setup implements MenuViewObserver {
 		// Initializing robots and decks and assigning them to players
 		if (playerNum>0) {
 			Player player1 = new Player(names.get(0));
-			player1.setRegisteredPlayerObservers(playerStatus);
+			notifyPlayerUpdated(names.get(0));
 			players.add(player1);
 			
 			Robot robot1 = new Robot(Color.GREEN);
@@ -62,7 +60,7 @@ public class Setup implements MenuViewObserver {
 		}
 		if (playerNum>1) {
 			Player player2 = new Player(names.get(1));
-			player2.setRegisteredPlayerObservers(playerStatus);
+			notifyPlayerUpdated(names.get(1));
 			players.add(player2);
 			
 			Robot robot2 = new Robot(Color.YELLOW);
@@ -73,7 +71,7 @@ public class Setup implements MenuViewObserver {
 		}
 		if (playerNum>2) {
 			Player player3 = new Player(names.get(2));
-			player3.setRegisteredPlayerObservers(playerStatus);
+			notifyPlayerUpdated(names.get(2));
 			players.add(player3);
 			
 			Robot robot3 = new Robot(Color.RED);
@@ -84,7 +82,7 @@ public class Setup implements MenuViewObserver {
 		}
 		if (playerNum>3) {
 			Player player4 = new Player(names.get(3));
-			player4.setRegisteredPlayerObservers(playerStatus);
+			notifyPlayerUpdated(names.get(3));
 			players.add(player4);
 			
 			Robot robot4 = new Robot(Color.BLUE);
@@ -95,7 +93,7 @@ public class Setup implements MenuViewObserver {
 		}	
 		if (playerNum==1) {
 			Player player2 = new AI();
-			player2.setRegisteredPlayerObservers(playerStatus);
+			notifyPlayerUpdated("AI");
 			players.add(player2);
 			
 			Robot robot2 = new Robot(Color.YELLOW);
@@ -106,7 +104,6 @@ public class Setup implements MenuViewObserver {
 			
 			isAI = true;
 		}
-	
 	}
 
 	@Override
@@ -155,13 +152,25 @@ public class Setup implements MenuViewObserver {
 		}
 	}
 	
+	public void setRegisteredObservers(PhaseShiftObserver observer) {
+		this.registeredPhaseShiftObservers.add(observer);	
+	}
+
+	public void setRegisteredPlayerObservers(PlayerStatusObserver observer) {
+		this.registeredPlayerObservers.add(observer);	
+	}
+	
 	private void notifyPhaseShift() {
-		for(PhaseShiftObserver o : registeredObservers) {
+		for(PhaseShiftObserver o : registeredPhaseShiftObservers) {
 			o.startProgrammingPhase();
 		}
 	}
+	
+	private void notifyPlayerUpdated(String name) {
+		for(PlayerStatusObserver o : registeredPlayerObservers) {
+			o.playerStatusUpdated(name);
+		}
+	}
 
-	public void setRegisteredObservers(PhaseShiftObserver observer) {
-		this.registeredObservers.add(observer);	
-	}	
+
 }

@@ -4,7 +4,6 @@ import View.BoardView;
 import View.ActivationView;
 import View.CardStatus;
 import View.MenuView;
-import View.PlayerStatus;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -18,12 +17,11 @@ public class Main extends Application{
 		MenuView menuView = new MenuView();
 		BoardView view = new BoardView(menuView.getAnchorPane(), menuView.getGridPaneCenter(), menuView.getScene());
 		ActivationView winnerView = new ActivationView(view.getGridPaneCenter(), view.getGridPaneLeft(), view.getGridPaneRight());
-		PlayerStatus playerStatus = new PlayerStatus();
-		playerStatus.setRegisteredPlayerStatusObservers(view);
 		
-		Setup gameSetup = new Setup(view,playerStatus);
+		Setup gameSetup = new Setup(view);
 		gameSetup.getBoard().setRegisteredObservers(view);
 		menuView.setRegisteredMenuViewObservers(gameSetup);
+		gameSetup.setRegisteredPlayerObservers(view);
 		
 		ProgrammingPhase gameProgramming;
 		CardStatus cs = new CardStatus();

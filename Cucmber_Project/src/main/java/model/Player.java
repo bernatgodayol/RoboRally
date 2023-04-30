@@ -2,7 +2,6 @@ package model;
 
 import java.util.HashSet;
 import java.util.Set;
-import controller.PlayerObserver;
 
 public class Player {
 	private String name;
@@ -11,7 +10,6 @@ public class Player {
 	private Deck discardDeck;
 	private Deck playingDeck;
 	private Deck actionDeck;
-	private Set<PlayerObserver> registeredPlayerObservers = new HashSet<PlayerObserver>();
 
 	public Player(String name) {
 		this.name = name;
@@ -65,17 +63,6 @@ public class Player {
 	
 	public Deck getActionDeck() {
 		return actionDeck;
-	}
-	
-	public void setRegisteredPlayerObservers(PlayerObserver playerObserver) {
-		this.registeredPlayerObservers.add(playerObserver);	
-		notifyPlayerUpdated(this.name);
-	}
-	
-	private void notifyPlayerUpdated(String name) {
-		for(PlayerObserver o : registeredPlayerObservers) {
-			o.playerUpdated(name);
-		}
 	}
 	
 }

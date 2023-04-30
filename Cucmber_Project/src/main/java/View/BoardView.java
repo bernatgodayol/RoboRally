@@ -90,10 +90,9 @@ public class BoardView implements BoardObserver, CardObserver, PlayerStatusObser
 		}
 	}
 	
-	
 	@Override
-	public void playerStatusUpdated(ArrayList<String> players, String name) {
-		this.players = players;
+	public void playerStatusUpdated(String name) {
+		this.players.add(name);
 		this.name = name;
 	}
 	
