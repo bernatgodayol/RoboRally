@@ -6,31 +6,49 @@ import View.BoardStatus;
 import controller.BoardObserver;
 
 public class Board {
-	
-	private Set<BoardObserver> registeredBoardObservers = new HashSet<BoardObserver>();
 
-	private Tile[][] grid;
-	private int rebooti;
-	private int rebootj;
-	private int endi;
-	private int endj;
-	private int ROWS = 13;
-	private int COLUMNS = 10;
-	
-	private Robot robot1;
-	private Robot robot2;
-	private Robot robot3;
-	private Robot robot4;
-	
-	public Board() {
-		grid = new Tile[ROWS][COLUMNS];
-		
-		for (int i=0; i<ROWS; i++) {
-			for (int j=0; j<COLUMNS; j++) {
-				grid[i][j] = new Tile();
-			}
-		}
-	}
+    private static Board instance = new Board();
+    private Set<BoardObserver> registeredBoardObservers = new HashSet<BoardObserver>();
+
+    private Tile[][] grid;
+    private int rebooti;
+    private int rebootj;
+    private int endi;
+    private int endj;
+    private int ROWS = 13;
+    private int COLUMNS = 10;
+
+    private Robot robot1;
+    private Robot robot2;
+    private Robot robot3;
+    private Robot robot4;
+
+    private Board() {
+        grid = new Tile[ROWS][COLUMNS];
+
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
+                grid[i][j] = new Tile();
+            }
+        }
+    }
+
+    public static Board getInstance() {
+    	if (instance == null) {
+            instance = new Board();
+        }
+        return instance;
+    }
+    
+    public void emptyBoard() {
+    	grid = new Tile[ROWS][COLUMNS];
+
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
+                grid[i][j] = new Tile();
+            }
+        }
+    }
 	
 	public Tile getTile(int i, int j) {
 		return grid[i][j];
@@ -50,6 +68,14 @@ public class Board {
 
 	public int getEndj() {
 		return endj;
+	}
+	
+	public int getROWS() {
+		return ROWS;
+	}
+
+	public int getCOLUMNS() {
+		return COLUMNS;
 	}
 	
 	public void initializeEASY() {

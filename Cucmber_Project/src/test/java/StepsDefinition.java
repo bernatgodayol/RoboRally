@@ -20,6 +20,7 @@ import model.Pit;
 import model.Player;
 import model.RightTurn;
 import model.Robot;
+import model.Tile;
 import model.UTurn;
 import model.Wall;
 
@@ -137,19 +138,20 @@ public class StepsDefinition {
 	
 	@Given("a board")
 	public void a_board() {
-		board = new Board();
+		board = Board.getInstance();
+		board.emptyBoard();
 	}
 	@When("the EASY board is initialised")
 	public void the_easy_board_is_initialised() {
 		board.initializeEASY();
 	}
-	@When("the HARD board is initialised")
-	public void the_hard_board_is_initialised() {
-		board.initializeHARD();
-	}
 	@When("the MEDIUM board is initialised")
 	public void the_medium_board_is_initialised() {
 		board.initializeMEDIUM();
+	}
+	@When("the HARD board is initialised")
+	public void the_hard_board_is_initialised() {
+		board.initializeHARD();
 	}
 	@Then("the obstacles of the EASY board are in the expected tiles")
 	public void the_obstacles_of_the_EASY_board_are_in_the_expected_tiles() {

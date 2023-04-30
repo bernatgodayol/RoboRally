@@ -23,7 +23,7 @@ public class Setup implements MenuViewPlayerObserver, MenuViewBoardObserver {
 	
 	public Setup(BoardView view) {
 		this.view = view;
-		board = new Board();
+		board = Board.getInstance();
 	}
 	
 	public Board getBoard() {
