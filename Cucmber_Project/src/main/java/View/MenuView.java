@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import controller.MenuViewObserver;
+import controller.MenuViewBoardObserver;
+import controller.MenuViewPlayerObserver;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -25,7 +26,8 @@ public class MenuView {
 	private BorderPane anchorPane = new BorderPane();
 	private GridPane gridPaneCenter = new GridPane();
 	private Scene scene = new Scene(anchorPane,800,650);
-	private Set<MenuViewObserver> registeredMenuViewObservers = new HashSet<MenuViewObserver>();
+	private Set<MenuViewPlayerObserver> registeredMenuViewPlayerObservers = new HashSet<MenuViewPlayerObserver>();
+	private Set<MenuViewBoardObserver> registeredMenuViewBoardObservers = new HashSet<MenuViewBoardObserver>();
 	
 	public Scene getScene() {
 		return scene;
@@ -212,17 +214,21 @@ public class MenuView {
 		});	
 	}
 	
-	public void setRegisteredMenuViewObservers(MenuViewObserver observer) {
-		this.registeredMenuViewObservers.add(observer);	
+	public void setRegisteredMenuViewPlayerObservers(MenuViewPlayerObserver observer) {
+		this.registeredMenuViewPlayerObservers.add(observer);	
+	}
+	
+	public void setRegisteredMenuViewBoardObservers(MenuViewBoardObserver observer) {
+		this.registeredMenuViewBoardObservers.add(observer);	
 	}
 	
 	private void notifyMenuViewUpdated(ArrayList<String> names) {
-		for(MenuViewObserver o : registeredMenuViewObservers) {
+		for(MenuViewPlayerObserver o : registeredMenuViewPlayerObservers) {
 			o.menuViewUpdated(names);
 		}
 	}
 	private void notifyMenuViewUpdated(int i) {
-		for(MenuViewObserver o : registeredMenuViewObservers) {
+		for(MenuViewBoardObserver o : registeredMenuViewBoardObservers) {
 			o.menuViewUpdated(i);
 		}
 	}

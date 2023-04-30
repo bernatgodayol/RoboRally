@@ -5,9 +5,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import controller.BoardObserver;
-import controller.BoardStatus;
 import controller.BoardViewObserver;
 import controller.CardObserver;
+import controller.CardStatus;
 import controller.PlayerStatusObserver;
 import controller.RobotObserver;
 import javafx.event.Event;

@@ -1,10 +1,8 @@
-package View;
+package controller;
 
 import java.util.ArrayList;
 
-import controller.MenuViewObserver;
-
-public class CardStatus implements MenuViewObserver {
+public class CardStatus implements MenuViewPlayerObserver {
 	
 	private ArrayList<ArrayList<Integer>> cardGrids = new ArrayList<ArrayList<Integer>>();
 	
@@ -21,11 +19,5 @@ public class CardStatus implements MenuViewObserver {
 		for (int i=0; i<names.size(); i++) {
 			cardGrids.add(new ArrayList<Integer>());
 		}
-		
-	}
-
-	@Override
-	public void menuViewUpdated(int i) {
-
-	}
+	}		
 }
