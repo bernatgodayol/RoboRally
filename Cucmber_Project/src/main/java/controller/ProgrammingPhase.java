@@ -15,7 +15,7 @@ public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 	private ArrayList<Player> players;
 	private CardStatus cs;
 	private int numplayer;
-	private Set<ProgrammingPhaseObserver> registeredActionObservers = new HashSet<ProgrammingPhaseObserver>();
+	private Set<ProgrammingPhaseObserver> registeredProgrammingPhaseObservers = new HashSet<ProgrammingPhaseObserver>();
 	private Sound sound = new Sound();
 	
 	public ProgrammingPhase(Setup gamesetup, CardStatus cs) {
@@ -154,12 +154,12 @@ public class ProgrammingPhase implements BoardViewObserver, PhaseShiftObserver{
 		notifyActivationPhaseStart();
 	}
 	
-	public void setRegisteredActionObservers(ProgrammingPhaseObserver actionObserver) {
-		this.registeredActionObservers.add(actionObserver);	
+	public void setRegisteredProgrammingPhaseObservers(ProgrammingPhaseObserver actionObserver) {
+		this.registeredProgrammingPhaseObservers.add(actionObserver);	
 	}
 
 	private void notifyActivationPhaseStart() {
-		for(ProgrammingPhaseObserver o : registeredActionObservers) {
+		for(ProgrammingPhaseObserver o : registeredProgrammingPhaseObservers) {
 			o.startActivationPhase(players, gamesetup.getBoard());
 		}
 	}

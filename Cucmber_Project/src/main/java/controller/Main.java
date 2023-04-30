@@ -15,27 +15,27 @@ public class Main extends Application{
 
 		Stage stage = new Stage();
 		MenuView menuView = new MenuView();
-		BoardView view = new BoardView(menuView.getAnchorPane(), menuView.getGridPaneCenter(), menuView.getScene());
-		ActivationView winnerView = new ActivationView(view.getGridPaneCenter(), view.getGridPaneLeft(), view.getGridPaneRight());
+		BoardView boardView = new BoardView(menuView.getAnchorPane(), menuView.getGridPaneCenter(), menuView.getScene());
+		ActivationView activationView = new ActivationView(boardView.getGridPaneCenter(), boardView.getGridPaneLeft(), boardView.getGridPaneRight());
 		
-		Setup gameSetup = new Setup(view);
-		gameSetup.getBoard().setRegisteredObservers(view);
+		Setup gameSetup = new Setup(boardView);
+		gameSetup.getBoard().setRegisteredObservers(boardView);
 		menuView.setRegisteredMenuViewObservers(gameSetup);
-		gameSetup.setRegisteredPlayerObservers(view);
+		gameSetup.setRegisteredPlayerObservers(boardView);
 		
-		ProgrammingPhase gameProgramming;
+		ProgrammingPhase programmingPhase;
 		CardStatus cs = new CardStatus();
-		view.setCardStatus(cs);
-		
+		boardView.setCardStatus(cs);
 		menuView.setRegisteredMenuViewObservers(cs);
-		gameProgramming = new ProgrammingPhase(gameSetup, cs);
-		view.setRegisteredBoardViewObservers(gameProgramming);
-		ActivationPhase actionPhase = new ActivationPhase();
-		gameProgramming.setRegisteredActionObservers(actionPhase);
-		actionPhase.setRegisteredObservers(gameProgramming);
-		gameSetup.setRegisteredObservers(gameProgramming);
-		actionPhase.setRegisteredActivationPhaseObservers(winnerView);
-		winnerView.setRegisteredActivationViewObservers(actionPhase);
+		programmingPhase = new ProgrammingPhase(gameSetup, cs);
+		boardView.setRegisteredBoardViewObservers(programmingPhase);
+		gameSetup.setRegisteredObservers(programmingPhase);
+		
+		ActivationPhase activationPhase = new ActivationPhase();
+		programmingPhase.setRegisteredProgrammingPhaseObservers(activationPhase);
+		activationPhase.setRegisteredObservers(programmingPhase);
+		activationPhase.setRegisteredActivationPhaseObservers(activationView);
+		activationView.setRegisteredActivationViewObservers(activationPhase);
 			
 		stage.setScene(menuView.choosePlayerNum());
 		stage.setTitle("RoboRally group 4");
