@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import View.CardStatus;
 import View.Sound;
 import model.AI;
 import model.Player;

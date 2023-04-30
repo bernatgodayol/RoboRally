@@ -2,7 +2,6 @@ package controller;
 
 import View.BoardView;
 import View.ActivationView;
-import View.CardStatus;
 import View.MenuView;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -20,13 +19,14 @@ public class Main extends Application{
 		
 		Setup gameSetup = new Setup(boardView);
 		gameSetup.getBoard().setRegisteredObservers(boardView);
-		menuView.setRegisteredMenuViewObservers(gameSetup);
+		menuView.setRegisteredMenuViewPlayerObservers(gameSetup);
+		menuView.setRegisteredMenuViewBoardObservers(gameSetup);
 		gameSetup.setRegisteredPlayerObservers(boardView);
 		
 		ProgrammingPhase programmingPhase;
 		CardStatus cs = new CardStatus();
 		boardView.setCardStatus(cs);
-		menuView.setRegisteredMenuViewObservers(cs);
+		menuView.setRegisteredMenuViewPlayerObservers(cs);
 		programmingPhase = new ProgrammingPhase(gameSetup, cs);
 		boardView.setRegisteredBoardViewObservers(programmingPhase);
 		gameSetup.setRegisteredObservers(programmingPhase);
