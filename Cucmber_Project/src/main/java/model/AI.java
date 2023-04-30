@@ -6,8 +6,9 @@ public class AI extends Player {
 		super("AI");
 	}
 	
-	public void pickCards(int numCards5) {
-		getPlayingDeck().moveRandomCards(getActionDeck(), numCards5);
+	// method to pick numCards from the playing deck to the action deck
+	public void pickCards(int numCards) {
+		getPlayingDeck().moveRandomCards(getActionDeck(), numCards);
 	}
 	
 }

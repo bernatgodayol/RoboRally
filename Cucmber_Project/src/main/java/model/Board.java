@@ -78,6 +78,7 @@ public class Board {
 		return COLUMNS;
 	}
 	
+	// generate EASY difficulty board
 	public void initializeEASY() {
 		this.getTile(3, 3).setNorthBarrier(new Wall());
 		this.getTile(3, 3).setWalkableElement(new Laser());
@@ -110,6 +111,7 @@ public class Board {
 		notifyBoardUpdated();
 	}
 	
+	// generate MEDIUM difficulty board
 	public void initializeMEDIUM() {
 		this.getTile(2, 2).setNorthBarrier(new Wall());
 		this.getTile(3, 2).setSouthBarrier(new Wall());
@@ -172,6 +174,7 @@ public class Board {
 		notifyBoardUpdated();
 	}
 	
+	// generate HARD difficulty board
 	public void initializeHARD() {
 		this.getTile(5, 3).setWestBarrier(new Wall());
 		
@@ -250,7 +253,7 @@ public class Board {
 		notifyBoardUpdated();
 	}
 	
-	
+	// overloading
 	public void setRobots(Robot robot1) {
 		robot1.setDirection(Direction.NORTH);
 		robot1.seti(12);
@@ -258,6 +261,7 @@ public class Board {
 		this.robot1 = robot1;
 	}
 	
+	// overloading
 	public void setRobots(Robot robot1, Robot robot2) {
 		robot1.setDirection(Direction.NORTH);
 		robot1.seti(12);
@@ -269,6 +273,7 @@ public class Board {
 		this.robot2 = robot2;
 	}
 	
+	// overloading
 	public void setRobots(Robot robot1, Robot robot2, Robot robot3) {
 		robot1.setDirection(Direction.NORTH);
 		robot1.seti(12);
@@ -284,6 +289,7 @@ public class Board {
 		this.robot3 = robot3;
 	}
 	
+	// overloading
 	public void setRobots(Robot robot1, Robot robot2, Robot robot3, Robot robot4) {
 		robot1.setDirection(Direction.NORTH);
 		robot1.seti(12);
@@ -308,6 +314,7 @@ public class Board {
 		return ((i > -1) && (i < this.ROWS) && (j > -1) && (j < this.COLUMNS));
 	}
 	
+	// check wich robot, if any, is in tile i j
 	public Robot whichRobot(int i, int j) {
 		if ((!(robot1 == null)) && (robot1.geti()==i && robot1.getj()==j)) {
 			return robot1;
@@ -320,7 +327,6 @@ public class Board {
 		}
 		return null;
 	}
-	
 	
 	public void setRegisteredObservers(BoardObserver boardObserver) {
 		this.registeredBoardObservers.add(boardObserver);	

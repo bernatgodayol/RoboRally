@@ -43,6 +43,7 @@ public class Deck {
 		return card;
 	}
 	
+	// move numCards to otherDeck
 	public void moveRandomCards(Deck otherDeck, Integer numCards) {
 	    Random rand = new Random();
 	    
@@ -63,9 +64,9 @@ public class Deck {
 	    }
 	}
 	
-
+	// initialize the programming deck
 	public void initializeProgrammingDeck() {
-		for (int i=0; i<5; i++) {
+		for (int i=0; i<10; i++) {
 			this.deck.add(new MoveForward());
 		}
 		for (int i=0; i<2; i++) {
@@ -79,6 +80,7 @@ public class Deck {
 		}
 	}
 	
+	// move a concrete card to otherDeck
 	public void moveCard(int index, Deck otherDeck) {
 	    if (this.deck.size() > index && index > -1) {
 	    	Card card = this.deck.get(index);
@@ -89,6 +91,7 @@ public class Deck {
 	    }
 	}
 	
+	// move 5 concrete cards to another deck 
 	public void moveCard(int int1, int int2, int int3, int int4, int int5, Deck otherDeck) { 
 	    
 		Integer [] indices = {int1, int2, int3, int4, int5};
@@ -101,14 +104,14 @@ public class Deck {
 	    		otherDeck.addCard(this.getCard(i));
 	    	}
 	    }
-	    // Sort the array in descending order
+	    // sort the array in descending order
 	    Arrays.sort(indices, Collections.reverseOrder());
 	    // remove from the playing deck
 	    for(int i : indices) {
 	    	this.removeCard(i);
 	    }
 	}
-	
+
 	public boolean deckIsEmpty() {
 		return this.deck.isEmpty();
 	}
@@ -129,7 +132,7 @@ public class Deck {
 	}
 	
 	private void notifyCardsUpdated(Card card, int index, String player) {
-		//Assigning the different types of cards an integer
+		// assign the different types of cards an integer
 		
 		int numCard;
 		
@@ -149,7 +152,7 @@ public class Deck {
 			numCard = 5;
 		}
 		
-		//Notifying the CardObserver that the playing deck is updated
+		// notify the CardObserver that the playing deck is updated
 		for(CardObserver o : registeredCardObservers) {
 			o.cardUpdated(card, index, numCard, player);
 		}		
