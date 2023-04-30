@@ -1,4 +1,4 @@
-package View;
+package controller;
 
 public class BoardStatus{
 	

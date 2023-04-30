@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import controller.BoardObserver;
+import controller.BoardStatus;
 import controller.BoardViewObserver;
 import controller.CardObserver;
 import controller.PlayerStatusObserver;

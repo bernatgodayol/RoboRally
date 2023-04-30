@@ -1,8 +1,5 @@
 package model;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class Player {
 	private String name;
 	private Robot robot;
@@ -13,7 +10,6 @@ public class Player {
 
 	public Player(String name) {
 		this.name = name;
-		
 	}
 
 	public void setRobot(Robot robot) {

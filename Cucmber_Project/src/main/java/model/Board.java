@@ -2,8 +2,8 @@ package model;
 import java.util.HashSet;
 import java.util.Set;
 
-import View.BoardStatus;
 import controller.BoardObserver;
+import controller.BoardStatus;
 
 public class Board {
 	
