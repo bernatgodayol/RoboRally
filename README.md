@@ -13,7 +13,7 @@ Welcome to the RoboRally game! This is a multiplayer board game where players mo
 To play the game, the file `xxxxxx.jar` needs to be downloaded and runned with the following command:
 
 ```
-java RR.jar
+java xxxxx.jar
 ```
 
 ### Documentation
