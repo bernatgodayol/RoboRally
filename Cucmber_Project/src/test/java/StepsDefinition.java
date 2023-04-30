@@ -439,7 +439,7 @@ public class StepsDefinition {
 	@Then("the player has a programming deck of cards")
 	public void the_player_has_a_programming_deck_of_cards() {
 	    assertEquals(player1.getProgrammingDeck(), programmingDeck1);
-	    assertTrue(player1.getProgrammingDeck().getDeckSize() == 17);
+	    assertTrue(player1.getProgrammingDeck().getDeckSize() == 22);
 	}
 	@Given("a playing deck of cards")
 	public void a_playing_deck_of_cards() {
@@ -490,7 +490,7 @@ public class StepsDefinition {
 	@Then("the second player has a programming deck of cards")
 	public void the_second_player_has_a_programming_deck_of_cards() {
 		assertEquals(player2.getProgrammingDeck(), programmingDeck2);
-	    assertTrue(player2.getProgrammingDeck().getDeckSize() == 17);
+	    assertTrue(player2.getProgrammingDeck().getDeckSize() == 22);
 	}
 	@Given("a second playing deck of cards")
 	public void a_second_playing_deck_of_cards() {
