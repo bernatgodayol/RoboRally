@@ -24,5 +24,5 @@ Inside the `docs` directory the following documents can be found:
 - `RoboRallyG4.pdf`: A full report of the game development that includes the User Manual
 - `UserStories.md`: The set of *User Stories* that were used for developing the game. 
 - `how-to-git.md`: A document stating the different steps and good practices for working with Git in an Eclipse environment.
-- `imgs`: A folder containing imgages RoboRally.
+
 
