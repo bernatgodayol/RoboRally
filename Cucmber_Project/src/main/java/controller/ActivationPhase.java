@@ -46,7 +46,6 @@ public class ActivationPhase implements ProgrammingPhaseObserver, ActivationView
 			if (!end) {
 				notifyActivationPhaseUpdated(players,board,false);
 			}
-		
 		}else {
 			if (!end) {
 				notifyActivationPhaseUpdated(players,board,true);

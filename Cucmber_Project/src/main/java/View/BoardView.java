@@ -35,14 +35,13 @@ public class BoardView implements BoardObserver, CardObserver, PlayerStatusObser
 	private RobotManager robotManager = new RobotManager();
 	private ArrayList<String> players = new ArrayList<String>();
 	private Set<BoardViewObserver> registeredBoardViewObservers = new HashSet<BoardViewObserver>();
-	private GridPane gridPaneLeft = new GridPane();
-	private GridPane gridPaneRight = new GridPane();
 	
 	private BorderPane anchorPane;
 	private GridPane gridPaneCenter;
+	private GridPane gridPaneLeft = new GridPane();
+	private GridPane gridPaneRight = new GridPane();
 	private Scene scene;
 
-	private String name;
 	private boolean isBorderVisible = false;
 	private int j = 0;
 	
@@ -74,7 +73,6 @@ public class BoardView implements BoardObserver, CardObserver, PlayerStatusObser
 	
 	@Override
 	public void boardUpdated(BoardStatus newBoardStatus) {
-		
 		gridPaneCenter.getChildren().clear();
 		gridPaneCenter.setHgap(0);
 		gridPaneCenter.setVgap(0);
@@ -93,13 +91,10 @@ public class BoardView implements BoardObserver, CardObserver, PlayerStatusObser
 	@Override
 	public void playerStatusUpdated(String name) {
 		this.players.add(name);
-		this.name = name;
 	}
 	
-
 	@Override
 	public void cardUpdated(Card card, int index, int numCard, String player) {
-		
 		anchorPane.setLeft(gridPaneLeft);
 		gridPaneLeft.setAlignment(Pos.TOP_CENTER);
 		anchorPane.setRight(gridPaneRight);
@@ -149,7 +144,6 @@ public class BoardView implements BoardObserver, CardObserver, PlayerStatusObser
 		if (player != "AI" && !isBorderVisible) {
 			imageView.setOnMouseClicked(new EventHandler<Event>() {
 				public void handle(Event event) {
-					
 					boolean notify = false;
 					
 					if(players.size()>1) {
@@ -209,7 +203,6 @@ public class BoardView implements BoardObserver, CardObserver, PlayerStatusObser
 
 	@Override
 	public void robotUpdated(int i, int j, int oldI, int oldJ, int color, int direction) {
-		
 		if (color == 1) {
 			if(robot1 != null) {
 				gridPaneCenter.getChildren().remove(robot1);
@@ -251,7 +244,6 @@ public class BoardView implements BoardObserver, CardObserver, PlayerStatusObser
 			gridPaneCenter.add(robot4, j, i);
 		}
 	}
-	
 	
 	public void setRegisteredBoardViewObservers(BoardViewObserver observer) {
 		this.registeredBoardViewObservers.add(observer);	

@@ -6,7 +6,7 @@ import controller.MenuViewObserver;
 
 public class CardStatus implements MenuViewObserver {
 	
-	ArrayList<ArrayList<Integer>> cardGrids = new ArrayList<ArrayList<Integer>>();
+	private ArrayList<ArrayList<Integer>> cardGrids = new ArrayList<ArrayList<Integer>>();
 	
 	public void setCards(int index, int player) {		
 		cardGrids.get(player).add(index);
