@@ -21,11 +21,10 @@ public class CardStatus implements MenuViewObserver {
 		for (int i=0; i<names.size(); i++) {
 			cardGrids.add(new ArrayList<Integer>());
 		}
-		
 	}
 
 	@Override
 	public void menuViewUpdated(int i) {
-
+		
 	}
 }

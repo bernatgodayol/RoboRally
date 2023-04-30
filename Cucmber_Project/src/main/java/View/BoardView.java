@@ -250,7 +250,7 @@ public class BoardView implements BoardObserver, CardObserver, PlayerStatusObser
 		this.registeredBoardViewObservers.add(observer);	
 	}
 	
-	protected void notifyBoardViewUpdated(int num, String player) {
+	private void notifyBoardViewUpdated(int num, String player) {
 		for(BoardViewObserver o : registeredBoardViewObservers) {
 			o.boardViewUpdated(num, player);
 		}
