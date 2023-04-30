@@ -25,9 +25,7 @@ public class MenuView {
 	private BorderPane anchorPane = new BorderPane();
 	private GridPane gridPaneCenter = new GridPane();
 	private Scene scene = new Scene(anchorPane,800,650);
-	
 	private Set<MenuViewObserver> registeredMenuViewObservers = new HashSet<MenuViewObserver>();
-	
 	
 	public Scene getScene() {
 		return scene;
@@ -40,22 +38,18 @@ public class MenuView {
 	}
 	
 	public Scene choosePlayerNum() {
-			
 			anchorPane.setCenter(gridPaneCenter);		
 			gridPaneCenter.setAlignment(Pos.CENTER);
 			gridPaneCenter.setHgap(10);
 			gridPaneCenter.setVgap(10);
 			
-			BackgroundFill backgroundFill =
-			        new BackgroundFill(
+			BackgroundFill backgroundFill = new BackgroundFill(
 			                Color.valueOf("#add8e6"),
 			                new CornerRadii(10),
 			                new Insets(10)
 			                );
 	
-			Background background =
-			        new Background(backgroundFill);
-	
+			Background background = new Background(backgroundFill);
 			gridPaneCenter.setBackground(background);
 			
 			Label text = new Label("How many players are playing?");
@@ -68,7 +62,6 @@ public class MenuView {
 					typePlayerNames(1);
 				}
 			});
-//			button1.setOnMouseClicked(handler);
 			
 			Button button2 = new Button("2");
 			gridPaneCenter.add(button2,1,1);
@@ -77,7 +70,6 @@ public class MenuView {
 					typePlayerNames(2);
 				}
 			});
-//			button2.setOnMouseClicked(handler);
 			
 			Button button3 = new Button("3");
 			gridPaneCenter.add(button3,2,1);
@@ -86,7 +78,6 @@ public class MenuView {
 					typePlayerNames(3);
 				}
 			});
-//			button3.setOnMouseClicked(handler);
 			
 			Button button4 = new Button("4");
 			gridPaneCenter.add(button4,3,1);
@@ -95,9 +86,7 @@ public class MenuView {
 					typePlayerNames(4);
 				}
 			});
-//			button4.setOnMouseClicked(handler);
-		
-				
+			
 			return scene;
 		}
 	
@@ -135,7 +124,6 @@ public class MenuView {
 				gridPaneCenter.add(textField4,0,7);
 			}
 		}
-		
 		
 		Button button = new Button("Next");
 		gridPaneCenter.add(button,0,i*2);			
@@ -185,11 +173,10 @@ public class MenuView {
 				}
 				else {
 					Label text1 = new Label("Please choose a unique name for each player.\n"
-							+ "Player cannot be named called 'AI'");
+							+ "Player cannot be named 'AI'");
 					text1.setStyle("-fx-text-fill: red;");
 					gridPaneCenter.add(text1,0,(i*2+1));
 				}
-			
 			}
 		});
 	}
@@ -222,21 +209,19 @@ public class MenuView {
 			public void handle(Event event) {
 				notifyMenuViewUpdated(3);
 			}
-		});
-		
+		});	
 	}
-	
 	
 	public void setRegisteredMenuViewObservers(MenuViewObserver observer) {
 		this.registeredMenuViewObservers.add(observer);	
 	}
 	
-	public void notifyMenuViewUpdated(ArrayList<String> names) {
+	private void notifyMenuViewUpdated(ArrayList<String> names) {
 		for(MenuViewObserver o : registeredMenuViewObservers) {
 			o.menuViewUpdated(names);
 		}
 	}
-	protected void notifyMenuViewUpdated(int i) {
+	private void notifyMenuViewUpdated(int i) {
 		for(MenuViewObserver o : registeredMenuViewObservers) {
 			o.menuViewUpdated(i);
 		}

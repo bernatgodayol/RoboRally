@@ -1,7 +1,7 @@
 package controller;
 
 import View.BoardView;
-import View.WinnerView;
+import View.ActivationView;
 import View.CardStatus;
 import View.MenuView;
 import View.PlayerStatus;
@@ -17,7 +17,7 @@ public class Main extends Application{
 		Stage stage = new Stage();
 		MenuView menuView = new MenuView();
 		BoardView view = new BoardView(menuView.getAnchorPane(), menuView.getGridPaneCenter(), menuView.getScene());
-		WinnerView winnerView = new WinnerView(view.getGridPaneCenter(), view.getGridPaneLeft(), view.getGridPaneRight());
+		ActivationView winnerView = new ActivationView(view.getGridPaneCenter(), view.getGridPaneLeft(), view.getGridPaneRight());
 		PlayerStatus playerStatus = new PlayerStatus();
 		playerStatus.setRegisteredPlayerStatusObservers(view);
 		
@@ -32,7 +32,6 @@ public class Main extends Application{
 		menuView.setRegisteredMenuViewObservers(cs);
 		gameProgramming = new ProgrammingPhase(gameSetup, cs);
 		view.setRegisteredBoardViewObservers(gameProgramming);
-		menuView.setRegisteredMenuViewObservers(gameSetup);
 		ActivationPhase actionPhase = new ActivationPhase();
 		gameProgramming.setRegisteredActionObservers(actionPhase);
 		actionPhase.setRegisteredObservers(gameProgramming);

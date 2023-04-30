@@ -14,16 +14,14 @@ import javafx.scene.layout.GridPane;
 import model.Board;
 import model.Player;
 
-public class WinnerView implements ActivationPhaseObserver{
+public class ActivationView implements ActivationPhaseObserver{
 	
 	private GridPane gridPaneLeft;
 	private GridPane gridPaneRight;
 	private GridPane gridPaneCenter;
 	private Set<ActivationViewObserver> registeredActivationViewObservers = new HashSet<ActivationViewObserver>();
 	
-	
-	
-	public WinnerView(GridPane gridPaneCenter, GridPane gridPaneLeft, GridPane gridPaneRight) {
+	public ActivationView(GridPane gridPaneCenter, GridPane gridPaneLeft, GridPane gridPaneRight) {
 		this.gridPaneCenter = gridPaneCenter;
 		this.gridPaneLeft = gridPaneLeft;
 		this.gridPaneRight = gridPaneRight;
