@@ -8,18 +8,20 @@ Welcome to the RoboRally game! This is a multiplayer board game where players mo
   <img src="https://github.com/bernatgodayol/RoboRally/blob/main/docs/imgs/roborally2.jpeg" width="508"/>
 </p>
 
-### Usage 
+### ⚠️ Usage ⚠️
 
-To play the game, the file `xxxxxx.jar` needs to be downloaded and runned with the following command:
+Right now, while we are working on releasing the `RoboRally.jar`, the way of executing the game is:
 
-```
-java xxxxx.jar
-```
+- `Clone` the repo in Eclipse.
+- Right-click on the **Cucmber_Project** folder. 
+- `Run as Maven build...`
+- In the text field `Goals` write _"clean javafx:run"_
+- `Run`
 
 ### Documentation
 
 Inside the `docs` directory the following documents can be found: 
-- `xxxxxx.pdf`: A full report of the game development that includes the User Manual
+- `RoboRallyG4.pdf`: A full report of the game development that includes the User Manual
 - `UserStories.md`: The set of *User Stories* that were used for developing the game. 
 - `how-to-git.md`: A document stating the different steps and good practices for working with Git in an Eclipse environment.
 - `imgs`: A folder containing the RoboRally *UML* diagrams.
